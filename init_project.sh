@@ -71,6 +71,14 @@ replace()
 	sed  -i -e  s/{AUTHOR}/$AUTHOR/g  package.json
 
 	sed  -i -e  s/{PORT}/$PORT/g  bin/start_servers.sh
+
+	rm -rf *-e
+	rm -rf bin/*-e
+	rm -rf src/$COMPANY/$PROJECT/backend/controllers/*-e
+	rm -rf src/$COMPANY/$PROJECT/backend/routes/*-e
+	rm -rf src/$COMPANY/$PROJECT/backend/*-e
+
+	git checkout init_project.sh
 }
 
 replace
