@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # tackle two things
-# 1. replace four variables. {PROJECT} {AUTHOR} {PORT} {COMPANY}   in all files
-# 2. company dir's name  change to {COMPANY} , project dir's name change to {PROJECT}
+# 1. replace four variables. icp {AUTHOR} {PORT} COMPANY   in all files
+# 2. company dir's name  change to COMPANY , project dir's name change to icp
 
 COMPANY=$1
 PROJECT=$2
@@ -35,10 +35,10 @@ readin()
 
 
 	echo "Please input http server's port:"
-	#read PORT
+	read PORT
 
 	echo "Please input author's name:"
-	#read AUTHOR
+	read AUTHOR
 }
 
 readin
@@ -66,11 +66,11 @@ replace()
 {
 	sed  -i -e  s/{PROJECT}/$PROJECT/g  `grep {PROJECT} -rl .`
 
-	sed  -i -e  s/{COMPANY}/COMPANY/g  `grep {COMPANY} -rl .`
+	sed  -i -e  s/{COMPANY}/$COMPANY/g  `grep {COMPANY} -rl .`
 
-	sed  -i -e  s/{AUTHOR}/$AUTHOR/g  `grep {AUTHOR} package.json`
+	sed  -i -e  s/{AUTHOR}/$AUTHOR/g  package.json
 
-	sed  -i -e  s/{PORT}/$PORT/g  `grep {PORT} bin/start_servers.h`
+	sed  -i -e  s/{PORT}/$PORT/g  bin/start_servers.sh
 }
 
 replace
