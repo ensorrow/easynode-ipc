@@ -1,5 +1,5 @@
 {
-  "name": "{PROJECT}",
+  "name": "icp",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -7,10 +7,15 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "easynode": "0.1.9"
+    "babel-preset-react": "^6.3.13",
+    "babelify": "^7.2.0",
+    "easynode": "0.1.9",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3"
   },
-  "author": "{AUTHOR}",
-  "license": "ISC"
+  "author": "allen.hu",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.3.13"
+  }
 }
-
-

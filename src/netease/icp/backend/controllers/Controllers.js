@@ -12,7 +12,7 @@ var thunkify = require('thunkify');
     /**
      * Class Controllers
      *
-     * @class {COMPANY}.{PROJECT}.Controllers
+     * @class netease.icp.Controllers
      * @extends easynode.GenericObject
      * @since 0.1.0
      * @author allen.hu

@@ -3,7 +3,7 @@ var logger = using('easynode.framework.Logger').forFile(__filename);
 var GenericObject = using('easynode.GenericObject');
 var S = require('string');
 var thunkify = require('thunkify');
-var Routes = using('{COMPANY}.{PROJECT}.backend.routes.Routes');
+var Routes = using('netease.icp.backend.routes.Routes');
 var MySqlDataSource = using('easynode.framework.db.MysqlDataSource');
 var HTTPUtil =  using('easynode.framework.util.HTTPUtil');
 
@@ -11,7 +11,7 @@ var HTTPUtil =  using('easynode.framework.util.HTTPUtil');
     /**
      * Class Main
      *
-     * @class {COMPANY}.{PROJECT}.backend.Main
+     * @class netease.icp.backend.Main
      * @extends easynode.GenericObject
      * @since 0.1.0
      * @author allen.hu
@@ -33,20 +33,20 @@ var HTTPUtil =  using('easynode.framework.util.HTTPUtil');
 
         static * main(){
             //load config
-            var mysqlConfigUrl = process.env.MYSQL_CONFIG_URL;
-            var mysqlConfig = yield HTTPUtil.getJSON(mysqlConfigUrl);
-
-
-            //Database source, connection pool
-            var ds = new MySqlDataSource();
-            ds.initialize(mysqlConfig);
-
-            //数据库查询
-            var conn = yield ds.getConnection();
-            var sql = 'SELECT max(code)  as maxCode FROM watch_package';
-            var args = {};
-            var arr = yield conn.execQuery(sql, args = {});
-            yield ds.releaseConnection(conn);
+            //var mysqlConfigUrl = process.env.MYSQL_CONFIG_URL;
+            //var mysqlConfig = yield HTTPUtil.getJSON(mysqlConfigUrl);
+            //
+            //
+            ////Database source, connection pool
+            //var ds = new MySqlDataSource();
+            //ds.initialize(mysqlConfig);
+            //
+            ////数据库查询
+            //var conn = yield ds.getConnection();
+            //var sql = 'SELECT max(code)  as maxCode FROM watch_package';
+            //var args = {};
+            //var arr = yield conn.execQuery(sql, args = {});
+            //yield ds.releaseConnection(conn);
 
 
             //HTTP Server
@@ -54,8 +54,8 @@ var HTTPUtil =  using('easynode.framework.util.HTTPUtil');
             var httpPort = S(EasyNode.config('http.server.port','7000')).toInt();
             var httpServer = new KOAHttpServer(httpPort);
 
-            httpServer.ds = ds;
-            httpServer.ds.conn = conn;
+            //httpServer.ds = ds;
+            //httpServer.ds.conn = conn;
             //设置ContextHook,
             httpServer.setActionContextListener({
                 onCreate: function (ctx) {
@@ -82,7 +82,7 @@ var HTTPUtil =  using('easynode.framework.util.HTTPUtil');
                 }
             });
 
-            httpServer.name = EasyNode.config('http.server.name','{PROJECT}-Service');
+            httpServer.name = EasyNode.config('http.server.name','icp-Service');
             Routes.defineRoutes(httpServer);
             yield httpServer.start();
         }
