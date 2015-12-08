@@ -33,20 +33,20 @@ var HTTPUtil =  using('easynode.framework.util.HTTPUtil');
 
         static * main(){
             //load config
-            var mysqlConfigUrl = process.env.MYSQL_CONFIG_URL;
-            var mysqlConfig = yield HTTPUtil.getJSON(mysqlConfigUrl);
-
-
-            //Database source, connection pool
-            var ds = new MySqlDataSource();
-            ds.initialize(mysqlConfig);
-
-            //数据库查询
-            var conn = yield ds.getConnection();
-            var sql = 'SELECT max(code)  as maxCode FROM watch_package';
-            var args = {};
-            var arr = yield conn.execQuery(sql, args = {});
-            yield ds.releaseConnection(conn);
+            //var mysqlConfigUrl = process.env.MYSQL_CONFIG_URL;
+            //var mysqlConfig = yield HTTPUtil.getJSON(mysqlConfigUrl);
+            //
+            //
+            ////Database source, connection pool
+            //var ds = new MySqlDataSource();
+            //ds.initialize(mysqlConfig);
+            //
+            ////数据库查询
+            //var conn = yield ds.getConnection();
+            //var sql = 'SELECT max(code)  as maxCode FROM watch_package';
+            //var args = {};
+            //var arr = yield conn.execQuery(sql, args = {});
+            //yield ds.releaseConnection(conn);
 
 
             //HTTP Server
@@ -54,8 +54,8 @@ var HTTPUtil =  using('easynode.framework.util.HTTPUtil');
             var httpPort = S(EasyNode.config('http.server.port','7000')).toInt();
             var httpServer = new KOAHttpServer(httpPort);
 
-            httpServer.ds = ds;
-            httpServer.ds.conn = conn;
+            //httpServer.ds = ds;
+            //httpServer.ds.conn = conn;
             //设置ContextHook,
             httpServer.setActionContextListener({
                 onCreate: function (ctx) {
