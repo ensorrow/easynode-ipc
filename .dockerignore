@@ -1,0 +1,16 @@
+datas
+logs/*
+node_modules/
+test/
+*.md
+README.md
+docker-compose.yml
+docker-compose.override.yml2
+Dockerfile*
+.gitignore
+.dockerignore
+common.env
+LICENSE
+
+JS_FIlE_TEMPLATE.webstorm10
+
