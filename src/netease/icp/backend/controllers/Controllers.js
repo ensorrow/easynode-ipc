@@ -2,7 +2,6 @@ var assert = require('assert');
 var logger = using('easynode.framework.Logger').forFile(__filename);
 var GenericObject = using('easynode.GenericObject');
 var fs = require('co-fs');
-var FileService =  using('easynode.framework.util.FileService');
 var multipart = require('co-multipart');
 var f =  require('fs');
 var util = require('util');
@@ -48,6 +47,25 @@ var thunkify = require('thunkify');
             }
         }
 
+        static comment(app){
+            return function *(){
+
+                var parts = yield* multipart(this);
+                console.dir(parts);
+
+                let profile = this.request.body;
+                console.log(profile);
+                console.log( this.parameter );
+                console.log( this.body );
+                console.log( this.query );
+
+                this.type = 'json';
+                this.body = [
+                    {"author": "Pete Hunt", "text": "This is one comment"},
+                    {"author": "Jordan Walke", "text": "This is *another* comment"}
+                ];
+            }
+        }
 
         getClassName()
         {

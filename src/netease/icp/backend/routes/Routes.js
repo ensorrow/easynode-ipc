@@ -44,6 +44,7 @@ import Controllers from '../controllers/Controllers';
         static addRoute(httpServer)
         {
             httpServer.addRoute('get', '/', Controllers.home(httpServer));
+            httpServer.addRoute('post','/api/comments.json',Controllers.comment(httpServer));
         }
 
         getClassName()
