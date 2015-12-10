@@ -41,3 +41,13 @@ If you want a module available as variable in every module. such as making $ and
 
 writing require('jquery') . Your should use ProvidePlugin
 
+11. Exposing global variables
+
+If your want to use some global variables , and don't want to includes them in  teh Webpack bundle, you can enable externals filed in webpack.config.js
+
+
+12. Hot Module Replacement
+
+npm install webpack-dev-server --save-dev
+
+webpack --watch

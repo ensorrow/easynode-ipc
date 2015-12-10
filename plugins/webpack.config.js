@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var HtmlwebpackPlugin = require('html-webpack-plugin');
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
+var path = require('path');
 
 var devFlagPlugin = new webpack.DefinePlugin({
     __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
@@ -10,9 +11,11 @@ var devFlagPlugin = new webpack.DefinePlugin({
 var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
 module.exports = {
-    entry: {
-        app: './js/main.js',
-    },
+    entry: [
+        'webpack/hot/dev-server',
+        'webpack-dev-server/client?http://localhost:8080/',
+        './js/index.js'
+    ],
     output: {
         filename: './build/bundle.js'
     },
@@ -26,8 +29,9 @@ module.exports = {
                 loader: 'babel-loader',
                 query: {
                     presets: ['es2015', 'react']
-                }
-            },
+                },
+                include: path.join(__dirname,'.')
+            }
         ]
     },
     plugins:[
@@ -47,6 +51,7 @@ module.exports = {
             $: "jquery",
             jQuery: "jquery",
             "window.jQuery":"jquery"
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin()
     ]
 }
