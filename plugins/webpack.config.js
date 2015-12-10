@@ -11,11 +11,11 @@ var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
 module.exports = {
     entry: {
-        bundle: './js/main.js',
-        bundle2: './js/main2.js'
+        app: './js/main.js',
+        vendor: ['jquery']
     },
     output: {
-        filename: './build/[name].js'
+        filename: './build/bundle.js'
     },
     module: {
         loaders:[
@@ -32,19 +32,7 @@ module.exports = {
         ]
     },
     plugins:[
-        new CommonsChunkPlugin('../build/init.js'),
-        new uglifyJsPlugin({
-            compress:{
-                warnings:false
-            }
-        }),
-        new HtmlwebpackPlugin({
-            title: 'webpack-demos'
-        }),
-        new OpenBrowserPlugin({
-            url:'http://localhost:8080/views/index.html'
-        }),
-        devFlagPlugin
 
+        new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */'./build/vendor.js')
     ]
 }

@@ -29,3 +29,8 @@
 
 When multi scripts have common chunks. you can extract the common part into a separate file with CommonsChunkPlugin.
 
+9. Vendor chunk
+
+npm install jquery --save-dev
+
+ You can also extract the vendor libraries from a script into a separate  file with CommonsChunkPlugin.
