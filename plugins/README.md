@@ -10,3 +10,7 @@
 
 	npm install html-webpack-plugin open-browser-webpack-plugin --save-dev
 
+6. You can enable some codes only in development environment with environment flags
+
+	env DEBUG=true weback
+

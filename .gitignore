@@ -39,3 +39,4 @@ test/data
 .idea
 plugins/bower_components
 plugins/build
+plugins/index.html

@@ -3,6 +3,10 @@ var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var HtmlwebpackPlugin = require('html-webpack-plugin');
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
+var devFlagPlugin = new webpack.DefinePlugin({
+    __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
+});
+
 module.exports = {
     entry: {
         bundle: './js/main.js',
@@ -36,6 +40,7 @@ module.exports = {
         }),
         new OpenBrowserPlugin({
             url:'http://localhost:8080/views/index.html'
-        })
-    ],
+        }),
+        devFlagPlugin
+    ]
 }
