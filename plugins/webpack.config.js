@@ -1,5 +1,7 @@
 var webpack = require('webpack');
 var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
+var HtmlwebpackPlugin = require('html-webpack-plugin');
+var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -28,6 +30,12 @@ module.exports = {
             compress:{
                 warnings:false
             }
+        }),
+        new HtmlwebpackPlugin({
+            title: 'webpack-demos'
+        }),
+        new OpenBrowserPlugin({
+            url:'http://localhost:8080/views/index.html'
         })
     ],
 }
