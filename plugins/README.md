@@ -25,3 +25,7 @@
     copy 1.../build/1.js to views directory, now the page'll work.
 
 
+8. Common chunk
+
+When multi scripts have common chunks. you can extract the common part into a separate file with CommonsChunkPlugin.
+

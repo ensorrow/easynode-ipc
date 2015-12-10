@@ -7,6 +7,8 @@ var devFlagPlugin = new webpack.DefinePlugin({
     __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
 });
 
+var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
+
 module.exports = {
     entry: {
         bundle: './js/main.js',
@@ -22,7 +24,7 @@ module.exports = {
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loader: 'babel',
+                loader: 'babel-loader',
                 query: {
                     presets: ['es2015', 'react']
                 }
@@ -30,6 +32,7 @@ module.exports = {
         ]
     },
     plugins:[
+        new CommonsChunkPlugin('../build/init.js'),
         new uglifyJsPlugin({
             compress:{
                 warnings:false
@@ -42,5 +45,6 @@ module.exports = {
             url:'http://localhost:8080/views/index.html'
         }),
         devFlagPlugin
+
     ]
 }
