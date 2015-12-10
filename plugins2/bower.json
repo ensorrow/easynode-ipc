@@ -1,0 +1,19 @@
+{
+  "name": "easynode-icp",
+  "version": "0.0.1",
+  "homepage": "https://github.com/hujb2000/easynode-ipc",
+  "authors": [
+    "胡家宝 <jiabao_hu@corp.netease.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.14.3"
+  }
+}
