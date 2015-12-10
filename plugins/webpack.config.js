@@ -12,7 +12,6 @@ var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 module.exports = {
     entry: {
         app: './js/main.js',
-        vendor: ['jquery']
     },
     output: {
         filename: './build/bundle.js'
@@ -32,7 +31,22 @@ module.exports = {
         ]
     },
     plugins:[
-
-        new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */'./build/vendor.js')
+        new uglifyJsPlugin({
+            compress:{
+                warnings:false
+            }
+        }),
+        new HtmlwebpackPlugin({
+            title: 'webpack-demos'
+        }),
+        new OpenBrowserPlugin({
+            url:'http://localhost:8080/views/index.html'
+        }),
+        devFlagPlugin,
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+            "window.jQuery":"jquery"
+        })
     ]
 }

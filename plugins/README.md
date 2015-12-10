@@ -34,3 +34,10 @@ When multi scripts have common chunks. you can extract the common part into a se
 npm install jquery --save-dev
 
  You can also extract the vendor libraries from a script into a separate  file with CommonsChunkPlugin.
+
+10. Vendor chunk use ProvidePlugin
+
+If you want a module available as variable in every module. such as making $ and jQuery available in every module without
+
+writing require('jquery') . Your should use ProvidePlugin
+
