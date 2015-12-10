@@ -5,7 +5,7 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-require('../css/main.css');
+var style = require('../css/main.css');
 
 var img1 = document.createElement('img');
 img1.src = require("../assets/small.png");
@@ -22,8 +22,11 @@ img2.src = require("../assets/big.png");
 
 document.getElementById('content').appendChild(img2);
 
-//ReactDOM.render(
-//    <h1>Hello world!</h1>,
-//    document.getElementById('content')
-//);
+ReactDOM.render(
+    <div>
+    <h1 className={style.h1}>Hello World</h1>
+    <h2 className="h2">Hello Webpack</h2>
+    </div>,
+    document.getElementById('content')
+);
 
