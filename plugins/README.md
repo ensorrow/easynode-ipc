@@ -14,3 +14,14 @@
 
 	env DEBUG=true weback
 
+7. Code splitting
+
+	For big wen apps it's not efficient to put all code into a single file.  Webpack allows you to split them into serveral chunks.
+
+	Especially if some blocks of code are only required under some circumstances. these chunks could be loaded on demand
+
+* on demand
+
+    copy 1.../build/1.js to views directory, now the page'll work.
+
+
