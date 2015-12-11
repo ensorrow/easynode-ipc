@@ -1,9 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { render } from 'react-dom';
+import { Router, Route, Link, IndexRoute } from 'react-router';
 
-export default class App extends Component {
-    render() {
+var App = React.createClass({
+    render: function () {
         return (
-            <h1>Hello 1</h1>
-    );
+            <div>
+            <header>
+            <ul>
+            <li><Link to="/app">Dashboard</Link></li>
+            <li><Link to="/inbox">Inbox</Link></li>
+            <li><Link to="/calendar">Calendar</Link></li>
+            </ul>
+            Logged in as Jane
+        </header>
+        {this.props.children}
+        </div>
+        );
     }
-}
+});
+
+
+module.exports = App;

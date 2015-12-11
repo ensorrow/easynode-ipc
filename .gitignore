@@ -40,3 +40,4 @@ test/data
 plugins/bower_components
 plugins/build
 plugins/index.html
+plugins/*.hot-update.*
