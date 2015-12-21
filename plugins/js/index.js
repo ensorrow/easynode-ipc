@@ -1,10 +1,13 @@
+import '../css/index.css';
+
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute } from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 
 
-require('../css/app.css');
+
+
 
 import Dashboard from './Dashboard';
 import Inbox from './Inbox';
