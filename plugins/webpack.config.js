@@ -22,7 +22,7 @@ module.exports = {
     module: {
         loaders:[
             { test: /\.(png|jpg)$/, loader: 'url-loader?limit=81920'},
-            { test: /\.css$/, loader: 'style-loader!css-loader?modules' },
+            { test: /\.css$/, loader: 'style-loader!css-loader' },
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
