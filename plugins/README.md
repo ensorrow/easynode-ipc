@@ -50,6 +50,8 @@ If your want to use some global variables , and don't want to includes them in  
 
 npm install webpack-dev-server --save-dev
 
+cd plugins
+
 webpack --watch
 
 13. React router
