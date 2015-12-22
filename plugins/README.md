@@ -57,3 +57,13 @@ webpack --watch
 13. React router
 
 npm install react-router
+
+14. webstorm JSX Emmet
+
+File | Settings | Editor | Emmet - JSX for Windows and Unix
+
+WebStorm | Preferences | Editor | Emmet - JSX for OS X
+
+15. babel-loader
+
+Webpack plugin for Babel

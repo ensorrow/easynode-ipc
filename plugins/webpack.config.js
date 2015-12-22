@@ -24,7 +24,7 @@ module.exports = {
             { test: /\.(png|jpg)$/, loader: 'url-loader?limit=81920'},
             { test: /\.css$/, loader: 'style-loader!css-loader' },
             {
-                test: /\.jsx?$/,
+                test: /\.js?$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
                 query: {
