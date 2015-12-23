@@ -24,9 +24,9 @@ module.exports = {
             { test: /\.(png|jpg)$/, loader: 'url-loader?limit=81920'},
             { test: /\.css$/, loader: 'style-loader!css-loader' },
             {
-                test: /\.js?$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
+                loader: 'babel',
                 query: {
                     presets: ['es2015', 'react']
                 },

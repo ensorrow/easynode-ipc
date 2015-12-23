@@ -67,3 +67,20 @@ WebStorm | Preferences | Editor | Emmet - JSX for OS X
 15. babel-loader
 
 Webpack plugin for Babel
+
+16. react-hot-loader
+
+Cannot define 'query' and multiple loaders in loaders list
+
+loaders: ['react-hot', 'babel']
+query: {
+                    presets: ['es2015', 'react']
+      },
+Q: How to solve?
+query json object as query parameter?
+
+17. Matcher
+
+{ test: /\.(js|jsx)$/, loader: 'babel-loader' } - 匹配 js 和 jsx
+
+import UploadPhoto from './forms/UploadPhoto.jsx';

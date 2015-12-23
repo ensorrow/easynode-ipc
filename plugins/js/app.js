@@ -14,7 +14,7 @@ import RecordList from './forms/RecordList';
 import RecordInfo from './forms/RecordInfo';
 import ApplyCurtain from './forms/ApplyCurtain';
 import SubmitCheckSuccess from './forms/SubmitCheckSuccess';
-import UploadPhoto from './forms/UploadPhoto.js';
+import UploadPhoto from './forms/UploadPhoto.jsx';
 
 var App = React.createClass({
     render: function () {
