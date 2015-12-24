@@ -93,9 +93,9 @@ let CompanyInfo = React.createClass({
                         <FormControl type="text" required={true} min={2} max={10} />
                     </div>
                 </Form>
-                <Button className="w-btn button-large">返回列表</Button>
-                <Button className="w-btn u-main">填写网站信息</Button>
-                <Button className="w-btn u-draft">保存草稿</Button>
+                <Button className="w-btn button-large"><Link to="/returntobase">返回修改</Link></Button>
+                <Button className="w-btn u-main"><Link to="/fillsiteinfo">填写网站信息</Link></Button>
+                <Button className="w-btn u-draft"><Link to="/savetodraft">保存草稿</Link></Button>
             </div>
         </div>
         );

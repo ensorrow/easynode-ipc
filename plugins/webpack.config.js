@@ -46,7 +46,7 @@ module.exports = {
         new OpenBrowserPlugin({
             url:'http://localhost:8080/index.html'
         }),
-        devFlagPlugin,
+        //devFlagPlugin,
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
@@ -54,5 +54,5 @@ module.exports = {
         }),
         new webpack.HotModuleReplacementPlugin()
     ],
-    //devtool:"source-map"
+    devtool:"source-map"
 }

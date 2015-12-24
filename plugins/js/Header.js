@@ -19,6 +19,7 @@ let Header = React.createClass({
                         <ul>
                             <li>您好,陈琦</li>
                             <li><Link to="/help">备案帮助</Link></li>
+                            <li><Link to="/recordlist">备案列表</Link></li>
                             <li><Link to="/exit">安全退出</Link></li>
                         </ul>
                     </div>

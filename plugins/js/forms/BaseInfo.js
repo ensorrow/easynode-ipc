@@ -21,8 +21,8 @@ let BaseInfo = React.createClass({
             <div>
                 <Button className="w-btn button-large">返回列表</Button>
                 <RecordType/>
-                <Button className="w-btn u-main">开始填写主体信息</Button>
-                <Button className="w-btn u-draft">保存草稿</Button>
+                <Button className="w-btn u-main"><Link to="/fillcompanyinfo">开始填写主体信息</Link></Button>
+                <Button className="w-btn u-draft"><Link to="/savetodraft">保存草稿</Link></Button>
             </div>
         );
     }

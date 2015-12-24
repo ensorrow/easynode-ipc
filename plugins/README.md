@@ -90,3 +90,8 @@ import UploadPhoto from './forms/UploadPhoto.jsx';
 JSX is a superset of JavaScript that allows you to mix XMLish syntax with JavaScript
 
  You can expect bundle sizes for small applications to be around 150-200k, React included
+
+19. Webstrom turn off updating indecies
+
+Mark directory  as/Excluded
+

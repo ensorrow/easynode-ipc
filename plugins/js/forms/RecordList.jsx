@@ -40,12 +40,12 @@ let Operation = React.createClass({
         }
         else if( prg == 2){
             return (
-                <td><Link to="/detail">备案详情</Link> <Link to="/checkresult">审核结果</Link> <Link to="/modify">修改</Link> <Link to="/delete">删除</Link></td>
+                <td><Link to="/detail">备案详情</Link> <Link to="/checkresulttrialnopass">审核结果</Link> <Link to="/modify">修改</Link> <Link to="/delete">删除</Link></td>
             );
         }
         else if( prg == 3){
             return (
-                <td><Link to="/detail">备案详情</Link> <Link to="/checkresult">审核结果</Link> <Link to="/uploadphoto">上传照片</Link> <Link to="/delete">删除</Link></td>
+                <td><Link to="/detail">备案详情</Link> <Link to="/checkresulttrialpass">审核结果</Link> <Link to="/uploadphoto">上传照片</Link> <Link to="/delete">删除</Link></td>
             );
         }
         else if( prg == 4){
@@ -55,12 +55,12 @@ let Operation = React.createClass({
         }
         else if( prg == 5){
             return (
-                <td><Link to="/detail">备案详情</Link> <Link to="/checkresult">审核结果</Link> <Link to="/modify">修改</Link> <Link to="/delete">删除</Link></td>
+                <td><Link to="/detail">备案详情</Link> <Link to="/checkresultphotonopass">审核结果</Link> <Link to="/modify">修改</Link> <Link to="/delete">删除</Link></td>
             );
         }
         else if( prg == 6){
             return (
-                <td><Link to="/detail">备案详情</Link>  <Link to="/checkresult">审核结果</Link> <Link to="/delete">删除</Link></td>
+                <td><Link to="/detail">备案详情</Link>  <Link to="/checkresultphotopass">审核结果</Link> <Link to="/delete">删除</Link></td>
             );
         }
         else if( prg == 7){
@@ -70,12 +70,12 @@ let Operation = React.createClass({
         }
         else if( prg == 8){
             return (
-                <td><Link to="/detail">备案详情</Link> <Link to="/checkresult">审核结果</Link> <Link to="/modify">修改</Link> <Link to="/delete">删除</Link></td>
+                <td><Link to="/detail">备案详情</Link> <Link to="/checkresultcouncilpass">审核结果</Link> <Link to="/modify">修改</Link> <Link to="/delete">删除</Link></td>
             );
         }
         else {
             return (
-                <td><Link to="/detail">备案详情</Link> <Link to="/checkresult">审核结果</Link> <Link to="/delete">删除</Link></td>
+                <td><Link to="/detail">备案详情</Link> <Link to="/checkresultcouncilnopass">审核结果</Link> <Link to="/delete">删除</Link></td>
             );
         }
     }

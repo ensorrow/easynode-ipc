@@ -97,9 +97,9 @@ let UploadMaterial = React.createClass({
                             />
                         </div>
                     </Form>
-                    <Button className="w-btn button-large">返回修改</Button>
-                    <Button className="w-btn u-main">提交初审</Button>
-                    <Button className="w-btn u-draft">保存草稿</Button>
+                    <Button className="w-btn button-large"><Link to="/returntobase">返回修改</Link></Button>
+                    <Button className="w-btn u-main"><Link to="/committrial">提交初审</Link></Button>
+                    <Button className="w-btn u-draft"><Link to="/returntobase">保存草稿</Link></Button>
                 </div>
             </div>
         );

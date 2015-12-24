@@ -108,9 +108,9 @@ let SiteInfo = React.createClass({
                             <FormControl name="checkboxgroup" data={["HZ1"]} label="checkbox group" type="checkbox-group" />
                         </div>
                     </Form>
-                    <Button className="w-btn button-large">返回修改</Button>
-                    <Button className="w-btn u-main">上传资料</Button>
-                    <Button className="w-btn u-draft">保存草稿</Button>
+                    <Button className="w-btn button-large"><Link to="/returntobase">返回修改</Link></Button>
+                    <Button className="w-btn u-main"><Link to="/uploadmaterial">上传资料</Link></Button>
+                    <Button className="w-btn u-draft"><Link to="/returntobase">保存草稿</Link></Button>
                 </div>
             </div>
         );
