@@ -84,3 +84,9 @@ query json object as query parameter?
 { test: /\.(js|jsx)$/, loader: 'babel-loader' } - 匹配 js 和 jsx
 
 import UploadPhoto from './forms/UploadPhoto.jsx';
+
+18.  webpack_and_react
+
+JSX is a superset of JavaScript that allows you to mix XMLish syntax with JavaScript
+
+ You can expect bundle sizes for small applications to be around 150-200k, React included

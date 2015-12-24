@@ -43,7 +43,7 @@ let UploadPhoto = React.createClass({
                             />
                             <p>1、请认真阅读拍照说明，以节省审核时间。点击查看拍照说明</p>
                             <p>2、支持照片格式：JPG\PNG\GIF\JPEG，大小建议4M以下</p>
-                            <p>3、请务必上传带有相关幕布背景的照片</p>
+                            <p>3、请务必上传带有相关幕布背景的照片!</p>
                         </div>
                     </Form>
                     <Button className="w-btn u-main">提交审核</Button>

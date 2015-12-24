@@ -12,25 +12,18 @@ var Icon = ReactUI.Icon;
 var Input = ReactUI.Input;
 var Button = ReactUI.Button;
 var FormSubmit = ReactUI.FormSubmit;
-var Table = ReactUI.Table;
-var Filter = ReactUI.Filter;
-var Pagination = ReactUI.Pagination;
 
-const headerArr = [
-    { name: 'name', sortAble: false, header: 'Name' }
-];
+import ProgressBar from './ProgressBar';
 
-let datas = ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] ;
-
-
-let RecordList = React.createClass({
+let Help = React.createClass({
     render: function () {
         return (
-            <div>
-            </div>
+        <div>
+            <p>Help</p>
+       </div>
         );
     }
 });
 
 
-module.exports = RecordList;
+module.exports = Help;
