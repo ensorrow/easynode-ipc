@@ -1,4 +1,4 @@
-import  '../../css/global.css';
+import  '../../css/index.css';
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute } from 'react-router';
@@ -14,15 +14,18 @@ var Button = ReactUI.Button;
 var FormSubmit = ReactUI.FormSubmit;
 
 import RecordType from './RecordType';
+import ReturnWidget from '../widgets/ReturnWidget.jsx';
 
 let BaseInfo = React.createClass({
     render: function () {
         return (
-            <div>
-                <Button className="w-btn button-large">返回列表</Button>
-                <RecordType/>
-                <Button className="w-btn u-main"><Link to="/fillcompanyinfo">开始填写主体信息</Link></Button>
-                <Button className="w-btn u-draft"><Link to="/savetodraft">保存草稿</Link></Button>
+            <div className="g-bd">
+                <div className="g-bdc">
+                    <ReturnWidget/>
+                    <RecordType/>
+                    <Button className="w-btn u-main"><Link to="/fillcompanyinfo">开始填写主体信息</Link></Button>
+                    <Button className="w-btn u-draft"><Link to="/savetodraft">保存草稿</Link></Button>
+                </div>
             </div>
         );
     }

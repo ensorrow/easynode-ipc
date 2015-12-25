@@ -95,3 +95,10 @@ JSX is a superset of JavaScript that allows you to mix XMLish syntax with JavaSc
 
 Mark directory  as/Excluded
 
+20.
+[icp_ui](file:///Users/hujiabao/workspace_docker/icp/icp_ui/%E9%A1%B5%E9%9D%A2%E6%A0%87%E6%B3%A8%E5%AF%BC%E5%87%BA/index.html)
+
+21. plugins
+
+cd plugins;  mcss mcss/index.mcss -o css/
+cd ..; webpack-dev-server --content-base plugins

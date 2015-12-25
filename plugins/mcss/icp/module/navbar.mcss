@@ -1,0 +1,48 @@
+// Name:            Navbar
+// Description:     导航
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+@import "../../core/module/navbar.mcss";
+
+// Varibles:
+// ========================================================================
+
+$m-navbar_height = 54px;
+$m-navbar_background = $brand-secondary;
+$m-navbar_background = $brand-secondary;
+
+
+// Component:       `m-navbar`
+// ========================================================================
+
+.m-navbar {
+    background: $m-navbar_background;
+    color: white; // #444
+
+    > li {
+
+        > a, > span {
+            min-width: 108px;
+            // padding: 0 15px;
+            $line-height: $m-navbar_height;
+            color: rgba(255, 255, 255, 0.75);
+            $transition: color 0.3s;
+        }
+    }
+
+    > li:hover > a {
+        color: white;
+    }
+
+    > li:active > a {
+        // background: mix($brand-primary, black, 20%);
+    }
+
+    > li.z-crt > a {
+        height: 58px;
+        border-bottom: 2px solid white;
+        color: white;
+        // background: $brand-primary;
+    }
+}

@@ -1,0 +1,39 @@
+.g-top{
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: 5;
+	height: $m-navbar_height;
+	background: $m-navbar_background;
+}
+
+.g-topc{
+	width: 960px;
+	margin: 0 auto;
+}
+
+.g-bd{
+	margin-top: $m-navbar_height;
+}
+
+.g-bdc {
+	width:  960px;
+	margin: 0 auto;
+	padding: 22px;
+}
+
+.g-bd-return {
+	width:  960px;
+	height: 54px;
+	margin-left: 50px;
+}
+
+.g-ft {
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	height: 60px;
+	width: 100%;
+	background: #EDEDED;
+}

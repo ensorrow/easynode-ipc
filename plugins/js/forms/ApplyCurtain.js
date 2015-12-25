@@ -1,4 +1,4 @@
-import  '../../css/global.css';
+import  '../../css/index.css';
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute } from 'react-router';
