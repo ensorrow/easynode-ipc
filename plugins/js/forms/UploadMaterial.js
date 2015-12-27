@@ -15,7 +15,7 @@ var FormSubmit = ReactUI.FormSubmit;
 var CheckboxGroup = ReactUI.CheckboxGroup;
 var Upload = ReactUI.Upload;
 
-import ProgressBar from './ProgressBar';
+import ProgressBar from './ProgressBar.jsx';
 
 let UploadMaterial = React.createClass({
     render: function () {

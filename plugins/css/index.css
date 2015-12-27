@@ -141,6 +141,32 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-navbar >li >a,.m-navbar >li >span{min-width:108px;height:54px;line-height:54px;color:rgba(255,255,255,0.75);-webkit-transition:color 0.3s;-moz-transition:color 0.3s;transition:color 0.3s;}
 .m-navbar >li:hover>a{color:#fff;}
 .m-navbar >li.z-crt>a{height:58px;border-bottom:2px solid #fff;color:#fff;}
+.m-progress .step{position:absolute;margin-left:20px;margin-top:-33px;font-family:ArialMT;font-size:16.11px;color:#888;line-height:19px;}
+.m-progress{background:#252b33;margin-left:90px;}
+.m-progress .m-progress-ul >li{float:left;display:inline-block;width:150px;}
+.m-progress .m-progress-ul >li >div{width:74px;}
+.m-progress .m-progress-ul >li >div >img{display:block;}
+.m-progress .m-progress-ul >li:hover>a{color:#fff;}
+.m-progress .m-progress-ul >li.z-crt>a{height:58px;border-bottom:2px solid #fff;color:#fff;}
+.m-progress .m-progress-ul .arrow{margin-top:21px;margin-left:0px;}
+.m-progress .m-progress-ul .describe{display:block;font-size:14px;margin-top:8px;margin-left:-11px;}
+.m-progress .m-progress-ul .doing{color:#fff;}
+.m-recordtype{background:#ddd;}
+.m-recordtype{background:#fff;height:280px;outline:#8fc31f solid 1px;margin-top:70px;clear:both;}
+.recordtype{float:left;display:block;height:200px;}
+.recordtype .red{color:#f00;}
+.type{float:left;margin-left:50px;margin-right:-66px;margin-top:32px;}
+.select-list{float:left;}
+.item{float:left;display:inline-block;width:140px;height:140px;background:#fff;outline:#8fc31f solid 1px;margin-left:59px;}
+.item .item-icon >img{display:inline-block;margin-top:32px;margin-left:42px;}
+.item .item-icon .title{display:inline-block;margin-top:-48px;margin-left:44px;}
+.item .item-describe{display:inline-block;font-size:12px;margin-top:24px;}
+.clear{clear:both;}
+.item-2{float:left;display:inline-block;width:140px;height:40px;background:#fff;outline:#8fc31f solid 1px;margin-left:59px;}
+.item-2 .title{display:inline-block;margin-top:8px;margin-left:44px;}
+.recordarea{float:left;display:block;}
+.recordarea .red{color:#f00;}
+.area{float:left;margin-left:50px;margin-right:-66px;margin-top:24px;}
 .m-footer{text-align:center;background:#262626;color:#777;font-size:12px;}
 .m-footer a{color:#ccc;text-decoration:none;}
 .m-footer a:hover{color:#eee;}
@@ -152,9 +178,12 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-logo{margin:0;margin-left:20px;display:inline-block;overflow:hidden;line-height:54px;margin-top:-2px;}
 .m-logo >span{margin-left:17px;font-size:16px;font-family:PingFangSC-Regular;color:#fff;line-height:20px;}
 .m-return >span{margin-left:10px;font-size:14px;font-family:MicrosoftYaHei;color:#666;line-height:14px;}
+.u-main{float:left;margin-top:20px;margin-left:200px;background:#f00;width:200px;height:38px;text-align:center;font-family:MicrosoftYaHei;font-size:14px;color:#fff;line-height:19px;text-align:left;}
+.u-draft{float:left;margin-top:20px;margin-left:30px;background:#f00;width:200px;height:38px;text-align:center;font-family:MicrosoftYaHei;font-size:14px;color:#fff;line-height:19px;text-align:left;}
 .g-top{position:fixed;left:0;right:0;top:0;z-index:5;height:54px;background:#252b33;}
 .g-topc{width:960px;margin:0 auto;}
 .g-bd{margin-top:54px;}
-.g-bdc{width:960px;margin:0 auto;padding:22px;}
+.g-bdc{width:1020px;margin:0 auto;padding:22px;}
 .g-bd-return{width:960px;height:54px;margin-left:50px;}
 .g-ft{position:fixed;bottom:0px;left:0px;height:60px;width:100%;background:#ededed;}
+.g-progress{background:#ededed;width:100%;}

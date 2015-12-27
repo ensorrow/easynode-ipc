@@ -13,8 +13,11 @@ var Input = ReactUI.Input;
 var Button = ReactUI.Button;
 var FormSubmit = ReactUI.FormSubmit;
 
-import RecordType from './RecordType';
+import RecordType from './RecordType.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
+
+import ProgressBar from './ProgressBar.jsx';
+
 
 let BaseInfo = React.createClass({
     render: function () {
@@ -22,6 +25,7 @@ let BaseInfo = React.createClass({
             <div className="g-bd">
                 <div className="g-bdc">
                     <ReturnWidget/>
+                    <ProgressBar/>
                     <RecordType/>
                     <Button className="w-btn u-main"><Link to="/fillcompanyinfo">开始填写主体信息</Link></Button>
                     <Button className="w-btn u-draft"><Link to="/savetodraft">保存草稿</Link></Button>

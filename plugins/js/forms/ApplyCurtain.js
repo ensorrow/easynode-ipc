@@ -14,7 +14,7 @@ var Button = ReactUI.Button;
 var FormSubmit = ReactUI.FormSubmit;
 var Checkbox = ReactUI.Checkbox;
 
-import ProgressBar from './ProgressBar';
+import ProgressBar from './ProgressBar.jsx';
 
 let ApplyCurtain = React.createClass({
     render: function () {

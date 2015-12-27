@@ -14,7 +14,7 @@ var Button = ReactUI.Button;
 var FormSubmit = ReactUI.FormSubmit;
 var CheckboxGroup = ReactUI.CheckboxGroup;
 
-import ProgressBar from './ProgressBar';
+import ProgressBar from './ProgressBar.jsx';
 
 let RecordInfo = React.createClass({
     render: function () {

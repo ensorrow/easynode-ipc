@@ -14,7 +14,6 @@ var Button = ReactUI.Button;
 var FormSubmit = ReactUI.FormSubmit;
 var Checkbox = ReactUI.Checkbox;
 
-import ProgressBar from '../ProgressBar';
 
 
 let CheckPhotoPass = React.createClass({

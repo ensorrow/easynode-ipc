@@ -1,0 +1,112 @@
+// Name:            备案类型
+// Description:     RecordType
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+@import "../../core/module/recordtype.mcss";
+
+// Varibles:
+// ========================================================================
+
+$m-recordtype_height = 340px;
+$m-recordtype_background = #FFFFFF;
+
+
+// Component:       `m-progress`
+// ========================================================================
+
+.m-recordtype {
+    background: $m-recordtype_background;
+	height: 280px;
+	outline: #8FC31F solid 1px;
+	margin-top: 70px;
+
+
+	clear:both;
+}
+
+.recordtype {
+	float:left;
+	display:block;
+	.red{
+		color:red;
+	}
+	height: 200px;
+}
+
+.type{
+		float:left;
+		margin-left:50px;
+		margin-right: -66px;
+		margin-top: 32px;
+}
+
+.select-list{
+	float:left;
+}
+
+.item {
+	float: left;
+	display:inline-block;
+	width: 140px;
+	height: 140px;
+	background: #FFFFFF;
+	outline: #8FC31F solid 1px;
+	margin-left:59px;
+
+	.item-icon {
+
+		> img {
+    		display: inline-block;
+            margin-top: 32px;
+            margin-left:42px;
+    	}
+
+    	.title{
+            display: inline-block;
+            margin-top:-48px;
+            margin-left:44px;
+        }
+	}
+
+	.item-describe{
+		display: inline-block;
+        font-size: 12px;
+        margin-top: 24px;
+    }
+}
+
+.clear{
+	clear:both;
+}
+
+.item-2 {
+	float: left;
+	display:inline-block;
+	width: 140px;
+	height: 40px;
+	background: #FFFFFF;
+	outline: #8FC31F solid 1px;
+	margin-left:59px;
+
+    .title{
+        display: inline-block;
+        margin-top:8px;
+        margin-left:44px;
+    }
+}
+
+.recordarea {
+	float:left;
+	display:block;
+	.red{
+		color:red;
+	}
+}
+
+.area{
+	float:left;
+	margin-left:50px;
+	margin-right: -66px;
+	margin-top: 24px;
+}

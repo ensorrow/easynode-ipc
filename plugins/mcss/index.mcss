@@ -22,6 +22,8 @@ $reset-normalize();
 //@import "./default/unit/formGroup.mcss";
 
 @import "./icp/module/navbar.mcss";
+@import "./icp/module/progress.mcss";
+@import "./icp/module/recordtype.mcss";
 
 //@import "./default/module/sidebar.mcss";
 //@import "./default/module/toolbar.mcss";

@@ -100,5 +100,5 @@ Mark directory  as/Excluded
 
 21. plugins
 
-cd plugins;  mcss mcss/index.mcss -o css/
+cd plugins;  webpack -w & mcss mcss/index.mcss -o css/ -w
 cd ..; webpack-dev-server --content-base plugins

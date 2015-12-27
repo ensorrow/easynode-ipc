@@ -1,0 +1,20 @@
+// Name:            备案类型
+// Description:     RecordType
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+// Varibles:
+// ========================================================================
+
+$m-recordtype_height = 340px;
+$m-recordtype_background = #DDDDDD;
+
+
+// Component:       `m-progress`
+// ========================================================================
+
+.m-recordtype {
+    background: $m-recordtype_background;
+
+
+}

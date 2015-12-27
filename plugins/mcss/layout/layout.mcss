@@ -18,7 +18,7 @@
 }
 
 .g-bdc {
-	width:  960px;
+	width:  1020px;
 	margin: 0 auto;
 	padding: 22px;
 }
@@ -36,4 +36,9 @@
 	height: 60px;
 	width: 100%;
 	background: #EDEDED;
+}
+
+.g-progress{
+	background: #EDEDED;
+	width: 100%;
 }

@@ -13,7 +13,7 @@ var Input = ReactUI.Input;
 var Button = ReactUI.Button;
 var FormSubmit = ReactUI.FormSubmit;
 
-import ProgressBar from './ProgressBar';
+import ProgressBar from './ProgressBar.jsx';
 
 let CompanyInfo = React.createClass({
     render: function () {

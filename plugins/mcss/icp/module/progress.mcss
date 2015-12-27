@@ -1,0 +1,66 @@
+// Name:            Navbar
+// Description:     导航
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+@import "../../core/module/progress.mcss";
+
+// Varibles:
+// ========================================================================
+
+$m-progress_height = 54px;
+$m-progress_background = $brand-secondary;
+
+
+// Component:       `m-progress`
+// ========================================================================
+
+.m-progress {
+    background: $m-progress_background;
+	margin-left: 90px;
+
+	.m-progress-ul{
+	    > li {
+			float:left;
+	        display:inline-block;
+	        width: 150px;
+
+	        > div {
+	            width: 74px;
+	            > img {
+	              display:block;
+	            }
+	        }
+	    }
+
+	    > li:hover > a {
+	        color: white;
+	    }
+
+	    > li:active > a {
+	    }
+
+	    > li.z-crt > a {
+	        height: 58px;
+	        border-bottom: 2px solid white;
+	        color: white;
+	    }
+
+	    .arrow {
+            margin-top: 21px;
+            margin-left: 0px;
+        }
+
+        .describe {
+            display:block;
+            font-size: 14px;
+            margin-top: 8px;
+            margin-left: -11px;
+        }
+
+        .doing{
+            color:#FFFFFF;;
+        }
+	}
+}
+

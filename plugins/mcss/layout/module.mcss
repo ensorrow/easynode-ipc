@@ -25,3 +25,41 @@
         line-height:14px;
 	}
 }
+
+.w-btn{
+
+}
+
+.u-main{
+	float: left;
+	margin-top:20px;
+	margin-left: 200px;
+
+	background:red;
+    width:200px;
+    height:38px;
+	text-align:center;
+
+	font-family:MicrosoftYaHei;
+    font-size:14px;
+    color:#FFFFFF;
+    line-height:19px;
+    text-align:left;
+}
+
+.u-draft{
+	float: left;
+	margin-top:20px;
+	margin-left: 30px;
+
+	background:red;
+    width:200px;
+    height:38px;
+	text-align:center;
+
+	font-family:MicrosoftYaHei;
+    font-size:14px;
+    color:#FFFFFF;
+    line-height:19px;
+    text-align:left;
+}
