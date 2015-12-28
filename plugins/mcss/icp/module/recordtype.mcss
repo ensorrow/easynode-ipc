@@ -19,8 +19,7 @@ $m-recordtype_background = #FFFFFF;
     background: $m-recordtype_background;
 	height: 280px;
 	outline: #8FC31F solid 1px;
-	margin-top: 70px;
-
+	margin-top: 16px;
 
 	clear:both;
 }

@@ -12,7 +12,7 @@ var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
 module.exports = {
     entry: [
-        'webpack/hot/dev-server',
+        //'webpack/hot/dev-server',
         'webpack-dev-server/client?http://localhost:8080',
         './js/index.js'
     ],
@@ -52,7 +52,7 @@ module.exports = {
             jQuery: "jquery",
             "window.jQuery":"jquery"
         }),*/
-        new webpack.HotModuleReplacementPlugin()
+        //new webpack.HotModuleReplacementPlugin()
     ],
-    devtool:"source-map"
+    //devtool:"source-map"
 }

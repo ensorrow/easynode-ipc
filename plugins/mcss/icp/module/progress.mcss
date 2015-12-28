@@ -16,51 +16,53 @@ $m-progress_background = $brand-secondary;
 // ========================================================================
 
 .m-progress {
-    background: $m-progress_background;
-	margin-left: 90px;
+    text-align: center;
 
 	.m-progress-ul{
-	    > li {
-			float:left;
-	        display:inline-block;
-	        width: 150px;
+		padding:0;
 
-	        > div {
-	            width: 74px;
-	            > img {
-	              display:block;
-	            }
-	        }
-	    }
+		> li {
+			> div{
+				text-align:center;
+				width:100px;
+			}
+            display: inline-block;
+            width: 150px;
+		}
 
-	    > li:hover > a {
-	        color: white;
-	    }
-
-	    > li:active > a {
-	    }
-
-	    > li.z-crt > a {
-	        height: 58px;
-	        border-bottom: 2px solid white;
-	        color: white;
-	    }
 
 	    .arrow {
             margin-top: 21px;
-            margin-left: 0px;
-        }
-
-        .describe {
-            display:block;
-            font-size: 14px;
-            margin-top: 8px;
-            margin-left: -11px;
+            width:36px;
+            height: 8px;
+            background: url('../assets/arrow-right.png');
         }
 
         .doing{
             color:#FFFFFF;;
         }
 	}
+
+	.describe {
+            display:inline-block;
+            margin-top: 8px;
+        }
+
+	.step {
+        font-family: ArialMT;
+        width: 48px;
+        height: 48px;
+        line-height:48px;
+        display: inline-block;
+    }
 }
 
+.do{
+    background: url('../assets/prg-do.png');
+}
+.doing{
+    background: url('../assets/prg-doing.png');
+}
+.done{
+    background: url('../assets/prg-done.png');
+}

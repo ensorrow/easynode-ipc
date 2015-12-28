@@ -19,51 +19,42 @@ let ProgressBar = React.createClass({
         return (
 			<div className="m-progress">
 				<ul className="m-progress-ul">
-					<li >
+					<li>
 						<div className="f-fl">
-							<img src="../assets/prg-done.png" alt=""/>
-								<span className="step">1</span>
-								<span className="describe">填写基本信息</span>
+							<div className="step done">1</div>
+							<span className="describe">基本信息</span>
 						</div>
 						<div className="f-fl arrow">
-							<img src="../assets/arrow-right.png" alt=""/>
 						</div>
 					</li>
 					<li>
 						<div className="f-fl">
-							<img src="../assets/prg-done.png" alt=""/>
-								<span className="step">2</span>
-								<span className="describe">填写主体信息</span>
+							<div className="step done">2</div>
+							<span className="describe">填写主体信息</span>
 						</div>
 						<div className="f-fl arrow">
-							<img src="../assets/arrow-right.png" alt=""/>
 						</div>
 					</li>
 					<li>
 						<div className="f-fl">
-							<img src="../assets/prg-doing.png" alt=""/>
-								<span className="step doing">3</span>
-								<span className="describe">填写网站信息</span>
+							<div className="step doing">3</div>
+							<span className="describe">填写网站信息</span>
 						</div>
 						<div className="f-fl arrow">
-							<img src="../assets/arrow-right.png" alt=""/>
 						</div>
 					</li>
 					<li>
 						<div className="f-fl">
-							<img src="../assets/prg-do.png" alt=""/>
-								<span className="step">4</span>
-								<span className="describe">上传资料</span>
+							<div className="step do">4</div>
+							<span className="describe">上传资料</span>
 						</div>
 						<div className="f-fl arrow">
-							<img src="../assets/arrow-right.png" alt=""/>
 						</div>
 					</li>
 					<li>
 						<div className="f-fl">
-							<img src="../assets/prg-do.png" alt=""/>
-								<span className="step">5</span>
-								<span className="describe">提交初审</span>
+							<div className="step do">5</div>
+							<span className="describe">提交初审</span>
 						</div>
 					</li>
 				</ul>

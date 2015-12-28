@@ -141,18 +141,19 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-navbar >li >a,.m-navbar >li >span{min-width:108px;height:54px;line-height:54px;color:rgba(255,255,255,0.75);-webkit-transition:color 0.3s;-moz-transition:color 0.3s;transition:color 0.3s;}
 .m-navbar >li:hover>a{color:#fff;}
 .m-navbar >li.z-crt>a{height:58px;border-bottom:2px solid #fff;color:#fff;}
-.m-progress .step{position:absolute;margin-left:20px;margin-top:-33px;font-family:ArialMT;font-size:16.11px;color:#888;line-height:19px;}
-.m-progress{background:#252b33;margin-left:90px;}
-.m-progress .m-progress-ul >li{float:left;display:inline-block;width:150px;}
-.m-progress .m-progress-ul >li >div{width:74px;}
-.m-progress .m-progress-ul >li >div >img{display:block;}
-.m-progress .m-progress-ul >li:hover>a{color:#fff;}
-.m-progress .m-progress-ul >li.z-crt>a{height:58px;border-bottom:2px solid #fff;color:#fff;}
-.m-progress .m-progress-ul .arrow{margin-top:21px;margin-left:0px;}
-.m-progress .m-progress-ul .describe{display:block;font-size:14px;margin-top:8px;margin-left:-11px;}
+.m-progress{text-align:center;}
+.m-progress .m-progress-ul{padding:0;}
+.m-progress .m-progress-ul >li{display:inline-block;width:150px;}
+.m-progress .m-progress-ul >li >div{text-align:center;width:100px;}
+.m-progress .m-progress-ul .arrow{margin-top:21px;width:36px;height:8px;background:url("../assets/arrow-right.png");}
 .m-progress .m-progress-ul .doing{color:#fff;}
+.m-progress .describe{display:inline-block;margin-top:8px;}
+.m-progress .step{font-family:ArialMT;width:48px;height:48px;line-height:48px;display:inline-block;}
+.do{background:url("../assets/prg-do.png");}
+.doing{background:url("../assets/prg-doing.png");}
+.done{background:url("../assets/prg-done.png");}
 .m-recordtype{background:#ddd;}
-.m-recordtype{background:#fff;height:280px;outline:#8fc31f solid 1px;margin-top:70px;clear:both;}
+.m-recordtype{background:#fff;height:280px;outline:#8fc31f solid 1px;margin-top:16px;clear:both;}
 .recordtype{float:left;display:block;height:200px;}
 .recordtype .red{color:#f00;}
 .type{float:left;margin-left:50px;margin-right:-66px;margin-top:32px;}
