@@ -1,6 +1,6 @@
 @import "../../node_modules/mass/mass/index.mcss";
 
-$reset-normalize();
+$reset-nec();
 
 @import "./core/base/function.mcss";
 @import "./core/base/helper.mcss";
@@ -24,6 +24,7 @@ $reset-normalize();
 @import "./icp/module/navbar.mcss";
 @import "./icp/module/progress.mcss";
 @import "./icp/module/recordtype.mcss";
+@import "./icp/unit/goback.mcss";
 
 //@import "./default/module/sidebar.mcss";
 //@import "./default/module/toolbar.mcss";

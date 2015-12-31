@@ -1,5 +1,5 @@
-.g-top{
-	position: fixed;
+.g-hd{
+	position: static;
 	left: 0;
 	right: 0;
 	top: 0;
@@ -8,26 +8,12 @@
 	background: $m-navbar_background;
 }
 
-.g-topc{
-	width: 960px;
-	margin: 0 auto;
-}
 
 .g-bd{
-	margin-top: $m-navbar_height;
+
+
 }
 
-.g-bdc {
-	width:  1020px;
-	margin: 0 auto;
-	padding: 22px;
-}
-
-.g-bd-return {
-	width:  960px;
-	height: 54px;
-	margin-left: 50px;
-}
 
 .g-ft {
 	position: fixed;
@@ -35,7 +21,16 @@
 	left: 0px;
 	height: 60px;
 	width: 100%;
-	background: #EDEDED;
+	background: $m-footer_background;
+}
+
+
+.g-bd-return {
+	width:  960px;
+	height: 54px;
+	margin-left: 52px;
+	test-align: center;
+	background: #FDFDFD;
 }
 
 .g-progress{

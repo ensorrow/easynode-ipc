@@ -13,25 +13,21 @@ var Input = ReactUI.Input;
 var Button = ReactUI.Button;
 var FormSubmit = ReactUI.FormSubmit;
 
-import RecordType from './RecordType.jsx';
-import ReturnWidget from '../widgets/ReturnWidget.jsx';
+import ProgressBar from './ProgressBar';
 
-import ProgressBar from './ProgressBar.jsx';
-
-
-let BaseInfo = React.createClass({
+let RecordType = React.createClass({
     render: function () {
         return (
-            <div className="g-bd">
-                <ReturnWidget/>
-                <div className="g-bdc">
-                    <ProgressBar/>
-                    <RecordType/>
-
+            <div className="m-recordtype">
+                <ProgressBar/>
+                <div className="">
+                     备案类型:
+                     主机区域:
                 </div>
             </div>
         );
     }
 });
 
-module.exports = BaseInfo;
+
+module.exports = RecordType;

@@ -17,22 +17,10 @@
 
 // Component:       `m-footer`
 // ========================================================================
+$m-footer_background = #EDEDED;
+$m-footer_height = 60px;
 
 .m-footer {
-	margin-top: 24px;
-    background: #EDEDED;
-
-	a {
-        color: #ccc;
-        text-decoration: none;
-    }
-
-    a:hover {
-        color: #eee;
-    }
-
-    .footer_logo {
-        display: block;
-        margin: 15px 0 25px;
-    }
+	line-height: $m-footer_height;
+	text-align: center;
 }

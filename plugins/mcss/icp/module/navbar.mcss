@@ -10,24 +10,45 @@
 
 $m-navbar_height = 54px;
 $m-navbar_background = $brand-secondary;
-$m-navbar_background = $brand-secondary;
-
+$m-navbar_logo_margin_left = 20px;
+$m-navbar_logo_title_distance = 16px;
+$m-navbar_exit_color = #AAAAAA;
 
 // Component:       `m-navbar`
 // ========================================================================
 
+.m-logo {
+	margin: 0;
+	margin-left: $m-navbar_logo_margin_left;
+	display: inline-block;
+	overflow: hidden;
+	line-height: $m-navbar_height;;
+
+	> span {
+		margin-left: $m-navbar_logo_title_distance;
+		font-size: 16px;
+		font-family:PingFangSC-Regular;
+	    color:#FFFFFF;;
+	}
+}
+
 .m-navbar {
     background: $m-navbar_background;
-    color: white; // #444
+    color: #navbar_exit_color;
+	margin-right: 62px;
 
-    > li {
+	.help {
+		color:#38ABD0;;
+	}
+
+	> li {
 
         > a, > span {
             min-width: 108px;
-            // padding: 0 15px;
             $line-height: $m-navbar_height;
             color: rgba(255, 255, 255, 0.75);
             $transition: color 0.3s;
+            font-size: 14px;
         }
     }
 
@@ -46,3 +67,4 @@ $m-navbar_background = $brand-secondary;
         // background: $brand-primary;
     }
 }
+

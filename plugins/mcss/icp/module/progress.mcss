@@ -10,7 +10,7 @@
 
 $m-progress_height = 54px;
 $m-progress_background = $brand-secondary;
-
+$m-progress_margin_top = 40px;
 
 // Component:       `m-progress`
 // ========================================================================
@@ -19,7 +19,7 @@ $m-progress_background = $brand-secondary;
     text-align: center;
 
 	.m-progress-ul{
-		padding:0;
+		margin-top: $m-progress_margin_top;
 
 		> li {
 			> div{
@@ -37,11 +37,7 @@ $m-progress_background = $brand-secondary;
             height: 8px;
             background: url('../assets/arrow-right.png');
         }
-
-        .doing{
-            color:#FFFFFF;;
-        }
-	}
+   }
 
 	.describe {
             display:inline-block;
@@ -49,7 +45,6 @@ $m-progress_background = $brand-secondary;
         }
 
 	.step {
-        font-family: ArialMT;
         width: 48px;
         height: 48px;
         line-height:48px;

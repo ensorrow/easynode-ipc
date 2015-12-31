@@ -18,15 +18,13 @@ class Header  extends React.Component{
 
     render() {
         return (
-            <div className="g-top">
-                <div className="g-topc">
-                    <a className="m-logo" href="./index.html"><img src="../assets/logo.png" /><span>ICP备案系统</span></a>
-                    <ul className="m-navbar f-fr">
-                        <li><Link to="/help">备案帮助</Link></li>
-                        <li><Link to="/recordlist">备案列表</Link></li>
-                        <li><Link to="/exit">您好,陈琦,安全退出</Link></li>
-                    </ul>
-                </div>
+            <div className="g-hd">
+                <a className="m-logo" href="./index.html"><img src="../assets/logo.png" /><span>ICP备案系统</span></a>
+                <ul className="m-navbar f-fr">
+                    <li><Link to="/help">备案帮助</Link></li>
+                    <li><Link to="/recordlist">备案列表</Link></li>
+                    <li><Link to="/exit">您好,陈琦,安全退出</Link></li>
+                </ul>
             </div>
         );
     }
