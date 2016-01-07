@@ -112,7 +112,6 @@ $m-siteinfo_item_addsite_button_margin_left = $m-siteinfo_label_width + $m-sitei
 		height: $m-siteinfo_item_height;
 		line-height: $m-siteinfo_item_height;
 
-
 		@extend .f-fl;
 	}
 
@@ -194,6 +193,10 @@ $m-siteinfo_item_addsite_button_margin_left = $m-siteinfo_label_width + $m-sitei
 .item-ctrl-language-customize{
 	width: $m-siteinfo_item_customize_language_label_width;
 	display: block;
+}
+
+.select{
+	border: 1px solid #ddd;
 }
 
 .addsite{

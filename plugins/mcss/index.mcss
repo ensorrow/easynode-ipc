@@ -26,6 +26,7 @@ $reset-nec();
 @import "./icp/module/recordtype.mcss";
 @import "./icp/module/companyinfo.mcss";
 @import "./icp/module/siteinfo.mcss";
+@import "./icp/module/submittrialsuccess.mcss";
 @import "./icp/unit/goback.mcss";
 @import "./icp/unit/popover.mcss";
 

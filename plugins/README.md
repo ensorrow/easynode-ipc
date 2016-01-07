@@ -114,3 +114,6 @@ cd ..; webpack-dev-server --content-base plugins
 
 26. popover 用绝对定位, 元素用relative, 本元素用absolute
 
+27. 相差一个像素是小数点的缘故( 350-15*3 - 2*4)/4 , border-width=2
+
+28. Mac chrome浏览器下, select 设置高度无效,要先设置下border: 1px solid #
