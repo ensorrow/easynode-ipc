@@ -3,6 +3,8 @@
 // Author:          allen.hu(jiabao_hu@corp.netease.com)
 // ========================================================================
 
+@import "../../core/module/submittrialsuccess.mcss";
+
 // Varibles:
 // ========================================================================
 
@@ -17,7 +19,7 @@ $m-submittrialsuccess_tip_icon_margin_top = 64px;
 $m-submittrialsuccess_tip_width = $m-submittrialsuccess_height - $m-submittrialsuccess_tip_label_width;
 
 
-@import "../../core/module/submittrialsuccess.mcss";
+
 
 
 
