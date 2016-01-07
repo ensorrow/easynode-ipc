@@ -1,0 +1,20 @@
+// Name:            主体信息
+// Description:     CompanyInf
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+// Varibles:
+// ========================================================================
+
+$m-companyinfo_height = 340px;
+$m-companyinfo_background = #DDDDDD;
+
+
+// Component:       `m-progress`
+// ========================================================================
+
+.m-companyinfo {
+    background: $m-companyinfo_background;
+
+
+}

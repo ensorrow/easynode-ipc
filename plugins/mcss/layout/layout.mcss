@@ -16,7 +16,7 @@
 
 
 .g-ft {
-	position: fixed;
+	//position: fixed;
 	bottom: 0px;
 	left: 0px;
 	height: 60px;

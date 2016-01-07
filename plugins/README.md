@@ -102,3 +102,15 @@ Mark directory  as/Excluded
 
 cd plugins;  webpack -w & mcss mcss/index.mcss -o css/ -w
 cd ..; webpack-dev-server --content-base plugins
+
+22. fieldset没有问题,legend margin-left设置有问题不用,改用div替代, 整体在form外的div里设置margin
+
+23. 原生option高度不可调的,很多样式不支持,需要div模拟
+
+24. <label><input type="checkbox" name="3"><span>英语</span></label> 点中文字也能选中
+	<input type="checkbox" name="4"><span>日语</span> 这样点中文字不能选中
+
+25. 行内元素,对宽度没有影响, 必须设置为块
+
+26. popover 用绝对定位, 元素用relative, 本元素用absolute
+

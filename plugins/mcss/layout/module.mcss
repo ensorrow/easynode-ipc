@@ -9,15 +9,19 @@
 }
 
 .u-main{
+	margin-left: 20px;
+
 	width:200px;
     height:38px;
     background: #69A9CC;
     font-size: 14px;
 }
 
-.u-retun{
+.u-return{
 	width:200px;
     height:38px;
+
+    border: none;
     background: transparent;
     font-size: 14px;
 }

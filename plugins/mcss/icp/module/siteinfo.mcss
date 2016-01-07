@@ -1,0 +1,206 @@
+// Name:            网站信息
+// Description:     SiteInfo
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+@import "../../core/module/siteinfo.mcss";
+
+// Varibles:
+// ========================================================================
+
+$m-siteinfo_height = 340px;
+$m-siteinfo_width =  992px;
+$m-siteinfo_item_height =  30px;
+$m-siteinfo_background = #FFFFFF;
+$m-siteinfo_border_color_selected = #8fc31f;
+$m-siteinfo_border_color = #dddddd;
+$m-siteinfo_type_margin_left = 52px;
+$m-siteinfo_type_margin_top = 74px;
+$m-siteinfo_items_margin_top = 40px;
+$m-siteinfo_label_width = 186px;
+$m-siteinfo_label_type_height = 230px;
+$m-siteinfo_label_area_height = 100px;
+$m-siteinfo_item_fillcolor_noselect = #F6F6F6;
+$m-siteinfo_item_fillcolor_selected = #FFFFFF;
+$m-siteinfo_item_margin = 59px;
+$m-siteinfo_legend_background_color = #F7F7F7;
+$m-siteinfo_legend_width = 910px;
+$m-siteinfo_item_ctrl_width = 350px;
+$m-siteinfo_item_ctrl_gap = 15px;
+$m-siteinfo_item_ctrl_onethird_width = ($m-siteinfo_item_ctrl_width - 15*2) / 3;
+$m-siteinfo_item_ctrl_onefourth_width = ($m-siteinfo_item_ctrl_width - 15*3 - 12) /4;
+
+$m-siteinfo_item_ctrl_office_onefourth_width = ($m-siteinfo_item_ctrl_width) / 4;
+$m-siteinfo_item_ctrl_office_threefourth_width = ($m-siteinfo_item_ctrl_width - $m-siteinfo_item_ctrl_office_onefourth_width - $m-siteinfo_item_ctrl_gap - 2) /1;
+
+$m-siteinfo_item_siteurl_label_width = 50px;
+$m-siteinfo_item_siteurl_input_width = $m-siteinfo_item_ctrl_width - $m-siteinfo_item_siteurl_label_width;
+$m-siteinfo_item_customize_language_label_width = 80px;
+$m-siteinfo_item_customize_language_input_width = $m-siteinfo_item_ctrl_width - $m-siteinfo_item_customize_language_label_width - 1.5*$m-siteinfo_item_ctrl_gap;
+$m-siteinfo_item_addsite_button_margin_left = $m-siteinfo_label_width + $m-siteinfo_item_siteurl_label_width + $m-siteinfo_item_margin - $m-siteinfo_item_ctrl_gap;
+
+// Component:       `m-progress`
+// ========================================================================
+
+.m-siteinfo {
+    background: $m-siteinfo_background;
+	outline: #m-siteinfo_border_color solid 1px;
+
+	min-height: $m-siteinfo_height;
+	width: $m-siteinfo_width;
+	margin: 10px auto;
+
+	padding: 20px 40px;
+
+
+	.red{
+		color: red;
+		margin-right: 10px;
+	}
+
+	.gray{
+		background: $m-siteinfo_border_color;
+	}
+}
+
+.m-siteinfo-legend{
+	background: $m-siteinfo_legend_background_color;
+
+	width: 100%;
+	height: 36px;
+	margin-top: 10px;
+
+	> span {
+		text-align: left;
+		line-height: 30px;
+		margin-left: 20px;
+	}
+}
+
+.m-siteinfo-item{
+	margin-top: 20px;
+	.item-label{
+		width: 186px;
+		text-align: right;
+		line-height: 30px;
+		margin-right: 40px;
+
+		> label {
+			@extend .f-fr;
+		}
+
+		@extend .f-fl;
+	}
+
+	> div{
+		> span{
+			line-height: 30px;
+			margin-left: 10px;
+		}
+
+		> input[type="checkbox"]{
+			margin-left: 10px;
+		}
+
+		> input[type="text"]{
+			font-size:16px;
+		}
+	}
+
+	.item-ctrl{
+		width: $m-siteinfo_item_ctrl_width;
+		height: $m-siteinfo_item_height;
+		line-height: $m-siteinfo_item_height;
+
+
+		@extend .f-fl;
+	}
+
+	.item-ctrl-ip{
+		width: $m-siteinfo_item_ctrl_onefourth_width;
+        height: $m-siteinfo_item_height;
+
+        +.item-ctrl-ip{
+            margin-left: $m-siteinfo_item_ctrl_gap;
+        }
+
+        @extend .f-fl;
+	}
+	.item-ctrl-office-onefourth{
+		width: $m-siteinfo_item_ctrl_office_onefourth_width;
+        height: $m-siteinfo_item_height;
+
+        @extend .f-fl;
+	}
+	.item-ctrl-office-threefourth{
+		width: $m-siteinfo_item_ctrl_office_threefourth_width;
+	    height: $m-siteinfo_item_height;
+
+		margin-left: $m-siteinfo_item_ctrl_gap;
+	    @extend .f-fl;
+	}
+	.item-ctrl-customize-language{
+		width: $m-siteinfo_item_customize_language_input_width;
+        height: $m-siteinfo_item_height;
+
+        margin-left: $m-siteinfo_item_ctrl_gap;
+        @extend .f-fr;
+        $clearfix();
+	}
+
+	.item-ctrl-three{
+		width: $m-siteinfo_item_ctrl_onethird_width;
+	    +.item-ctrl-three{
+            margin-left: $m-siteinfo_item_ctrl_gap;
+        }
+		@extend .f-fl;
+	}
+
+	.siteurl-input{
+		width: $m-siteinfo_item_siteurl_input_width;
+	}
+
+
+
+	$clearfix();
+}
+
+
+.language{
+	height: $m-siteinfo_item_height*3;
+}
+
+.m-siteinfo-item3{
+	@extend m-site-info-item;
+}
+
+.siteurl{
+	width: $m-siteinfo_item_siteurl_label_width;
+	display: inline-block;
+	height: $m-siteinfo_item_height;
+	line-height: $m-siteinfo_item_height;
+	@extend .f-fl;
+}
+
+
+
+.languages{
+	> label{
+		width: $m-siteinfo_item_customize_language_label_width;
+		@extend .f-fl;
+	}
+}
+
+.item-ctrl-language-customize{
+	width: $m-siteinfo_item_customize_language_label_width;
+	display: block;
+}
+
+.addsite{
+	border: none;
+	background: transparent;
+	font-size:12px;
+	color:#38ABD0;;
+	line-height:14px;;
+	margin-left: $m-siteinfo_item_addsite_button_margin_left;
+}

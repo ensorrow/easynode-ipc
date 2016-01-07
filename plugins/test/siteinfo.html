@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+<div class="g-hd">
+    <a class="m-logo" href="./index.html"><img src="../assets/logo.png" /><span>ICP备案系统</span></a>
+    <ul class="m-navbar f-fr">
+        <li><a href="#/help"><img src="../assets/help.png"/><span class="help">备案帮助</span></a></li>
+        <li><a href="#/recordlist">备案列表</a></li>
+        <li><a href="#/hrefexit">您好,陈琦,安全退出</a></li>
+    </ul>
+</div>
+<div class="g-bd">
+    <div class="u-goback">
+        <a class="u-goback" href="./index.html"><img src="../assets/return.png" />返回列表</a>
+    </div>
+    <div class="m-progress">
+        <ul class="m-progress-ul">
+            <li>
+                <div class="f-fl">
+                    <div class="step done">1</div>
+                    <span class="describe">基本信息</span>
+                </div>
+                <div class="f-fl arrow">
+                </div>
+            </li>
+            <li>
+                <div class="f-fl">
+                    <div class="step done">2</div>
+                    <span class="describe">填写主体信息</span>
+                </div>
+                <div class="f-fl arrow">
+                </div>
+            </li>
+            <li>
+                <div class="f-fl">
+                    <div class="step doing">3</div>
+                    <span class="describe">填写网站信息</span>
+                </div>
+                <div class="f-fl arrow">
+                </div>
+            </li>
+            <li>
+                <div class="f-fl">
+                    <div class="step do">4</div>
+                    <span class="describe">上传资料</span>
+                </div>
+                <div class="f-fl arrow">
+                </div>
+            </li>
+            <li>
+                <div class="f-fl">
+                    <div class="step do">5</div>
+                    <span class="describe">提交初审</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="m-siteinfo">
+        <form class="">
+            <fieldset>
+                <div class="m-siteinfo-legend"><span>网站基本信息</span></div>
+                <div class="m-siteinfo-item">
+                    <div class="item-label">
+                        <label>网站名称:</label>
+                        <span class="red f-fr">*</span>
+                    </div>
+                    <div>
+                        <input type="text" name="identity" class="item-ctrl">
+                    </div>
+                </div>
+                <div class="m-siteinfo-item">
+                    <div class="item-label">
+                        <label>网站域名:</label>
+                        <span class="red f-fr">*</span>
+                    </div>
+                    <div>
+                        <label class="siteurl">www</label><input type="text" name="identity" class="item-ctrl siteurl-input">
+                    </div>
+                </div>
+                    <input type="button" value="+ 增加网站域名" class="m-siteinfo-item addsite">
+                <div class="m-siteinfo-item">
+                    <div class="item-label">
+                        <label>网站首页URL:</label>
+                        <span class="red f-fr">*</span>
+                    </div>
+                    <div>
+                        <label class="siteurl">http://</label><input type="text" name="identity" class="item-ctrl siteurl-input">
+                    </div>
+                </div>
+                <div class="m-siteinfo-item">
+                    <div class="item-label">
+                        <label>网站服务内容:</label>
+                        <span class="red f-fr">*</span>
+                    </div>
+                    <div>
+                        <select  class="item-ctrl" >
+                            <option value ="volvo">Volvo</option>
+                            <option value ="saab">Saab</option>
+                            <option value="opel">Opel</option>
+                            <option value="audi">Audi</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="m-siteinfo-item language">
+                    <div class="item-label ">
+                        <label>网站语言:</label>
+                        <span class="red f-fr">*</span>
+                    </div>
+                    <div class="item-ctrl f-fl languages">
+                        <label><input type="checkbox" name="1"> <span>中文简体</span></label>
+                        <label><input type="checkbox" name="2"> <span>中文繁体</span></label>
+                        <label><input type="checkbox" name="3"> <span>英语</span></label>
+                        <label><input type="checkbox" name="4"> <span>日语</span></label>
+                        <label><input type="checkbox" name="4"> <span>法语</span></label>
+                        <label><input type="checkbox" name="4"> <span>西班牙语</span></label>
+                        <label><input type="checkbox" name="4"> <span>阿拉伯语</span></label>
+                        <label><input type="checkbox" name="4"> <span>俄罗斯语</span></label>
+                        <label><input type="checkbox" name="4"> <span>自定义:</span></label><input type="text" name="identity" class="item-ctrl-customize-language">
+                     </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="m-siteinfo-legend"><span>网站负责人基本信息</span></div>
+                <div class="m-siteinfo-item">
+                    <div class="item-label">
+                        <label>姓名:</label>
+                        <span class="red f-fr">*</span>
+                    </div>
+                    <div>
+                        <input type="text" name="lpname" class="item-ctrl">
+                    </div>
+                </div>
+                <div class="m-siteinfo-item">
+                    <div class="item-label">
+                        <label>有效证件类型:</label>
+                        <span class="red f-fr">*</span>
+                    </div>
+                    <div>
+                        <select  class="item-ctrl" >
+                            <option value ="volvo">Volvo</option>
+                            <option value ="saab">Saab</option>
+                            <option value="opel">Opel</option>
+                            <option value="audi">Audi</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="m-siteinfo-item">
+                    <div class="item-label">
+                        <label>有效证件号码:</label>
+                        <span class="red f-fr">*</span>
+                    </div>
+                    <div>
+                        <input type="text" name="npidentity" class="item-ctrl"> <span class="u-popover">aaaa</span>
+                    </div>
+                </div>
+                <div class="m-siteinfo-item">
+                    <div class="item-label">
+                        <label>办公室电话:</label>
+                        <span class="red f-fr">*</span>
+                    </div>
+                    <div>
+                        <input type="text" name="officerphone" class="item-ctrl-office-onefourth">
+                        <input type="text" name="officerphone" class="item-ctrl-office-threefourth">
+                    </div>
+                </div>
+                <div class="m-siteinfo-item">
+                    <div class="item-label">
+                        <label>手机号码:</label>
+                        <span class="red f-fr">*</span>
+                    </div>
+                    <div>
+                        <input type="text" name="mobilephone" class="item-ctrl">
+                    </div>
+                </div>
+                <div class="m-siteinfo-item">
+                    <div class="item-label">
+                        <label>电子邮箱:</label>
+                        <span class="red f-fr">*</span>
+                    </div>
+                    <div>
+                        <input type="text" name="email" class="item-ctrl">
+                    </div>
+                </div>
+                <div class="m-siteinfo-item">
+                    <div class="item-label">
+                        <label>QQ帐号:</label>
+                        <span class="red f-fr">*</span>
+                    </div>
+                    <div>
+                        <input type="text" name="email" class="item-ctrl">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="m-siteinfo-legend"><span>ICP备案接入信息</span></div>
+                <div class="m-siteinfo-item">
+                    <div class="item-label">
+                        <label>ISP名称:</label>
+                        <span class="red f-fr">*</span>
+                    </div>
+                    <div>
+                        <input type="text" name="lpname" class="item-ctrl  gray" value="杭州网易雷火科技有限公司" disabled="true">
+                    </div>
+                </div>
+                <div class="m-siteinfo-item">
+                    <div class="item-label">
+                        <label>网站IP地址:</label>
+                        <span class="red f-fr">*</span>
+                    </div>
+                    <div>
+                        <input type="text" name="npidentity" class="item-ctrl-ip">
+                        <input type="text" name="npidentity" class="item-ctrl-ip">
+                        <input type="text" name="npidentity" class="item-ctrl-ip">
+                        <input type="text" name="npidentity" class="item-ctrl-ip">
+                    </div>
+                </div>
+                <div class="m-siteinfo-item">
+                    <div class="item-label">
+                        <label>网站接入方式:</label>
+                        <span class="red f-fr">*</span>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="专线"><span>专线</span>
+                        <input type="checkbox" name="主机托管"><span>主机托管</span>
+                        <input type="checkbox" name="虚拟主机"><span>虚拟主机</span>
+                        <input type="checkbox" name="其他"><span>其他</span>
+                    </div>
+                </div>
+                <div class="m-siteinfo-item">
+                    <div class="item-label">
+                        <label>服务器放置地:</label>
+                        <span class="red f-fr">*</span>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="HZ1" checked="checked"><span>HZ1</span>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="w-btn">
+        <button class="u-return" type="button"><a href="#/returntobase">返回修改</a></button>
+        <button class="u-main" type="button"><a href="#/fillsiteinfo">上传资料</a></button>
+        <button class="u-draft" type="button"><a href="#/savetodraft">保存草稿</a></button>
+    </div>
+</div>
+<div class="g-ft">
+    <footer class="m-footer">
+        <span>©1997-2014 网易公司版权所有</span>
+    </footer>
+</div>
+</body>
+</html>
+
