@@ -28,6 +28,9 @@ $reset-nec();
 @import "./icp/module/siteinfo.mcss";
 @import "./icp/module/submittrialsuccess.mcss";
 @import "./icp/module/uploadmaterial.mcss";
+@import "./icp/module/uploadphoto.mcss";
+@import "./icp/module/applycurtain.mcss";
+@import "./icp/module/recordinfo.mcss";
 @import "./icp/unit/goback.mcss";
 @import "./icp/unit/popover.mcss";
 

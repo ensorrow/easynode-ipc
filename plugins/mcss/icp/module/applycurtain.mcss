@@ -1,0 +1,136 @@
+// Name:            上传资料
+// Description:     UploadMaterial
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+@import "../../core/module/applycurtain.mcss";
+
+// Varibles:
+// ========================================================================
+
+$m-applycurtain_header_height = 50px;
+$m-applycurtain_item_ctrl_gap = 5px;
+$m-applycurtain_item_label_width = 112px;
+$m-applycurtain_ctrl_width = $m-applycurtain_width - $m-applycurtain_item_label_width;
+$m-applycurtain_ctrl__onethird_width = 120px;
+
+// Component:       `m-applycurtain`
+// ========================================================================
+
+
+.m-applycurtain {
+	outline: #F8F8F8 solid 1px;
+}
+
+
+.m-applycurtain-header{
+	width: 	auto;
+	height: $m-applycurtain_header_height;
+	background:#F5F5F5;
+
+	line-height: $m-applycurtain_header_height;
+
+	padding: 1px 10px 1px 10px;
+
+	> label {
+		font-family:MicrosoftYaHei;
+        font-size:14px;
+        color:#666666;;
+        line-height:14px;
+   }
+   > img {
+        @extend .f-fr;
+        margin-top: 15px;
+   }
+}
+
+.m-applycurtain-bd{
+	width: auto;
+
+	padding: 20px 20px;
+
+	.m-applycurtain-bd-tip{
+		background:#FFE0B3;
+		height:36px;
+		> img{
+			margin-left: 10px;
+		}
+		> label{
+			font-family:MicrosoftYaHei;
+	        font-size:12px;
+	        color:#F19149;
+	        height: 36px;
+	        line-height:36px;
+	        margin-left: 5px;
+		}
+	}
+
+	.m-applycurtain-item{
+
+    	margin-top: 20px;
+
+    	.m-applycurtain-item-label{
+    		width: $m-applycurtain_item_label_width;
+    		text-align: right;
+    		margin-top: 5px;
+    		> span {
+    		    color: red;
+    		}
+    		@extend .f-fl;
+    	}
+    	.m-applycurtain-item-ctrl{
+    	    margin-left: 10px;
+			> select{
+				height: 32px;
+				margin-bottom: 10px;
+			}
+    	    > input[type="text"]{
+    	        margin-left: 5px;
+    	        width: 375px;
+    	        height: 30px;
+                display: block;
+                font-size: 16px;
+            }
+			.small-font{
+				font-size: 12px;
+			}
+
+
+			.u-commit{
+			    background: #69A9CC;
+			    font-size: 14px;
+			    width: 80px;
+			    height: 28px;
+			    margin-left: 60px;
+
+			    > a {
+			        color: white;
+			    }
+			}
+
+			.u-cancel{
+			    border: none;
+			    background: transparent;
+			    font-size: 14px;
+			    width: 80px;
+			    height: 28px;
+			}
+
+    		@extend .f-fl;
+    	}
+
+    	.m-applycurtain-item-ctrl-three{
+    	    width: $m-applycurtain_ctrl__onethird_width;
+            margin-left: $m-applycurtain_item_ctrl_gap;
+
+        }
+
+
+    	$clearfix();
+    }
+}
+
+
+.m-applycurtain-ft{
+	width: auato;
+}

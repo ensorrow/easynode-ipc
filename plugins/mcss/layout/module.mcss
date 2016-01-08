@@ -15,6 +15,10 @@
     height:38px;
     background: #69A9CC;
     font-size: 14px;
+
+    > a {
+        color: white;
+    }
 }
 
 .u-return{

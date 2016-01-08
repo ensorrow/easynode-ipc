@@ -117,3 +117,9 @@ cd ..; webpack-dev-server --content-base plugins
 27. 相差一个像素是小数点的缘故( 350-15*3 - 2*4)/4 , border-width=2
 
 28. Mac chrome浏览器下, select 设置高度无效,要先设置下border: 1px solid #
+
+29.  psd-> sketch(marketch plugin)->html
+    psd->svg(Affinity design)
+* Affinity Design
+Affinity Designer是一款专业的设计绘图工具，适用于苹果操作系统，主要用于矢量图形的绘制，适用于图标、UI 设计、网站设计、宣传素材等图像的制作，具有较强的易用性，操作也十分方便
+

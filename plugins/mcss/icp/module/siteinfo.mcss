@@ -197,9 +197,6 @@ $m-siteinfo_item_addsite_button_margin_left = $m-siteinfo_label_width + $m-sitei
 	display: block;
 }
 
-.select{
-	border: 1px solid #ddd;
-}
 
 .addsite{
 	border: none;
