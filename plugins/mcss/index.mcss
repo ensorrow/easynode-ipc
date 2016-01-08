@@ -31,6 +31,7 @@ $reset-nec();
 @import "./icp/module/uploadphoto.mcss";
 @import "./icp/module/applycurtain.mcss";
 @import "./icp/module/recordinfo.mcss";
+@import "./icp/module/login.mcss";
 @import "./icp/unit/goback.mcss";
 @import "./icp/unit/popover.mcss";
 

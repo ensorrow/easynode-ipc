@@ -1,0 +1,81 @@
+// Name:            登录
+// Description:     Login
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+@import "../../core/module/login.mcss";
+
+// Varibles:
+// ========================================================================
+
+// Component:       `m-login`
+// ========================================================================
+
+.m-login {
+	.m-login-hd{
+		width: auto;
+		height: 64px;
+		line-height: 64px;
+		background:#F5F5F5;
+		padding: 1px 10px 1px 10px;
+
+		> label {
+            font-family:MicrosoftYaHei;
+            font-size:14px;
+            color:#666666;;
+            line-height:14px;
+       }
+       > img {
+            @extend .f-fr;
+            margin-top: 20px;
+       }
+	}
+
+	.m-login-bd{
+		border-top: 1px solid #555555;
+
+		padding: 20px 40px;
+		.login-type{
+
+			height: 50px;
+
+			margin-top: 20px;
+			text-align: center;
+			> li {
+				display: inline-block;
+				width: 162px;
+                height: 20px;
+                line-height: 20px;
+                font-size: 18px;
+                color: #999;
+                cursor: pointer;
+
+                .active{
+                    color: #22b2e6;
+                    font-size: 20px;
+                }
+            }
+
+            > li:first-child {
+                border-right: 2px solid #a9a9af;
+            }
+		}
+
+		> input[type="text"]{
+			width: 320px;
+			height: 40px;
+			margin-top: 20px;
+			background: #fafec0;
+			font-size: 18px;
+		}
+
+		> button {
+			width: 320px;
+			height: 40px;
+			font-size: 20px;
+			margin-top: 20px;
+			color: white;
+			background: #2eb2e3;
+		}
+	}
+}
