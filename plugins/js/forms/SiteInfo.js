@@ -14,103 +14,205 @@ var Button = ReactUI.Button;
 var FormSubmit = ReactUI.FormSubmit;
 var CheckboxGroup = ReactUI.CheckboxGroup;
 
+import ReturnWidget from '../widgets/ReturnWidget.jsx';
 import ProgressBar from './ProgressBar.jsx';
 
 let SiteInfo = React.createClass({
     render: function () {
         return (
             <div>
+                <ReturnWidget/>
                 <ProgressBar/>
-                <div>
-                    <Form layout="aligned" onSubmit={data => console.log(data)}>
-                        <div>
-                            <p>网站基本信息</p>
-                        </div>
-                        <div>
-                            <p>网站名称:</p>
-                            <FormControl required={true} type="text" min={2} max={10}/>
-                        </div>
-                        <div>
-                            <p>网站域名:</p>
-                            <p>www.</p>
-                            <FormControl required={true} type="text" min={2} max={10}/>
-                            <div>
-                                <Button className="w-btn button-large">+增加网站域名</Button>
+                <div className="m-siteinfo">
+                    <form className="">
+                        <fieldset>
+                            <div className="m-siteinfo-legend"><span>网站基本信息</span></div>
+                            <div className="m-siteinfo-item">
+                                <div className="item-label">
+                                    <label>网站名称:</label>
+                                    <span className="red f-fr">*</span>
+                                </div>
+                                <div>
+                                    <input type="text" name="identity" className="item-ctrl"/>
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <p>网站首页URL:</p>
-                            <p>http://</p>
-                            <FormControl type="url" />
-                        </div>
-                        <div>
-                            <p>网站服务内容:</p>
-                            <FormControl width={24} type="select" required={true} data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} filterAble={false} mult={false} min={1} max={1} />
-                        </div>
-                        <div>
-                            <p>网站语言:</p>
-                            <CheckboxGroup inline={true} data={[
-                                  { "id": "nanjing", "text": "中文" },
-                                  { "id": "beijing", "text": "英文" }
-                                ]} />
-                        </div>
-                        <div>
-                            <p>网站负责人基本信息:</p>
-                        </div>
-                        <div>
-                            <p>姓名:</p>
-                            <FormControl type="text" required={true} min={2} max={10} />
-                        </div>
-                        <div>
-                            <p>有效证件类型:</p>
-                            <FormControl width={24} type="select" required={true} data={["身份证", "护照", "军官证", "台胞证"]} filterAble={false} mult={false} min={1} max={1} />
-                        </div>
-                        <div>
-                            <p>有效证件号码:</p>
-                            <FormControl type="text" required={true} min={2} max={10} />
-                        </div>
-                        <div>
-                            <p>办公定电话:</p>
-                            <FormControl type="text" required={true} min={2} max={10} />
-                            <p>---</p>
-                            <FormControl type="text" required={true} min={2} max={10} />
-                        </div>
-                        <div>
-                            <p>手机号码:</p>
-                            <FormControl type="text" required={true} min={2} max={10} />
-                        </div>
-                        <div>
-                            <p>电子邮箱:</p>
-                            <FormControl type="text" required={true} min={2} max={10} />
-                        </div>
-                        <div>
-                            <p>QQ账号:</p>
-                            <FormControl type="text" required={true} min={2} max={10} />
-                        </div>
+                            <div className="m-siteinfo-item">
+                                <div className="item-label">
+                                    <label>网站域名:</label>
+                                    <span className="red f-fr">*</span>
+                                </div>
+                                <div>
+                                    <label className="siteurl">www</label><input type="text" name="identity" className="item-ctrl siteurl-input"/>
+                                </div>
+                            </div>
+                            <input type="button" value="+ 增加网站域名" className="m-siteinfo-item addsite"/>
+                                <div className="m-siteinfo-item">
+                                    <div className="item-label">
+                                        <label>网站首页URL:</label>
+                                        <span className="red f-fr">*</span>
+                                    </div>
+                                    <div>
+                                        <label className="siteurl">http://</label><input type="text" name="identity" className="item-ctrl siteurl-input"/>
+                                    </div>
+                                </div>
+                                <div className="m-siteinfo-item">
+                                    <div className="item-label">
+                                        <label>网站服务内容:</label>
+                                        <span className="red f-fr">*</span>
+                                    </div>
+                                    <div>
+                                        <select  className="item-ctrl" >
+                                            <option value ="volvo">Volvo</option>
+                                            <option value ="saab">Saab</option>
+                                            <option value="opel">Opel</option>
+                                            <option value="audi">Audi</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="m-siteinfo-item language">
+                                    <div className="item-label ">
+                                        <label>网站语言:</label>
+                                        <span className="red f-fr">*</span>
+                                    </div>
+                                    <div className="item-ctrl f-fl languages">
+                                        <label><input type="checkbox" name="1"/> <span>中文简体</span></label>
+                                        <label><input type="checkbox" name="2"/> <span>中文繁体</span></label>
+                                        <label><input type="checkbox" name="3"/> <span>英语</span></label>
+                                        <label><input type="checkbox" name="4"/> <span>日语</span></label>
+                                        <label><input type="checkbox" name="4"/> <span>法语</span></label>
+                                        <label><input type="checkbox" name="4"/> <span>西班牙语</span></label>
+                                        <label><input type="checkbox" name="4"/> <span>阿拉伯语</span></label>
+                                        <label><input type="checkbox" name="4"/> <span>俄罗斯语</span></label>
+                                        <label><input type="checkbox" name="4"/> <span>自定义:</span></label><input type="text" name="identity" className="item-ctrl-customize-language"/>
+                                    </div>
+                                </div>
+                        </fieldset>
 
-                        <div>
-                            <p>ICP备案网站接入信息</p>
-                        </div>
-                        <div>
-                            <p>ISP名称:</p>
-                            <FormControl type="text" required={true} min={2} max={10} />
-                        </div>
-                        <div>
-                            <p>网站IP地址:</p>
-                            <FormControl type="text" required={true} min={2} max={10} />
-                        </div>
-                        <div>
-                            <p>网站接入方式:</p>
-                            <FormControl name="checkboxgroup" data={["专线","主机托管","虚拟主机","其它"]} label="checkbox group" type="checkbox-group" />
-                        </div>
-                        <div>
-                            <p>服务器放置地:</p>
-                            <FormControl name="checkboxgroup" data={["HZ1"]} label="checkbox group" type="checkbox-group" />
-                        </div>
-                    </Form>
-                    <Button className="w-btn button-large"><Link to="/returntobase">返回修改</Link></Button>
-                    <Button className="w-btn u-main"><Link to="/uploadmaterial">上传资料</Link></Button>
-                    <Button className="w-btn u-draft"><Link to="/returntobase">保存草稿</Link></Button>
+                        <fieldset>
+                            <div className="m-siteinfo-legend"><span>网站负责人基本信息</span></div>
+                            <div className="m-siteinfo-item">
+                                <div className="item-label">
+                                    <label>姓名:</label>
+                                    <span className="red f-fr">*</span>
+                                </div>
+                                <div>
+                                    <input type="text" name="lpname" className="item-ctrl"/>
+                                </div>
+                            </div>
+                            <div className="m-siteinfo-item">
+                                <div className="item-label">
+                                    <label>有效证件类型:</label>
+                                    <span className="red f-fr">*</span>
+                                </div>
+                                <div>
+                                    <select  className="item-ctrl" >
+                                        <option value ="volvo">Volvo</option>
+                                        <option value ="saab">Saab</option>
+                                        <option value="opel">Opel</option>
+                                        <option value="audi">Audi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="m-siteinfo-item">
+                                <div className="item-label">
+                                    <label>有效证件号码:</label>
+                                    <span className="red f-fr">*</span>
+                                </div>
+                                <div>
+                                    <input type="text" name="npidentity" className="item-ctrl"/> <span className="u-popover">aaaa</span>
+                                </div>
+                            </div>
+                            <div className="m-siteinfo-item">
+                                <div className="item-label">
+                                    <label>办公室电话:</label>
+                                    <span className="red f-fr">*</span>
+                                </div>
+                                <div>
+                                    <input type="text" name="officerphone" className="item-ctrl-office-onefourth"/>
+                                    <input type="text" name="officerphone" className="item-ctrl-office-threefourth"/>
+                                </div>
+                            </div>
+                            <div className="m-siteinfo-item">
+                                <div className="item-label">
+                                    <label>手机号码:</label>
+                                    <span className="red f-fr">*</span>
+                                </div>
+                                <div>
+                                    <input type="text" name="mobilephone" className="item-ctrl"/>
+                                </div>
+                            </div>
+                            <div className="m-siteinfo-item">
+                                <div className="item-label">
+                                    <label>电子邮箱:</label>
+                                    <span className="red f-fr">*</span>
+                                </div>
+                                <div>
+                                    <input type="text" name="email" className="item-ctrl"/>
+                                </div>
+                            </div>
+                            <div className="m-siteinfo-item">
+                                <div className="item-label">
+                                    <label>QQ帐号:</label>
+                                    <span className="red f-fr">*</span>
+                                </div>
+                                <div>
+                                    <input type="text" name="email" className="item-ctrl"/>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <div className="m-siteinfo-legend"><span>ICP备案接入信息</span></div>
+                            <div className="m-siteinfo-item">
+                                <div className="item-label">
+                                    <label>ISP名称:</label>
+                                    <span className="red f-fr">*</span>
+                                </div>
+                                <div>
+                                    <input type="text" name="lpname" className="item-ctrl  gray" value="杭州网易雷火科技有限公司" disabled="true"/>
+                                </div>
+                            </div>
+                            <div className="m-siteinfo-item">
+                                <div className="item-label">
+                                    <label>网站IP地址:</label>
+                                    <span className="red f-fr">*</span>
+                                </div>
+                                <div>
+                                    <input type="text" name="npidentity" className="item-ctrl-ip"/>
+                                    <input type="text" name="npidentity" className="item-ctrl-ip"/>
+                                    <input type="text" name="npidentity" className="item-ctrl-ip"/>
+                                    <input type="text" name="npidentity" className="item-ctrl-ip"/>
+                                </div>
+                            </div>
+                            <div className="m-siteinfo-item">
+                                <div className="item-label">
+                                    <label>网站接入方式:</label>
+                                    <span className="red f-fr">*</span>
+                                </div>
+                                <div>
+                                    <input type="checkbox" name="专线"/><span>专线</span>
+                                    <input type="checkbox" name="主机托管"/><span>主机托管</span>
+                                    <input type="checkbox" name="虚拟主机"/><span>虚拟主机</span>
+                                    <input type="checkbox" name="其他"/><span>其他</span>
+                                </div>
+                            </div>
+                            <div className="m-siteinfo-item">
+                                <div className="item-label">
+                                    <label>服务器放置地:</label>
+                                    <span className="red f-fr">*</span>
+                                </div>
+                                <div>
+                                    <input type="checkbox" name="HZ1" checked="checked"/><span>HZ1</span>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+
+                <div className="w-btn">
+                    <button className="u-return" type="button"><a href="#/returntobase">返回修改</a></button>
+                    <button className="u-main" type="button"><a href="#/uploadmaterial">上传资料</a></button>
+                    <button className="u-draft" type="button"><a href="#/savetodraft">保存草稿</a></button>
                 </div>
             </div>
         );

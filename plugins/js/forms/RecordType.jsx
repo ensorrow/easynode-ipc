@@ -23,8 +23,8 @@ let RecordType = React.createClass({
                         <span className="red">* </span><span>备案类型:</span>
                     </div>
 
-                    <ul className="select-list">
-                        <li className="item">
+                    <ul className="ul-items">
+                        <li className="item selected">
                             <div className="item-icon">
                                 <img src="../assets/first.png" alt=""/>
                                 <span className="title">首次备案</span>
@@ -42,21 +42,20 @@ let RecordType = React.createClass({
                         <li className="item">
                             <div className="item-icon">
                                 <img src="../assets/import.png" alt=""/>
-                                    <span className="title">新增接入</span>
+                                <span className="title">新增接入</span>
                             </div>
                             <span className="item-describe">域名在别的接入商备案过,需要变更接入商.</span>
                         </li>
                     </ul>
                 </div>
 
-                <div className="clear"></div>
 
-                <div className="recordarean">
+                <div className="recordarea">
                     <div className="area">
                         <span className="red">* </span><span>主机区域:</span>
                     </div>
 
-                    <ul className="select-list">
+                    <ul className="ul-items">
                         <li className="item-2">
                             <span className="title">HZ1</span>
                         </li>

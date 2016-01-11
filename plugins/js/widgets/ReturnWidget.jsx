@@ -17,12 +17,11 @@ var FormSubmit = ReactUI.FormSubmit;
 let ReturnWidget = React.createClass({
     render: function () {
         return (
-            <div className="g-bd-return">
-                <a className="m-return" href="./index.html"><img src="../assets/return.png" />返回列表</a>
+            <div className="u-goback">
+                <a className="u-goback" href="./index.html"><img src="../assets/return.png" />返回列表</a>
             </div>
         );
     }
 });
-
 
 module.exports = ReturnWidget;

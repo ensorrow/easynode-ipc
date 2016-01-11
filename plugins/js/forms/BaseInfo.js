@@ -22,16 +22,20 @@ import ProgressBar from './ProgressBar.jsx';
 let BaseInfo = React.createClass({
     render: function () {
         return (
-            <div className="g-bd">
+            <div classNameName="g-bd">
                 <ReturnWidget/>
-                <div className="g-bdc">
+                <div classNameName="g-bdc">
                     <ProgressBar/>
                     <RecordType/>
-
+                    <div className="w-btn">
+                        <button className="u-main" type="button"><a href="#/fillcompanyinfo">开始填写主体信息</a></button>
+                        <button className="u-draft" type="button"><a href="#/savetodraft">保存草稿</a></button>
+                    </div>
                 </div>
             </div>
         );
     }
 });
+
 
 module.exports = BaseInfo;
