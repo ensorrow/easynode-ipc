@@ -28,7 +28,7 @@ let SubmitTrialSuccess = React.createClass({
                     <div className="tip">
                         <p className="tip-header">备案信息提交成功,初审需要1-2个工作日,请耐心等待!</p>
                         <div>
-                            <p className="tip-bd">备案订单号: Icqrq-qtk5v123</p><input type="button" value="查看备案详请" className="tip-button-detail"/>
+                            <p className="tip-bd">备案订单号: Icqrq-qtk5v123</p><input type="button" value="查看备案详请" className="tip-button-detail"/><a href="#/reviewrecorddetail">查看备案详请</a>
                         </div>
                         <div>
                             <p className="tip-footer">审核通过后将有邮件通知,请及时查收邮件!</p>

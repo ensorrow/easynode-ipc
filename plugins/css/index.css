@@ -274,6 +274,18 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-login .m-login-bd .login-type >li:first-child{border-right:2px solid #a9a9af;}
 .m-login .m-login-bd >input[type="text"]{width:320px;height:40px;margin-top:20px;background:#fafec0;font-size:18px;}
 .m-login .m-login-bd >button{width:320px;height:40px;font-size:20px;margin-top:20px;color:#fff;background:#2eb2e3;}
+.m-recordlist{background:#ddd;}
+.m-recordlist{width:992px;min-height:480px;outline:#m-recordlist_border_color solid 1px;background:#f7f7f7;margin:10px auto;}
+.m-recordlist .m-recordlist-table{width:992px;min-height:480px;background:#fff;}
+.m-recordlist .u-recordapply{width:140px;height:36px;line-height:36px;text-align:center;background:#69a9cc;}
+table.gridtable{width:990px;font-family:MicrosoftYaHei;font-size:11px;border-width:1px;border-color:#666;border-collapse:collapse;color:#888;line-height:14px;}
+table.gridtable th{border-width:1px;padding:8px;border-style:solid;border-color:#666;background-color:#dedede;}
+table.gridtable td{border-width:1px;padding:8px;border-style:solid;border-color:#666;background-color:#fff;}
+table.gridtable td >a{font-family:MicrosoftYaHei;font-size:10.6px;color:#38abd0;line-height:14px;}
+.draft{color:#808080;}
+.nopass{color:#d92b3a;}
+.passed{color:#6e9917;}
+.checking{color:#cfa972;}
 .u-goback{background:#fff;position:static;padding-left:20px;height:54px;line-height:54px;}
 .u-popover{background-color:#fff;padding:0 10px;line-height:96px;height:96px;display:inline-block;color:#fc7272;white-space:nowrap;position:relative;z-index:1;border:1px solid #fc7272;border-radius:2px;font-size:12px;left:0px;top:0px;}
 .u-popover:before{position:absolute;top:7px;left:-3px;z-index:1;content:"";width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-right:4px solid #fff;}

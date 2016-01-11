@@ -19,49 +19,80 @@ import ProgressBar from './ProgressBar.jsx';
 let ApplyCurtain = React.createClass({
     render: function () {
         return (
-            <div>
-                <p>申请幕布</p>
-                <div>
-                    <Form layout="aligned" onSubmit={data => console.log(data)}>
-                        <div>
-                            <p>幕布邮寄地址:</p>
+            <div className="m-applycurtain">
+                <div className="m-applycurtain-header"><label>申请幕布</label><img src="../assets/close.png"></img></div>
+                <div className="m-applycurtain-bd">
+                    <div className="m-applycurtain-bd-tip">
+                        <img src="../assets/yellowexclamationmark.png"></img>
+                        <label>提交申请后，我们将尽快寄出幕布，您收到后也请及时拍照并上传。</label>
+                    </div>
+                    <div className="m-applycurtain-item">
+                        <div className="m-applycurtain-item-label">
+                            <span>*</span> <label>幕布邮寄地址:</label>
                         </div>
-                        <div>
-                            <FormControl width={24} type="select" required={true} data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} filterAble={false} mult={false} min={1} max={1} />
+                        <div className="m-applycurtain-item-ctrl">
+                            <select className="m-applycurtain-item-ctrl-three">
+                                <option value ="volvo">Volvo</option>
+                                <option value ="saab">Saab</option>
+                                <option value="opel">Opel</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                            <select className="m-applycurtain-item-ctrl-three">
+                                <option value ="volvo">Volvo</option>
+                                <option value ="saab">Saab</option>
+                                <option value="opel">Opel</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                            <select className="m-applycurtain-item-ctrl-three">
+                                <option value ="volvo">Volvo</option>
+                                <option value ="saab">Saab</option>
+                                <option value="opel">Opel</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                            <input type="text" name="identity" placeholder="详细地址"/>
                         </div>
-                        <div>
-                            <FormControl width={24} type="select" required={true} data={["杭州", "宁波", "温州"]} filterAble={false} mult={false} min={1} max={1} />
+                    </div>
+                    <div className="m-applycurtain-item">
+                        <div className="m-applycurtain-item-label">
+                            <span>*</span> <label>收件人姓名:</label>
                         </div>
-                        <div>
-                            <FormControl width={24} type="select" required={true} data={["滨江区", "西湖区", "上城区"]} filterAble={false} mult={false} min={1} max={1} />
+                        <div className="m-applycurtain-item-ctrl">
+                            <input type="text" name="identity"/>
                         </div>
-                        <div>
-                            <Input
-                                id={"id"}
-                                type={"text"}        // text, email, alpha, alphanum, password, url, textarea, number, integer
-                                placeholder={"address detail"} // 占位提示文字
-                                readOnly={false}      // 只读，默认为 false
-                                rows={1}           // 当 type 为 textarea 时需要设置
-                            />
+                    </div>
+                    <div className="m-applycurtain-item">
+                        <div className="m-applycurtain-item-label">
+                            <span>*</span> <label>收件人手机号:</label>
                         </div>
-                        <div>
-                            <p>收件人姓名:</p>
-                            <FormControl type="text" required={true} min={2} max={10} />
+                        <div className="m-applycurtain-item-ctrl">
+                            <input type="text" name="identity"/>
                         </div>
-                        <div>
-                            <p>收件人手机号码:</p>
-                            <FormControl type="text" required={true} min={2} max={10} />
+                    </div>
+                    <div className="m-applycurtain-item">
+                        <div className="m-applycurtain-item-label">
+                            <span>*</span> <label>公司名称:</label>
                         </div>
-                        <div>
-                            <p>公司名称:</p>
-                            <FormControl type="text" required={true} min={2} max={10} />
+                        <div className="m-applycurtain-item-ctrl">
+                            <input type="text" name="identity"/>
                         </div>
-                        <div>
-                            <Checkbox checked={true} readOnly={true} text="同意ICP备案系统快递供应商可以获取如上联系信息邮寄幕布" />
+                    </div>
+                    <div className="m-applycurtain-item">
+                        <div className="m-applycurtain-item-label">
+
                         </div>
-                    </Form>
-                    <Button className="w-btn button-large">提交申请</Button>
-                    <Button className="w-btn u-main">取消</Button>
+                        <div className="m-applycurtain-item-ctrl">
+                            <label><input type="checkbox" name="1" checked="true" className=""/> <span className="small-font">同意ICP备案系统快递供应商可以获取如上联系信息邮寄幕布</span></label>
+                        </div>
+                    </div>
+                    <div className="m-applycurtain-item">
+                        <div className="m-applycurtain-item-label">
+
+                        </div>
+                        <div className="m-applycurtain-item-ctrl">
+                            <button className="u-commit" type="button"><a href="#/returntobase">提交申请</a></button>
+                            <button className="u-cancel" type="button"><a href="#/fillsiteinfo">取消</a></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

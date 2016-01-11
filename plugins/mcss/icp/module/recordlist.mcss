@@ -1,0 +1,96 @@
+// Name:            备案列表
+// Description:     RecordList
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+@import "../../core/module/recordlist.mcss";
+
+// Varibles:
+// ========================================================================
+
+$m-recordlist_height = 480px;
+$m-recordlist_width =  992px;
+$m-recordlist_background_table = #FFFFFF;
+$m-recordlist_background = #F7F7F7;
+
+
+$m-recordlist_recordapply_btn_background =  #69A9CC;
+
+// Component:       `m-progress`
+// ========================================================================
+
+.m-recordlist {
+	width: $m-recordlist_width;
+    min-height: $m-recordlist_height;
+
+	outline: #m-recordlist_border_color solid 1px;
+	background: $m-recordlist_background;
+
+	margin: 10px auto;
+
+	.m-recordlist-table{
+	    width: $m-recordlist_width;
+        min-height: $m-recordlist_height;
+		background: $m-recordlist_background_table;
+	}
+
+	.u-recordapply{
+		width: 140px;
+		height: 36px;
+		line-height: 36px;
+		text-align: center;
+		background: $m-recordlist_recordapply_btn_background;
+	}
+
+
+}
+
+table.gridtable {
+	width: 990px;
+	font-family:MicrosoftYaHei;
+	font-size:11px;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+    color:#888888;;
+    line-height:14px;
+}
+
+table.gridtable th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #dedede;
+}
+
+table.gridtable td {
+
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+
+	> a {
+		font-family:MicrosoftYaHei;
+	    font-size:10.6px;
+	    color:#38ABD0;;
+	    line-height:14px;
+	}
+
+
+}
+
+.draft{
+	color: grey;
+}
+.nopass{
+	color: #D92B3A;
+}
+.passed{
+	color: #6E9917;
+}
+.checking{
+   color: #CFA972;;
+}

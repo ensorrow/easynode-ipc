@@ -17,7 +17,7 @@ var Filter = ReactUI.Filter;
 var Pagination = ReactUI.Pagination;
 
 import records from '../mocks/records';
-
+import ReturnWidget from '../widgets/ReturnWidget.jsx';
 
 let Operation = React.createClass({
     propTypes:{
@@ -104,12 +104,23 @@ let Record = React.createClass({
                      prg == 7 ? '通管局审核中' :
                      prg == 8 ? '通管局审核未通过' :
                      prg == 9 ? '通管局审核已通过' : "未知状态";
+        var status = prg == 0 ? 'draft' :
+                    prg == 1 ? 'checking' :
+                    prg == 2 ? 'nopass':
+                    prg == 3 ? 'passed' :
+                    prg == 4 ? 'checking' :
+                    prg == 5 ? 'nopass' :
+                    prg == 6 ? 'passed' :
+                    prg == 7 ? 'checking' :
+                    prg == 8 ? 'nopass' :
+                    prg == 9 ? 'passed' : "draft";
        return (
             <tbody>
                <tr>
+               <td> IspBA12323123 </td>
                <td> {typeStr}</td>
                <td> {this.props.record.area} </td>
-               <td> {prgStr} </td>
+               <td className={status}> {prgStr} </td>
                <td> {this.props.record.createTime} </td>
                <Operation key={this.props.record.id} record={this.props.record}/>
                </tr>
@@ -122,20 +133,23 @@ let RecordList = React.createClass({
     render: function () {
         return (
             <div>
-                <Button>备案申请</Button>
-                <table>
-                    <thead>
-                        <tr>
-                        <th>申请ID</th>
-                        <th>类型</th>
-                        <th>主机所在区域</th>
-                        <th>进展</th>
-                        <th>创建时间</th>
-                        <th>操作</th>
-                        </tr>
-                    </thead>
-                    {this.renderRecords()}
-                </table>
+                <ReturnWidget/>
+                <div className="m-recordlist">
+                    <Button>备案申请</Button>
+                    <table className="gridtable">
+                        <thead>
+                            <tr>
+                            <th>申请ID</th>
+                            <th>类型</th>
+                            <th>主机所在区域</th>
+                            <th>进展</th>
+                            <th>创建时间</th>
+                            <th>操作</th>
+                            </tr>
+                        </thead>
+                        {this.renderRecords()}
+                    </table>
+                </div>
             </div>
         );
     },
