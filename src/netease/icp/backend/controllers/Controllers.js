@@ -43,6 +43,11 @@ var thunkify = require('thunkify');
          * */
         static home(app){
             return function *(){
+                console.log("11");
+                console.log( this.parameter );
+                console.log( this.body );
+                console.log( this.query );
+
                 yield this.render('index',{});
             }
         }
@@ -64,6 +69,24 @@ var thunkify = require('thunkify');
                     {"author": "Pete Hunt", "text": "This is one comment"},
                     {"author": "Jordan Walke", "text": "This is *another* comment"}
                 ];
+            }
+        }
+
+        static loginCallback(app){
+            return function *(){
+                console.log("tenantId",this.query.tenantId);
+                console.log("expire",new Date(parseInt(this.query.expire)));
+                console.log("status",this.query.status);
+                console.log("regIn",this.query.NCE);
+                console.log("persist",this.query.persist);
+                console.log("code",this.query.code);
+                console.log("loginType",this.query.loginType);
+                console.log("sign",this.query.sign);
+                console.log("category",this.query.category);
+                console.log("email",this.query.email);
+                console.log("callback",this.query.callback);
+                console.log("userName",this.query.userName);
+                yield this.render('index',{user:this.query});
             }
         }
 

@@ -33,9 +33,9 @@ export default{
             path: '/',
             getComponent: (location,cb) => {
                 if(!auth.loggedIn()){
-                    console.log("loggedIn ");
+                    console.log("loggedIn 2");
                     return require.ensure([],(require)=>{
-                            cb(null,require('./Footer'));
+                            cb(null,require('./forms/Login.jsx'))
                         });
                 }
                 return require.ensure([],(require) =>{

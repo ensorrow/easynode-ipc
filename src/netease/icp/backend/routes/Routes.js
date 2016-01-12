@@ -45,6 +45,7 @@ import Controllers from '../controllers/Controllers';
         {
             httpServer.addRoute('get', '/', Controllers.home(httpServer));
             httpServer.addRoute('post','/api/comments.json',Controllers.comment(httpServer));
+            httpServer.addRoute('get','/login/callback',Controllers.loginCallback(httpServer));
         }
 
         getClassName()

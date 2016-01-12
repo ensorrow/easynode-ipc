@@ -123,3 +123,18 @@ cd ..; webpack-dev-server --content-base plugins
 * Affinity Design
 Affinity Designer是一款专业的设计绘图工具，适用于苹果操作系统，主要用于矢量图形的绘制，适用于图标、UI 设计、网站设计、宣传素材等图像的制作，具有较强的易用性，操作也十分方便
 
+30. loginCallback
+
+[2016-01-11 19:51:45.135] [INFO] console - tenantId b261f52d302b43ba821a6d731b17034c
+[2016-01-11 19:51:45.135] [INFO] console - expire Mon Jan 11 2016 19:52:00 GMT+0800 (CST)
+[2016-01-11 19:51:45.136] [INFO] console - status 1
+[2016-01-11 19:51:45.136] [INFO] console - regIn undefined
+[2016-01-11 19:51:45.136] [INFO] console - persist e8edea596b18befda5525e266951a58398d86e758d19a2e7aa224fc9661e79a9ad36ea9d4a5a3912e72bd326ebd2292eb04d6b92226285e68b255796c1f4c08982f9ea690d34e03e98a6603b6b35090d
+[2016-01-11 19:51:45.136] [INFO] console - code 200
+[2016-01-11 19:51:45.136] [INFO] console - loginType 1
+[2016-01-11 19:51:45.136] [INFO] console - sign l0QGcLPrWAo2pe5xLfQcAs4sjnzBem87MQHcd4UC7Zw=
+[2016-01-11 19:51:45.136] [INFO] console - category 0
+[2016-01-11 19:51:45.136] [INFO] console - email hujb2000@163.com
+[2016-01-11 19:51:45.136] [INFO] console - callback https://c.163.com/?action=login
+[2016-01-11 19:51:45.136] [INFO] console - userName hujb2000@163.com
+

@@ -29,6 +29,7 @@ module.exports ={
     },
 
     loggedIn: function(){
+        this.logout();
         return !!localStorage.token;
     },
 

@@ -40,7 +40,7 @@ var HTTPUtil =  using('easynode.framework.util.HTTPUtil');
             ////Database source, connection pool
             //var ds = new MySqlDataSource();
             //ds.initialize(mysqlConfig);
-            //
+
             ////数据库查询
             //var conn = yield ds.getConnection();
             //var sql = 'SELECT max(code)  as maxCode FROM watch_package';

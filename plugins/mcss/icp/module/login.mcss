@@ -12,11 +12,22 @@
 // ========================================================================
 
 .m-login {
+	background: $m-companyinfo_background;
+    outline: #m-companyinfo_border_color solid 1px;
+
+    min-height: $m-login_height;
+    width: $m-login_width;
+    margin: 10px auto;
+
+
+	margin-top: 150px;
+	margin-bottom: 250px;
+
 	.m-login-hd{
 		width: auto;
 		height: 64px;
 		line-height: 64px;
-		background:#F5F5F5;
+		background:$m-companyinfo_background;
 		padding: 1px 10px 1px 10px;
 
 		> label {
@@ -50,11 +61,12 @@
                 color: #999;
                 cursor: pointer;
 
-                .active{
+                &.active{
                     color: #22b2e6;
                     font-size: 20px;
                 }
             }
+
 
             > li:first-child {
                 border-right: 2px solid #a9a9af;
@@ -69,9 +81,10 @@
 			font-size: 18px;
 		}
 
-		> button {
+		> input[type="submit"] {
 			width: 320px;
 			height: 40px;
+			line-height: 40px;
 			font-size: 20px;
 			margin-top: 20px;
 			color: white;
