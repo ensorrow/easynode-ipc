@@ -56,7 +56,10 @@ export default{
             path:'/exit',
             getComponent: (location,cb) => {
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/UploadMaterial'));
+                    console.log("starting logout");
+                    auth.logout();
+                    console.log("end logout");
+                    cb(null,require('./forms/Login.jsx'));
                 });
             }
         },

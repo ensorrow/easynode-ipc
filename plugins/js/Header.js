@@ -11,20 +11,16 @@ class Header  extends React.Component{
 
     constructor(props,context){
         super(props,context);
-        this.logOut = this.logOut.bind(this);
-    }
-
-    logOut(){
-        alert('log out');
     }
 
 
     loggedIn(){
+        var userName = __globals__.user ? __globals__.user.userName : "";
         if(auth.loggedIn()){
             return <ul className="m-navbar f-fr">
                 <li><Link to="/help"><img src="../assets/help.png"/><span className="help">备案帮助</span></Link></li>
                 <li><Link to="/recordlist">备案列表</Link></li>
-                <li><Link to="/exit">您好,{ __globals__.user.userName },安全退出</Link></li>
+                <li><Link to="/exit">您好,[{ userName }],安全退出</Link></li>
             </ul>;
         }else{
             return <div></div>;

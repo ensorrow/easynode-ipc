@@ -40,18 +40,21 @@ var thunkify = require('thunkify');
          * @apiPermission {}
          * @apiSuccess {} {} {}
          * @apiVersion {}
+         * print:
+         * console.log( this.parameter );
+         * console.log( this.body );
+         * console.log( this.query );
          * */
         static home(app){
             return function *(){
-                //console.log( this.parameter );
-                //console.log( this.body );
-                //console.log( this.query );
-                console.log("**********");
-                var user = {}
-                user = this.session.user !== undefined ? this.session.user : {};
-                console.log(user);
-                console.log("2222");
-                yield this.render('index',{user:user});
+                var user = this.session.user !== undefined ? this.session.user : undefined;
+
+                console.log("home.user", user);
+                if( user === undefined ){
+                    yield this.render('index',{user:user});
+                }else{
+                    yield this.render('index',{user:user});
+                }
             }
         }
 
@@ -77,18 +80,6 @@ var thunkify = require('thunkify');
 
         static loginCallback(app){
             return function *(){
-              /*  console.log("tenantId",this.query.tenantId);
-                console.log("expire",new Date(parseInt(this.query.expire)));
-                console.log("status",this.query.status);
-                console.log("regIn",this.query.NCE);
-                console.log("persist",this.query.persist);
-                console.log("code",this.query.code);
-                console.log("loginType",this.query.loginType);
-                console.log("sign",this.query.sign);
-                console.log("category",this.query.category);
-                console.log("email",this.query.email);
-                console.log("callback",this.query.callback);
-                console.log("userName",this.query.userName);*/
 
                 var user = {}
                 user.loginType = this.query.loginType;
@@ -96,6 +87,7 @@ var thunkify = require('thunkify');
                 user.userName = this.query.userName;
                 this.session.user = user;
 
+                console.log("loginCallback.redirect to home", this.session.user);
                 this.redirect('/');
             }
         }

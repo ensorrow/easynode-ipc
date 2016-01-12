@@ -23,17 +23,17 @@ module.exports ={
     },
 
     logout: function(cb){
-        delete localStorage.token;
-        if(cb) cb()
-        this.onChange(false);
+        console.log("logout");
+        __globals__.user = null;
     },
 
     loggedIn: function(){
-        //this.logout();
-        //return !!localStorage.token;
         try{
-            if( __globals__ === undefined )
+            if( __globals__ === undefined || __globals__.user === undefined || __globals__.user.userName  === undefined || __globals__.user.userName.length == 0 ){
+                console.log("loggedIn failed", __globals__);
                 return false;
+            }
+            console.log("loggedIn success");
             return true;
         }
         catch(e){
