@@ -43,12 +43,15 @@ var thunkify = require('thunkify');
          * */
         static home(app){
             return function *(){
-                console.log("11");
-                console.log( this.parameter );
-                console.log( this.body );
-                console.log( this.query );
-
-                yield this.render('index',{});
+                //console.log( this.parameter );
+                //console.log( this.body );
+                //console.log( this.query );
+                console.log("**********");
+                var user = {}
+                user = this.session.user !== undefined ? this.session.user : {};
+                console.log(user);
+                console.log("2222");
+                yield this.render('index',{user:user});
             }
         }
 
@@ -74,7 +77,7 @@ var thunkify = require('thunkify');
 
         static loginCallback(app){
             return function *(){
-                console.log("tenantId",this.query.tenantId);
+              /*  console.log("tenantId",this.query.tenantId);
                 console.log("expire",new Date(parseInt(this.query.expire)));
                 console.log("status",this.query.status);
                 console.log("regIn",this.query.NCE);
@@ -85,8 +88,15 @@ var thunkify = require('thunkify');
                 console.log("category",this.query.category);
                 console.log("email",this.query.email);
                 console.log("callback",this.query.callback);
-                console.log("userName",this.query.userName);
-                yield this.render('index',{user:this.query});
+                console.log("userName",this.query.userName);*/
+
+                var user = {}
+                user.loginType = this.query.loginType;
+                user.email = this.query.email;
+                user.userName = this.query.userName;
+                this.session.user = user;
+
+                this.redirect('/');
             }
         }
 

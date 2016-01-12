@@ -1,1 +1,1 @@
-MYSQL_CONFIG_URL='' REDIS_CONFIG_URL='' MONGODB_CONFIG_URL='' MQ_CONFIG_URL='' sh start_servers.sh
+MYSQL_CONFIG_URL='' REDIS_CONFIG_URL='' MONGODB_CONFIG_URL='' MQ_CONFIG_URL='' pm2 start  start_servers.sh  --watch --ignore-watch "../logs ../plugins ../etc ../bin ../config ../node_modules ../docs "

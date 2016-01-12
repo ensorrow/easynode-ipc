@@ -29,8 +29,16 @@ module.exports ={
     },
 
     loggedIn: function(){
-        this.logout();
-        return !!localStorage.token;
+        //this.logout();
+        //return !!localStorage.token;
+        try{
+            if( __globals__ === undefined )
+                return false;
+            return true;
+        }
+        catch(e){
+            return false;
+        }
     },
 
     onChange: function(){
