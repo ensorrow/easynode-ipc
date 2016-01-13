@@ -59,9 +59,8 @@ let MySelect = React.createClass({
         }
         this.index = index;
         return (
-            <select data-order={index} onChange={this._handleChange.bind(this)} className="item-ctrl-three">
+            <select data-order={index} onChange={this._handleChange} className="item-ctrl-three">
                 {
-
                     items.map((name,i)=> {
                         return (<option key={i} value={name}>{name}</option>);
                     })
@@ -97,32 +96,38 @@ let CascadeSelect = React.createClass({
         );
     },
     _onChange: function(index, value){
-        console.log(index, value);
+        var onChange = this.props.onChange;
+
          if( index == P_INDEX ) {
              this.setState({
                  province:value
              });
+             onChange && onChange(value,'','');
          }else if( index == C_INDEX ){
              this.setState({
                  city: value
              });
+             onChange && onChange(this.state.province,value,'');
          }else if( index == A_INDEX ){
              this.setState({
                  area: value
              });
+             onChange && onChange(this.state.province,this.state.city,value);
          }
+
     },
 
     renderMySelects(){
 
             return (
                 <div className="item-ctrl">
-                    <MySelect key={P_INDEX} items={this.getRegions()} onChange={this._onChange.bind(this)}
+                    <MySelect key={P_INDEX} items={this.getRegions()} onChange={this._onChange}
                               province={this.state.province} city={this.state.city} area={this.state.area} index={P_INDEX}/>
-                    <MySelect key={C_INDEX} items={this.getRegions()} onChange={this._onChange.bind(this)}
+                    <MySelect key={C_INDEX} items={this.getRegions()} onChange={this._onChange}
                               province={this.state.province} city={this.state.city} area={this.state.area} index={C_INDEX}/>
-                    <MySelect key={A_INDEX} items={this.getRegions()} onChange={this._onChange.bind(this)}
+                    <MySelect key={A_INDEX} items={this.getRegions()} onChange={this._onChange}
                               province={this.state.province} city={this.state.city} area={this.state.area} index={A_INDEX}/>
+                    <span className="u-popover hidden">a</span>
                 </div>
             );
     },

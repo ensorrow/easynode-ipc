@@ -143,3 +143,22 @@ Affinity Designer是一款专业的设计绘图工具，适用于苹果操作系
 2. React的会根据新的状态和属性生成新的VirtualDOM Tree然后和旧的VirtualDOM Tree做对比(类似于版本控制的机制)。
 3. 通过对比计算出最小的更新代价，然后将这些更新的方法进入队列。
 4. 批量更新。
+
+31. setState 是异步操作 this.state不能获取到值
+handleNature: function(e){
+        e.preventDefault();
+        this.setState({nature: e.target.value});
+        console.log("nature",e.target.value);
+    },
+
+
+32.  popoover
+farther: position: relative
+son: postion: absolute; left: 100%指为farther的宽度,margin-top: 10p
+
+> select {
+    width: 100%;
+    height: $m-companyinfo_item_height;
+}
+
+select.item-ctrl-three{

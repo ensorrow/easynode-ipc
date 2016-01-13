@@ -32,8 +32,9 @@ let SiteInfo = React.createClass({
                                     <label>网站名称:</label>
                                     <span className="red f-fr">*</span>
                                 </div>
-                                <div>
-                                    <input type="text" name="identity" className="item-ctrl"/>
+                                <div className="item-ctrl">
+                                    <input type="text" name="identity"/>
+                                    <span className="u-popover">请输入网站名称</span>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">
@@ -41,8 +42,9 @@ let SiteInfo = React.createClass({
                                     <label>网站域名:</label>
                                     <span className="red f-fr">*</span>
                                 </div>
-                                <div>
-                                    <label className="siteurl">www</label><input type="text" name="identity" className="item-ctrl siteurl-input"/>
+                                <div className="item-ctrl">
+                                    <label className="siteurl">www</label><input type="text" name="identity" className="siteurl-input"/>
+                                    <span className="u-popover">请输入网站域名</span>
                                 </div>
                             </div>
                             <input type="button" value="+ 增加网站域名" className="m-siteinfo-item addsite"/>
@@ -51,8 +53,9 @@ let SiteInfo = React.createClass({
                                         <label>网站首页URL:</label>
                                         <span className="red f-fr">*</span>
                                     </div>
-                                    <div>
-                                        <label className="siteurl">http://</label><input type="text" name="identity" className="item-ctrl siteurl-input"/>
+                                    <div className="item-ctrl">
+                                        <label className="siteurl">http://</label><input type="text" name="identity" className="siteurl-input"/>
+                                        <span className="u-popover">aaaa</span>
                                     </div>
                                 </div>
                                 <div className="m-siteinfo-item">
@@ -60,13 +63,14 @@ let SiteInfo = React.createClass({
                                         <label>网站服务内容:</label>
                                         <span className="red f-fr">*</span>
                                     </div>
-                                    <div>
-                                        <select  className="item-ctrl" >
+                                    <div className="item-ctrl">
+                                        <select>
                                             <option value ="volvo">Volvo</option>
                                             <option value ="saab">Saab</option>
                                             <option value="opel">Opel</option>
                                             <option value="audi">Audi</option>
                                         </select>
+                                        <span className="u-popover">请选择网站服务内容</span>
                                     </div>
                                 </div>
                                 <div className="m-siteinfo-item language">
@@ -83,7 +87,9 @@ let SiteInfo = React.createClass({
                                         <label><input type="checkbox" name="4"/> <span>西班牙语</span></label>
                                         <label><input type="checkbox" name="4"/> <span>阿拉伯语</span></label>
                                         <label><input type="checkbox" name="4"/> <span>俄罗斯语</span></label>
-                                        <label><input type="checkbox" name="4"/> <span>自定义:</span></label><input type="text" name="identity" className="item-ctrl-customize-language"/>
+                                        <label><input type="checkbox" name="4"/> <span>自定义:</span></label>
+                                        <input type="text" name="identity" className="item-ctrl-customize-language"/>
+                                        <span className="u-popover">请选择网站语言</span>
                                     </div>
                                 </div>
                         </fieldset>
@@ -95,8 +101,9 @@ let SiteInfo = React.createClass({
                                     <label>姓名:</label>
                                     <span className="red f-fr">*</span>
                                 </div>
-                                <div>
-                                    <input type="text" name="lpname" className="item-ctrl"/>
+                                <div className="item-ctrl">
+                                    <input type="text" name="lpname"/>
+                                    <span className="u-popover">请输入网站负责人姓名</span>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">
@@ -104,13 +111,14 @@ let SiteInfo = React.createClass({
                                     <label>有效证件类型:</label>
                                     <span className="red f-fr">*</span>
                                 </div>
-                                <div>
-                                    <select  className="item-ctrl" >
+                                <div className="item-ctrl">
+                                    <select>
                                         <option value ="volvo">Volvo</option>
                                         <option value ="saab">Saab</option>
                                         <option value="opel">Opel</option>
                                         <option value="audi">Audi</option>
                                     </select>
+                                    <span className="u-popover">请选择有效证件类型</span>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">
@@ -118,8 +126,9 @@ let SiteInfo = React.createClass({
                                     <label>有效证件号码:</label>
                                     <span className="red f-fr">*</span>
                                 </div>
-                                <div>
-                                    <input type="text" name="npidentity" className="item-ctrl"/> <span className="u-popover">aaaa</span>
+                                <div className="item-ctrl">
+                                    <input type="text" name="npidentity"/>
+                                    <span className="u-popover">请输入有效证件号码</span>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">
@@ -127,9 +136,10 @@ let SiteInfo = React.createClass({
                                     <label>办公室电话:</label>
                                     <span className="red f-fr">*</span>
                                 </div>
-                                <div>
+                                <div className="item-ctrl">
                                     <input type="text" name="officerphone" className="item-ctrl-office-onefourth"/>
                                     <input type="text" name="officerphone" className="item-ctrl-office-threefourth"/>
+                                    <span className="u-popover">请输入办公室电话</span>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">
@@ -137,8 +147,9 @@ let SiteInfo = React.createClass({
                                     <label>手机号码:</label>
                                     <span className="red f-fr">*</span>
                                 </div>
-                                <div>
-                                    <input type="text" name="mobilephone" className="item-ctrl"/>
+                                <div className="item-ctrl">
+                                    <input type="text" name="mobilephone"/>
+                                    <span className="u-popover">请输入手机号码</span>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">
@@ -146,17 +157,19 @@ let SiteInfo = React.createClass({
                                     <label>电子邮箱:</label>
                                     <span className="red f-fr">*</span>
                                 </div>
-                                <div>
-                                    <input type="text" name="email" className="item-ctrl"/>
+                                <div className="item-ctrl">
+                                    <input type="text" name="email"/>
+                                    <span className="u-popover">请输入电子邮箱</span>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">
                                 <div className="item-label">
-                                    <label>QQ帐号:</label>
+                                    <label>QQ账号:</label>
                                     <span className="red f-fr">*</span>
                                 </div>
-                                <div>
-                                    <input type="text" name="email" className="item-ctrl"/>
+                                <div className="item-ctrl">
+                                    <input type="text" name="email"/>
+                                    <span className="u-popover">请输入QQ账号</span>
                                 </div>
                             </div>
                         </fieldset>
@@ -168,8 +181,8 @@ let SiteInfo = React.createClass({
                                     <label>ISP名称:</label>
                                     <span className="red f-fr">*</span>
                                 </div>
-                                <div>
-                                    <input type="text" name="lpname" className="item-ctrl  gray" value="杭州网易雷火科技有限公司" disabled="true"/>
+                                <div className="item-ctrl">
+                                    <input type="text" name="lpname" className="gray" value="杭州网易雷火科技有限公司" disabled="true"/>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">
@@ -177,11 +190,12 @@ let SiteInfo = React.createClass({
                                     <label>网站IP地址:</label>
                                     <span className="red f-fr">*</span>
                                 </div>
-                                <div>
+                                <div className="item-ctrl">
                                     <input type="text" name="npidentity" className="item-ctrl-ip"/>
                                     <input type="text" name="npidentity" className="item-ctrl-ip"/>
                                     <input type="text" name="npidentity" className="item-ctrl-ip"/>
                                     <input type="text" name="npidentity" className="item-ctrl-ip"/>
+                                    <span className="u-popover">请输入IP地址</span>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">
@@ -189,11 +203,12 @@ let SiteInfo = React.createClass({
                                     <label>网站接入方式:</label>
                                     <span className="red f-fr">*</span>
                                 </div>
-                                <div>
+                                <div className="item-ctrl">
                                     <input type="checkbox" name="专线"/><span>专线</span>
                                     <input type="checkbox" name="主机托管"/><span>主机托管</span>
                                     <input type="checkbox" name="虚拟主机"/><span>虚拟主机</span>
                                     <input type="checkbox" name="其他"/><span>其他</span>
+                                    <span className="u-popover">请选择网站接入方式</span>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">
@@ -201,8 +216,9 @@ let SiteInfo = React.createClass({
                                     <label>服务器放置地:</label>
                                     <span className="red f-fr">*</span>
                                 </div>
-                                <div>
+                                <div className="item-ctrl">
                                     <input type="checkbox" name="HZ1" checked="checked"/><span>HZ1</span>
+                                    <span className="u-popover">请选择服务器放置地</span>
                                 </div>
                             </div>
                         </fieldset>

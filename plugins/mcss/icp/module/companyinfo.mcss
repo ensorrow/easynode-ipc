@@ -74,9 +74,14 @@ $m-companyinfo_item_ctrl_onethird_width = (350px - 15*2) / 3;
 	.item-ctrl{
 		width: $m-companyinfo_item_ctrl_width;
 		height: $m-companyinfo_item_height;
+		position: relative;
+		> select,input[type="text"] {
+			width: 100%;
+			height: $m-companyinfo_item_height;
+		}
 		@extend .f-fl;
 	}
-	.item-ctrl-three{
+	select.item-ctrl-three{
 		width: $m-companyinfo_item_ctrl_onethird_width;
 		height: $m-companyinfo_item_height;
 	    +.item-ctrl-three{

@@ -16,17 +16,18 @@ $u-popover_padding_left = 20px;
 .u-popover {
     background-color: #fff;
     padding: 0 10px;
-    line-height: 96px;
-    height: 96px;
+    line-height: 30px;
+    height: 30px;
     display: inline-block;
     color: #fc7272;
     white-space: nowrap;
-    position: relative;
+    position: absolute;
     z-index: 1;
     border: 1px solid #fc7272;
     border-radius: 2px;
     font-size: 12px;
-    left: 0px;
+    left: 100%;
+    margin-left: 10px;
     top: 0px;
 }
 
@@ -53,4 +54,12 @@ $u-popover_padding_left = 20px;
     border-top: 4px solid transparent;
     border-bottom: 4px solid transparent;
     border-right: 4px solid #fc7272;
+}
+
+.hidden{
+	display: none;
+}
+
+.show{
+	display: block;
 }
