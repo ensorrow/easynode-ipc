@@ -13,9 +13,33 @@ var Input = ReactUI.Input;
 var Button = ReactUI.Button;
 var FormSubmit = ReactUI.FormSubmit;
 
+var data = [
+    {id:0, src: '../assets/first.png',title: '首次备案',describe: '域名未备案,备案主体证件无备案号,需要备案'},
+    {id:1, src: '../assets/addsite.png',title: '新增网站',describe: '主体已经备过案,需要再给其它网站备案.'},
+    {id:2, src: '../assets/import.png',title: '新增接入',describe: '域名在别的接入商备案过,需要变更接入商.'}
+];
 
 let RecordType = React.createClass({
+
+    getInitialState: function() {
+        return {currTypeSelected:0,currRegionSelected:0};
+    },
+
     render: function () {
+
+        var me = this;
+        var itemsList = data.map(function(item){
+                return (
+                    <li className={me.state.currTypeSelected == item.id ? "item selected" : "item"} onClick={me.handleSelectType.bind(me,item.id)} key={item.id}>
+                        <div className="item-icon">
+                            <img src={item.src} alt=""/>
+                            <span className="title">{item.title}</span>
+                        </div>
+                        <span className="item-describe">{item.describe}</span>
+                    </li>
+                );
+        });
+
         return (
             <div className="m-recordtype">
                 <div className="recordtype">
@@ -24,28 +48,7 @@ let RecordType = React.createClass({
                     </div>
 
                     <ul className="ul-items">
-                        <li className="item selected">
-                            <div className="item-icon">
-                                <img src="../assets/first.png" alt=""/>
-                                <span className="title">首次备案</span>
-                            </div>
-                            <span className="item-describe">域名未备案,备案主体证件无备案号,需要备案</span>
-                        </li>
-
-                        <li className="item">
-                            <div className="item-icon">
-                                <img src="../assets/addsite.png" alt=""/>
-                                <span className="title">新增网站</span>
-                            </div>
-                            <span className="item-describe">主体已经备过案,需要再给其它网站备案.</span>
-                        </li>
-                        <li className="item">
-                            <div className="item-icon">
-                                <img src="../assets/import.png" alt=""/>
-                                <span className="title">新增接入</span>
-                            </div>
-                            <span className="item-describe">域名在别的接入商备案过,需要变更接入商.</span>
-                        </li>
+                        {itemsList}
                     </ul>
                 </div>
 
@@ -63,6 +66,12 @@ let RecordType = React.createClass({
                 </div>
             </div>
         );
+    },
+
+    handleSelectType: function(id){
+        this.setState({
+            currTypeSelected: id
+        });
     }
 });
 

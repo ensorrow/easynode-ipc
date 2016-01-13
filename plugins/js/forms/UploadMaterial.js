@@ -23,7 +23,7 @@ let UploadMaterial = React.createClass({
         return (
             <div>
                 <ReturnWidget/>
-                <ProgressBar/>
+                <ProgressBar step={4} key={1}/>
                 <div className="m-uploadmaterial">
                     <form className="">
                         <fieldset>

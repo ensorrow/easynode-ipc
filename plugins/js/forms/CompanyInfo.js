@@ -15,13 +15,14 @@ var FormSubmit = ReactUI.FormSubmit;
 
 import ProgressBar from './ProgressBar.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
+import CascadeSelect from '../widgets/CascadeSelect.jsx';
 
 let CompanyInfo = React.createClass({
     render: function () {
         return (
         <div className="g-bd">
             <ReturnWidget/>
-            <ProgressBar/>
+            <ProgressBar step={2} key={1}/>
             <div className="m-companyinfo">
                 <form className="">
                     <fieldset>
@@ -30,26 +31,7 @@ let CompanyInfo = React.createClass({
                             <div className="item-label">
                                 <span className="red f-fl">*</span><label>主体单位所属区域:</label>
                             </div>
-                            <div className="item-ctrl">
-                                <select className="item-ctrl-three">
-                                    <option value ="volvo">Volvo</option>
-                                    <option value ="saab">Saab</option>
-                                    <option value="opel">Opel</option>
-                                    <option value="audi">Audi</option>
-                                </select>
-                                <select className="item-ctrl-three">
-                                    <option value ="volvo">Volvo</option>
-                                    <option value ="saab">Saab</option>
-                                    <option value="opel">Opel</option>
-                                    <option value="audi">Audi</option>
-                                </select>
-                                <select className="item-ctrl-three">
-                                    <option value ="volvo">Volvo</option>
-                                    <option value ="saab">Saab</option>
-                                    <option value="opel">Opel</option>
-                                    <option value="audi">Audi</option>
-                                </select>
-                            </div>
+                            <CascadeSelect/>
                         </div>
                         <div className="m-companyinfo-item">
                             <div className="item-label">

@@ -13,50 +13,40 @@ var Input = ReactUI.Input;
 var Button = ReactUI.Button;
 var FormSubmit = ReactUI.FormSubmit;
 
+let data = [
+	{step:1,describe:'基本信息'},
+	{step:2,describe:'填写主体信息'},
+	{step:3,describe:'填写网站信息'},
+	{step:4,describe:'上传资料'},
+	{step:5,describe:'提交初审'},
+];
 
 let ProgressBar = React.createClass({
+	propTypes:{
+		step: React.PropTypes.number.isRequired
+	},
+
     render: function () {
+		let step = this.props.step;
+
+		var me = this;
+		var stepsList = data.map(function(item,i){
+			return (
+					<li key={i}>
+						<div className="f-fl">
+							<div className={step < item.step ? "step do" : step == item.step ? "step doing" : "step done" }>{item.step}</div>
+							<span className="describe">{item.describe}</span>
+						</div>
+						<div className="f-fl arrow">
+						</div>
+					</li>
+			);
+		});
+
         return (
 			<div className="m-progress">
 				<ul className="m-progress-ul">
-					<li>
-						<div className="f-fl">
-							<div className="step done">1</div>
-							<span className="describe">基本信息</span>
-						</div>
-						<div className="f-fl arrow">
-						</div>
-					</li>
-					<li>
-						<div className="f-fl">
-							<div className="step done">2</div>
-							<span className="describe">填写主体信息</span>
-						</div>
-						<div className="f-fl arrow">
-						</div>
-					</li>
-					<li>
-						<div className="f-fl">
-							<div className="step doing">3</div>
-							<span className="describe">填写网站信息</span>
-						</div>
-						<div className="f-fl arrow">
-						</div>
-					</li>
-					<li>
-						<div className="f-fl">
-							<div className="step do">4</div>
-							<span className="describe">上传资料</span>
-						</div>
-						<div className="f-fl arrow">
-						</div>
-					</li>
-					<li>
-						<div className="f-fl">
-							<div className="step do">5</div>
-							<span className="describe">提交初审</span>
-						</div>
-					</li>
+					{stepsList}
 				</ul>
 			</div>
         );

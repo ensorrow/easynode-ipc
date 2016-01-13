@@ -25,7 +25,7 @@ let BaseInfo = React.createClass({
             <div classNameName="g-bd">
                 <ReturnWidget/>
                 <div classNameName="g-bdc">
-                    <ProgressBar/>
+                    <ProgressBar step={1} key={1}/>
                     <RecordType/>
                     <div className="w-btn">
                         <button className="u-main" type="button"><a href="#/fillcompanyinfo">开始填写主体信息</a></button>

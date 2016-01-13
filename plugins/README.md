@@ -138,3 +138,8 @@ Affinity Designer是一款专业的设计绘图工具，适用于苹果操作系
 [2016-01-11 19:51:45.136] [INFO] console - callback https://c.163.com/?action=login
 [2016-01-11 19:51:45.136] [INFO] console - userName hujb2000@163.com
 
+31. React的每个组件包含状态和属性，且状态和属性和dom隔离。dom的部分就是动态模板。
+1. React认为页面dom不可变，所以当状态和属性发生变化时会re-render dom。
+2. React的会根据新的状态和属性生成新的VirtualDOM Tree然后和旧的VirtualDOM Tree做对比(类似于版本控制的机制)。
+3. 通过对比计算出最小的更新代价，然后将这些更新的方法进入队列。
+4. 批量更新。

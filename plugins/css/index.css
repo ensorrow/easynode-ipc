@@ -131,7 +131,7 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .type{float:left;display:inline-block;width:130px;height:230px;text-align:center;}
 .type >span{line-height:230px;}
 .ul-items{float:left;margin-top:40px;}
-.item{float:left;display:inline-block;width:140px;height:140px;background:#f6f6f6;outline:#8fc31f solid 1px;}
+.item{float:left;display:inline-block;width:140px;height:140px;background:#f8f8f8;outline:#ddd solid 1px;}
 .item +.item{margin-left:59px;}
 .item .item-icon >img{display:inline-block;margin-top:32px;margin-left:42px;}
 .item .item-icon .title{display:inline-block;margin-top:-48px;margin-left:44px;}
@@ -139,9 +139,9 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .recordarea .red{color:#f00;}
 .area{float:left;display:inline-block;width:130px;height:100px;text-align:center;}
 .area >span{line-height:100px;}
-.item-2{float:left;display:inline-block;width:140px;height:40px;background-color:#f6f6f6;background-image:url("../assets/icon-selected.png");background-repeat:no-repeat;background-position:right bottom;outline:#8fc31f solid 1px;text-align:center;}
+.item-2{float:left;display:inline-block;width:140px;height:40px;background-color:#f8f8f8;background-image:url("../assets/icon-selected.png");background-repeat:no-repeat;background-position:right bottom;outline:#8fc31f solid 1px;text-align:center;}
 .item-2 >span{line-height:40px;}
-.selected{background-color:#f6f6f6;background-image:url("../assets/icon-selected.png");background-repeat:no-repeat;background-position:right bottom;}
+.selected{background-color:#fff;background-image:url("../assets/icon-selected.png");background-repeat:no-repeat;background-position:right bottom;outline:#8fc31f solid 1px;}
 .m-companyinfo{background:#fff;outline:#m-companyinfo_border_color solid 1px;min-height:340px;width:992px;margin:10px auto;padding:20px 40px;}
 .m-companyinfo .red{color:#f00;}
 .m-companyinfo-legend{background:#f7f7f7;width:100%;height:30px;margin-top:10px;}
@@ -273,7 +273,7 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-login .m-login-bd .login-type >li{display:inline-block;width:162px;height:20px;line-height:20px;font-size:18px;color:#999;cursor:pointer;}
 .m-login .m-login-bd .login-type >li.active{color:#22b2e6;font-size:20px;}
 .m-login .m-login-bd .login-type >li:first-child{border-right:2px solid #a9a9af;}
-.m-login .m-login-bd >input[type="text"]{width:320px;height:40px;margin-top:20px;background:#fafec0;font-size:18px;}
+.m-login .m-login-bd >input[type="text"],.m-login .m-login-bd >input[type="password"]{width:320px;height:40px;margin-top:20px;background:#fafec0;font-size:18px;}
 .m-login .m-login-bd >input[type="submit"]{width:320px;height:40px;line-height:40px;font-size:20px;margin-top:20px;color:#fff;background:#2eb2e3;}
 .m-recordlist{background:#ddd;}
 .m-recordlist{width:992px;min-height:480px;outline:#m-recordlist_border_color solid 1px;background:#f7f7f7;margin:10px auto;}

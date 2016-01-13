@@ -60,7 +60,7 @@ let Login = React.createClass({
                         </ul>
 
                         <input type="text" name="userName" placeholder={this.state.loginType == LOGINTYPE_CLOUND? "账号/手机/邮箱":"邮箱"} value={this.state.accountName} onChange={this.handleAccountnameChange}/>
-                        <input type="text" name="password" placeholder="密码" value={this.state.password} onChange={this.handlePasswordChange}/>
+                        <input type="password" name="password" placeholder="密码" value={this.state.password} onChange={this.handlePasswordChange}/>
 
                         <input type="submit" className="u-commit" value="登陆"/>
                     </div>

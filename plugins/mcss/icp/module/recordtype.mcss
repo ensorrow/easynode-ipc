@@ -12,6 +12,7 @@ $m-recordtype_height = 340px;
 $m-recordtype_width =  992px;
 $m-recordtype_background = #FFFFFF;
 $m-recordtype_border_color_selected = #8fc31f;
+$m-recordtype_border_color_no_selected = #dddddd;
 $m-recordtype_border_color = #dddddd;
 $m-recordtype_type_margin_left = 52px;
 $m-recordtype_type_margin_top = 74px;
@@ -19,7 +20,7 @@ $m-recordtype_items_margin_top = 40px;
 $m-recordtype_label_width = 130px;
 $m-recordtype_label_type_height = 230px;
 $m-recordtype_label_area_height = 100px;
-$m-recordtype_item_fillcolor_noselect = #F6F6F6;
+$m-recordtype_item_fillcolor_noselect = #F8F8F8;
 $m-recordtype_item_fillcolor_selected = #FFFFFF;
 $m-recordtype_item_margin = 59px;
 
@@ -68,7 +69,7 @@ $m-recordtype_item_margin = 59px;
 	width: 140px;
 	height: 140px;
 	background: $m-recordtype_item_fillcolor_noselect;
-	outline: $m-recordtype_border_color_selected solid 1px;
+	outline: $m-recordtype_border_color_no_selected solid 1px;
 
     +.item{
     	margin-left: $m-recordtype_item_margin;
@@ -137,8 +138,9 @@ $m-recordtype_item_margin = 59px;
 
 
 .selected{
-    background-color: $m-recordtype_item_fillcolor_noselect;
+    background-color: $m-recordtype_item_fillcolor_selected;
     background-image: url('../assets/icon-selected.png');
     background-repeat: no-repeat;
     background-position: right bottom;
+    outline: $m-recordtype_border_color_selected solid 1px;
 }

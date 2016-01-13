@@ -22,7 +22,7 @@ let SiteInfo = React.createClass({
         return (
             <div>
                 <ReturnWidget/>
-                <ProgressBar/>
+                <ProgressBar step={3} key={1}/>
                 <div className="m-siteinfo">
                     <form className="">
                         <fieldset>
