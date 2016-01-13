@@ -24,11 +24,11 @@ let A_INDEX = 3;
 
 let MySelect = React.createClass({
     propTypes:{
-        items: React.PropTypes.array.isRequired,
+        items: React.PropTypes.object.isRequired,
         index: React.PropTypes.number.isRequired,
-        province: '',
-        city: '',
-        area: ''
+        province: React.PropTypes.string.isRequired,
+        city: React.PropTypes.string.isRequired,
+        area: React.PropTypes.string.isRequired
     },
 
     _handleChange: function(e){
@@ -71,7 +71,6 @@ let MySelect = React.createClass({
     }
 });
 
-//{me.handleSelectType.bind(me,item.id)
 
 let CascadeSelect = React.createClass({
 
