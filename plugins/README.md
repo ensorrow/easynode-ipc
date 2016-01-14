@@ -162,3 +162,5 @@ son: postion: absolute; left: 100%指为farther的宽度,margin-top: 10p
 }
 
 select.item-ctrl-three{
+
+32.  {this.state.idTypeEnable == 0 ? 'disabled':''} 用不起来

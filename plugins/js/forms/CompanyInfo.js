@@ -24,11 +24,15 @@ let CompanyInfo = React.createClass({
         return {
             province:'',city:'',area:'',nature:0,idType:0,idNumber:'',name:'',liveAddress:'',commAddress:'',owner:'',
             companyId:0,managerName:'',managerIdType:1,managerIdNumber:'',officePhoneRegion:'',officePhoneNumber:'',mobile:'',email:'',
+            idTypeEnable: 0
         };
     },
     handleNature: function(e){
         e.preventDefault();
         this.setState({nature: e.target.value});
+        if(parseInteger(e.target.value) > 1){
+            this.setState({idTypeEnable:1});
+        }
         console.log("nature",e.target.value);
     },
     handleRegion: function(p,c,a){
@@ -111,6 +115,18 @@ let CompanyInfo = React.createClass({
         console.log("onClick", e.target.value);
     },
 
+    tick: function(){
+        console.log("tick ccom");
+    },
+
+    componentDidMount: function(){
+        this.interval = setInterval(this.tick, 1000);
+    },
+
+    componentWillUnmount: function(){
+        clearInterval(this.interval);
+    },
+
     render: function () {
         return (
         <div className="g-bd">
@@ -147,7 +163,7 @@ let CompanyInfo = React.createClass({
                                 <span className="red f-fl">*</span><label>主体单位证件类型:</label>
                             </div>
                             <div className="item-ctrl">
-                                <select onChange={this.handleIdType}>
+                                <select  onChange={this.handleIdType} >
                                     <option value ="1">请选择主体单位证件类型</option>
                                     <option value ="2">工商执照</option>
                                     <option value="3">组织机构代码</option>

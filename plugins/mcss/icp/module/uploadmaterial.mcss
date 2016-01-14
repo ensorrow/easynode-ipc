@@ -103,7 +103,7 @@ $m-uploadmaterial_item_desc_width = 546px;
 	    }
 	}
 
-    > input[type="button"]{
+    > input[type="button"], button{
         background:#339BBF;
         width:140px;
         height:36px;

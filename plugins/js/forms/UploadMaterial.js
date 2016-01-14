@@ -36,7 +36,15 @@ let UploadMaterial = React.createClass({
                                     <div className="m-uploadmaterial-ctrl-picture">
                                         <img src="../assets/view.png" alt=""/>
                                     </div>
-                                    <input type="button" value="上传图片"/>
+                                    <Upload
+                                        autoUpload={true}
+                                        width={12}
+                                        name="test"
+                                        action="http://216.189.159.94:8080/upload"
+                                        accept="image/png,image/jpeg,image/gif"
+                                        limit={3}
+                                        content={<Button><Icon icon="upload" /> 上传照片</Button>}
+                                     />
                                 </div>
                                 <div className="m-uploadmaterial-desc">
                                     <span>1、需要上传身份证正反面合二为一复印件,需为彩色照片或扫描件,黑白照片无效,支持图片格式:JPEG\PNG\GIF</span>
@@ -51,7 +59,15 @@ let UploadMaterial = React.createClass({
                                     <div className="m-uploadmaterial-ctrl-picture">
                                         <img src="../assets/view.png" alt=""/>
                                     </div>
-                                    <input type="button" value="上传图片"/>
+                                    <Upload
+                                        autoUpload={true}
+                                        width={12}
+                                        name="test"
+                                        action="http://216.189.159.94:8080/upload"
+                                        accept="image/png,image/jpeg,image/gif"
+                                        limit={3}
+                                        content={<Button><Icon icon="upload" /> 上传照片</Button>}
+                                    />
                                 </div>
                                 <div className="m-uploadmaterial-desc">
                                     <span>1、请点击下载 <a href="http://www.w3school.com.cn">《网站备案信息真实性核验单》</a>打印并按样例提示填写，不得涂改</span>
@@ -68,7 +84,15 @@ let UploadMaterial = React.createClass({
                                     <div className="m-uploadmaterial-ctrl-picture">
                                         <img src="../assets/view.png" alt=""/>
                                     </div>
-                                    <input type="button" value="上传图片"/>
+                                    <Upload
+                                        autoUpload={true}
+                                        width={12}
+                                        name="test"
+                                        action="http://216.189.159.94:8080/upload"
+                                        accept="image/png,image/jpeg,image/gif"
+                                        limit={3}
+                                        content={<Button><Icon icon="upload" /> 上传照片</Button>}
+                                    />
                                 </div>
                                 <div className="m-uploadmaterial-desc">
                                     <span>1、请点击下载 <a href="http://www.w3school.com.cn">《云平台服务协议》</a> 打印并按样例提示填写，不涂改</span>
@@ -84,7 +108,15 @@ let UploadMaterial = React.createClass({
                                     <div className="m-uploadmaterial-ctrl-picture">
                                         <img src="../assets/view.png" alt=""/>
                                     </div>
-                                    <input type="button" value="上传图片"/>
+                                    <Upload
+                                        autoUpload={true}
+                                        width={12}
+                                        name="test"
+                                        action="http://216.189.159.94:8080/upload"
+                                        accept="image/png,image/jpeg,image/gif"
+                                        limit={3}
+                                        content={<Button><Icon icon="upload" /> 上传照片</Button>}
+                                    />
                                 </div>
                                 <div className="m-uploadmaterial-desc">
                                     <span>1、支持图片格式:JPEG\PNG\GIF</span>
@@ -98,7 +130,15 @@ let UploadMaterial = React.createClass({
                                     <div className="m-uploadmaterial-ctrl-picture">
                                         <img src="../assets/view.png" alt=""/>
                                     </div>
-                                    <input type="button" value="上传图片"/>
+                                    <Upload
+                                        autoUpload={true}
+                                        width={12}
+                                        name="test"
+                                        action="http://216.189.159.94:8080/upload"
+                                        accept="image/png,image/jpeg,image/gif"
+                                        limit={3}
+                                        content={<Button><Icon icon="upload" /> 上传照片</Button>}
+                                    />
                                 </div>
                                 <div className="m-uploadmaterial-desc">
                                     <span>1、请点击下载 <a href="http://www.w3school.com.cn">《信息安全管理责任书》</a>打印并按样例提示填写，不涂改</span>
@@ -114,7 +154,15 @@ let UploadMaterial = React.createClass({
                                     <div className="m-uploadmaterial-ctrl-picture">
                                         <img src="../assets/view.png" alt=""/>
                                     </div>
-                                    <input type="button" value="上传图片"/>
+                                    <Upload
+                                        autoUpload={true}
+                                        width={12}
+                                        name="test"
+                                        action="http://216.189.159.94:8080/upload"
+                                        accept="image/png,image/jpeg,image/gif"
+                                        limit={3}
+                                        content={<Button><Icon icon="upload" /> 上传照片</Button>}
+                                    />
                                 </div>
                                 <div className="m-uploadmaterial-desc">
                                     <span>1、支持图片格式:JPEG\PNG\GIF</span>
