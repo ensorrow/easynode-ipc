@@ -34,7 +34,7 @@ let UploadPhoto = React.createClass({
                                 <div className="m-uploadphoto-ctrl">
                                     <input type="button" value="申请幕布"/>
                                     <Upload
-                                        autoUpload={true}
+                                        autoUpload={false}
                                         width={12}
                                         name="test"
                                         action="http://216.189.159.94:8080/upload"

@@ -42,8 +42,8 @@ let UploadMaterial = React.createClass({
                                         name="test"
                                         action="http://216.189.159.94:8080/upload"
                                         accept="image/png,image/jpeg,image/gif"
-                                        limit={3}
-                                        content={<Button><Icon icon="upload" /> 上传照片</Button>}
+                                        limit={5}
+                                        content={<Button><Icon icon="upload"/> 上传照片</Button>}
                                      />
                                 </div>
                                 <div className="m-uploadmaterial-desc">
