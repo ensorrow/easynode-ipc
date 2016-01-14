@@ -101,7 +101,7 @@ Mark directory  as/Excluded
 21. plugins
 
 cd plugins;  webpack -w & mcss mcss/index.mcss -o css/ -w
-cd ..; webpack-dev-server --content-base plugins
+cd ..; webpack-dev-server --content-base plugins --port 80
 
 22. fieldset没有问题,legend margin-left设置有问题不用,改用div替代, 整体在form外的div里设置margin
 
@@ -164,3 +164,41 @@ son: postion: absolute; left: 100%指为farther的宽度,margin-top: 10p
 select.item-ctrl-three{
 
 32.  {this.state.idTypeEnable == 0 ? 'disabled':''} 用不起来
+
+33.
+ //externals: {'react': 'React', 'react-dom': 'ReactDOM'},
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false
+      }
+    })
+  ],
+  module: {
+    loaders: [
+      { test: /\.jsx?$/, loaders: ['babel'] },
+      { test: /\.(css|less)$/, loader: 'style-loader!css-loader?localIdentName=[hash:base64:8]!less-loader' },
+      { test: /\.(ttf|eot|woff|woff2|otf|svg)/, loader: 'file-loader?name=./font/[name].[ext]' },
+      { test: /\.json$/, loader: 'file-loader?name=./json/[name].json' },
+      { test: /\.(png|jpg|jpeg|gif)$/, loader: 'url-loader?limit=10000&name=./images/[name].[ext]' },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'react']
+        },
+        include: path.join(__dirname,'.')
+      }
+    ]
+  }
+
+34. 处理file样式
+farther: position: relative,  overflow : hidden;
+file:    position: absolute,  bottom: 0, opacity: 0, border: 1px solid #ccc;  font-size: 200px;

@@ -105,6 +105,8 @@ $m-uploadphoto_item_desc_width = 546px;
 
 .m-uploadphoto-ctrl{
 	width: $m-uploadphoto_item_ctrl_width;
+	position: relative;
+	overflow: hidden;
 
 	.m-uploadphoto-ctrl-picture{
 		width: 140px;
@@ -119,13 +121,26 @@ $m-uploadphoto_item_desc_width = 546px;
 	    }
 	}
 
-    > input[type="button"]{
-        background:#339BBF;
-        width:140px;
-        height:36px;
-        margin-top:10px;
-        color:white;
-    }
+	.m-uploadphoto-ctrl-button{
+    		width: 140px;
+    		height: 46px;
+
+    		 > input[type="button"]{
+                background:#339BBF;
+                width:140px;
+                height:36px;
+                margin-top:10px;
+                color:white;
+            }
+
+            > input[type="file"]{
+                position: absolute;
+                bottom: 0;
+                opacity: 0;
+                font-size: 200px;
+                left: 0;
+            }
+    	}
 
 	@extend .f-fl;
 }

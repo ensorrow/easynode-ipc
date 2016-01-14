@@ -5,7 +5,7 @@ import App from './App';
 import BaseInfo from './forms/BaseInfo';
 import CompanyInfo from './forms/CompanyInfo';
 import SiteInfo from './forms/SiteInfo';
-import UploadMaterial from './forms/UploadMaterial';
+import UploadMaterial from './forms/UploadMaterial.jsx';
 import SubmitTrialSuccess from './forms/SubmitTrialSuccess'
 import RecordList from './forms/RecordList.jsx';
 import RecordInfo from './forms/RecordInfo';
@@ -172,7 +172,7 @@ export default{
             path:'/uploadmaterial',
             getComponent: (location,cb) => {
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/UploadMaterial'));
+                    cb(null,require('./forms/UploadMaterial.jsx'));
                 });
             }
         },

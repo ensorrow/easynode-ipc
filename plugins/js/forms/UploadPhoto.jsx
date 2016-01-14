@@ -32,16 +32,10 @@ let UploadPhoto = React.createClass({
                             <div className="m-uploadphoto-legend"><span>我没有幕布</span></div>
                             <div className="m-uploadphoto-item-1">
                                 <div className="m-uploadphoto-ctrl">
-                                    <input type="button" value="申请幕布"/>
-                                    <Upload
-                                        autoUpload={false}
-                                        width={12}
-                                        name="test"
-                                        action="http://216.189.159.94:8080/upload"
-                                        accept="image/png,image/jpeg,image/gif"
-                                        limit={3}
-                                        content={<Button><Icon icon="upload" /> 申请幕布</Button>}
-                                    />
+                                    <div className="m-uploadphoto-ctrl-button">
+                                        <input type="button" value="申请幕布"/>
+                                        <input type="file" class="" placeholder="" name="" accept="image/jpeg,image/png,image/gif" required/>
+                                    </div>
                                 </div>
                             </div>
                         </fieldset>
@@ -55,16 +49,10 @@ let UploadPhoto = React.createClass({
                                     <div className="m-uploadphoto-ctrl-picture">
                                         <img src="../assets/view.png" alt=""/>
                                     </div>
-                                    <input type="button" value="上传图片"/>
-                                    <Upload
-                                        autoUpload={true}
-                                        width={12}
-                                        name="test"
-                                        action="http://216.189.159.94:8080/upload"
-                                        accept="image/png,image/jpeg,image/gif"
-                                        limit={3}
-                                        content={<Button><Icon icon="upload" /> 申请幕布</Button>}
-                                    />
+                                    <div className="m-uploadphoto-ctrl-button">
+                                        <input type="button" value="上传图片"/>
+                                        <input type="file" class="" placeholder="" name="" accept="image/jpeg,image/png,image/gif" required/>
+                                    </div>
                                 </div>
                                 <div className="m-uploadphoto-desc">
                                     <span>1、请认真阅读拍照说明，以节省审核时间。点击查看          <a href="http://www.w3school.com.cn">拍照说明</a></span>
