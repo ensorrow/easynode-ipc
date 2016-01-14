@@ -279,6 +279,8 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-login .m-login-bd .login-type >li:first-child{border-right:2px solid #a9a9af;}
 .m-login .m-login-bd >input[type="text"],.m-login .m-login-bd >input[type="password"]{width:320px;height:40px;margin-top:20px;background:#fafec0;font-size:18px;}
 .m-login .m-login-bd >input[type="submit"]{width:320px;height:40px;line-height:40px;font-size:20px;margin-top:20px;color:#fff;background:#2eb2e3;}
+.m-help{width:992px;height:auto;margin:10px auto;padding:20px 40px;}
+.m-help{width:992px;height:auto;margin:10px auto;padding:20px 40px;}
 .m-recordlist{background:#ddd;}
 .m-recordlist{width:992px;min-height:480px;outline:#m-recordlist_border_color solid 1px;background:#f7f7f7;margin:10px auto;}
 .m-recordlist .m-recordlist-table{width:992px;min-height:480px;background:#fff;}
