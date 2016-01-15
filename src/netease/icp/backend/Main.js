@@ -55,8 +55,8 @@ var HTTPUtil =  using('easynode.framework.util.HTTPUtil');
             var httpPort = S(EasyNode.config('http.server.port','7000')).toInt();
             var httpServer = new KOAHttpServer(httpPort);
 
-            //httpServer.ds = ds;
-            //httpServer.ds.conn = conn;
+            httpServer.ds = ds;
+            httpServer.ds.conn = conn;
             //设置ContextHook,
             httpServer.setActionContextListener({
                 onCreate: function (ctx) {

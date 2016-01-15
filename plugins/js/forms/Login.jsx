@@ -15,13 +15,13 @@ var FormSubmit = ReactUI.FormSubmit;
 var CheckboxGroup = ReactUI.CheckboxGroup;
 var Upload = ReactUI.Upload;
 
-var LOGINTYPE_CLOUND = 0;
-var LOGINTYPE_URL = 1;
+var LOGINTYPE_CLOUND = '0';
+var LOGINTYPE_URL = '1';
 
 let Login = React.createClass({
 
     getInitialState: function() {
-        return {loginType:0,accountName:'',password:''};
+        return {loginType:LOGINTYPE_CLOUND,accountName:'',password:''};
     },
     handleAccountnameChange: function(e){
         this.setState({accountName: e.target.value});
@@ -46,9 +46,9 @@ let Login = React.createClass({
             <div className="m-login">
                 <form method="POST" action="https://auth.c.163.com/rest/login/callback">
                     <input type="hidden" name="service" value="NCE"/>
-                    <input type="hidden" name="loginType" value="1"/>
-                    <input type="hidden" name="errorCallback" value="http://127.0.0.1/login/callback?code=2000000"/>
-                    <input type="hidden" name="callback" value="http://127.0.0.1/login/callback?code=2000000"/>
+                    <input type="hidden" name="loginType" value={this.state.loginType}/>
+                    <input type="hidden" name="errorCallback" value={__globals__.loginCallback.error}/>
+                    <input type="hidden" name="callback" value={__globals__.loginCallback.success}/>
                     <input type="hidden" name="autoLogin" value="true"/>
                     <div className="m-login-hd">
                         <label>账号登录</label><img src="../assets/close.png"></img>
@@ -75,7 +75,7 @@ let Login = React.createClass({
 
     switchAccount: function(){
         this.setState({
-            loginType: !this.state.loginType
+            loginType: this.state.loginType == '0' ? '1' : '0'
         });
     }
 

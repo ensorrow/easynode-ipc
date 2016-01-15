@@ -6,8 +6,14 @@ var multipart = require('co-multipart');
 var f =  require('fs');
 var util = require('util');
 var thunkify = require('thunkify');
+var LoginService = using('netease.icp.backend.services.LoginService');
 
 (function () {
+
+    // Myself result code
+    const LOGIN_OK = 200;
+    const LOGIN_ERR = 201;
+
     /**
      * Class Controllers
      *
@@ -87,14 +93,14 @@ var thunkify = require('thunkify');
 
         static loginCallback(app){
             return function *(){
-
-                var user = {}
-                user.loginType = this.query.loginType;
-                user.email = this.query.email;
-                user.userName = this.query.userName;
-                this.session.user = user;
-
-                this.redirect('/');
+                var loginService = new LoginService(app);
+                var result = yield loginService.login(this.query);
+                if( result.hasOwnProperty('user') ){
+                     this.session.user = result.user;
+                     this.redirect('/');
+                }else{
+                    //TODO
+                }
             }
         }
 

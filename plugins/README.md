@@ -202,3 +202,7 @@ select.item-ctrl-three{
 34. 处理file样式
 farther: position: relative,  overflow : hidden;
 file:    position: absolute,  bottom: 0, opacity: 0, border: 1px solid #ccc;  font-size: 200px;
+
+35. model field defined ,can't camelNamed, and database table filed named can't use camelName,
+操作数据库字段全为小写,注意
+

@@ -15,7 +15,7 @@ class Header  extends React.Component{
 
 
     loggedIn(){
-        var userName = __globals__.user ? __globals__.user.userName : "";
+        var userName = __globals__.user ? __globals__.user.username : "";
         if(auth.loggedIn()){
             return <ul className="m-navbar f-fr">
                 <li><Link to="/help"><img src="../assets/help.png"/><span className="help">备案帮助</span></Link></li>
