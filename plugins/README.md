@@ -206,3 +206,4 @@ file:    position: absolute,  bottom: 0, opacity: 0, border: 1px solid #ccc;  fo
 35. model field defined ,can't camelNamed, and database table filed named can't use camelName,
 操作数据库字段全为小写,注意
 
+36. ant.design  基于react, validate

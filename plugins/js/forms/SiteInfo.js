@@ -28,6 +28,17 @@ let SiteInfo = React.createClass({
         };
     },
 
+    onReturn: function(){
+        location.href = "#/fillcompanyinfo";
+    },
+    onClick: function(){
+        this.onSave();
+        location.href = "#/uploadmaterial";
+    },
+    onSave: function(){
+        __globals__.siteinfo = {};
+        __globals__.siteinfo = this.state;
+    },
     tick: function(){
         console.log("tick siteinfo");
     },
@@ -355,9 +366,9 @@ let SiteInfo = React.createClass({
                 </div>
 
                 <div className="w-btn">
-                    <button className="u-return" type="button"><a href="#/returntobase">返回修改</a></button>
-                    <button className="u-main" type="button"><a href="#/uploadmaterial">上传资料</a></button>
-                    <button className="u-draft" type="button"><a href="#/savetodraft">保存草稿</a></button>
+                    <button className="u-return" type="button"  onClick={this.onReturn}> 返回修改 </button>
+                    <button className="u-main" type="button" onClick={this.onClick}> 上传资料 </button>
+                    <button className="u-draft" type="button" onClick={this.onSave}>保存草稿</button>
                 </div>
             </div>
         );

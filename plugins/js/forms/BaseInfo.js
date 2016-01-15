@@ -26,8 +26,8 @@ let BaseInfo = React.createClass({
     },
     onSave: function(){
         __globals__.baseinfo = {};
-        __globals__.baseinfo.currTypeSelected = 0;
-        __globals__baseinfo.currRegionSelected = 0;
+        __globals__.baseinfo.currTypeSelected = this.state.currTypeSelected;
+        __globals__.baseinfo.currRegionSelected = this.state.currRegionSelected;
     },
     componentDidMount: function(){
     },
@@ -35,16 +35,24 @@ let BaseInfo = React.createClass({
     componentWillUnmount: function(){
     },
 
+    onChange: function(type, region){
+        this.state.currTypeSelected = type;
+        this.state.currRegionSelected = region;
+    },
+    onClick: function(){
+        this.onSave();
+        location.href = "#/fillcompanyinfo";
+    },
     render: function () {
         return (
             <div classNameName="g-bd">
                 <ReturnWidget/>
                 <div classNameName="g-bdc">
                     <ProgressBar step={1} key={1}/>
-                    <RecordType selected={this.state}/>
+                    <RecordType selected={this.state} onChange={this.onChange}/>
                     <div className="w-btn">
-                        <button className="u-main" type="button"><a href="#/fillcompanyinfo" onClick={this.onClick}>开始填写主体信息</a></button>
-                        <button className="u-draft" type="button"><a href="#/savetodraft" onClick={this.onSave}>保存草稿</a></button>
+                        <button className="u-main" type="button" onClick={this.onClick}>开始填写主体信息</button>
+                        <button className="u-draft" type="button" onClick={this.onSave}>保存草稿</button>
                     </div>
                 </div>
             </div>

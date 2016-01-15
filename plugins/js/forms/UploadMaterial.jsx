@@ -20,6 +20,18 @@ import ReturnWidget from '../widgets/ReturnWidget.jsx';
 
 let UploadMaterial = React.createClass({
 
+    onReturn: function(){
+        location.href = "#/fillsiteinfo";
+    },
+    onClick: function(){
+        this.onSave();
+        location.href = "#/committrial";
+    },
+    onSave: function(){
+        __globals__.material = {};
+        __globals__.material = this.state;
+    },
+
     render: function () {
         return (
             <div>
@@ -61,7 +73,7 @@ let UploadMaterial = React.createClass({
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
-                                    <span>1、请点击下载 <a href="http://www.w3school.com.cn">《网站备案信息真实性核验单》</a>打印并按样例提示填写，不得涂改</span>
+                                    <span>1、请点击下载 <a href="../../views/核验单.doc">《网站备案信息真实性核验单》</a>打印并按样例提示填写，不得涂改</span>
                                     <span>2、核验单上不要填写日期</span>
                                     <span>3、上传的核验单图片需清晰完整（不缺少边际线），建议使用扫描件上传。支持图片格式：JPEG\PNG\GIF</span>
                                     <span>4、请您保存3份签字并盖公章的核验单原件，以备后续环节使用</span>
@@ -81,7 +93,7 @@ let UploadMaterial = React.createClass({
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
-                                    <span>1、请点击下载 <a href="http://www.w3school.com.cn">《云平台服务协议》</a> 打印并按样例提示填写，不涂改</span>
+                                    <span>1、请点击下载 <a href="../../views/网易蜂巢云平台服务协议.doc">《云平台服务协议》</a> 打印并按样例提示填写，不涂改</span>
                                     <span>2、上传的核验单图片需清晰完整（不缺少边际线），建议使用扫描件上传。支持图片格式：JPEG\PNG\GIF</span>
                                     <span>3、请您保存2份签字并盖公章的协议原件，以备后续环节使用</span>
                                 </div>
@@ -117,7 +129,7 @@ let UploadMaterial = React.createClass({
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
-                                    <span>1、请点击下载 <a href="http://www.w3school.com.cn">《信息安全管理责任书》</a>打印并按样例提示填写，不涂改</span>
+                                    <span>1、请点击下载 <a href="../../views/信息安全管理责任书.doc">《信息安全管理责任书》</a>打印并按样例提示填写，不涂改</span>
                                     <span>2、上传的责任书图片需清晰完整（不缺少边际线），建议使用扫描件上传。支持图片格式：JPEG\PNG\GIF</span>
                                     <span>3、请您保存2份签字并盖公章的责任书原件，以备后续环节使用</span>
                                 </div>
@@ -144,9 +156,9 @@ let UploadMaterial = React.createClass({
                 </div>
 
                 <div className="w-btn">
-                    <button className="u-return" type="button"><a href="#/returntobase">返回修改</a></button>
-                    <button className="u-main" type="button"><a href="#/committrial">提交初审</a></button>
-                    <button className="u-draft" type="button"><a href="#/savetodraft">保存草稿</a></button>
+                    <button className="u-return" type="button"  onClick={this.onReturn}> 返回修改 </button>
+                    <button className="u-main" type="button" onClick={this.onClick}> 提交初审 </button>
+                    <button className="u-draft" type="button" onClick={this.onSave}>保存草稿</button>
                 </div>
             </div>
         );

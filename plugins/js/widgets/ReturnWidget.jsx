@@ -18,7 +18,7 @@ let ReturnWidget = React.createClass({
     render: function () {
         return (
             <div className="u-goback">
-                <a className="u-goback" href="./index.html"><img src="../assets/return.png" />返回列表</a>
+                <a className="u-goback" href=""><img src="../assets/return.png" />返回列表</a>
             </div>
         );
     }

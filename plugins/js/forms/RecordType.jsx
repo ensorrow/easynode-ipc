@@ -72,6 +72,9 @@ let RecordType = React.createClass({
         this.setState({
             currTypeSelected: id
         });
+        this.props.selected.currTypeSelected = id;
+        var onChange = this.props.onChange;
+        onChange && onChange( this.props.selected.currTypeSelected , 0 );
     }
 });
 

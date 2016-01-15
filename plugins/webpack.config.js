@@ -13,7 +13,7 @@ var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 module.exports = {
     entry: [
         //'webpack/hot/dev-server',
-        'webpack-dev-server/client?http://localhost',
+        //'webpack-dev-server/client?http://localhost',
         './js/index.js'
     ],
     output: {
@@ -43,10 +43,10 @@ module.exports = {
        /* new HtmlwebpackPlugin({
             title: 'webpack-demos'
         }),*/
-        new OpenBrowserPlugin({
-            url:'http://localhost/index.html'
-        }),
-        devFlagPlugin,
+        //new OpenBrowserPlugin({
+        //    url:'http://localhost/index.html'
+        //}),
+        //devFlagPlugin,
         /*new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",

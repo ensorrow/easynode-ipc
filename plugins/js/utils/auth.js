@@ -29,7 +29,6 @@ module.exports ={
 
     loggedIn: function(){
         try{
-            console.log(__globals__);
             if( __globals__ === undefined || __globals__.user === undefined || __globals__.user == null ||  __globals__.user.username  === undefined || __globals__.user.username.length == 0 ){
                 return false;
             }
