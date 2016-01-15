@@ -47,7 +47,7 @@ let Login = React.createClass({
                 <form method="POST" action="https://auth.c.163.com/rest/login/callback">
                     <input type="hidden" name="service" value="NCE"/>
                     <input type="hidden" name="loginType" value="1"/>
-                    <input type="hidden" name="errorCallback" value="https://c.163.com/?action=login"/>
+                    <input type="hidden" name="errorCallback" value="http://127.0.0.1/login/callback?code=2000000"/>
                     <input type="hidden" name="callback" value="http://127.0.0.1/login/callback?code=2000000"/>
                     <input type="hidden" name="autoLogin" value="true"/>
                     <div className="m-login-hd">

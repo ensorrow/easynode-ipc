@@ -29,16 +29,16 @@ const logger = using('easynode.framework.Logger').getLogger();
                 EasyNode.addConfigFile.apply(null, (EasyNode.arg('config-files') || '').split(','));
                 EasyNode.addSourceDirectory.apply(null, (EasyNode.arg('src-dirs') || '').split(','));
                 EasyNode.DEBUG = (EasyNode.config('debug-output', 'true') !== 'false');
-                const PRJ = EasyNode.arg('project');
+                var PROJECT = EasyNode.arg('project');
                 //加载项目src目录和配置文件
-                if(PRJ) {
-                        logger.info(`loading project [${PRJ}] source and configurations...`);
-                        EasyNode.addSourceDirectory(`projects/${PRJ}/src`);
-                        if(fs.existsSync(EasyNode.real(`projects/${PRJ}/etc/${PRJ}.conf`))) {
-                                EasyNode.addConfigFile(`projects/${PRJ}/etc/${PRJ}.conf`);
+                if(PROJECT) {
+                        logger.info(`loading project [${PROJECT}] source and configurations...`);
+                        EasyNode.addSourceDirectory(`projects/${PROJECT}/src`);
+                        if(fs.existsSync(EasyNode.real(`projects/${PROJECT}/etc/${PROJECT}.conf`))) {
+                                EasyNode.addConfigFile(`projects/${PROJECT}/etc/${PROJECT}.conf`);
                         }
-                        if(fs.existsSync(EasyNode.real(`projects/${PRJ}/etc/i18n`))) {
-                                EasyNode.addi18nDirectory(`projects/${PRJ}/etc/i18n`);
+                        if(fs.existsSync(EasyNode.real(`projects/${PROJECT}/etc/i18n`))) {
+                                EasyNode.addi18nDirectory(`projects/${PROJECT}/etc/i18n`);
                         }
                 }
                 var mainClassName = EasyNode.arg('main-class');
@@ -57,9 +57,9 @@ const logger = using('easynode.framework.Logger').getLogger();
                         var KOAHttpServer = using('easynode.framework.server.http.KOAHttpServer');
                         var httpServer = new KOAHttpServer();
                         //加载HTTP目录
-                        if(PRJ) {
-                                logger.info(`add project web directory projects/${PRJ}/www/`);
-                                httpServer.addWebDirs(`projects/${PRJ}/www/`);
+                        if(PROJECT) {
+                                logger.info(`add project web directory projects/${PROJECT}/www/`);
+                                httpServer.addWebDirs(`projects/${PROJECT}/www/`);
                         }
                         //加载插件
                         var EasyNodePlugin = using('easynode.framework.plugin.EasyNodePlugin');
@@ -105,15 +105,15 @@ const logger = using('easynode.framework.Logger').getLogger();
                                 datasource : ds
                         };
 
-                        if(PRJ) {
-                                yield require(`../projects/${PRJ}/src/ProjectEntry.js`).launch(projectLoadCtx);
+                        if(PROJECT) {
+                                yield require(`../projects/${PROJECT}/src/ProjectEntry.js`).launch(projectLoadCtx);
                         }
 
                         yield httpServer.start();
                 }
                 else {
-                        if(PRJ) {
-                                yield require(`../projects/${PRJ}/src/ProjectEntry.js`).launch(projectLoadCtx);
+                        if(PROJECT) {
+                                yield require(`../projects/${PROJECT}/src/ProjectEntry.js`).launch(projectLoadCtx);
                         }
                         var MainClass = using(mainClassName);
                         if(typeof MainClass.main == 'function') {

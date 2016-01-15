@@ -23,17 +23,16 @@ module.exports ={
     },
 
     logout: function(cb){
-        console.log("logout");
+        location.href = "/logout";
         __globals__.user = null;
     },
 
     loggedIn: function(){
         try{
-            if( __globals__ === undefined || __globals__.user === undefined || __globals__.user.userName  === undefined || __globals__.user.userName.length == 0 ){
-                console.log("loggedIn failed", __globals__);
+            console.log(__globals__);
+            if( __globals__ === undefined || __globals__.user === undefined || __globals__.user == null ||  __globals__.user.userName  === undefined || __globals__.user.userName.length == 0 ){
                 return false;
             }
-            console.log("loggedIn success");
             return true;
         }
         catch(e){

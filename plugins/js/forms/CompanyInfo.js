@@ -3,6 +3,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute } from 'react-router';
 
+import { getRequest } from '../utils/Utility';
 
 require('../es5-shim.min.js');
 var ReactUI = require('../ReactUI');
@@ -113,6 +114,9 @@ let CompanyInfo = React.createClass({
     onClick: function(e){
         e.preventDefault();
         console.log("onClick", e.target.value);
+        window.location.href = '#/fillsiteinfo?a=a&b=b';
+        getRequest();
+        console.log(getRequest()["a"]);
     },
 
     tick: function(){
@@ -286,7 +290,7 @@ let CompanyInfo = React.createClass({
 
             <div className="w-btn">
                 <button className="u-return" type="button"><a href="#/returntobase">返回修改</a></button>
-                <button className="u-main" type="button"><a href="#/fillsiteinfo" /*onClick={this.onClick}*/>填写网站信息</a></button>
+                <button className="u-main" type="button"><a href="#/fillsiteinfo" onClick={this.onClick}>填写网站信息</a></button>
                 <button className="u-draft" type="button"><a href="#/savetodraft">保存草稿</a></button>
             </div>
         </div>

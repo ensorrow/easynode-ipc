@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute } from 'react-router';
 
 
+
 require('../es5-shim.min.js');
 var ReactUI = require('../ReactUI');
 var Form = ReactUI.Form;
@@ -33,6 +34,9 @@ let SiteInfo = React.createClass({
 
     componentDidMount: function(){
         this.interval = setInterval(this.tick, 1000);
+
+        var url = location.search;
+        console.log("url",location.hash);
     },
 
     componentWillUnmount: function(){

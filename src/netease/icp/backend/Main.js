@@ -33,20 +33,21 @@ var HTTPUtil =  using('easynode.framework.util.HTTPUtil');
 
         static * main(){
             //load config
-            //var mysqlConfigUrl = process.env.MYSQL_CONFIG_URL;
-            //var mysqlConfig = yield HTTPUtil.getJSON(mysqlConfigUrl);
+            var configUrl = process.env.CONFIG_URL;
+            var config = yield HTTPUtil.getJSON(configUrl);
             //
             //
             ////Database source, connection pool
-            //var ds = new MySqlDataSource();
-            //ds.initialize(mysqlConfig);
+            var ds = new MySqlDataSource();
+            ds.initialize(config.mysql);
 
             ////数据库查询
-            //var conn = yield ds.getConnection();
-            //var sql = 'SELECT max(code)  as maxCode FROM watch_package';
-            //var args = {};
-            //var arr = yield conn.execQuery(sql, args = {});
-            //yield ds.releaseConnection(conn);
+            var conn = yield ds.getConnection();
+            var sql = 'SELECT max(id)  as maxCode FROM user';
+            var args = {};
+            var arr = yield conn.execQuery(sql, args = {});
+            console.log(arr);
+            yield ds.releaseConnection(conn);
 
 
             //HTTP Server
@@ -82,8 +83,10 @@ var HTTPUtil =  using('easynode.framework.util.HTTPUtil');
                 }
             });
 
+            httpServer.config = config;
             httpServer.name = EasyNode.config('http.server.name','icp-Service');
             Routes.defineRoutes(httpServer);
+
             yield httpServer.start();
         }
 

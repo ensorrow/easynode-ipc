@@ -49,12 +49,19 @@ var thunkify = require('thunkify');
             return function *(){
                 var user = this.session.user !== undefined ? this.session.user : undefined;
 
-                console.log("home.user", user);
                 if( user === undefined ){
-                    yield this.render('index',{user:user});
+                    yield this.render('index',{user:user,loginCallback:app.config.loginCallback});
                 }else{
-                    yield this.render('index',{user:user});
+                    yield this.render('index',{user:user,loginCallback:app.config.loginCallback});
                 }
+            }
+        }
+
+        static logout(app){
+            return function *(){
+                this.session.user = null;
+
+                yield this.render('index',{user:{},loginCallback:app.config.loginCallback});
             }
         }
 
@@ -87,7 +94,6 @@ var thunkify = require('thunkify');
                 user.userName = this.query.userName;
                 this.session.user = user;
 
-                console.log("loginCallback.redirect to home", this.session.user);
                 this.redirect('/');
             }
         }

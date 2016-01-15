@@ -33,7 +33,6 @@ export default{
             path: '/',
             getComponent: (location,cb) => {
                 if(!auth.loggedIn()){
-                    console.log("loggedIn 2");
                     return require.ensure([],(require)=>{
                             cb(null,require('./forms/Login.jsx'))
                         });
@@ -56,9 +55,7 @@ export default{
             path:'/exit',
             getComponent: (location,cb) => {
                 require.ensure([],(require) => {
-                    console.log("starting logout");
                     auth.logout();
-                    console.log("end logout");
                     cb(null,require('./forms/Login.jsx'));
                 });
             }
