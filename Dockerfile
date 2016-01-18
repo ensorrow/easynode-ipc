@@ -1,4 +1,4 @@
-FROM easynode:0.0.2
+FROM easynode:0.0.3
 
 MAINTAINER hujb
 
@@ -9,5 +9,7 @@ COPY . /usr/src/app
 WORKDIR /usr/src/app
 RUN cnpm install
 
-CMD ["./start_servers.sh"]
+WORKDIR /usr/src/app/bin
+
+CMD ["./start.sh"]
 
