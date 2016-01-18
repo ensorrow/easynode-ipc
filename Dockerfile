@@ -7,7 +7,7 @@ RUN mkdir -p /usr/src/app
 COPY . /usr/src/app
 
 WORKDIR /usr/src/app
-RUN cnpm install
+RUN npm install
 
 WORKDIR /usr/src/app/bin
 

@@ -207,3 +207,6 @@ file:    position: absolute,  bottom: 0, opacity: 0, border: 1px solid #ccc;  fo
 操作数据库字段全为小写,注意
 
 36. ant.design  基于react, validate
+
+37. App.js 到了 Linux下变成app.js了,后来改成 App.jsx OK, 是Linux下git忽烈大小写的问题
+
