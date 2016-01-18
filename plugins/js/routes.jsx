@@ -1,6 +1,6 @@
 import auth from './utils/auth';
 
-import App from './App';
+import App from './App.jsx';
 
 import BaseInfo from './forms/BaseInfo';
 import CompanyInfo from './forms/CompanyInfo';

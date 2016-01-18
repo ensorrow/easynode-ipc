@@ -13,6 +13,6 @@ echo 'starting icp servers...'
 
 #################icp backend Servers START##############
 sleep 1
-startService 'icp' 80
+startService 'icp' 82
 #################icp backend Servers END#########################
 echo 'icp backend servers started!'
