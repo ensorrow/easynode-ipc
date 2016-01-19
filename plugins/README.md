@@ -210,3 +210,5 @@ file:    position: absolute,  bottom: 0, opacity: 0, border: 1px solid #ccc;  fo
 
 37. App.js 到了 Linux下变成app.js了,后来改成 App.jsx OK, 是Linux下git忽烈大小写的问题
 
+38. sh start.sh 把../views/index.html改成 ../views/index2.html
+  如果本地调试时../views/index2.html改成 ../views/index.html

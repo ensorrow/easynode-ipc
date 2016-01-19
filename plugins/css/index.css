@@ -303,7 +303,7 @@ table.gridtable td >a{font-family:MicrosoftYaHei;font-size:10.6px;color:#38abd0;
 .w-btn{width:960px;margin:26px auto;text-align:center;}
 .u-main{margin-left:20px;width:200px;height:38px;background:#69a9cc;font-size:14px;}
 .u-main >a{color:#fff;}
-.u-return{width:200px;height:38px;border:none;background:transparent;font-size:14px;}
+.u-return{width:80px;height:38px;border:none;background:transparent;font-size:14px;}
 .u-draft{margin-left:30px;border:none;background:transparent;font-size:14px;}
 a:hover{text-decoration:none;}
 .g-hd{position:static;left:0;right:0;top:0;z-index:5;height:54px;background:#252b33;}
