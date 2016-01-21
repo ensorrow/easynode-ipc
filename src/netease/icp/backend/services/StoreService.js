@@ -9,6 +9,7 @@ var Nos = require('nenos');
 var archiver = require('archiver');
 var _ = require('lodash');
 var User = using('netease.icp.backend.models.User');
+var Nos = require('nenos');
 
 (function () {
 
@@ -100,6 +101,26 @@ var User = using('netease.icp.backend.models.User');
                 model.merge( Object.assign({},user) );
                 model.merge( {lastlogintime: Date.now()} );
                 return yield me.conn.update(model);
+            }
+        }
+
+
+        /**
+         * @api:   上传文件至NOS,key as the ObjectKey
+         * @apiDescription:
+         * @apiName {}
+         * @apiGroup {}
+         * @apiPermission {}
+         * @apiSuccess {} {} {}
+         * @apiVersion {}
+         * */
+        uploadNos(key,filename){
+            return function* (){
+                var url = `http://apollodev.nos.netease.com/${key}`;
+                    let nos = new Nos('c92f74b0d48f4fb39271a1109da74cc2','f200fad9c6b541d28f01159de8d9ecea','apollodev');
+                yield nos.upload(key,filename);
+                nos = null;
+                return url;
             }
         }
 

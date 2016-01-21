@@ -224,3 +224,5 @@ z-index: 2;
             this.setState({
                 sitesCount: count
             });
+
+42. easynode 用了 upload跟径,改用 /upl

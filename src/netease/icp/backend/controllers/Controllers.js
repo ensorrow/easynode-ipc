@@ -7,6 +7,8 @@ var f =  require('fs');
 var util = require('util');
 var thunkify = require('thunkify');
 var LoginService = using('netease.icp.backend.services.LoginService');
+var FileService =  using('easynode.framework.util.FileService');
+var StoreService = using('netease.icp.backend.services.StoreService');
 
 (function () {
 
@@ -88,6 +90,51 @@ var LoginService = using('netease.icp.backend.services.LoginService');
                     {"author": "Pete Hunt", "text": "This is one comment"},
                     {"author": "Jordan Walke", "text": "This is *another* comment"}
                 ];
+            }
+        }
+
+        static upload(app){
+            console.log("1");
+            var supportFileTypes = '^.*\.(?:jpg|png|gif)$';
+            var regEx = new RegExp(supportFileTypes);
+
+            return function *(){
+                console.dir(this.cookies.get('koa.sid'));
+                var session = this.session;
+                //if( session.hasOwnProperty('firms') ){
+                //    delete session.firms;
+                //}
+                this.state.upload=0;
+                if (this.method.toLocaleLowerCase() == 'post') {
+                    var hasError = false;
+                    var filename = '';
+                    var parts = yield* multipart(this);
+                    for(let file  of parts.files) {
+                        if(!file.filename.match(regEx)) {
+                            parts.dispose();
+                            this.status = 403;
+                            this.body = `403 Forbidden : Unsupported type of upload file [${file.filename}]`;
+                            hasError = true;                //ignore downstream middleware
+                        }
+                        else{
+                            console.log("2",file.path)
+                            //var fileService = new FileService();
+                            //yield fileService.copyFile(file.path,app.getUploadDir() + file.filename);
+                            var storeService = new StoreService(app,app.conn);
+                            var url = yield storeService.uploadNos(Date.now(),file.path);
+                            console.log(url);
+                            filename = file.filename;
+                        }
+                    };
+                    parts.dispose();
+
+
+                    this.type = 'json';
+                    this.body = {a:'bbb'};
+                }
+                else {
+                    EasyNode.DEBUG  && logger.debug('multipart must post');
+                }
             }
         }
 

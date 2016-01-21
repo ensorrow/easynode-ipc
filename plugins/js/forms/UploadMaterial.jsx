@@ -18,6 +18,8 @@ var Upload = ReactUI.Upload;
 import ProgressBar from './ProgressBar.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 
+import upload from '../utils/upload';
+
 let UploadMaterial = React.createClass({
 
     onReturn: function(){
@@ -31,7 +33,30 @@ let UploadMaterial = React.createClass({
         __globals__.material = {};
         __globals__.material = this.state;
     },
-
+    onChange: function(e){
+        console.log("onChange");
+        console.log(this);
+        var file = e.target.files[0];
+        upload({
+            url: '/upl',
+            name: file.name,
+            cors: true,
+            withCredentials: false,
+            file: file,
+            onProgress: (e)=>{
+                console.log(e.loaded/e.total*100 + '%');
+            },
+            onError: (e)=>{
+                console.log("file upload error");
+            }
+        });
+        //console.log(e);
+        //e.target.files[0];
+        //e.target.files[0].name;
+        //e.target.files.length;
+        //e.target.files.value ;//c:\\塔式\h.png
+        ////e.target.formAction: http://icp.hzspeed.cn/#/uploadmaterial?_k=l5safv
+    },
     render: function () {
         return (
             <div>
@@ -51,7 +76,7 @@ let UploadMaterial = React.createClass({
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
-                                        <input type="file" className="" placeholder="" name="" accept="image/jpeg,image/png,image/gif" required/>
+                                        <input type="file" className="" placeholder="" name="" accept="image/jpeg,image/png,image/gif" required onChange={this.onChange}/>
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
@@ -164,7 +189,6 @@ let UploadMaterial = React.createClass({
         );
     }
 });
-
 
 
 module.exports = UploadMaterial;
