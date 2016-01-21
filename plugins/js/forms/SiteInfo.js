@@ -35,19 +35,22 @@ var AM_WEBHOST = 2;
 var AM_VIRTUALHOST = 3;
 var AM_OTHER = 4;
 
+
 let SiteInfo = React.createClass({
 
     getInitialState: function() {
         return {
             inited: true,
             processing: false,
+            domains:[],
+            sitesCount: 0,
             formError: {
                 name: {isBlank: false},
                 domain: {isBlank: false},
-                domain1: {isBlank: false},
-                domain2: {isBlank: false},
-                domain3: {isBlank: false},
-                domain4: {isBlank: false},
+                domain1: {isBlank: false,checked:true},
+                domain2: {isBlank: false,checked:true},
+                domain3: {isBlank: false,checked:true},
+                domain4: {isBlank: false,checked:true},
                 homeUrl: {isBlank: false},
                 serviceContent: {isBlank: false,checked:true},
                 languages: {
@@ -62,7 +65,7 @@ let SiteInfo = React.createClass({
                     customize: false,
                     customizeLang: ''
                 },
-                ispName: {isBlank: false},
+                ispName: {isBlank: false,checked:true},
                 ip: {
                     ip1: false,
                     ip2: false,
@@ -73,7 +76,8 @@ let SiteInfo = React.createClass({
                     specialline: false,
                     webhost: false,
                     virtualhost: true,
-                    other: false
+                    other: false,
+                    checked:true
                 },
                 serverRegion: {isBlank: false},
 
@@ -190,22 +194,48 @@ let SiteInfo = React.createClass({
         this.setState({siteInfo: siteInfo});
         console.log("name",e.target.value);
     },
-    handleDomain: function(e){
+    handleAddSite: function(e){
+        console.log("handleAddSite");
+        var count = this.state.sitesCount+1;
+        this.setState({
+            sitesCount: count
+        });
+        var domains = this.state.domains;
+        domains.push(this.state.domains.length+1);
+        this.setState({
+            domains: domains
+        });
+        console.log(domains);
+    },
+    handleDomainOther: function(e){
         e.preventDefault();
         var siteInfo = this.state.siteInfo;
-        siteInfo.domain = e.target.value;
-        this.setState({siteInfo: siteInfo});
 
-        this.setState({domain: e.target.value});
-        console.log("domain",e.target.value);
+        switch(e.target.id){
+            case "1":
+                siteInfo.domain1 = e.target.value;
+                break;
+            case "2":
+                siteInfo.domain2 = e.target.value;
+                break;
+            case "3":
+                siteInfo.domain3 = e.target.value;
+                break;
+            case "4":
+                siteInfo.domain4 = e.target.value;
+                break;
+        }
+        this.setState({siteInfo: siteInfo});
+        console.log("domain1",e.target.value);
     },
-    handleDomain1: function(e){
+   /* handleDomain1: function(e){
         e.preventDefault();
         var siteInfo = this.state.siteInfo;
         siteInfo.domain1 = e.target.value;
         this.setState({siteInfo: siteInfo});
 
-        console.log("domain1",e.target.value);
+        this.setState({domain: e.target.value});
+        console.log("domain",e.target.value);
     },
     handleDomain2: function(e){
         e.preventDefault();
@@ -234,6 +264,15 @@ let SiteInfo = React.createClass({
 
         console.log("domain4",e.target.value);
     },
+    handleDomain5: function(e){
+        e.preventDefault();
+
+        var siteInfo = this.state.siteInfo;
+        siteInfo.domain5 = e.target.value;
+        this.setState({siteInfo: siteInfo});
+
+        console.log("domain5",e.target.value);
+    },*/
     handleHomeUrl: function(e){
         e.preventDefault();
 
@@ -497,21 +536,24 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <label className="siteurl">www</label><input type="text" name="identity" className="siteurl-input" onChange={this.handleDomain}/>
-                                    <span className={this.state.formError.domain.isBlank  ? "u-popover" : "u-popover hidden" }>请输入网站域名</span>
+                                    <div className="item-ctrl item-ctrl-in">
+                                        <label className="siteurl">www</label><input type="text" name="identity" className="siteurl-input" onChange={this.handleDomain}/>
+                                        <span className={this.state.formError.domain.isBlank  ? "u-popover" : "u-popover hidden" }>请输入网站域名</span>
+                                    </div>
+                                    { this.renderDomains() }
                                 </div>
                             </div>
-                            <input type="button" value="+ 增加网站域名" className="m-siteinfo-item addsite"/>
-                                <div className="m-siteinfo-item">
-                                    <div className="item-label">
-                                        <label>网站首页URL:</label>
-                                        <span className="red f-fr">*</span>
-                                    </div>
-                                    <div className="item-ctrl">
-                                        <label className="siteurl">http://</label><input type="text" name="identity" className="siteurl-input" onChange={this.handleHomeUrl}/>
-                                        <span className={this.state.formError.homeUrl.isBlank  ? "u-popover" : "u-popover hidden" }>请输入网站首页URL</span>
-                                    </div>
+                            <input type="button" value="+ 增加网站域名" className={this.state.sitesCount > 3 ? "m-siteinfo-item addsite hidden" : "m-siteinfo-item addsite"} onClick={this.handleAddSite}/>
+                            <div className="m-siteinfo-item">
+                                <div className="item-label">
+                                    <label>网站首页URL:</label>
+                                    <span className="red f-fr">*</span>
                                 </div>
+                                <div className="item-ctrl">
+                                    <label className="siteurl">http://</label><input type="text" name="identity" className="siteurl-input" onChange={this.handleHomeUrl}/>
+                                    <span className={this.state.formError.homeUrl.isBlank  ? "u-popover" : "u-popover hidden" }>请输入网站首页URL</span>
+                                </div>
+                            </div>
                                 <div className="m-siteinfo-item">
                                     <div className="item-label">
                                         <label>网站服务内容:</label>
@@ -684,6 +726,31 @@ let SiteInfo = React.createClass({
                 </div>
             </div>
         );
+    },
+    onRemoveSite: function(){
+        console.log("onRemoveSite");
+        var count = this.state.sitesCount-1;
+        this.setState({
+            sitesCount: count
+        });
+        var domains = this.state.domains;
+        domains.pop(this.state.domains.length+1);
+        this.setState({
+            domains: domains
+        });
+        console.log(domains);
+    },
+    renderDomains: function(){
+
+        return this.state.domains.map((domain)=>{
+            return (
+                <div className="item-ctrl item-ctrl-in" key={domain}>
+                    <label className="siteurl">www</label>
+                    <input type="text" name="identity" className="siteurl-input" onChange={this.handleDomainOther} id={domain}/>
+                    <button className="siteurl-delete" type="button" onClick={this.onRemoveSite}></button>
+                </div>
+            )
+        });
     }
 });
 

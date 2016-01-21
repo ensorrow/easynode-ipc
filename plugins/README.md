@@ -212,3 +212,15 @@ file:    position: absolute,  bottom: 0, opacity: 0, border: 1px solid #ccc;  fo
 
 38. sh start.sh 把../views/index.html改成 ../views/index2.html
   如果本地调试时../views/index2.html改成 ../views/index.html
+
+39. .item-ctrl不要设置高度,由内容撑开
+
+40. 用了postion: absolute,不要用margin-top,margin-left:去定位了,改用
+right: 10px;
+top: 10px;
+z-index: 2;
+
+41. var count = this.state.sitesCount+1; 不用用  var count = this.state.sitesCount++
+            this.setState({
+                sitesCount: count
+            });
