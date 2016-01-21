@@ -94,7 +94,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         }
 
         static upload(app){
-            console.log("1");
             var supportFileTypes = '^.*\.(?:jpg|png|gif)$';
             var regEx = new RegExp(supportFileTypes);
 
@@ -108,6 +107,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 if (this.method.toLocaleLowerCase() == 'post') {
                     var hasError = false;
                     var filename = '';
+                    var url = '';
                     var parts = yield* multipart(this);
                     for(let file  of parts.files) {
                         if(!file.filename.match(regEx)) {
@@ -117,12 +117,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                             hasError = true;                //ignore downstream middleware
                         }
                         else{
-                            console.log("2",file.path)
-                            //var fileService = new FileService();
-                            //yield fileService.copyFile(file.path,app.getUploadDir() + file.filename);
                             var storeService = new StoreService(app,app.conn);
-                            var url = yield storeService.uploadNos(Date.now(),file.path);
-                            console.log(url);
+                            url = yield storeService.uploadNos(Date.now(),file.path);
                             filename = file.filename;
                         }
                     };
@@ -130,7 +126,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
 
                     this.type = 'json';
-                    this.body = {a:'bbb'};
+                    this.body = {url:url};
                 }
                 else {
                     EasyNode.DEBUG  && logger.debug('multipart must post');

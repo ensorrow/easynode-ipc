@@ -23,6 +23,8 @@ function ajaxUpload({url,name,cors,file,onProgress,onLoad,onError,withCredential
     let xhr = createCORSRequest('post',url,cors);
     xhr.withCredentials = withCredentials;
     xhr.upload.addEventListener('progress',onProgress,false);
+    xhr.setRequestHeader("X-File-Name", file.name);
+    xhr.setRequestHeader("X-File-Size", file.size)
     xhr.onload = onLoad;
     xhr.onerror = onError;
     xhr.send(data);

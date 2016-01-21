@@ -19,24 +19,106 @@ import ProgressBar from './ProgressBar.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 
 import upload from '../utils/upload';
+import FormValidator from '../utils/FormValidator';
 
 let UploadMaterial = React.createClass({
 
+    getInitialState: function(){
+      return {
+          processing:  false,
+          formError:{
+            siteManagerUrl: {isBlank: false},
+              checkListUrl: {isBlank: false},
+              protocolUrl1: {isBlank: false},
+              protocolUrl2: {isBlank: false},
+              securityUrl1: {isBlank: false},
+              securityUrl2: {isBlank: false}
+          },
+          materials:{
+              siteManagerUrl: '',
+              checkListUrl: '',
+              protocolUrl1: '',
+              protocolUrl2: '',
+              securityUrl1: '',
+              securityUrl2: ''
+          }
+      }
+    },
     onReturn: function(){
         location.href = "#/fillsiteinfo";
     },
-    onClick: function(){
+    handleSubmit: function(e){
+        e.preventDefault();
+
+        if( this.state.processing ){
+            return;
+        }
+
+        var materials = this.state.materials;
+        var formError;
+        for( var field in materials ){
+            if( materials.hasOwnProperty(field) ){
+                formError = this.validator(field,materials[field]);
+            }
+        }
+        this.setState({
+            formError: formError
+        });
+
+        var hasError = FormValidator.check(formError);
+        console.log(formError);
+        console.log("hasError",hasError);
+
+        if( hasError ){
+            this.setState({
+                processing: false
+            });
+            return;
+        }
+
+        this.setState({
+            processing: true
+        });
+
         this.onSave();
         location.href = "#/committrial";
+
+        this.setState({
+            processing: false
+        });
     },
     onSave: function(){
         __globals__.material = {};
-        __globals__.material = this.state;
+        __globals__.material = this.state.materials;
     },
-    onChange: function(e){
-        console.log("onChange");
-        console.log(this);
-        var file = e.target.files[0];
+    assignUrl: function(id,url){
+        var materials = this.state.materials;
+        switch(id){
+            case "1":
+                materials.siteManagerUrl = url;
+                break;
+            case "2":
+                materials.checkListUrl = url;
+                break;
+            case "3":
+                materials.protocolUrl1 = url;
+                break;
+            case "4":
+                materials.protocolUrl2 = url;
+                break;
+            case "5":
+                materials.securityUrl1 = url;
+                break;
+            case "6":
+                materials.securityUrl2 = url;
+                break;
+        }
+        this.setState({
+            materials: materials
+        });
+    },
+    onChange: function(ee){
+        var file = ee.target.files[0];
         upload({
             url: '/upl',
             name: file.name,
@@ -45,6 +127,10 @@ let UploadMaterial = React.createClass({
             file: file,
             onProgress: (e)=>{
                 console.log(e.loaded/e.total*100 + '%');
+            },
+            onLoad: (e) =>{
+                var resp = JSON.parse(e.currentTarget.responseText);
+                this.assignUrl(ee.target.id,resp.url);
             },
             onError: (e)=>{
                 console.log("file upload error");
@@ -56,6 +142,11 @@ let UploadMaterial = React.createClass({
         //e.target.files.length;
         //e.target.files.value ;//c:\\塔式\h.png
         ////e.target.formAction: http://icp.hzspeed.cn/#/uploadmaterial?_k=l5safv
+    },
+    validator: function(fieldName,value){
+        var formError = this.state.formError;
+        formError[fieldName].isBlank = FormValidator.isEmpty(value);
+        return formError;
     },
     render: function () {
         return (
@@ -72,11 +163,11 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src="../assets/view.png" alt=""/>
+                                        <img src={this.state.materials.siteManagerUrl.length > 0 ? this.state.materials.siteManagerUrl : "../assets/view.png"} alt=""/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
-                                        <input type="file" className="" placeholder="" name="" accept="image/jpeg,image/png,image/gif" required onChange={this.onChange}/>
+                                        <input type="file" className="" placeholder="" name="" id="1" accept="image/jpeg,image/png,image/gif" required onChange={this.onChange}/>
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
@@ -90,11 +181,11 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src="../assets/view.png" alt=""/>
+                                        <img src={this.state.materials.checkListUrl.length > 0 ? this.state.materials.checkListUrl : "../assets/view.png"} alt=""/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
-                                        <input type="file" className="" placeholder="" name="" accept="image/jpeg,image/png,image/gif" required/>
+                                        <input type="file" className="" placeholder="" name="" id="2" accept="image/jpeg,image/png,image/gif" required onChange={this.onChange}/>
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
@@ -110,11 +201,11 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src="../assets/view.png" alt=""/>
+                                        <img src={this.state.materials.protocolUrl1.length > 0 ? this.state.materials.protocolUrl1 : "../assets/view.png"} alt=""/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
-                                        <input type="file" className="" placeholder="" name="" accept="image/jpeg,image/png,image/gif" required/>
+                                        <input type="file" className="" placeholder="" name="" id="3" accept="image/jpeg,image/png,image/gif" required onChange={this.onChange}/>
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
@@ -129,11 +220,11 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src="../assets/view.png" alt=""/>
+                                        <img src={this.state.materials.protocolUrl2.length > 0 ? this.state.materials.protocolUrl2 : "../assets/view.png"} alt=""/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
-                                        <input type="file" className="" placeholder="" name="" accept="image/jpeg,image/png,image/gif" required/>
+                                        <input type="file" className="" placeholder="" name="" id="4" accept="image/jpeg,image/png,image/gif" required onChange={this.onChange}/>
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
@@ -146,11 +237,11 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src="../assets/view.png" alt=""/>
+                                        <img src={this.state.materials.securityUrl1.length > 0 ? this.state.materials.securityUrl1 : "../assets/view.png"} alt=""/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
-                                        <input type="file" className="" placeholder="" name="" accept="image/jpeg,image/png,image/gif" required/>
+                                        <input type="file" className="" placeholder="" name="" id="5" accept="image/jpeg,image/png,image/gif" required onChange={this.onChange}/>
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
@@ -165,11 +256,11 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src="../assets/view.png" alt=""/>
+                                        <img src={this.state.materials.securityUrl2.length > 0 ? this.state.materials.securityUrl2 : "../assets/view.png"} alt=""/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
-                                        <input type="file" className="" placeholder="" name="" accept="image/jpeg,image/png,image/gif" required/>
+                                        <input type="file" className="" placeholder="" name="" id="6" accept="image/jpeg,image/png,image/gif" required onChange={this.onChange}/>
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
@@ -182,7 +273,7 @@ let UploadMaterial = React.createClass({
 
                 <div className="w-btn">
                     <button className="u-return" type="button"  onClick={this.onReturn}> 返回修改 </button>
-                    <button className="u-main" type="button" onClick={this.onClick}> 提交初审 </button>
+                    <button className="u-main" type="button" onClick={this.handleSubmit}> 提交初审 </button>
                     <button className="u-draft" type="button" onClick={this.onSave}>保存草稿</button>
                 </div>
             </div>

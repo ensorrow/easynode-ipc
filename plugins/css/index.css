@@ -206,8 +206,7 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-uploadmaterial-label .red{color:#f00;width:40px;}
 .m-uploadmaterial-label >label{font-family:MicrosoftYaHei;font-size:12px;color:#aaa;line-height:14px;}
 .m-uploadmaterial-ctrl{width:140px;position:relative;overflow:hidden;}
-.m-uploadmaterial-ctrl .m-uploadmaterial-ctrl-picture{width:140px;height:140px;background:#f5f5f5;border:1px solid #ddd;}
-.m-uploadmaterial-ctrl .m-uploadmaterial-ctrl-picture >img{display:inline-block;width:50px;height:46px;margin:47px 45px;}
+.m-uploadmaterial-ctrl .m-uploadmaterial-ctrl-picture{width:140px;height:140px;background:#f5f5f5;border:1px solid #ddd;display:table-cell;vertical-align:middle;text-align:center;}
 .m-uploadmaterial-ctrl .m-uploadmaterial-ctrl-button{width:140px;height:46px;}
 .m-uploadmaterial-ctrl .m-uploadmaterial-ctrl-button >input[type="button"],.m-uploadmaterial-ctrl .m-uploadmaterial-ctrl-button button{background:#339bbf;width:140px;height:36px;margin-top:10px;}
 .m-uploadmaterial-ctrl .m-uploadmaterial-ctrl-button >input[type="file"]{position:absolute;bottom:0;opacity:0;font-size:200px;left:0;}

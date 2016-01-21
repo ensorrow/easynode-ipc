@@ -97,11 +97,11 @@ $m-uploadmaterial_item_desc_width = 546px;
 		height: 140px;
 		background: #f5f5f5;
 		border: 1px solid #DDD;
+		display: table-cell;
+        vertical-align: middle;
+        text-align: center;
 		> img {
-	        display: inline-block;
-	        width: 50px;
-	        height: 46px;
-	        margin: 47px 45px;
+
 	    }
 	}
 
