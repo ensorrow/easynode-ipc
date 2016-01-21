@@ -7,6 +7,7 @@ var S = require('string');
 var thunkify = require('thunkify');
 
 import Controllers from '../controllers/Controllers';
+import bodyParse from 'koa-body';
 
 
 (function () {
@@ -37,6 +38,7 @@ import Controllers from '../controllers/Controllers';
         {
             Routes.addRoute(httpServer);
 
+            httpServer.addMiddleware(bodyParse());
             httpServer.addWebDirs('plugins');
             httpServer.addTemplateDirs('plugins/views');
         }
@@ -48,6 +50,7 @@ import Controllers from '../controllers/Controllers';
             httpServer.addRoute('get','/login/callback',Controllers.loginCallback(httpServer));
             httpServer.addRoute('get','/logout',Controllers.logout(httpServer));
             httpServer.addRoute('post','/upl',Controllers.upload(httpServer));
+            httpServer.addRoute('post','/committrial',Controllers.committrial(httpServer));
         }
 
         getClassName()

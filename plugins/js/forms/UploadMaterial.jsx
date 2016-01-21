@@ -20,6 +20,7 @@ import ReturnWidget from '../widgets/ReturnWidget.jsx';
 
 import upload from '../utils/upload';
 import FormValidator from '../utils/FormValidator';
+import reqwest from 'reqwest';
 
 let UploadMaterial = React.createClass({
 
@@ -35,12 +36,12 @@ let UploadMaterial = React.createClass({
               securityUrl2: {isBlank: false}
           },
           materials:{
-              siteManagerUrl: '',
-              checkListUrl: '',
-              protocolUrl1: '',
-              protocolUrl2: '',
-              securityUrl1: '',
-              securityUrl2: ''
+              siteManagerUrl: 'http://apollodev.nos.netease.com/1453382882631',
+              checkListUrl: 'http://apollodev.nos.netease.com/1453382882631',
+              protocolUrl1: 'http://apollodev.nos.netease.com/1453382882631',
+              protocolUrl2: 'http://apollodev.nos.netease.com/1453382882631',
+              securityUrl1: 'http://apollodev.nos.netease.com/1453382882631',
+              securityUrl2: 'http://apollodev.nos.netease.com/1453382882631'
           }
       }
     },
@@ -81,6 +82,22 @@ let UploadMaterial = React.createClass({
         });
 
         this.onSave();
+
+        //commit
+        reqwest({
+            url: '/committrial',
+            method: 'post',
+            data: JSON.stringify(__globals__),
+            type:'json',
+            contentType: 'application/json',
+            success: function(resp){
+                console.log(resp);
+            },
+            error: function(err){
+                console.log(err);
+            }
+        });
+
         location.href = "#/committrial";
 
         this.setState({
@@ -131,6 +148,7 @@ let UploadMaterial = React.createClass({
             onLoad: (e) =>{
                 var resp = JSON.parse(e.currentTarget.responseText);
                 this.assignUrl(ee.target.id,resp.url);
+                console.log(resp.url);
             },
             onError: (e)=>{
                 console.log("file upload error");
