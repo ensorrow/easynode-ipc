@@ -57,6 +57,7 @@
     "superagent": "^1.4.0",
     "thunkify": "~2.1.2",
     "underscore": "~1.8.3",
+    "utility": "^1.6.0",
     "watch-xdelta": "^1.8.1"
   },
   "author": "allen.hu",

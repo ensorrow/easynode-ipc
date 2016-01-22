@@ -96,96 +96,31 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
 
         static committrial(app){
-            var supportFileTypes = '^.*\.(?:jpg|png|gif)$';
-            var regEx = new RegExp(supportFileTypes);
-
+            var me = this;
             return function *(){
                 console.log("sessionid");
                 console.dir(this.cookies.get('koa.sid'));
                 var session = this.session;
+                var ret = {};
+                try {
+                    me.conn = yield  app.ds.getConnection();
 
-                //if( session.hasOwnProperty('firms') ){
-                //    delete session.firms;
-                //}
+                    yield * me.conn.beginTransaction()();
 
-                let body = this.request.body;
-                console.log(body);
+                    var storeService = new StoreService(app,me.conn)
+                    console.log(this.request.body);
+                    ret = yield storeService.insertApplyRecord(this.request.body);
 
-                /* { user:
-   { tenantid: 'b261f52d302b43ba821a6d731b17034c',
-     status: '1',
-     logintype: '1',
-     email: 'hujb2000@163.com',
-     username: 'hujb2000@163.com' },
-  loginCallback:
-   { success: 'http://icp.hzspeed.cn/login/callback?result=200',
-     error: 'http://icp.hzspeed.cn/login/callback?result=201' },
-  baseinfo: { currTypeSelected: 0, currRegionSelected: 0 },
-  companyinfo:
-   { province: '山西省',
-     city: '长治市',
-     area: '襄垣县',
-     nature: '2',
-      idType: '2',
-     idNumber: '1',
-     name: '1',
-     liveAddress: '1',
-     commAddress: '1',
-     owner: '1',
-     managerName: '1',
-     managerIdType: '3',
-     managerIdNumber: '1',
-     officePhoneNumber: '1',
-     mobile: '1',
-     email: '1' },
-  siteinfo:
-   { name: '1',
-     domain: '',
-     domain1: '',
-     domain2: '',
-     domain3: '',
-     domain4: '',
-  homeUrl: '1',
-     serviceContent: 1,
-     languages:
-      { chinese: true,
-        chinesetraditional: false,
-        eglish: false,
-        japanese: false,
-        french: false,
-        spanish: false,
-        arabic: false,
-        russian: false,
-        customize: false,
-        customizeLang: '' },
-     ispName: '',
-  ip: { ip1: '1', ip2: '1', ip3: '1', ip4: '1' },
-     accessMethod:
-      { specialline: false,
-        webhost: false,
-        virtualhost: true,
-        other: false },
-     serverRegion: '1',
-     managerName: '1',
-     managerIdType: '3',
-     managerIdNumber: '1',
-     officePhoneRegion: '1',
-     officePhoneNumber: '1',
-     mobile: '1',
-     email: '1',
-     qq: '1' },
- material:
-   { siteManagerUrl: 'http://apollodev.nos.netease.com/1453382882631',
-     checkListUrl: 'http://apollodev.nos.netease.com/1453382882631',
-     protocolUrl1: 'http://apollodev.nos.netease.com/1453382882631',
-     protocolUrl2: 'http://apollodev.nos.netease.com/1453382882631',
-     securityUrl1: 'http://apollodev.nos.netease.com/1453382882631',
-     securityUrl2: 'http://apollodev.nos.netease.com/1453382882631' } }
-*/
+                    yield * me.conn.commit()();
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                    yield * me.conn.rollback()();
+                }finally{
+                    yield app.ds.releaseConnection(me.conn);
 
-
-                this.type = 'json';
-                this.body = {url:"aaa"};
+                    this.type = 'json';
+                    this.body = {ret: ret};
+                }
             }
         }
 

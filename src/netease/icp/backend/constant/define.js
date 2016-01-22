@@ -18,6 +18,6 @@ export const RecordCheckStatus = {
 }
 
 module.exports = {
-    rcs: RecordCheckStatus,
-    rt: RecordType
+    RecordCheckStatus: RecordCheckStatus,
+    RecordType: RecordType
 }

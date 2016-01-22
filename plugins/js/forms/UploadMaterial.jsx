@@ -28,20 +28,20 @@ let UploadMaterial = React.createClass({
       return {
           processing:  false,
           formError:{
-            siteManagerUrl: {isBlank: false},
-              checkListUrl: {isBlank: false},
-              protocolUrl1: {isBlank: false},
-              protocolUrl2: {isBlank: false},
-              securityUrl1: {isBlank: false},
-              securityUrl2: {isBlank: false}
+            sitemanagerurl: {isBlank: false},
+              checklisturl: {isBlank: false},
+              protocolurl1: {isBlank: false},
+              protocolurl2: {isBlank: false},
+              securityurl1: {isBlank: false},
+              securityurl2: {isBlank: false}
           },
           materials:{
-              siteManagerUrl: 'http://apollodev.nos.netease.com/1453382882631',
-              checkListUrl: 'http://apollodev.nos.netease.com/1453382882631',
-              protocolUrl1: 'http://apollodev.nos.netease.com/1453382882631',
-              protocolUrl2: 'http://apollodev.nos.netease.com/1453382882631',
-              securityUrl1: 'http://apollodev.nos.netease.com/1453382882631',
-              securityUrl2: 'http://apollodev.nos.netease.com/1453382882631'
+              sitemanagerurl: 'http://apollodev.nos.netease.com/1453382882631',
+              checklisturl: 'http://apollodev.nos.netease.com/1453382882631',
+              protocolurl1: 'http://apollodev.nos.netease.com/1453382882631',
+              protocolurl2: 'http://apollodev.nos.netease.com/1453382882631',
+              securityurl1: 'http://apollodev.nos.netease.com/1453382882631',
+              securityurl2: 'http://apollodev.nos.netease.com/1453382882631'
           }
       }
     },
@@ -112,22 +112,22 @@ let UploadMaterial = React.createClass({
         var materials = this.state.materials;
         switch(id){
             case "1":
-                materials.siteManagerUrl = url;
+                materials.sitemanagerurl = url;
                 break;
             case "2":
-                materials.checkListUrl = url;
+                materials.checklisturl = url;
                 break;
             case "3":
-                materials.protocolUrl1 = url;
+                materials.protocolurl1 = url;
                 break;
             case "4":
-                materials.protocolUrl2 = url;
+                materials.protocolurl2 = url;
                 break;
             case "5":
-                materials.securityUrl1 = url;
+                materials.securityurl1 = url;
                 break;
             case "6":
-                materials.securityUrl2 = url;
+                materials.securityurl2 = url;
                 break;
         }
         this.setState({
@@ -181,7 +181,7 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={this.state.materials.siteManagerUrl.length > 0 ? this.state.materials.siteManagerUrl : "../assets/view.png"} alt=""/>
+                                        <img src={this.state.materials.sitemanagerurl.length > 0 ? this.state.materials.sitemanagerurl : "../assets/view.png"} alt=""/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -199,7 +199,7 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={this.state.materials.checkListUrl.length > 0 ? this.state.materials.checkListUrl : "../assets/view.png"} alt=""/>
+                                        <img src={this.state.materials.checklisturl.length > 0 ? this.state.materials.checklisturl : "../assets/view.png"} alt=""/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -219,7 +219,7 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={this.state.materials.protocolUrl1.length > 0 ? this.state.materials.protocolUrl1 : "../assets/view.png"} alt=""/>
+                                        <img src={this.state.materials.protocolurl1.length > 0 ? this.state.materials.protocolurl1 : "../assets/view.png"} alt=""/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -238,7 +238,7 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={this.state.materials.protocolUrl2.length > 0 ? this.state.materials.protocolUrl2 : "../assets/view.png"} alt=""/>
+                                        <img src={this.state.materials.protocolurl2.length > 0 ? this.state.materials.protocolurl2 : "../assets/view.png"} alt=""/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -255,7 +255,7 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={this.state.materials.securityUrl1.length > 0 ? this.state.materials.securityUrl1 : "../assets/view.png"} alt=""/>
+                                        <img src={this.state.materials.securityurl1.length > 0 ? this.state.materials.securityurl1 : "../assets/view.png"} alt=""/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -274,7 +274,7 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={this.state.materials.securityUrl2.length > 0 ? this.state.materials.securityUrl2 : "../assets/view.png"} alt=""/>
+                                        <img src={this.state.materials.securityurl2.length > 0 ? this.state.materials.securityurl2 : "../assets/view.png"} alt=""/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>

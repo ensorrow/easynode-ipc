@@ -51,8 +51,8 @@ let SiteInfo = React.createClass({
                 domain2: {isBlank: false,checked:true},
                 domain3: {isBlank: false,checked:true},
                 domain4: {isBlank: false,checked:true},
-                homeUrl: {isBlank: false},
-                serviceContent: {isBlank: false,checked:true},
+                homeurl: {isBlank: false},
+                servicecontent: {isBlank: false,checked:true},
                 languages: {
                     chinese: true,
                     chinesetraditional: false,
@@ -65,33 +65,33 @@ let SiteInfo = React.createClass({
                     customize: false,
                     customizeLang: ''
                 },
-                ispName: {isBlank: false,checked:true},
+                ispname: {isBlank: false,checked:true},
                 ip: {
                     ip1: false,
                     ip2: false,
                     ip3: false,
                     ip4: false
                 },
-                accessMethod: {
+                accessmethod: {
                     specialline: false,
                     webhost: false,
                     virtualhost: true,
                     other: false,
                     checked:true
                 },
-                serverRegion: {isBlank: false},
+                serverregion: {isBlank: false},
 
-                managerName: {isBlank: false},
-                managerIdType: {isBlank: false},
-                managerIdNumber: {isBlank: false},
-                officePhoneRegion: {isBlank: false},
-                officePhoneNumber: {isBlank: false},
+                managername: {isBlank: false},
+                manageridtype: {isBlank: false},
+                manageridnumber: {isBlank: false},
+                officephoneregion: {isBlank: false},
+                officephonenumber: {isBlank: false},
                 mobile: {isBlank: false},
                 email: {isBlank: false},
                 qq: {isBlank: false}
             },
             siteInfo:{
-                name:'',domain:'',domain1:'',domain2:'',domain3:'',domain4:'',homeUrl:'',serviceContent:1,languages:{
+                name:'',domain:'',domain1:'',domain2:'',domain3:'',domain4:'',homeurl:'',servicecontent:"1",languages:{
                     chinese: true,
                     chinesetraditional: false,
                     eglish: false,
@@ -103,17 +103,18 @@ let SiteInfo = React.createClass({
                     customize: false,
                     customizeLang: ''
                 },
-                ispName:'', ip:{
+                ispname:'杭州网易雷火科技有限公司',
+                ip:{
                     ip1:'',
                     ip2:'',
                     ip3:'',
                     ip4:''
-                },accessMethod:{
+                },accessmethod:{
                     specialline: false,
                     webhost: false,
                     virtualhost: true,
                     other: false
-                },serverRegion:'1',managerName:'',managerIdType:0,managerIdNumber:'',officePhoneRegion:'',officePhoneNumber:'',mobile:'',
+                },serverregion:'1',managername:'',manageridtype:0,manageridnumber:'',officephoneregion:'',officephonenumber:'',mobile:'',
                 email:'', qq:''
             }
         };
@@ -228,68 +229,30 @@ let SiteInfo = React.createClass({
         this.setState({siteInfo: siteInfo});
         console.log("domain1",e.target.value);
     },
-   /* handleDomain1: function(e){
+    handleDomain: function(e){
         e.preventDefault();
         var siteInfo = this.state.siteInfo;
-        siteInfo.domain1 = e.target.value;
+        siteInfo.domain = e.target.value;
         this.setState({siteInfo: siteInfo});
-
-        this.setState({domain: e.target.value});
         console.log("domain",e.target.value);
     },
-    handleDomain2: function(e){
-        e.preventDefault();
-
-        var siteInfo = this.state.siteInfo;
-        siteInfo.domain2 = e.target.value;
-        this.setState({siteInfo: siteInfo});
-
-        console.log("domain2",e.target.value);
-    },
-    handleDomain3: function(e){
-        e.preventDefault();
-
-        var siteInfo = this.state.siteInfo;
-        siteInfo.domain3 = e.target.value;
-        this.setState({siteInfo: siteInfo});
-
-        console.log("domain3",e.target.value);
-    },
-    handleDomain4: function(e){
-        e.preventDefault();
-
-        var siteInfo = this.state.siteInfo;
-        siteInfo.domain4 = e.target.value;
-        this.setState({siteInfo: siteInfo});
-
-        console.log("domain4",e.target.value);
-    },
-    handleDomain5: function(e){
-        e.preventDefault();
-
-        var siteInfo = this.state.siteInfo;
-        siteInfo.domain5 = e.target.value;
-        this.setState({siteInfo: siteInfo});
-
-        console.log("domain5",e.target.value);
-    },*/
     handleHomeUrl: function(e){
         e.preventDefault();
 
         var siteInfo = this.state.siteInfo;
-        siteInfo.homeUrl = e.target.value;
+        siteInfo.homeurl = e.target.value;
         this.setState({siteInfo: siteInfo});
 
-        console.log("homeUrl",e.target.value);
+        console.log("homeurl",e.target.value);
     },
     handleServiceContent: function(e){
         e.preventDefault();
 
         var siteInfo = this.state.siteInfo;
-        siteInfo.serviceContent = e.target.value;
+        siteInfo.servicecontent = e.target.value;
         this.setState({siteInfo: siteInfo});
 
-        console.log("serviceContent",e.target.value);
+        console.log("servicecontent",e.target.value);
     },
     enableLanguagesTips: function(){
         var siteInfo = this.state.siteInfo;
@@ -301,8 +264,8 @@ let SiteInfo = React.createClass({
     },
     enableAccessMethodTips: function(){
         var siteInfo = this.state.siteInfo;
-        for( var i in siteInfo.accessMethod ){
-            if( siteInfo.accessMethod[i] == true )
+        for( var i in siteInfo.accessmethod ){
+            if( siteInfo.accessmethod[i] == true )
                 return false;
         }
         return true;
@@ -367,10 +330,10 @@ let SiteInfo = React.createClass({
         e.preventDefault();
 
         var siteInfo = this.state.siteInfo;
-        siteInfo.ispName = e.target.value;
+        siteInfo.ispname = e.target.value;
         this.setState({siteInfo: siteInfo});
 
-        console.log("ispName",e.target.value);
+        console.log("ispname",e.target.value);
     },
     handleIp1: function(e){
         e.preventDefault();
@@ -412,16 +375,16 @@ let SiteInfo = React.createClass({
         var siteInfo = this.state.siteInfo;
         switch(id){
             case AM_SPECIALLINE:
-                siteInfo.accessMethod.specialline = !siteInfo.accessMethod.specialline;
+                siteInfo.accessmethod.specialline = !siteInfo.accessmethod.specialline;
                 break;
             case AM_WEBHOST:
-                siteInfo.accessMethod.webhost = !siteInfo.accessMethod.webhost;
+                siteInfo.accessmethod.webhost = !siteInfo.accessmethod.webhost;
                 break;
             case AM_VIRTUALHOST:
-                siteInfo.accessMethod.virtualhost = !siteInfo.accessMethod.virtualhost;
+                siteInfo.accessmethod.virtualhost = !siteInfo.accessmethod.virtualhost;
                 break;
             case AM_OTHER:
-                siteInfo.accessMethod.other = !siteInfo.accessMethod.other;
+                siteInfo.accessmethod.other = !siteInfo.accessmethod.other;
                 break;
         }
         this.setState({
@@ -432,56 +395,56 @@ let SiteInfo = React.createClass({
         e.preventDefault();
 
         var siteInfo = this.state.siteInfo;
-        siteInfo.serverRegion = e.target.value;
+        siteInfo.serverregion = e.target.value;
         this.setState({siteInfo: siteInfo});
 
-        console.log("serverRegion",e.target.value);
+        console.log("serverregion",e.target.value);
     },
 
     handleManagerName: function(e){
         e.preventDefault();
 
         var siteInfo = this.state.siteInfo;
-        siteInfo.managerName = e.target.value;
+        siteInfo.managername = e.target.value;
         this.setState({siteInfo: siteInfo});
 
-        console.log("managerName",e.target.value);
+        console.log("managername",e.target.value);
     },
     handleManagerIdType: function(e){
         e.preventDefault();
 
         var siteInfo = this.state.siteInfo;
-        siteInfo.managerIdType = e.target.value;
+        siteInfo.manageridtype = parseInt(e.target.value);
         this.setState({siteInfo: siteInfo});
 
-        console.log("managerIdType",e.target.value);
+        console.log("manageridtype",e.target.value);
     },
     handleManagerIdNumber: function(e){
         e.preventDefault();
 
         var siteInfo = this.state.siteInfo;
-        siteInfo.managerIdNumber = e.target.value;
+        siteInfo.manageridnumber = e.target.value;
         this.setState({siteInfo: siteInfo});
 
-        console.log("managerIdNumber",e.target.value);
+        console.log("manageridnumber",e.target.value);
     },
     handleOfficePhoneRegion: function(e){
         e.preventDefault();
 
         var siteInfo = this.state.siteInfo;
-        siteInfo.officePhoneRegion = e.target.value;
+        siteInfo.officephoneregion = e.target.value;
         this.setState({siteInfo: siteInfo});
 
-        console.log("officePhoneRegion",e.target.value);
+        console.log("officephoneregion",e.target.value);
     },
     handleOfficePhoneNumber: function(e){
         e.preventDefault();
 
         var siteInfo = this.state.siteInfo;
-        siteInfo.officePhoneNumber = e.target.value;
+        siteInfo.officephonenumber = e.target.value;
         this.setState({siteInfo: siteInfo});
 
-        console.log("officePhoneNumber",e.target.value);
+        console.log("officephonenumber",e.target.value);
     },
     handleMobile: function(e){
         e.preventDefault();
@@ -551,7 +514,7 @@ let SiteInfo = React.createClass({
                                 </div>
                                 <div className="item-ctrl">
                                     <label className="siteurl">http://</label><input type="text" name="identity" className="siteurl-input" onChange={this.handleHomeUrl}/>
-                                    <span className={this.state.formError.homeUrl.isBlank  ? "u-popover" : "u-popover hidden" }>请输入网站首页URL</span>
+                                    <span className={this.state.formError.homeurl.isBlank  ? "u-popover" : "u-popover hidden" }>请输入网站首页URL</span>
                                 </div>
                             </div>
                                 <div className="m-siteinfo-item">
@@ -563,7 +526,7 @@ let SiteInfo = React.createClass({
                                         <select onChange={this.handleServiceContent} disabled>
                                             <option value ="1">其他</option>
                                         </select>
-                                        <span className={this.state.formError.serviceContent.isBlank  ? "u-popover" : "u-popover hidden" }>请选择网站服务内容</span>
+                                        <span className={this.state.formError.servicecontent.isBlank  ? "u-popover" : "u-popover hidden" }>请选择网站服务内容</span>
                                     </div>
                                 </div>
                                 <div className="m-siteinfo-item language">
@@ -596,7 +559,7 @@ let SiteInfo = React.createClass({
                                 </div>
                                 <div className="item-ctrl">
                                     <input type="text" name="lpname" onChange={this.handleManagerName}/>
-                                    <span className={this.state.formError.managerName.isBlank  ? "u-popover" : "u-popover hidden" }>请输入网站负责人姓名</span>
+                                    <span className={this.state.formError.managername.isBlank  ? "u-popover" : "u-popover hidden" }>请输入网站负责人姓名</span>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">
@@ -612,7 +575,7 @@ let SiteInfo = React.createClass({
                                         <option value="3">军官证</option>
                                         <option value="4">台胞证</option>
                                     </select>
-                                    <span className={this.state.formError.managerIdType.isBlank  ? "u-popover" : "u-popover hidden" }>请选择有效证件类型</span>
+                                    <span className={this.state.formError.manageridtype.isBlank  ? "u-popover" : "u-popover hidden" }>请选择有效证件类型</span>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">
@@ -622,7 +585,7 @@ let SiteInfo = React.createClass({
                                 </div>
                                 <div className="item-ctrl">
                                     <input type="text" name="npidentity" onChange={this.handleManagerIdNumber}/>
-                                    <span className={this.state.formError.managerIdNumber.isBlank  ? "u-popover" : "u-popover hidden" }>请输入有效证件号码</span>
+                                    <span className={this.state.formError.manageridnumber.isBlank  ? "u-popover" : "u-popover hidden" }>请输入有效证件号码</span>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">
@@ -633,7 +596,7 @@ let SiteInfo = React.createClass({
                                 <div className="item-ctrl">
                                     <input type="text" name="officerphone" className="item-ctrl-office-onefourth" onChange={this.handleOfficePhoneRegion}/>
                                     <input type="text" name="officerphone" className="item-ctrl-office-threefourth" onChange={this.handleOfficePhoneNumber}/>
-                                    <span className={this.state.formError.officePhoneNumber.isBlank  ? "u-popover" : "u-popover hidden" }>请输入办公室电话</span>
+                                    <span className={this.state.formError.officephonenumber.isBlank  ? "u-popover" : "u-popover hidden" }>请输入办公室电话</span>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">
@@ -698,10 +661,10 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="checkbox" name="专线"  id='11' onChange={this.handleAccessMethod.bind(this,AM_SPECIALLINE)} checked={this.state.siteInfo.accessMethod.specialline ? "checked": "" }/><span>专线</span>
-                                    <input type="checkbox" name="主机托管" id='12' onChange={this.handleAccessMethod.bind(this,AM_WEBHOST)} checked={this.state.siteInfo.accessMethod.webhost ? "checked": "" }/><span>主机托管</span>
-                                    <input type="checkbox" name="虚拟主机" id='13' onChange={this.handleAccessMethod.bind(this,AM_VIRTUALHOST)} checked={this.state.siteInfo.accessMethod.virtualhost ? "checked": "" }/><span>虚拟主机</span>
-                                    <input type="checkbox" name="其他" id='14' onChange={this.handleAccessMethod.bind(this,AM_OTHER)} checked={this.state.siteInfo.accessMethod.other ? "checked": "" }/><span>其他</span>
+                                    <input type="checkbox" name="专线"  id='11' onChange={this.handleAccessMethod.bind(this,AM_SPECIALLINE)} checked={this.state.siteInfo.accessmethod.specialline ? "checked": "" }/><span>专线</span>
+                                    <input type="checkbox" name="主机托管" id='12' onChange={this.handleAccessMethod.bind(this,AM_WEBHOST)} checked={this.state.siteInfo.accessmethod.webhost ? "checked": "" }/><span>主机托管</span>
+                                    <input type="checkbox" name="虚拟主机" id='13' onChange={this.handleAccessMethod.bind(this,AM_VIRTUALHOST)} checked={this.state.siteInfo.accessmethod.virtualhost ? "checked": "" }/><span>虚拟主机</span>
+                                    <input type="checkbox" name="其他" id='14' onChange={this.handleAccessMethod.bind(this,AM_OTHER)} checked={this.state.siteInfo.accessmethod.other ? "checked": "" }/><span>其他</span>
                                     <span className={this.enableAccessMethodTips()  ? "u-popover" : "u-popover hidden" }>请选择网站接入方式</span>
                                 </div>
                             </div>
@@ -712,7 +675,7 @@ let SiteInfo = React.createClass({
                                 </div>
                                 <div className="item-ctrl">
                                     <input type="checkbox" name="HZ1" checked="checked" onChange={this.handleServerRegion}/><span>HZ1</span>
-                                    <span className={this.state.formError.serverRegion.isBlank  ? "u-popover" : "u-popover hidden" }>请选择服务器放置地</span>
+                                    <span className={this.state.formError.serverregion.isBlank  ? "u-popover" : "u-popover hidden" }>请选择服务器放置地</span>
                                 </div>
                             </div>
                         </fieldset>

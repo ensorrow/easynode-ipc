@@ -9,7 +9,11 @@ var Nos = require('nenos');
 var archiver = require('archiver');
 var _ = require('lodash');
 var User = using('netease.icp.backend.models.User');
+var Company = using('netease.icp.backend.models.Company');
+var Website = using('netease.icp.backend.models.Website');
+var Record = using('netease.icp.backend.models.Record');
 var Nos = require('nenos');
+var utils = require('utility');
 
 (function () {
 
@@ -104,6 +108,146 @@ var Nos = require('nenos');
             }
         }
 
+        /**
+         * @api:  插入申请记录
+         * @apiDescription:
+         * @apiName {storeService}
+         * @apiGroup {}
+
+           @apiParam {formData}
+ 格式如下:
+{
+    user:
+    {
+        tenantid: 'b261f52d302b43ba821a6d731b17034c',
+        status: '1',
+        logintype: '1',
+        email: 'hujb2000@163.com',
+        username: 'hujb2000@163.com'
+    },
+    loginCallback:
+    {
+        success: 'http://icp.hzspeed.cn/login/callback?result=200',
+        error: 'http://icp.hzspeed.cn/login/callback?result=201'
+    },
+    baseinfo:
+    {
+        type: 0,
+        serverregion: 0
+    },
+    companyinfo:
+    {
+        province: '山西省',
+        city: '长治市',
+        area: '襄垣县',
+        nature: '2',
+        idtype: '2',
+        idnumber: '1',
+        name: '1',
+        liveaddress: '1',
+        commaddress: '1',
+        owner: '1',
+        managername: '1',
+        manageridtype: '3',
+        manageridnumber: '1',
+        officephonenumber: '1',
+        mobile: '1',
+        email: '1'
+    },
+    siteinfo:
+    {
+        name: '1',
+        domain: '',
+        domain1: '',
+        domain2: '',
+        domain3: '',
+        domain4: '',
+        homeurl: '1',
+        servicecontent: 1,
+        languages:
+        {
+            chinese: true,
+            chinesetraditional: false,
+            eglish: false,
+            japanese: false,
+            french: false,
+            spanish: false,
+            arabic: false,
+            russian: false,
+            customize: false,
+            customizeLang: ''
+       },
+       ispname: '',
+       ip:
+       {
+        ip1: '1', ip2: '1', ip3: '1', ip4: '1'
+       },
+        accessmethod:
+        {
+            specialline: false,
+            webhost: false,
+            virtualhost: true,
+            other: false
+        },
+         serverregion: '1',
+         managername: '1',
+         manageridtype: '3',
+         manageridnumber: '1',
+         officephoneregion: '1',
+         officephonenumber: '1',
+         mobile: '1',
+         email: '1',
+         qq: '1'
+     },
+    material:
+    {
+        sitemanagerurl: 'http://apollodev.nos.netease.com/1453382882631',
+        checklisturl: 'http://apollodev.nos.netease.com/1453382882631',
+        protocolurl1: 'http://apollodev.nos.netease.com/1453382882631',
+        protocolurl2: 'http://apollodev.nos.netease.com/1453382882631',
+        securityurl1: 'http://apollodev.nos.netease.com/1453382882631',
+        securityurl2: 'http://apollodev.nos.netease.com/1453382882631'
+    }
+ }
+
+         * @apiSuccess { return insertId }
+         * @apiVersion {}
+         * */
+        insertApplyRecord(formData) {
+            var me = this;
+            return function *(){
+
+
+
+
+                //1. insert companyinfo
+                var model = new Company();
+                model.merge( Object.assign({},formData.companyinfo,{tenantid:formData.user.tenantid},{createtime:Date.now(),updatetime:Date.now()} ));
+                var r = yield me.conn.create(model);
+                var companyid =  r.insertId;
+
+                //2. insert siteinfo
+                model = null;
+                model = new  Website();
+                var data  = Object.assign({},formData.siteinfo,{tenantid:formData.user.tenantid},{createtime:Date.now(),updatetime:Date.now()} );
+                data.manageridtype = parseInt(data.manageridtype);
+                data.accessmethod = JSON.stringify(data.accessmethod);
+                data.ip = JSON.stringify(data.ip);
+                data.languages = JSON.stringify(data.languages);
+                model.merge( data );
+                r = yield me.conn.create(model);
+                var websiteid = r.insertId;
+
+                //3. insert appliyrecord
+                model = null;
+                model = new Record();
+                var code = utils.randomString(32, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+                model.merge( Object.assign({},formData.baseinfo,formData.material,{tenantid:formData.user.tenantid,companyid:companyid,websiteid:websiteid,status: 1,code:code},{createtime:Date.now(),updatetime:Date.now()} ));
+                r = yield me.conn.create(model);
+
+                return { code: code, id: r.insertId };
+            }
+        }
 
         /**
          * @api:   上传文件至NOS,key as the ObjectKey

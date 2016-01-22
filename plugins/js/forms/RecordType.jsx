@@ -22,7 +22,7 @@ var data = [
 let RecordType = React.createClass({
 
     getInitialState: function() {
-        return {currTypeSelected:0,currRegionSelected:0};
+        return {type:0,serverregion:0};
     },
 
     render: function () {
@@ -30,7 +30,7 @@ let RecordType = React.createClass({
         var me = this;
         var itemsList = data.map(function(item){
                 return (
-                    <li className={me.state.currTypeSelected == item.id ? "item selected" : "item"} onClick={me.handleSelectType.bind(me,item.id)} key={item.id}>
+                    <li className={me.state.type == item.id ? "item selected" : "item"} onClick={me.handleSelectType.bind(me,item.id)} key={item.id}>
                         <div className="item-icon">
                             <img src={item.src} alt=""/>
                             <span className="title">{item.title}</span>
@@ -70,11 +70,11 @@ let RecordType = React.createClass({
 
     handleSelectType: function(id){
         this.setState({
-            currTypeSelected: id
+            type: id
         });
-        this.props.selected.currTypeSelected = id;
+        this.props.selected.type = id;
         var onChange = this.props.onChange;
-        onChange && onChange( this.props.selected.currTypeSelected , 0 );
+        onChange && onChange( this.props.selected.type , 0 );
     }
 });
 

@@ -22,12 +22,12 @@ import ProgressBar from './ProgressBar.jsx';
 let BaseInfo = React.createClass({
 
     getInitialState: function() {
-        return {currTypeSelected:0,currRegionSelected:0};
+        return {type:0,serverregion:0};
     },
     onSave: function(){
         __globals__.baseinfo = {};
-        __globals__.baseinfo.currTypeSelected = this.state.currTypeSelected;
-        __globals__.baseinfo.currRegionSelected = this.state.currRegionSelected;
+        __globals__.baseinfo.type = this.state.type;
+        __globals__.baseinfo.serverregion = this.state.serverregion;
     },
     componentDidMount: function(){
     },
@@ -36,8 +36,8 @@ let BaseInfo = React.createClass({
     },
 
     onChange: function(type, region){
-        this.state.currTypeSelected = type;
-        this.state.currRegionSelected = region;
+        this.state.type = type;
+        this.state.serverregion = region;
     },
     onClick: function(){
         this.onSave();

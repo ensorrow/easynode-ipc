@@ -28,20 +28,19 @@ let CompanyInfo = React.createClass({
             formError: {
                 province: {isBlank: false},
                 city: {isBlank: false},
-                area: {isBlank: false},
+                area: {isBlank: false,checked:true},
                 nature: {isBlank: false},
-                idType: {isBlank: false},
-                idNumber: {isBlank: false},
+                idtype: {isBlank: false},
+                idnumber: {isBlank: false},
                 name: {isBlank: false},
-                liveAddress:  {isBlank: false},
-                commAddress: {isBlank: false},
+                liveaddress:  {isBlank: false},
+                commaddress: {isBlank: false},
                 owner: {isBlank: false},
-                compnayId: {isBlank: false},
-                managerName: {isBlank: false},
-                managerIdType:  {isBlank: false},
-                managerIdNumber: {isBlank: false},
-               // officePhoneRegion: {isBlank: false},
-                officePhoneNumber: {isBlank: false},
+                managername: {isBlank: false},
+                manageridtype:  {isBlank: false},
+                manageridnumber: {isBlank: false},
+               // officephoneregion: {isBlank: false},
+                officephonenumber: {isBlank: false},
                 mobile: {isBlank: false},
                 email: {isBlank: false}
             },
@@ -50,17 +49,17 @@ let CompanyInfo = React.createClass({
                 city: '',
                 area: '',
                 nature: 0,
-                idType: 0,
-                idNumber: '',
+                idtype: 0,
+                idnumber: '',
                 name: '',
-                liveAddress: '',
-                commAddress: '',
+                liveaddress: '',
+                commaddress: '',
                 owner: '',
-                managerName: '',
-                managerIdType: 0,
-                managerIdNumber: '',
-              //  officePhoneRegion: '',
-                officePhoneNumber: '',
+                managername: '',
+                manageridtype: 0,
+                manageridnumber: '',
+              //  officephoneregion: '',
+                officephonenumber: '',
                 mobile: '',
                 email: ''
             }
@@ -89,19 +88,9 @@ let CompanyInfo = React.createClass({
         var hasError = false;
 
         console.log(formError);
+        console.log(companyInfo);
 
-        (function _check(o){
-            for(var i in o){
-                if(o.hasOwnProperty(i)){
-                    if( typeof o[i] == 'object'){
-                        _check(o[i]);
-                    }else if(o[i] == true){
-                        hasError = true;
-                        break;
-                    }
-                }
-            }
-        })(formError);
+        var hasError = FormValidator.check(formError);
 
         console.log("haseError",hasError);
 
@@ -115,6 +104,7 @@ let CompanyInfo = React.createClass({
         this.setState({
             processing: true
         });
+
         this.onSave();
         location.href = "#/fillsiteinfo";
 
@@ -135,7 +125,7 @@ let CompanyInfo = React.createClass({
         companyInfo.nature = e.target.value;
         this.setState({companyInfo: companyInfo});
         /*if(parseInt(e.target.value) > 1){
-            companyInfo.idTypeEnable = 1;
+            companyInfo.idtypeEnable = 1;
             this.setState({companyInfo: companyInfo});
         }*/
         console.log("nature",e.target.value);
@@ -151,17 +141,17 @@ let CompanyInfo = React.createClass({
     handleIdType: function(e){
         e.preventDefault();
         var companyInfo = this.state.companyInfo;
-        companyInfo.idType = e.target.value;
+        companyInfo.idtype = e.target.value;
         this.setState({companyInfo: companyInfo});
-        console.log("idType",e.target.value);
+        console.log("idtype",e.target.value);
     },
     handleIdNumber: function(e){
         e.preventDefault();
         var companyInfo = this.state.companyInfo;
-        companyInfo.idNumber = e.target.value;
+        companyInfo.idnumber = e.target.value;
         this.setState({companyInfo: companyInfo});
 
-        console.log("idNumber", e.target.value);
+        console.log("idnumber", e.target.value);
         console.log(e.target.value);
     },
     handleName: function(e){
@@ -175,16 +165,16 @@ let CompanyInfo = React.createClass({
     handleLiveAddress: function(e){
         e.preventDefault();
         var companyInfo = this.state.companyInfo;
-        companyInfo.liveAddress = e.target.value;
+        companyInfo.liveaddress = e.target.value;
         this.setState({companyInfo: companyInfo});
-        console.log("liveAddress",e.target.value);
+        console.log("liveaddress",e.target.value);
     },
     handleCommAddress: function(e){
         e.preventDefault();
         var companyInfo = this.state.companyInfo;
-        companyInfo.commAddress = e.target.value;
+        companyInfo.commaddress = e.target.value;
         this.setState({companyInfo: companyInfo});
-        console.log("liveAddress",e.target.value);
+        console.log("liveaddress",e.target.value);
     },
     handleOwner: function(e){
         e.preventDefault();
@@ -196,40 +186,40 @@ let CompanyInfo = React.createClass({
     handleManagerName: function(e){
         e.preventDefault();
         var companyInfo = this.state.companyInfo;
-        companyInfo.managerName = e.target.value;
+        companyInfo.managername = e.target.value;
         this.setState({companyInfo: companyInfo});
-        console.log("managerName",e.target.value);
+        console.log("managername",e.target.value);
     },
     handleManagerIdType: function(e){
         e.preventDefault();
         var companyInfo = this.state.companyInfo;
-        companyInfo.managerIdType = e.target.value;
+        companyInfo.manageridtype = e.target.value;
         this.setState({companyInfo: companyInfo});
-        console.log("managerIdType",e.target.value);
+        console.log("manageridtype",e.target.value);
     },
 
     handleManagerIdNumber: function(e){
         e.preventDefault();
         var companyInfo = this.state.companyInfo;
-        companyInfo.managerIdNumber = e.target.value;
+        companyInfo.manageridnumber = e.target.value;
         this.setState({companyInfo: companyInfo});
-        console.log("managerIdNumber",e.target.value);
+        console.log("manageridnumber",e.target.value);
     },
    /* handleOfficePhoneRegion: function(e){
         e.preventDefault();
         var companyInfo = this.state.companyInfo;
-        companyInfo.officePhoneRegion = e.target.value;
+        companyInfo.officephoneregion = e.target.value;
         this.setState({companyInfo: companyInfo});
 
-        console.log("officePhoneRegion",e.target.value);
+        console.log("officephoneregion",e.target.value);
     },*/
     handleOfficePhoneNumber: function(e){
         e.preventDefault();
         var companyInfo = this.state.companyInfo;
-        companyInfo.officePhoneNumber = e.target.value;
+        companyInfo.officephonenumber = e.target.value;
         this.setState({companyInfo: companyInfo});
 
-        console.log("officePhoneNumber",e.target.value);
+        console.log("officephonenumber",e.target.value);
     },
     handleMobile: function(e){
         e.preventDefault();
@@ -311,7 +301,7 @@ let CompanyInfo = React.createClass({
                                     <option value ="1">工商执照</option>
                                     <option value="2">组织机构代码</option>
                                 </select>
-                                <span className={this.state.formError.idType.isBlank ? "u-popover" : "u-popover hidden" }>1、企业建议选择工商执照 2、民办企业建议选择组织机构代码</span>
+                                <span className={this.state.formError.idtype.isBlank ? "u-popover" : "u-popover hidden" }>1、企业建议选择工商执照 2、民办企业建议选择组织机构代码</span>
                             </div>
                         </div>
                         <div className="m-companyinfo-item">
@@ -320,7 +310,7 @@ let CompanyInfo = React.createClass({
                             </div>
                             <div className="item-ctrl">
                                 <input type="text" name="identity"  onChange={this.handleIdNumber}/>
-                                <span className={this.state.formError.idNumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位号码</span>
+                                <span className={this.state.formError.idnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位号码</span>
                             </div>
                         </div>
                         <div className="m-companyinfo-item">
@@ -338,7 +328,7 @@ let CompanyInfo = React.createClass({
                             </div>
                             <div className="item-ctrl">
                                 <input type="text" name="address" onChange={this.handleLiveAddress}/>
-                                <span className={this.state.formError.liveAddress.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位信所地址</span>
+                                <span className={this.state.formError.liveaddress.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位信所地址</span>
                             </div>
                         </div>
                         <div className="m-companyinfo-item">
@@ -347,7 +337,7 @@ let CompanyInfo = React.createClass({
                             </div>
                             <div className="item-ctrl">
                                 <input type="text" name="commaddress" onChange={this.handleCommAddress}/>
-                                <span className={this.state.formError.commAddress.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位通讯地址</span>
+                                <span className={this.state.formError.commaddress.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位通讯地址</span>
                             </div>
                         </div>
                         <div className="m-companyinfo-item">
@@ -368,7 +358,7 @@ let CompanyInfo = React.createClass({
                             </div>
                             <div className="item-ctrl">
                                 <input type="text" name="lpname" onChange={this.handleManagerName}/>
-                                <span className={this.state.formError.managerName.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位负责人信息</span>
+                                <span className={this.state.formError.managername.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位负责人信息</span>
                             </div>
                         </div>
                         <div className="m-companyinfo-item">
@@ -384,7 +374,7 @@ let CompanyInfo = React.createClass({
                                     <option value="4">企业</option>
                                     <option value="5">个人</option>
                                 </select>
-                                <span className={this.state.formError.managerIdType.isBlank ? "u-popover" : "u-popover hidden" }>请选择法人证件类型</span>
+                                <span className={this.state.formError.manageridtype.isBlank ? "u-popover" : "u-popover hidden" }>请选择法人证件类型</span>
                             </div>
                         </div>
                         <div className="m-companyinfo-item">
@@ -393,7 +383,7 @@ let CompanyInfo = React.createClass({
                             </div>
                             <div className="item-ctrl">
                                 <input type="text" name="npidentity" onChange={this.handleManagerIdNumber}/>
-                                <span className={this.state.formError.managerIdNumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入法人证件号码</span>
+                                <span className={this.state.formError.manageridnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入法人证件号码</span>
                             </div>
                         </div>
                         <div className="m-companyinfo-item">
@@ -402,7 +392,7 @@ let CompanyInfo = React.createClass({
                             </div>
                             <div className="item-ctrl">
                                 <input type="text" name="officerphone" onChange={this.handleOfficePhoneNumber}/>
-                                <span className={this.state.formError.officePhoneNumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入办公室电话</span>
+                                <span className={this.state.formError.officephonenumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入办公室电话</span>
                             </div>
                         </div>
                         <div className="m-companyinfo-item">
