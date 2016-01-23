@@ -285,9 +285,12 @@ let RecordInfo = React.createClass({
         if( amObj.other ){
             amStr = amStr + "其他";
         }
+        return amStr;
     },
     getLanguages: function(){
+
         var l  =  __globals__.siteinfo.languages;
+        console.log(l);
         var lStr = '';
         if(l.chinese){
             lStr = lStr + "中文简体";
@@ -316,6 +319,7 @@ let RecordInfo = React.createClass({
         if(l.customize){
             lStr = lStr + customizeLang;
         }
+        return lStr;
     },
     getManagerIdType: function(){
         return  __globals__.siteinfo.manageridtype == 1 ? "身分证" :

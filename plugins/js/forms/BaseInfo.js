@@ -17,7 +17,7 @@ import RecordType from './RecordType.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 
 import ProgressBar from './ProgressBar.jsx';
-
+import reqwest from 'reqwest';
 
 let BaseInfo = React.createClass({
 
@@ -25,9 +25,33 @@ let BaseInfo = React.createClass({
         return {type:0,serverregion:0};
     },
     onSave: function(){
-        __globals__.baseinfo = {};
+        if( __globals__.baseinfo == undefined )
+            __globals__.baseinfo = {};
         __globals__.baseinfo.type = this.state.type;
         __globals__.baseinfo.serverregion = this.state.serverregion;
+
+        __globals__.drafttype = 1;
+        //savedraft
+        reqwest({
+            url: '/savedraft',
+            method: 'post',
+            data: JSON.stringify(__globals__),
+            type:'json',
+            contentType: 'application/json',
+            success: function(resp){
+               console.log("savetodraft success",__globals__.drafttype);
+                //{drafttype: formData.drafttype, id: r.insertId};
+                console.log(resp);
+                if( resp.ret.drafttype == 1 ){
+                    __globals__.baseinfo.id = resp.ret.id;
+                }
+            },
+            error: function(err){
+                //TODO
+                console.log(err);
+                console.log("savetodraft error",__globals__.drafttype);
+            }
+        });
     },
     componentDidMount: function(){
     },

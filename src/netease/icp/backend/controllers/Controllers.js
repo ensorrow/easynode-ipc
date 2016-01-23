@@ -94,6 +94,19 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         }
 
 
+        /**
+         * @api:
+         * @apiDescription: 提交初审核
+         * @apiName {}
+         * @apiGroup {}
+         * @apiPermission {}
+         * @apiSuccess {} {} {}
+         * @apiVersion {}
+         * print:
+         * console.log( this.parameter );
+         * console.log( this.body );
+         * console.log( this.query );
+         * */
         static committrial(app){
             var me = this;
             return function *(){
@@ -123,6 +136,61 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             }
         }
 
+        /**
+         * @api:
+         * @apiDescription: 保存草稿
+         * @apiName {}
+         * @apiGroup {}
+         * @apiPermission {}
+         * @apiSuccess {} {} {}
+         * @apiVersion {}
+         * print:
+         * console.log( this.parameter );
+         * console.log( this.body );
+         * console.log( this.query );
+         * */
+        static savedraft(app){
+            var me = this;
+            return function *(){
+                console.log("sessionid");
+                console.dir(this.cookies.get('koa.sid'));
+                var session = this.session;
+                var ret = {};
+                try {
+                    me.conn = yield  app.ds.getConnection();
+
+                    yield * me.conn.beginTransaction()();
+
+                    var storeService = new StoreService(app,me.conn)
+
+                    ret = yield storeService.savedraft(this.request.body);
+
+                    yield * me.conn.commit()();
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                    yield * me.conn.rollback()();
+                }finally{
+                    yield app.ds.releaseConnection(me.conn);
+
+                    this.type = 'json';
+                    this.body = {ret: ret};
+                }
+            }
+        }
+
+        /**
+         * @api:
+         * @apiDescription: 上传照片
+         * @apiName {}
+         * @apiGroup {}
+         * @apiPermission {}
+         * @apiSuccess {} {} {}
+         * @apiVersion {}
+         * print:
+         * console.log( this.parameter );
+         * console.log( this.body );
+         * console.log( this.query );
+         * */
         static upload(app){
             var supportFileTypes = '^.*\.(?:jpg|png|gif)$';
             var regEx = new RegExp(supportFileTypes);

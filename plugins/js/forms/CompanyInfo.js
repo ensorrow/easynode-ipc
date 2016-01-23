@@ -19,6 +19,8 @@ import ReturnWidget from '../widgets/ReturnWidget.jsx';
 import CascadeSelect from '../widgets/CascadeSelect.jsx';
 import FormValidator from '../utils/FormValidator';
 
+import reqwest from 'reqwest';
+
 let CompanyInfo = React.createClass({
 
 
@@ -26,6 +28,7 @@ let CompanyInfo = React.createClass({
         return {
             processing : false,
             formError: {
+                id: {isBlank: false, checked: true},
                 province: {isBlank: false},
                 city: {isBlank: false},
                 area: {isBlank: false,checked:true},
@@ -68,6 +71,9 @@ let CompanyInfo = React.createClass({
     validator: function(fieldName,value){
         var formError = this.state.formError;
         formError[fieldName].isBlank = FormValidator.isEmpty(value);
+        if( fieldName == 'id' ){
+            formError[fieldName].isBlank = false;
+        }
         return formError;
     },
     handleSubmit: function(e){
@@ -113,8 +119,35 @@ let CompanyInfo = React.createClass({
         });
     },
     onSave: function(){
-        __globals__.companyinfo = {};
+        console.log("1");
+        if( __globals__.companyinfo == undefined )
+            __globals__.companyinfo = {};
+
         __globals__.companyinfo = this.state.companyInfo;
+
+        __globals__.drafttype = 2;
+        //savedraft
+        reqwest({
+            url: '/savedraft',
+            method: 'post',
+            data: JSON.stringify(__globals__),
+            type:'json',
+            contentType: 'application/json',
+            success: function(resp){
+                console.log("savetodraft success",__globals__.drafttype);
+                //{drafttype: formData.drafttype, id: r.insertId};
+                console.log(resp);
+                if( resp.ret.drafttype == 2 ){
+                    __globals__.companyinfo.id = resp.ret.id;
+                }
+            },
+            error: function(err){
+                //TODO
+                console.log(err);
+                console.log("savetodraft error",__globals__.drafttype);
+            }
+        });
+
     },
     onReturn: function(){
         location.href = "#/";

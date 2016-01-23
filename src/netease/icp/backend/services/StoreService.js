@@ -217,14 +217,24 @@ var utils = require('utility');
             var me = this;
             return function *(){
 
-
-
+                var id = 0;
+                var model = null
+                var companyid = 0;
+                var websiteid = 0;
+                var r = null;
 
                 //1. insert companyinfo
-                var model = new Company();
+                model = new Company();
                 model.merge( Object.assign({},formData.companyinfo,{tenantid:formData.user.tenantid},{createtime:Date.now(),updatetime:Date.now()} ));
-                var r = yield me.conn.create(model);
-                var companyid =  r.insertId;
+
+                if( formData.companyinfo.hasOwnProperty("id") ){
+                    r = yield me.conn.update(model);
+                    id = formData.companyinfo.id;
+                }else{
+                    r = yield me.conn.create(model);
+                    id = r.insertId;
+                }
+                companyid =  id;
 
                 //2. insert siteinfo
                 model = null;
@@ -235,17 +245,172 @@ var utils = require('utility');
                 data.ip = JSON.stringify(data.ip);
                 data.languages = JSON.stringify(data.languages);
                 model.merge( data );
-                r = yield me.conn.create(model);
-                var websiteid = r.insertId;
+
+                if( formData.siteinfo.hasOwnProperty("id") ){
+                    r = yield me.conn.update(model);
+                    id = formData.siteinfo.id;
+                }else{
+                    r = yield me.conn.create(model);
+                    id = r.insertId;
+                }
+                websiteid = id;
 
                 //3. insert appliyrecord
                 model = null;
                 model = new Record();
                 var code = utils.randomString(32, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
                 model.merge( Object.assign({},formData.baseinfo,formData.material,{tenantid:formData.user.tenantid,companyid:companyid,websiteid:websiteid,status: 1,code:code},{createtime:Date.now(),updatetime:Date.now()} ));
-                r = yield me.conn.create(model);
 
-                return { code: code, id: r.insertId };
+                if( formData.material.hasOwnProperty("id") ){
+                    r = yield me.conn.update(model);
+                    id = formData.material.id;
+                }else{
+                    r = yield me.conn.create(model);
+                    id = r.insertId;
+                }
+                return { code: code, id: id };
+            }
+        }
+
+
+        /**
+         * @api:  保存草稿
+         * @apiDescription:
+         * @apiName {storeService}
+         * @apiGroup {}
+         @apiParam {formData}
+         * @apiSuccess { return insertId }
+         * @apiVersion {}
+         * */
+        savedraft(formData) {
+            var me = this;
+            return function *(){
+
+                console.log(formData);
+
+                var model = null;
+                var r = null;
+                if( formData.drafttype  == 1){
+                    return yield me.saveBaseInfo(formData);
+                }
+                else if( formData.drafttype  == 2){
+                    return yield me.saveCompanyInfo(formData);
+                }
+                else if( formData.drafttype  == 3){
+                    return yield me.saveWebsiteInfo(formData);
+                }
+                else if( formData.drafttype  == 4){
+                    return yield me.saveMaterial(formData);
+                }
+            }
+        }
+
+        //1.
+        saveBaseInfo( formData ){
+            var me = this;
+            return function*() {
+                var r = null;
+                var id = 0;
+                var model = new Record();
+
+                model.merge( Object.assign({},
+                    formData.baseinfo,
+                    {sitemanagerurl:'',checklisturl:'',protocolurl1:'',protocolurl2:'',securityurl1:'',securityurl2:''},
+                    {tenantid:formData.user.tenantid,companyid:0,websiteid:0,status: 0,code:''},
+                    {createtime:Date.now(),updatetime:Date.now()}
+                ));
+
+                if( formData.baseinfo.hasOwnProperty("id") ){
+                    r = yield me.conn.update(model);
+                    id = formData.baseinfo.id;
+                }else{
+                    r = yield me.conn.create(model);
+                    id = r.insertId;
+                }
+                return {drafttype: formData.drafttype, id: formData.baseinfo.id};
+            }
+        }
+
+        //2.
+        saveCompanyInfo( formData ){
+            var me = this;
+            return function*() {
+                var r = null;
+                var id = 0;
+
+                var model = new Company();
+                model.merge( Object.assign({},
+                    formData.companyinfo,
+                    {tenantid:formData.user.tenantid},
+                    {createtime:Date.now(),updatetime:Date.now()}
+                ));
+
+                if( formData.companyinfo.hasOwnProperty("id") ){
+                    r = yield me.conn.update(model);
+                    id = formData.companyinfo.id;
+                }else{
+                    r = yield me.conn.create(model);
+                    id = r.insertId;
+                }
+                return {drafttype: formData.drafttype, id: id};
+            }
+        }
+
+        //3.
+        saveWebsiteInfo( formData ){
+            var me = this;
+            return function*() {
+                var r = null;
+                var id = 0;
+                var model = new Website();
+
+                var data  = Object.assign({},
+                    formData.siteinfo,
+                    {tenantid:formData.user.tenantid},
+                    {createtime:Date.now(),updatetime:Date.now()}
+                );
+                data.manageridtype = parseInt(data.manageridtype);
+                data.accessmethod = JSON.stringify(data.accessmethod);
+                data.ip = JSON.stringify(data.ip);
+                data.languages = JSON.stringify(data.languages);
+                model.merge( data );
+
+
+                if( formData.siteinfo.hasOwnProperty("id") ){
+                    r = yield me.conn.update(model);
+                    id = formData.siteinfo.id;
+                }else{
+                    r = yield me.conn.create(model);
+                    id = r.insertId;
+                }
+                return {drafttype: formData.drafttype, id: id};
+            }
+        }
+
+        //4.
+        saveMaterial( formData ){
+            var me = this;
+            return function*() {
+                var r = null;
+                var id = 0;
+                var model = new Record();
+
+                var code = utils.randomString(32, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+                model.merge( Object.assign({},
+                    formData.baseinfo,
+                    formData.material,
+                    {tenantid:formData.user.tenantid,companyid:formData.companyinfo.id,websiteid:formData.siteinfo.id,status:0,code:code},
+                    {createtime:Date.now(),updatetime:Date.now()} ));
+
+
+                if( formData.material.hasOwnProperty("id") ){
+                    r = yield me.conn.update(model);
+                    id = formData.material.id;
+                }else{
+                    r = yield me.conn.create(model);
+                    id = r.insertId;
+                }
+                return {drafttype: formData.drafttype, id: id};
             }
         }
 

@@ -34,6 +34,7 @@ var Model = using('easynode.framework.mvc.Model');
          * */
         defineFields () {
             this
+                .defineField('id', 'int')
                 .defineField('tenantid', 'string')
                 .defineField('logintype', 'int')
                 .defineField('status', 'int')

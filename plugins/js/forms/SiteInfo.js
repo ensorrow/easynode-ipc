@@ -20,6 +20,8 @@ import ProgressBar from './ProgressBar.jsx';
 
 import FormValidator from '../utils/FormValidator';
 
+import reqwest from 'reqwest';
+
 var LANG_CHINESE = 1;
 var LANG_CHINESETRADITIONAL = 2 ;
 var LANG_ENGLISH = 3;
@@ -45,6 +47,7 @@ let SiteInfo = React.createClass({
             domains:[],
             sitesCount: 0,
             formError: {
+                id: {isBlank: false, checked: true},
                 name: {isBlank: false},
                 domain: {isBlank: false},
                 domain1: {isBlank: false,checked:true},
@@ -170,8 +173,32 @@ let SiteInfo = React.createClass({
         });
     },
     onSave: function(){
-        __globals__.siteinfo = {};
+        if( __globals__.siteinfo == undefined )
+            __globals__.siteinfo = {};
         __globals__.siteinfo = this.state.siteInfo;
+
+        __globals__.drafttype = 3;
+        //savedraft
+        reqwest({
+            url: '/savedraft',
+            method: 'post',
+            data: JSON.stringify(__globals__),
+            type:'json',
+            contentType: 'application/json',
+            success: function(resp){
+                console.log("savetodraft success",__globals__.drafttype);
+                //{drafttype: formData.drafttype, id: r.insertId};
+                console.log(resp);
+                if( resp.ret.drafttype == 3 ){
+                    __globals__.siteinfo.id = resp.ret.id;
+                }
+            },
+            error: function(err){
+                //TODO
+                console.log(err);
+                console.log("savetodraft error",__globals__.drafttype);
+            }
+        });
     },
     tick: function(){
         console.log("tick siteinfo");

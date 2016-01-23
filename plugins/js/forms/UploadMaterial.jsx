@@ -28,7 +28,8 @@ let UploadMaterial = React.createClass({
       return {
           processing:  false,
           formError:{
-            sitemanagerurl: {isBlank: false},
+              id: {isBlank: false, checked: true},
+              sitemanagerurl: {isBlank: false},
               checklisturl: {isBlank: false},
               protocolurl1: {isBlank: false},
               protocolurl2: {isBlank: false},
@@ -80,7 +81,7 @@ let UploadMaterial = React.createClass({
             processing: true
         });
 
-        this.onSave();
+        this.save();
 
         //commit
         reqwest({
@@ -103,9 +104,37 @@ let UploadMaterial = React.createClass({
             processing: false
         });
     },
-    onSave: function(){
-        __globals__.material = {};
+    save: function(){
+        if( __globals__.material == undefined )
+            __globals__.material = {};
         __globals__.material = this.state.materials;
+    },
+    onSave: function(){
+
+        this.save();
+
+        __globals__.drafttype = 4;
+        //savedraft
+        reqwest({
+            url: '/savedraft',
+            method: 'post',
+            data: JSON.stringify(__globals__),
+            type:'json',
+            contentType: 'application/json',
+            success: function(resp){
+                console.log("savetodraft success",__globals__.drafttype);
+                //{drafttype: formData.drafttype, id: r.insertId};
+                console.log(resp);
+                if( resp.ret.drafttype == 4 ){
+                    __globals__.material.id = resp.ret.id;
+                }
+            },
+            error: function(err){
+                //TODO
+                console.log(err);
+                console.log("savetodraft error",__globals__.drafttype);
+            }
+        });
     },
     assignUrl: function(id,url){
         var materials = this.state.materials;

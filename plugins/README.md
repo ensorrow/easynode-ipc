@@ -255,27 +255,7 @@ CREATE TABLE `website` (
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
-CREATE TABLE `company` (
-	`id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '记录ID',
-	`province` varchar(32) NOT NULL COMMENT '省',
-	`city` varchar(32) NOT NULL COMMENT '市',
-	`region` varchar(32) NOT NULL COMMENT '区',
-	`nature` tinyint(1) NOT NULL DEFAULT '4' COMMENT '性质 \n1-军队\n2-政府机关\n3-事业单位\n4-企业\n5-个人\n',
-	`idtype` tinyint(1) NOT NULL COMMENT '证件类型\n1-工商执照\n2-组织机构代码',
-	`idnumber` varchar(32) NOT NULL COMMENT '证件号码',
-	`name` varchar(50) NOT NULL COMMENT '名称',
-	`liveaddress` varchar(50) NOT NULL COMMENT '居住地址',
-	`commaddress` varchar(50) NOT NULL COMMENT '通讯地址\n',
-	`owner` varchar(50) NOT NULL COMMENT '投资人或主管单位名称',
-	`managername` varchar(32) NOT NULL COMMENT '法人姓名',
-	`manageridtype` tinyint(1) NOT NULL COMMENT '法人证件类型\n性质 \n1-军队\n2-政府机关\n3-事业单位\n4-企业\n5-个人\n',
-	`manageridnumber` varchar(50) NOT NULL COMMENT '法人证件号码',
-	`officephoneregion` varchar(10) NOT NULL COMMENT '办公室电话区号',
-	`officephonenumber` varchar(20) NOT NULL COMMENT '办公室电话号码',
-	`mobile` varchar(20) NOT NULL COMMENT '手机号码\n',
-	`email` varchar(50) NOT NULL COMMENT '电子邮箱',
-	`updatetime` bigint(20) NOT NULL COMMENT '更新时间',
-	`createtime` bigint(20) NOT NULL COMMENT '创建时间',
-	PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+
+
+43.  etc/EasyNode.conf easynode.framework.mvc.model.defaultIdFieldName = id 修改identify fieldname
 
