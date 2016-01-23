@@ -93,9 +93,10 @@ $m-recordinfo_ctrl_width = 430px;
 
         > img {
             display: block;
-            width: 50px;
-            height: 46px;
-            margin: 47px 45px;
+            max-width: 100%;
+            height: auto;
+            vertical-align: middle;
+            margin-top: 15px;
         }
         @extend .f-fl;
     }

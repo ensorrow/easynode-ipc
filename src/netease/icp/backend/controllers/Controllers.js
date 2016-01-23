@@ -76,7 +76,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         static comment(app){
             return function *(){
 
-                console.log("aaaa");
                 var parts = yield* multipart(this);
                 console.dir(parts);
 

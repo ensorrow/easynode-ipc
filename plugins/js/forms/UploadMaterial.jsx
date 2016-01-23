@@ -67,7 +67,6 @@ let UploadMaterial = React.createClass({
         });
 
         var hasError = FormValidator.check(formError);
-        console.log(formError);
         console.log("hasError",hasError);
 
         if( hasError ){
@@ -91,14 +90,14 @@ let UploadMaterial = React.createClass({
             type:'json',
             contentType: 'application/json',
             success: function(resp){
-                console.log(resp);
+                __globals__.record = resp.ret;
+                location.href = "#/committrial";
             },
             error: function(err){
+                //TODO
                 console.log(err);
             }
         });
-
-        location.href = "#/committrial";
 
         this.setState({
             processing: false
