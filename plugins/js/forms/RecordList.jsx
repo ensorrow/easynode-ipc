@@ -137,12 +137,14 @@ let Records = React.createClass({
 });
 
 let RecordList = React.createClass({
+
     loadRecords: function(){
         var me = this;
+        var tenantId = __globals__.user == undefined ? '111111' : __globals__.user.tenantId;
         reqwest({
             url: '/getapplyrecord',
             method: 'post',
-            data: JSON.stringify({page:1,tenantId:'111111'}),
+            data: JSON.stringify({page:1,tenantId:tenantId}),
             type:'json',
             contentType: 'application/json',
             success: function(resp){
