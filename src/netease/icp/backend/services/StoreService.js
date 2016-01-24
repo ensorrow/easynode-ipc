@@ -316,9 +316,36 @@ var utils = require('utility');
             }
         }
 
-        getApplyRecords(page){
+        /**
+         * @api:  保存草稿
+         * @apiDescription:
+         * @apiName {storeService}
+         * @apiGroup {}
+         * @apiParam {formData}
+         * @apiParam {formData.page} 页号
+         * @apiParam {formData.tenantId} 租户ID
+         * @apiSuccess {}
+         * @apiVersion {}
+         * */
+        getApplyRecords(formData){
             var me = this;
             return function *(){
+                var conn = null;
+                var ret = {rows:0, pages:0, page:0, rpp:0,data:[]};
+                try{
+                    var model = new Record();
+                    conn = yield  me.app.ds.getConnection();
+                    if( formData.tenantId == "111111"){
+                        return yield conn.list(model,{status:{exp:'<>',value:0}},{page:formData.page});
+                    }else{
+                        return yield onn.list(model,{tenantid:{exp:'=',value:formData.tenantId}},{page:formData.page,rpp:100});
+                    }
+                } catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
+                    return ret;
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                }
             }
         }
 

@@ -148,12 +148,13 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         }
 
         /**
-         * @api {get} /record/:page'
+         * @api {post} /getapplyrecord/'
          * @apiDescription:  列出申请列表
          * @apiName {listApplyRecord}
          * @apiGroup {Manager}
          *
          * @apiParam {Number} page 页号
+         * @apiParam {String} tenantId 租户ID
          *
          * @apiSuccess {Number} deviceId 所绑定设备id
          * @apiSuccess {String} phone 设备电话号码
@@ -167,23 +168,17 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             var me = this;
             return function *(page){
                 var session = this.session;
-                console.log("page",page);
                 var ret = {};
-                try {
-                    me.conn = yield  app.ds.getConnection();
 
-                    var storeService = new StoreService(app,me.conn)
+                console.log(this.request.body);
 
-                    ret = yield storeService.getApplyRecords(page);
+                var storeService = new StoreService(app)
+                ret = yield storeService.getApplyRecords(this.request.body);
 
-                }catch(e){
-                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
-                }finally{
-                    yield app.ds.releaseConnection(me.conn);
+                console.log(ret);
 
-                    this.type = 'json';
-                    this.body = {ret: ret};
-                }
+                this.type = 'json';
+                this.body = {ret: ret};
             }
         }
 

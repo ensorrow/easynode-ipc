@@ -28,7 +28,7 @@ let Operation = React.createClass({
 
     render(){
         let type = this.props.record.type;
-        let prg = this.props.record.status;
+        let prg = this.props.record.progress;
 
         if( prg == 0 ) {
             return (
@@ -83,84 +83,55 @@ let Operation = React.createClass({
     }
 });
 
-let Records = React.createClass({
+let Record = React.createClass({
+    propTypes:{
+        record: React.PropTypes.object.isRequired
+    },
 
-    render: function(){
-        var records = this.props.data.map((record)=>{
-            let type = record.type;
-            var typeStr =
-                        type == 0  ? '首次备案' :
-                        type == 1 ? '新增接入' :
-                        type == 2 ? '新增网站' : '未知类型';
 
-            let prg = record.status;
-            var prgStr =
-                        prg == 0 ? '草稿' :
-                        prg == 1 ? '初审中' :
-                        prg == 2 ? '初审未通过':
-                        prg == 3 ? '初审已通过' :
-                        prg == 4 ? '照片审核中' :
-                        prg == 5 ? '照片审核未通过' :
-                        prg == 6 ? '照片审核已通过' :
-                        prg == 7 ? '通管局审核中' :
-                        prg == 8 ? '通管局审核未通过' :
-                        prg == 9 ? '通管局审核已通过' : "未知状态";
-            var status =
-                        prg == 0 ? 'draft' :
-                        prg == 1 ? 'checking' :
-                        prg == 2 ? 'nopass':
-                        prg == 3 ? 'passed' :
-                        prg == 4 ? 'checking' :
-                        prg == 5 ? 'nopass' :
-                        prg == 6 ? 'passed' :
-                        prg == 7 ? 'checking' :
-                        prg == 8 ? 'nopass' :
-                        prg == 9 ? 'passed' : "draft";
+    render(){
+        let type = this.props.record.type;
+        var typeStr = type == 0  ? '首次备案' :
+                      type == 1 ? '新增接入' :
+                      type == 2 ? '新增网站' : '未知类型';
 
-           return  (
-                   <tr key={record.id}>
-                       <td> {record.id} </td>
-                       <td> {typeStr}</td>
-                       <td> {record.serverregion} </td>
-                       <td className={status}> {prgStr} </td>
-                       <td> {record.updatetime} </td>
-                       <Operation key={record.id} record={record}/>
-                   </tr>
-           );
-        });
-        return (
+        let prg = this.props.record.progress;
+        var prgStr = prg == 0 ? '草稿' :
+                     prg == 1 ? '初审中' :
+                     prg == 2 ? '初审未通过':
+                     prg == 3 ? '初审已通过' :
+                     prg == 4 ? '照片审核中' :
+                     prg == 5 ? '照片审核未通过' :
+                     prg == 6 ? '照片审核已通过' :
+                     prg == 7 ? '通管局审核中' :
+                     prg == 8 ? '通管局审核未通过' :
+                     prg == 9 ? '通管局审核已通过' : "未知状态";
+        var status = prg == 0 ? 'draft' :
+                    prg == 1 ? 'checking' :
+                    prg == 2 ? 'nopass':
+                    prg == 3 ? 'passed' :
+                    prg == 4 ? 'checking' :
+                    prg == 5 ? 'nopass' :
+                    prg == 6 ? 'passed' :
+                    prg == 7 ? 'checking' :
+                    prg == 8 ? 'nopass' :
+                    prg == 9 ? 'passed' : "draft";
+       return (
             <tbody>
-                {records}
+               <tr>
+               <td> IspBA12323123 </td>
+               <td> {typeStr}</td>
+               <td> {this.props.record.area} </td>
+               <td className={status}> {prgStr} </td>
+               <td> {this.props.record.createTime} </td>
+               <Operation key={this.props.record.id} record={this.props.record}/>
+               </tr>
             </tbody>
-        )
+        );
     }
 });
 
 let RecordList = React.createClass({
-    loadRecords: function(){
-        var me = this;
-        reqwest({
-            url: '/getapplyrecord',
-            method: 'post',
-            data: JSON.stringify({page:1,tenantId:'111111'}),
-            type:'json',
-            contentType: 'application/json',
-            success: function(resp){
-                console.log(resp);
-                me.setState({data: resp.ret.data});
-            },
-            error: function(err){
-                //TODO
-                console.log(err);
-            }
-        });
-    },
-    getInitialState: function(){
-        return {data:[]};
-    },
-    componentDidMount: function(){
-        this.loadRecords();
-    },
     render: function () {
         return (
             <div>
@@ -178,13 +149,37 @@ let RecordList = React.createClass({
                             <th>操作</th>
                             </tr>
                         </thead>
-                        <Records data={this.state.data}/>
+                        {this.renderRecords()}
                     </table>
                 </div>
             </div>
         );
-    }
+    },
 
+    renderRecords(){
+        return this.getRecords().map((record)=>{
+               return <Record key={record.id} record={record}/>;
+            });
+    },
+
+    getRecords(){
+        //savedraft
+        reqwest({
+            url: '/getapplyrecord',
+            method: 'post',
+            data: JSON.stringify({page:1,tenantId:'111111'}),
+            type:'json',
+            contentType: 'application/json',
+            success: function(resp){
+                console.log(resp);
+               return resp.ret.data;
+            },
+            error: function(err){
+                //TODO
+                console.log(err);
+            }
+        });
+    }
 });
 
 module.exports = RecordList;
