@@ -35,11 +35,11 @@ module.exports = {
         ]
     },
     plugins:[
-       /* new uglifyJsPlugin({
+        new uglifyJsPlugin({
             compress:{
                 warnings:false
             }
-        }),*/
+        }),
        /* new HtmlwebpackPlugin({
             title: 'webpack-demos'
         }),*/

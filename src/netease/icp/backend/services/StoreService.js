@@ -34,11 +34,10 @@ var utils = require('utility');
          * @since 0.1.0
          * @author allen.hu
          * */
-        constructor(app,conn) {
+        constructor(app) {
             super();
             //调用super()后再定义子类成员。
             this.app = app;
-            this.conn = conn;
         }
 
         /**
@@ -64,8 +63,18 @@ var utils = require('utility');
                 userName = #userName# and
                 email = #email#`;
                 var args = {tenantId: tenantId, userName: userName, email: email};
-                var arr = yield me.conn.execQuery(sql, args);
-                return arr.length <= 0 ? true : false;
+                var arr = [];
+                var conn = null;
+                try{
+                    conn = yield  me.app.ds.getConnection();
+                    arr = yield conn.execQuery(sql, args);
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                    return false;
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                    return arr.length <= 0 ? true : false;
+                }
             }
         }
 
@@ -81,11 +90,22 @@ var utils = require('utility');
         addUser(user) {
             var me = this;
             return function *(){
+                var conn = null;
                 var model = new User();
                 model.merge( Object.assign({},user) );
                 model.merge( {lastlogintime: Date.now(),createtime:Date.now()} );
-                var r = yield me.conn.create(model);
-                return {insertId:r.insertId};
+                var id = 0;
+
+                try {
+                    conn = yield  me.app.ds.getConnection();
+                    var r = yield conn.create(model);
+                    id = r.insertId;
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                    return {insertId:id};
+                }
             }
         }
 
@@ -101,10 +121,21 @@ var utils = require('utility');
         updateUser(user) {
             var me = this;
             return function *(){
+                var conn = null;
                 var model = new User();
                 model.merge( Object.assign({},user) );
                 model.merge( {lastlogintime: Date.now()} );
-                return yield me.conn.update(model);
+                var id = 0;
+
+                try {
+                    conn = yield  me.app.ds.getConnection();
+                    var r = yield conn.update(model);
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                    return {insertId:id};//useless
+                }
             }
         }
 
@@ -222,56 +253,74 @@ var utils = require('utility');
                 var companyid = 0;
                 var websiteid = 0;
                 var r = null;
+                var conn = null;
+                var code = '';
 
-                //1. insert companyinfo
-                model = new Company();
-                model.merge( Object.assign({},formData.companyinfo,{tenantid:formData.user.tenantid},{createtime:Date.now(),updatetime:Date.now()} ));
+                try{
+                    conn = yield  me.app.ds.getConnection();
+                    yield * conn.beginTransaction()();
 
-                if( formData.companyinfo.hasOwnProperty("id") ){
-                    r = yield me.conn.update(model);
-                    id = formData.companyinfo.id;
-                }else{
-                    r = yield me.conn.create(model);
-                    id = r.insertId;
+                    //1. insert companyinfo
+                    model = new Company();
+                    model.merge( Object.assign({},formData.companyinfo,{tenantid:formData.user.tenantid},{createtime:Date.now(),updatetime:Date.now()} ));
+
+                    if( formData.companyinfo.hasOwnProperty("id") ){
+                        r = yield conn.update(model);
+                        id = formData.companyinfo.id;
+                    }else{
+                        r = yield conn.create(model);
+                        id = r.insertId;
+                    }
+                    companyid =  id;
+
+                    //2. insert siteinfo
+                    model = null;
+                    model = new  Website();
+                    var data  = Object.assign({},formData.siteinfo,{tenantid:formData.user.tenantid},{createtime:Date.now(),updatetime:Date.now()} );
+                    data.manageridtype = parseInt(data.manageridtype);
+                    data.accessmethod = JSON.stringify(data.accessmethod);
+                    data.ip = JSON.stringify(data.ip);
+                    data.languages = JSON.stringify(data.languages);
+                    model.merge( data );
+
+                    if( formData.siteinfo.hasOwnProperty("id") ){
+                        r = yield conn.update(model);
+                        id = formData.siteinfo.id;
+                    }else{
+                        r = yield conn.create(model);
+                        id = r.insertId;
+                    }
+                    websiteid = id;
+
+                    //3. insert appliyrecord
+                    model = null;
+                    model = new Record();
+                    code = utils.randomString(32, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+                    model.merge( Object.assign({},formData.baseinfo,formData.material,{tenantid:formData.user.tenantid,companyid:companyid,websiteid:websiteid,status: 1,code:code},{createtime:Date.now(),updatetime:Date.now()} ));
+
+                    if( formData.material.hasOwnProperty("id") ){
+                        r = yield conn.update(model);
+                        id = formData.material.id;
+                    }else{
+                        r = yield conn.create(model);
+                        id = r.insertId;
+                    }
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                    yield * conn.rollback()();
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+
+                    return { code: code, id: id };
                 }
-                companyid =  id;
-
-                //2. insert siteinfo
-                model = null;
-                model = new  Website();
-                var data  = Object.assign({},formData.siteinfo,{tenantid:formData.user.tenantid},{createtime:Date.now(),updatetime:Date.now()} );
-                data.manageridtype = parseInt(data.manageridtype);
-                data.accessmethod = JSON.stringify(data.accessmethod);
-                data.ip = JSON.stringify(data.ip);
-                data.languages = JSON.stringify(data.languages);
-                model.merge( data );
-
-                if( formData.siteinfo.hasOwnProperty("id") ){
-                    r = yield me.conn.update(model);
-                    id = formData.siteinfo.id;
-                }else{
-                    r = yield me.conn.create(model);
-                    id = r.insertId;
-                }
-                websiteid = id;
-
-                //3. insert appliyrecord
-                model = null;
-                model = new Record();
-                var code = utils.randomString(32, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-                model.merge( Object.assign({},formData.baseinfo,formData.material,{tenantid:formData.user.tenantid,companyid:companyid,websiteid:websiteid,status: 1,code:code},{createtime:Date.now(),updatetime:Date.now()} ));
-
-                if( formData.material.hasOwnProperty("id") ){
-                    r = yield me.conn.update(model);
-                    id = formData.material.id;
-                }else{
-                    r = yield me.conn.create(model);
-                    id = r.insertId;
-                }
-                return { code: code, id: id };
             }
         }
 
+        getApplyRecords(page){
+            var me = this;
+            return function *(){
+            }
+        }
 
         /**
          * @api:  保存草稿
@@ -311,23 +360,33 @@ var utils = require('utility');
             return function*() {
                 var r = null;
                 var id = 0;
+                var conn = null;
                 var model = new Record();
 
-                model.merge( Object.assign({},
-                    formData.baseinfo,
-                    {sitemanagerurl:'',checklisturl:'',protocolurl1:'',protocolurl2:'',securityurl1:'',securityurl2:''},
-                    {tenantid:formData.user.tenantid,companyid:0,websiteid:0,status: 0,code:''},
-                    {createtime:Date.now(),updatetime:Date.now()}
-                ));
 
-                if( formData.baseinfo.hasOwnProperty("id") ){
-                    r = yield me.conn.update(model);
-                    id = formData.baseinfo.id;
-                }else{
-                    r = yield me.conn.create(model);
-                    id = r.insertId;
+                try{
+                    conn = yield me.app.ds.getConnection();
+
+                    model.merge( Object.assign({},
+                        formData.baseinfo,
+                        {sitemanagerurl:'',checklisturl:'',protocolurl1:'',protocolurl2:'',securityurl1:'',securityurl2:''},
+                        {tenantid:formData.user.tenantid,companyid:0,websiteid:0,status: 0,code:''},
+                        {createtime:Date.now(),updatetime:Date.now()}
+                    ));
+
+                    if( formData.baseinfo.hasOwnProperty("id") ){
+                        r = yield conn.update(model);
+                        id = formData.baseinfo.id;
+                    }else{
+                        r = yield conn.create(model);
+                        id = r.insertId;
+                    }
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                    return {drafttype: formData.drafttype, id: id};
                 }
-                return {drafttype: formData.drafttype, id: formData.baseinfo.id};
             }
         }
 
@@ -337,22 +396,31 @@ var utils = require('utility');
             return function*() {
                 var r = null;
                 var id = 0;
+                var conn = null;
 
-                var model = new Company();
-                model.merge( Object.assign({},
-                    formData.companyinfo,
-                    {tenantid:formData.user.tenantid},
-                    {createtime:Date.now(),updatetime:Date.now()}
-                ));
+                try {
+                    conn = yield me.app.ds.getConnection();
 
-                if( formData.companyinfo.hasOwnProperty("id") ){
-                    r = yield me.conn.update(model);
-                    id = formData.companyinfo.id;
-                }else{
-                    r = yield me.conn.create(model);
-                    id = r.insertId;
+                    var model = new Company();
+                    model.merge(Object.assign({},
+                        formData.companyinfo,
+                        {tenantid: formData.user.tenantid},
+                        {createtime: Date.now(), updatetime: Date.now()}
+                    ));
+
+                    if (formData.companyinfo.hasOwnProperty("id")) {
+                        r = yield conn.update(model);
+                        id = formData.companyinfo.id;
+                    } else {
+                        r = yield conn.create(model);
+                        id = r.insertId;
+                    }
+                }catch(e){
+                        EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                    return {drafttype: formData.drafttype, id: id};
                 }
-                return {drafttype: formData.drafttype, id: id};
             }
         }
 
@@ -363,27 +431,36 @@ var utils = require('utility');
                 var r = null;
                 var id = 0;
                 var model = new Website();
+                var conn = null;
 
-                var data  = Object.assign({},
-                    formData.siteinfo,
-                    {tenantid:formData.user.tenantid},
-                    {createtime:Date.now(),updatetime:Date.now()}
-                );
-                data.manageridtype = parseInt(data.manageridtype);
-                data.accessmethod = JSON.stringify(data.accessmethod);
-                data.ip = JSON.stringify(data.ip);
-                data.languages = JSON.stringify(data.languages);
-                model.merge( data );
+                try {
+                    conn = yield me.app.ds.getConnection();
+
+                    var data = Object.assign({},
+                        formData.siteinfo,
+                        {tenantid: formData.user.tenantid},
+                        {createtime: Date.now(), updatetime: Date.now()}
+                    );
+                    data.manageridtype = parseInt(data.manageridtype);
+                    data.accessmethod = JSON.stringify(data.accessmethod);
+                    data.ip = JSON.stringify(data.ip);
+                    data.languages = JSON.stringify(data.languages);
+                    model.merge(data);
 
 
-                if( formData.siteinfo.hasOwnProperty("id") ){
-                    r = yield me.conn.update(model);
-                    id = formData.siteinfo.id;
-                }else{
-                    r = yield me.conn.create(model);
-                    id = r.insertId;
+                    if (formData.siteinfo.hasOwnProperty("id")) {
+                        r = yield conn.update(model);
+                        id = formData.siteinfo.id;
+                    } else {
+                        r = yield conn.create(model);
+                        id = r.insertId;
+                    }
+                }catch(e){
+                        EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                    return {drafttype: formData.drafttype, id: id};
                 }
-                return {drafttype: formData.drafttype, id: id};
             }
         }
 
@@ -394,23 +471,38 @@ var utils = require('utility');
                 var r = null;
                 var id = 0;
                 var model = new Record();
+                var conn = null;
 
-                var code = utils.randomString(32, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-                model.merge( Object.assign({},
-                    formData.baseinfo,
-                    formData.material,
-                    {tenantid:formData.user.tenantid,companyid:formData.companyinfo.id,websiteid:formData.siteinfo.id,status:0,code:code},
-                    {createtime:Date.now(),updatetime:Date.now()} ));
+                try {
+                    conn = yield me.app.ds.getConnection();
+
+                    var code = utils.randomString(32, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+                    model.merge(Object.assign({},
+                        formData.baseinfo,
+                        formData.material,
+                        {
+                            tenantid: formData.user.tenantid,
+                            companyid: formData.companyinfo.id,
+                            websiteid: formData.siteinfo.id,
+                            status: 0,
+                            code: code
+                        },
+                        {createtime: Date.now(), updatetime: Date.now()}));
 
 
-                if( formData.material.hasOwnProperty("id") ){
-                    r = yield me.conn.update(model);
-                    id = formData.material.id;
-                }else{
-                    r = yield me.conn.create(model);
-                    id = r.insertId;
+                    if (formData.material.hasOwnProperty("id")) {
+                        r = yield conn.update(model);
+                        id = formData.material.id;
+                    } else {
+                        r = yield conn.create(model);
+                        id = r.insertId;
+                    }
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                    return {drafttype: formData.drafttype, id: id};
                 }
-                return {drafttype: formData.drafttype, id: id};
             }
         }
 

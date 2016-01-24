@@ -259,3 +259,10 @@ CREATE TABLE `website` (
 
 43.  etc/EasyNode.conf easynode.framework.mvc.model.defaultIdFieldName = id 修改identify fieldname
 
+
+44.  static savedraft(app){
+                var me = this;
+                return function *(){
+                    console.log("sessionid");
+                    console.dir(this.cookies.get('koa.sid'));
+

@@ -101,20 +101,10 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
                     var res = Object.assign({},{user:user},LOGIN_SUCCESS);
 
-                    try {
-                        me.conn = yield  me.app.ds.getConnection();
-                        var storeService = new StoreService(me.app,me.conn);
+                    var storeService = new StoreService(me.app);
 
-                        console.log(user);
-                        yield storeService.isFirst(user.tenantId, user.userName, user.email) ? yield storeService.addUser(user) : yield storeService.updateUser(user);
-                        return res;
-                    }catch(e){
-                        EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
-                        return LOGIN_SERVER_ERROR;
-                    }finally{
-                        yield me.app.ds.releaseConnection(me.conn);
-                        return res;
-                    }
+                    yield storeService.isFirst(user.tenantId, user.userName, user.email) ? yield storeService.addUser(user) : yield storeService.updateUser(user);
+                    return res;
                 } else {
                      return query.code ==  LOGIN_PARA_ERR.resCode ? LOGIN_PARA_ERR :
                             query.code ==  LOGIN_PARA_PARSE_ERR.resCode ? LOGIN_PARA_PARSE_ERR :
@@ -128,8 +118,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 }
             }
         }
-
-
 
         getClassName() {
             return EasyNode.namespace(__filename);

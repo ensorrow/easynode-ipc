@@ -110,29 +110,15 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         static committrial(app){
             var me = this;
             return function *(){
-                console.log("sessionid");
-                console.dir(this.cookies.get('koa.sid'));
-                var session = this.session;
+
                 var ret = {};
-                try {
-                    me.conn = yield  app.ds.getConnection();
+                var session = this.session;
 
-                    yield * me.conn.beginTransaction()();
+                var storeService = new StoreService(app)
+                ret = yield storeService.insertApplyRecord(this.request.body);
 
-                    var storeService = new StoreService(app,me.conn)
-                    console.log(this.request.body);
-                    ret = yield storeService.insertApplyRecord(this.request.body);
-
-                    yield * me.conn.commit()();
-                }catch(e){
-                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
-                    yield * me.conn.rollback()();
-                }finally{
-                    yield app.ds.releaseConnection(me.conn);
-
-                    this.type = 'json';
-                    this.body = {ret: ret};
-                }
+                this.type = 'json';
+                this.body = {ret: ret};
             }
         }
 
@@ -145,30 +131,53 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {} {} {}
          * @apiVersion {}
          * print:
-         * console.log( this.parameter );
-         * console.log( this.body );
-         * console.log( this.query );
          * */
         static savedraft(app){
             var me = this;
             return function *(){
-                console.log("sessionid");
-                console.dir(this.cookies.get('koa.sid'));
                 var session = this.session;
+
+                var ret = {};
+
+                var storeService = new StoreService(app)
+                ret = yield storeService.savedraft(this.request.body);
+
+                this.type = 'json';
+                this.body = {ret: ret};
+            }
+        }
+
+        /**
+         * @api {get} /record/:page'
+         * @apiDescription:  列出申请列表
+         * @apiName {listApplyRecord}
+         * @apiGroup {Manager}
+         *
+         * @apiParam {Number} page 页号
+         *
+         * @apiSuccess {Number} deviceId 所绑定设备id
+         * @apiSuccess {String} phone 设备电话号码
+         * @apiSuccess {Number} userId 当前用户id
+         * @apiSuccess {Number} bindId 绑定关系id 注-只有_method为check且已经注册过才有此字段
+         * @apiSuccess {Number} status 绑定关系状态 0-已审核 1-待审核 2-已删除
+         *
+         * @apiError {Object} error 参数验证错误或服务器内部错误描述
+         */
+        static listApplyRecord(app){
+            var me = this;
+            return function *(page){
+                var session = this.session;
+                console.log("page",page);
                 var ret = {};
                 try {
                     me.conn = yield  app.ds.getConnection();
 
-                    yield * me.conn.beginTransaction()();
-
                     var storeService = new StoreService(app,me.conn)
 
-                    ret = yield storeService.savedraft(this.request.body);
+                    ret = yield storeService.getApplyRecords(page);
 
-                    yield * me.conn.commit()();
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
-                    yield * me.conn.rollback()();
                 }finally{
                     yield app.ds.releaseConnection(me.conn);
 
@@ -177,6 +186,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 }
             }
         }
+
 
         /**
          * @api:
@@ -215,7 +225,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                             hasError = true;                //ignore downstream middleware
                         }
                         else{
-                            var storeService = new StoreService(app,app.conn);
+                            var storeService = new StoreService(app);
                             url = yield storeService.uploadNos(Date.now(),file.path);
                             filename = file.filename;
                         }
