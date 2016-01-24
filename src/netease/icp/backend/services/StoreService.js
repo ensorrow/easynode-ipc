@@ -338,7 +338,7 @@ var utils = require('utility');
                     if( formData.tenantId == "111111"){
                         return yield conn.list(model,{status:{exp:'<>',value:0}},{page:formData.page});
                     }else{
-                        return yield onn.list(model,{tenantid:{exp:'=',value:formData.tenantId}},{page:formData.page,rpp:100});
+                        return yield conn.list(model,{tenantid:{exp:'=',value:formData.tenantId}},{page:formData.page,rpp:100});
                     }
                 } catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
