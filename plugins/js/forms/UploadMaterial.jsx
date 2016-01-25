@@ -37,12 +37,12 @@ let UploadMaterial = React.createClass({
               securityurl2: {isBlank: false}
           },
           materials:{
-              sitemanagerurl: 'http://apollodev.nos.netease.com/1453382882631',
-              checklisturl: 'http://apollodev.nos.netease.com/1453382882631',
-              protocolurl1: 'http://apollodev.nos.netease.com/1453382882631',
-              protocolurl2: 'http://apollodev.nos.netease.com/1453382882631',
-              securityurl1: 'http://apollodev.nos.netease.com/1453382882631',
-              securityurl2: 'http://apollodev.nos.netease.com/1453382882631'
+              sitemanagerurl: '',
+              checklisturl: '',
+              protocolurl1: '',
+              protocolurl2: '',
+              securityurl1: '',
+              securityurl2: ''
           }
       }
     },
@@ -193,6 +193,13 @@ let UploadMaterial = React.createClass({
         var formError = this.state.formError;
         formError[fieldName].isBlank = FormValidator.isEmpty(value);
         return formError;
+    },
+    componentDidMount: function(){
+        if( __globals__.record != undefined ) {
+            this.setState( {materials: __globals__.record } );
+        }
+    },
+    componentWillUnmount: function(){
     },
     render: function () {
         return (

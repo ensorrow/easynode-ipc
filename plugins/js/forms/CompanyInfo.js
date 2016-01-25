@@ -93,12 +93,9 @@ let CompanyInfo = React.createClass({
         });
         var hasError = false;
 
-        console.log(formError);
-        console.log(companyInfo);
 
         var hasError = FormValidator.check(formError);
 
-        console.log("haseError",hasError);
 
         if( hasError ){
             this.setState({
@@ -119,13 +116,13 @@ let CompanyInfo = React.createClass({
         });
     },
     onSave: function(){
-        console.log("1");
         if( __globals__.companyinfo == undefined )
             __globals__.companyinfo = {};
 
         __globals__.companyinfo = this.state.companyInfo;
 
         __globals__.drafttype = 2;
+
         //savedraft
         reqwest({
             url: '/savedraft',
@@ -161,10 +158,8 @@ let CompanyInfo = React.createClass({
             companyInfo.idtypeEnable = 1;
             this.setState({companyInfo: companyInfo});
         }*/
-        console.log("nature",e.target.value);
     },
     handleRegion: function(p,c,a){
-        console.log(p,c,a);
         var companyInfo = this.state.companyInfo;
         companyInfo.province = p;
         companyInfo.city = c;
@@ -176,7 +171,6 @@ let CompanyInfo = React.createClass({
         var companyInfo = this.state.companyInfo;
         companyInfo.idtype = e.target.value;
         this.setState({companyInfo: companyInfo});
-        console.log("idtype",e.target.value);
     },
     handleIdNumber: function(e){
         e.preventDefault();
@@ -184,8 +178,6 @@ let CompanyInfo = React.createClass({
         companyInfo.idnumber = e.target.value;
         this.setState({companyInfo: companyInfo});
 
-        console.log("idnumber", e.target.value);
-        console.log(e.target.value);
     },
     handleName: function(e){
         e.preventDefault()
@@ -193,42 +185,36 @@ let CompanyInfo = React.createClass({
         companyInfo.name = e.target.value;
         this.setState({companyInfo: companyInfo});
 
-        console.log("name",e.target.value);
     },
     handleLiveAddress: function(e){
         e.preventDefault();
         var companyInfo = this.state.companyInfo;
         companyInfo.liveaddress = e.target.value;
         this.setState({companyInfo: companyInfo});
-        console.log("liveaddress",e.target.value);
     },
     handleCommAddress: function(e){
         e.preventDefault();
         var companyInfo = this.state.companyInfo;
         companyInfo.commaddress = e.target.value;
         this.setState({companyInfo: companyInfo});
-        console.log("liveaddress",e.target.value);
     },
     handleOwner: function(e){
         e.preventDefault();
         var companyInfo = this.state.companyInfo;
         companyInfo.owner = e.target.value;
         this.setState({companyInfo: companyInfo});
-        console.log("owner",e.target.value);
     },
     handleManagerName: function(e){
         e.preventDefault();
         var companyInfo = this.state.companyInfo;
         companyInfo.managername = e.target.value;
         this.setState({companyInfo: companyInfo});
-        console.log("managername",e.target.value);
     },
     handleManagerIdType: function(e){
         e.preventDefault();
         var companyInfo = this.state.companyInfo;
         companyInfo.manageridtype = e.target.value;
         this.setState({companyInfo: companyInfo});
-        console.log("manageridtype",e.target.value);
     },
 
     handleManagerIdNumber: function(e){
@@ -236,7 +222,6 @@ let CompanyInfo = React.createClass({
         var companyInfo = this.state.companyInfo;
         companyInfo.manageridnumber = e.target.value;
         this.setState({companyInfo: companyInfo});
-        console.log("manageridnumber",e.target.value);
     },
    /* handleOfficePhoneRegion: function(e){
         e.preventDefault();
@@ -251,16 +236,12 @@ let CompanyInfo = React.createClass({
         var companyInfo = this.state.companyInfo;
         companyInfo.officephonenumber = e.target.value;
         this.setState({companyInfo: companyInfo});
-
-        console.log("officephonenumber",e.target.value);
-    },
+     },
     handleMobile: function(e){
         e.preventDefault();
         var companyInfo = this.state.companyInfo;
         companyInfo.mobile = e.target.value;
         this.setState({companyInfo: companyInfo});
-
-        console.log("mobile",e.target.value);
     },
     handleEmail: function(e){
         e.preventDefault();
@@ -268,17 +249,12 @@ let CompanyInfo = React.createClass({
         var companyInfo = this.state.companyInfo;
         companyInfo.email = e.target.value;
         this.setState({companyInfo: companyInfo});
-
-        console.log(this.state);
-        console.log("email",e.target.value);
     },
 
     onClick: function(e){
         e.preventDefault();
-        console.log("onClick", e.target.value);
         window.location.href = '#/fillsiteinfo?a=a&b=b';
         getRequest();
-        console.log(getRequest()["a"]);
     },
 
     tick: function(){
@@ -286,14 +262,18 @@ let CompanyInfo = React.createClass({
     },
 
     componentDidMount: function(){
+        console.log(__globals__.companyinfo);
         this.interval = setInterval(this.tick, 100*1000);
+        if( __globals__.companyinfo != undefined ) {
+            this.setState( {companyInfo: __globals__.companyinfo } );
+        }
     },
 
     componentWillUnmount: function(){
         clearInterval(this.interval);
     },
-
     render: function () {
+
         return (
         <div className="g-bd">
             <ReturnWidget/>
@@ -313,7 +293,7 @@ let CompanyInfo = React.createClass({
                                 <span className="red f-fl">*</span><label>主体单位性质:</label>
                             </div>
                             <div className="item-ctrl">
-                                <select onChange={this.handleNature} >
+                                <select onChange={this.handleNature} value={this.state.companyInfo.nature}>
                                     <option value ="0">请选择主体单位的性质</option>
                                     <option value ="1">军队</option>
                                     <option value ="2">政府机关</option>
@@ -329,7 +309,7 @@ let CompanyInfo = React.createClass({
                                 <span className="red f-fl">*</span><label>主体单位证件类型:</label>
                             </div>
                             <div className="item-ctrl">
-                                <select  onChange={this.handleIdType} >
+                                <select  onChange={this.handleIdType} value={this.state.companyInfo.idtype}>
                                     <option value ="0">请选择主体单位证件类型</option>
                                     <option value ="1">工商执照</option>
                                     <option value="2">组织机构代码</option>
@@ -342,7 +322,7 @@ let CompanyInfo = React.createClass({
                                 <span className="red f-fl">*</span><label>主体单位证件号码:</label>
                             </div>
                             <div className="item-ctrl">
-                                <input type="text" name="identity"  onChange={this.handleIdNumber}/>
+                                <input type="text" name="identity"  onChange={this.handleIdNumber} value={this.state.companyInfo.idnumber}/>
                                 <span className={this.state.formError.idnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位号码</span>
                             </div>
                         </div>
@@ -351,7 +331,7 @@ let CompanyInfo = React.createClass({
                                 <span className="red f-fl">*</span><label>主体单位名称:</label>
                             </div>
                             <div className="item-ctrl">
-                                <input type="text" name="name" onChange={this.handleName}/>
+                                <input type="text" name="name" onChange={this.handleName} value={this.state.companyInfo.name}/>
                                 <span className={this.state.formError.name.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位名称</span>
                             </div>
                         </div>
@@ -360,7 +340,7 @@ let CompanyInfo = React.createClass({
                                 <span className="red f-fl">*</span><label>主体单位证件住所:</label>
                             </div>
                             <div className="item-ctrl">
-                                <input type="text" name="address" onChange={this.handleLiveAddress}/>
+                                <input type="text" name="address" onChange={this.handleLiveAddress} value={this.state.companyInfo.liveaddress}/>
                                 <span className={this.state.formError.liveaddress.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位信所地址</span>
                             </div>
                         </div>
@@ -369,7 +349,7 @@ let CompanyInfo = React.createClass({
                                 <span className="red f-fl">*</span><label>主体单位通讯地址:</label>
                             </div>
                             <div className="item-ctrl">
-                                <input type="text" name="commaddress" onChange={this.handleCommAddress}/>
+                                <input type="text" name="commaddress" onChange={this.handleCommAddress} value={this.state.companyInfo.commaddress}/>
                                 <span className={this.state.formError.commaddress.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位通讯地址</span>
                             </div>
                         </div>
@@ -378,7 +358,7 @@ let CompanyInfo = React.createClass({
                                 <span className="red f-fl">*</span><label>投资人或主管单位名称:</label>
                             </div>
                             <div className="item-ctrl">
-                                <input type="text" name="investorname" onChange={this.handleOwner}/>
+                                <input type="text" name="investorname" onChange={this.handleOwner} value={this.state.companyInfo.owner}/>
                                 <span className={this.state.formError.owner.isBlank ? "u-popover" : "u-popover hidden" }>请输入投资人或主管单位名称</span>
                             </div>
                         </div>
@@ -390,7 +370,7 @@ let CompanyInfo = React.createClass({
                                 <span className="red f-fl">*</span><label>法人姓名:</label>
                             </div>
                             <div className="item-ctrl">
-                                <input type="text" name="lpname" onChange={this.handleManagerName}/>
+                                <input type="text" name="lpname" onChange={this.handleManagerName} value={this.state.companyInfo.managername}/>
                                 <span className={this.state.formError.managername.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位负责人信息</span>
                             </div>
                         </div>
@@ -399,7 +379,7 @@ let CompanyInfo = React.createClass({
                                 <span className="red f-fl">*</span><label>法人证件类型:</label>
                             </div>
                             <div className="item-ctrl">
-                                <select onChange={this.handleManagerIdType}>
+                                <select onChange={this.handleManagerIdType} value={this.state.companyInfo.manageridtype}>
                                     <option value ="0">请选择主体单位的性质</option>
                                     <option value ="1">军队</option>
                                     <option value ="2">政府机关</option>
@@ -415,7 +395,7 @@ let CompanyInfo = React.createClass({
                                 <span className="red f-fl">*</span><label>法人证件号码:</label>
                             </div>
                             <div className="item-ctrl">
-                                <input type="text" name="npidentity" onChange={this.handleManagerIdNumber}/>
+                                <input type="text" name="npidentity" onChange={this.handleManagerIdNumber} value={this.state.companyInfo.manageridnumber}/>
                                 <span className={this.state.formError.manageridnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入法人证件号码</span>
                             </div>
                         </div>
@@ -424,7 +404,7 @@ let CompanyInfo = React.createClass({
                                 <span className="red f-fl">*</span><label>办公室电话:</label>
                             </div>
                             <div className="item-ctrl">
-                                <input type="text" name="officerphone" onChange={this.handleOfficePhoneNumber}/>
+                                <input type="text" name="officerphone" onChange={this.handleOfficePhoneNumber} value={this.state.companyInfo.officephonenumber}/>
                                 <span className={this.state.formError.officephonenumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入办公室电话</span>
                             </div>
                         </div>
@@ -433,7 +413,7 @@ let CompanyInfo = React.createClass({
                                 <span className="red f-fl">*</span><label>手机号码:</label>
                             </div>
                             <div className="item-ctrl">
-                                <input type="text" name="mobilephone"onChange={this.handleMobile}/>
+                                <input type="text" name="mobilephone"onChange={this.handleMobile} value={this.state.companyInfo.mobile}/>
                                 <span className={this.state.formError.mobile.isBlank ? "u-popover" : "u-popover hidden" }>请输入手机号码</span>
                             </div>
                         </div>
@@ -442,7 +422,7 @@ let CompanyInfo = React.createClass({
                                 <span className="red f-fl">*</span><label>电子邮箱:</label>
                             </div>
                             <div className="item-ctrl">
-                                <input type="text" name="email" onChange={this.handleEmail}/>
+                                <input type="text" name="email" onChange={this.handleEmail} value={this.state.companyInfo.email}/>
                                 <span className={this.state.formError.email.isBlank > 0 ? "u-popover" : "u-popover hidden" }>请输入电子邮箱</span>
                             </div>
                         </div>

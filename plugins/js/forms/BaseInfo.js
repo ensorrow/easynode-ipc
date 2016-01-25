@@ -30,7 +30,10 @@ let BaseInfo = React.createClass({
         __globals__.baseinfo.type = this.state.type;
         __globals__.baseinfo.serverregion = this.state.serverregion;
 
+        console.log(__globals__.baseinfo);
+
         __globals__.drafttype = 1;
+
         //savedraft
         reqwest({
             url: '/savedraft',
@@ -41,7 +44,6 @@ let BaseInfo = React.createClass({
             success: function(resp){
                console.log("savetodraft success",__globals__.drafttype);
                 //{drafttype: formData.drafttype, id: r.insertId};
-                console.log(resp);
                 if( resp.ret.drafttype == 1 ){
                     __globals__.baseinfo.id = resp.ret.id;
                 }
@@ -54,20 +56,25 @@ let BaseInfo = React.createClass({
         });
     },
     componentDidMount: function(){
+        if( __globals__.baseinfo != undefined ) {
+            this.setState( __globals__.baseinfo );
+        }
     },
 
     componentWillUnmount: function(){
+        console.log("componentWillUnmount");
     },
 
     onChange: function(type, region){
-        this.state.type = type;
-        this.state.serverregion = region;
+        this.setState({type:type,serverregion: region});
     },
     onClick: function(){
         this.onSave();
         location.href = "#/fillcompanyinfo";
     },
     render: function () {
+        console.log("render");
+        console.log(this.state);
         return (
             <div classNameName="g-bd">
                 <ReturnWidget/>

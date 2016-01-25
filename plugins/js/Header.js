@@ -30,7 +30,7 @@ class Header  extends React.Component{
     render() {
         return (
             <div className="g-hd">
-                <a className="m-logo" href="./index.html"><img src="../assets/logo.png" /><span>ICP备案系统</span></a>
+                <a className="m-logo" href="#"><img src="../assets/logo.png" /><span>ICP备案系统</span></a>
                 { this.loggedIn() }
             </div>
         );

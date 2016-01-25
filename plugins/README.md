@@ -274,3 +274,16 @@ CREATE TABLE `website` (
     hzspeed.cn has address 115.28.79.35
     hzspeed.cn has address 218.205.113.98
 
+47.
+React automatically understands booleans for this purpose, so you can simply write
+
+<option value={option.value} selected={optionsState == option.value}>{option.label}</option>
+and it will output 'selected' appropriately.
+
+However, React makes this even easier for you. Instead of defining selected on each option, you can (and should) simply write value={optionsState} on the select tag itself:
+
+<select value="B">
+  <option value="A">Apple</option>
+  <option value="B">Banana</option>
+  <option value="C">Cranberry</option>
+</select>
