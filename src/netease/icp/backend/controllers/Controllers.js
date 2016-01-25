@@ -179,6 +179,35 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
 
         /**
+         * @api {post} /deleteapplyrecord/'
+         * @apiDescription:  删除申请列表
+         * @apiName {deleteApplyRecord}
+         * @apiGroup {Manager}
+         *
+         * @apiParam {String} id 申请记录ID
+         * @apiParam {String} tenantId 租户ID
+         *
+         * @apiSuccess {Bool} 1: 成功删除 0 :删除失败
+         *
+         * @apiError {Object} error 参数验证错误或服务器内部错误描述
+         */
+        static deleteApplyRecord(app){
+            var me = this;
+            return function *(page){
+                var session = this.session;
+                var ret = {};
+
+                var storeService = new StoreService(app)
+                ret = yield storeService.deleteApplyRecords(this.request.body);
+
+                this.type = 'json';
+                this.body = {ret: ret};
+            }
+        }
+
+
+
+        /**
          * @api:
          * @apiDescription: 上传照片
          * @apiName {}

@@ -268,3 +268,9 @@ CREATE TABLE `website` (
 
 45. serverregion , website.serverregion record website.serverregion varchar
  "1"=>hz1
+
+46. sh-3.2# host icp.hzspeed.cn
+    icp.hzspeed.cn is an alias for hzspeed.cn.
+    hzspeed.cn has address 115.28.79.35
+    hzspeed.cn has address 218.205.113.98
+

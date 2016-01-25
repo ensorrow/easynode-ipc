@@ -15,6 +15,9 @@ var FormSubmit = ReactUI.FormSubmit;
 var Table = ReactUI.Table;
 var Filter = ReactUI.Filter;
 var Pagination = ReactUI.Pagination;
+var Modal = ReactUI.Modal;
+
+
 
 import records from '../mocks/records';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
@@ -25,14 +28,58 @@ let Operation = React.createClass({
     propTypes:{
         record: React.PropTypes.object.isRequired
     },
+    handleDelete: function(e){
+        var tenantId = __globals__.user == undefined ? '111111' : __globals__.user.tenantId;
 
+        var me = this;
+        Modal.open({
+            header: '确认删除?',
+            content: (
+                <div>
+                    <p>备案信息将被删除删除 {this.props.record.code}</p>
+                    <p>您确定要删除备案信息？</p>
+                </div>
+            ),
+            width: 400,
+            buttons: {
+                '取消': true,
+                '确定': () => {
+
+                    console.log(this.props.record);
+                    reqwest({
+                        url: '/deleteapplyrecord',
+                        method: 'post',
+                        data: JSON.stringify({id:this.props.record.id}),
+                        type:'json',
+                        contentType: 'application/json',
+                        success: function(resp){
+                            console.log(resp);
+                            //{ret:{id:96,ret:false}}
+                            //me.setState({data: resp.ret.data});
+                            if( resp.ret.ret ){
+                                var onDelete = me.props.onDelete;
+                                onDelete && onDelete(resp.ret.id);
+                            }
+                        },
+                        error: function(err){
+                            //TODO
+                            console.log(err);
+                        }
+                    });
+
+                    return true;
+                }
+            }
+        });
+
+    },
     render(){
         let type = this.props.record.type;
         let prg = this.props.record.status;
 
         if( prg == 0 ) {
             return (
-                <td><Link to="/modify">修改</Link> <Link to="/delete">删除</Link></td>
+                <td><Link to="/modify">修改</Link> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else if( prg == 1){
@@ -85,6 +132,10 @@ let Operation = React.createClass({
 
 let Records = React.createClass({
 
+    onDelete: function(id){
+        var onDelete =  this.props.onDelete;
+        onDelete && onDelete(id);
+    },
     format: function(m){
         var d = new Date(m);
         return d.getFullYear() + "年" + d.getMonth()+1 + "月" + d.getDate() + "日" + " " + d.getHours() + "时" + d.getMinutes() + "分" +  d.getSeconds() + "秒";
@@ -123,12 +174,12 @@ let Records = React.createClass({
 
            return  (
                    <tr key={record.id}>
-                       <td> {record.id} </td>
+                       <td> {record.code} </td>
                        <td> {typeStr}</td>
                        <td> {record.serverregion == "1" ? "HZ1":"HZ1"} </td>
                        <td className={status}> {prgStr} </td>
                        <td> { this.format(record.updatetime) } </td>
-                       <Operation key={record.id} record={record}/>
+                       <Operation key={record.id} record={record} onDelete={this.onDelete}/>
                    </tr>
            );
         });
@@ -141,7 +192,16 @@ let Records = React.createClass({
 });
 
 let RecordList = React.createClass({
-
+    onDelete: function(id){
+        var data = this.state.data;
+        data.map((record,index)=>{
+            if( record.id == id ){
+                data.splice(index,1);
+                return;
+            }
+        });
+        this.setState({ data:data} );
+    },
     loadRecords: function(){
         var me = this;
         var tenantId = __globals__.user == undefined ? '111111' : __globals__.user.tenantId;
@@ -184,7 +244,7 @@ let RecordList = React.createClass({
                             <th>操作</th>
                             </tr>
                         </thead>
-                        <Records data={this.state.data}/>
+                        <Records data={this.state.data} onDelete={this.onDelete}/>
                     </table>
                 </div>
             </div>

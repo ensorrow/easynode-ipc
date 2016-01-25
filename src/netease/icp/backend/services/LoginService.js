@@ -103,8 +103,10 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
                     var storeService = new StoreService(me.app);
 
-                    var first = yield  storeService.isFirst(user.tenantid);
-                    first ? yield  storeService.addUser(user) : yield  storeService.updateUser(user);
+                    var id = yield  storeService.isFirst(user.tenantid);
+                    console.log("first",id);
+
+                    id ? yield  storeService.updateUser(Object.assign({},user,{id:id})) : yield  storeService.addUser(user);
                     return res;
                 } else {
                      return query.code ==  LOGIN_PARA_ERR.resCode ? LOGIN_PARA_ERR :

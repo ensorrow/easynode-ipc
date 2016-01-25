@@ -14,6 +14,8 @@ import SubmitCheckSuccess from './forms/SubmitCheckSuccess';
 import UploadPhoto from './forms/UploadPhoto.jsx';
 
 
+
+
 function redirectToLogin(nextState, replaceState){
     if(!auth.loggedIn()){
         replaceState({nextPathname:nextState.location.pathname},'/login');
@@ -129,7 +131,7 @@ export default{
             getComponent: (location,cb) => {
                 require.ensure([],(require) => {
                     //ToDo ,execute delete operation
-                    cb(null,require('./forms/CompanyInfo'));
+                    //cb(null,require('./forms/CompanyInfo'));
                 });
             }
         },

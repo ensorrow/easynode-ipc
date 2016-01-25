@@ -46,7 +46,7 @@ var utils = require('utility');
          * @apiName {storeService}
          * @apiGroup {}
 
-         * @apiSuccess { return true|false }
+         * @apiSuccess { return id }
          * @apiVersion {}
          * */
         isFirst(tenantId) {
@@ -58,15 +58,17 @@ var utils = require('utility');
                 var args = {tenantid: tenantId};
                 var arr = [];
                 var conn = null;
+                var id = 0;
                 try{
                     conn = yield  me.app.ds.getConnection();
                     arr = yield conn.execQuery(sql, args);
+                    id = arr[0].id;
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
-                    return false;
+                    return id;
                 }finally{
                     yield me.app.ds.releaseConnection(conn);
-                    return arr.length <= 0 ? true : false;
+                    return id;
                 }
             }
         }
@@ -344,6 +346,35 @@ var utils = require('utility');
         }
 
         /**
+         * @api:  删除申请记录
+         * @apiDescription:
+         * @apiName {storeService}
+         * @apiGroup {}
+         * @apiParam {formData}
+         * @apiParam {formData.id} 编码
+         * @apiSuccess {}
+         * @apiVersion {}
+         * */
+        deleteApplyRecords(formData){
+            var me = this;
+            return function *(){
+                var conn = null;
+                try{
+                    var model = new Record();
+                    conn = yield  me.app.ds.getConnection();
+
+                    yield conn.del( model,[formData.id]);
+                } catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
+                    return {id: formData.id,ret:false};
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                    return {id: formData.id,ret:true};
+                }
+            }
+        }
+
+        /**
          * @api:  保存草稿
          * @apiDescription:
          * @apiName {storeService}
@@ -388,12 +419,14 @@ var utils = require('utility');
                 try{
                     conn = yield me.app.ds.getConnection();
 
+                    code = utils.randomString(32, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
                     model.merge( Object.assign({},
                         formData.baseinfo,
                         {sitemanagerurl:'',checklisturl:'',protocolurl1:'',protocolurl2:'',securityurl1:'',securityurl2:''},
-                        {tenantid:formData.user.tenantid,companyid:0,websiteid:0,status: 0,code:''},
+                        {tenantid:formData.user.tenantid,companyid:0,websiteid:0,status: 0,code:code},
                         {createtime:Date.now(),updatetime:Date.now()}
                     ));
+
 
                     if( formData.baseinfo.hasOwnProperty("id") ){
                         r = yield conn.update(model);
