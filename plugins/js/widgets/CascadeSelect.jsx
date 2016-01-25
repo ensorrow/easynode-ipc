@@ -37,15 +37,17 @@ let MySelect = React.createClass({
 
         var onChange = this.props.onChange;
         onChange && onChange(this.index, value);
-
     },
     render(){
         let index = this.props.index;
         let items = this.props.items;
+        var value = '';
         if( index == P_INDEX ){
             items = this.props.items.p;
+            value = this.props.province;
         }else if( index == C_INDEX){
             items = this.props.items.c[this.props.province];
+            value = this.props.city;
         }else if( index == A_INDEX){
             if( this.props.city.length <= 0 ){
                 items = [];
@@ -53,13 +55,14 @@ let MySelect = React.createClass({
             else{
                 items = this.props.items.a[this.props.province + '-' + this.props.city];
             }
+            value = this.props.area;
         }
         if( items === undefined ){
             items = [];
         }
         this.index = index;
         return (
-            <select data-order={index} onChange={this._handleChange} className="item-ctrl-three">
+            <select data-order={index} onChange={this._handleChange} className="item-ctrl-three" value={value}>
                 {
                     items.map((name,i)=> {
                         return (<option key={i} value={name}>{name}</option>);
@@ -73,18 +76,16 @@ let MySelect = React.createClass({
 
 let CascadeSelect = React.createClass({
 
+    propTypes:{
+        province: React.PropTypes.string.isRequired,
+        city: React.PropTypes.string.isRequired,
+        area: React.PropTypes.string.isRequired
+    },
     getInitialState: function(){
-        return {
-            province: '',
-            city: '',
-            area: ''
-        }
+        return {province:'',city:'',area:''};
     },
 
     componentWillMount: function(){
-        this.setState({
-
-        });
     },
 
 
@@ -100,7 +101,7 @@ let CascadeSelect = React.createClass({
 
          if( index == P_INDEX ) {
              this.setState({
-                 province:value
+                 province: value
              });
              onChange && onChange(value,'','');
          }else if( index == C_INDEX ){
@@ -114,7 +115,6 @@ let CascadeSelect = React.createClass({
              });
              onChange && onChange(this.state.province,this.state.city,value);
          }
-
     },
 
     renderMySelects(){
@@ -122,11 +122,11 @@ let CascadeSelect = React.createClass({
             return (
                 <div className="item-ctrl">
                     <MySelect key={P_INDEX} items={this.getRegions()} onChange={this._onChange}
-                              province={this.state.province} city={this.state.city} area={this.state.area} index={P_INDEX}/>
+                              province={this.props.province} city={this.props.city} area={this.props.area} index={P_INDEX}/>
                     <MySelect key={C_INDEX} items={this.getRegions()} onChange={this._onChange}
-                              province={this.state.province} city={this.state.city} area={this.state.area} index={C_INDEX}/>
+                              province={this.props.province} city={this.props.city} area={this.props.area} index={C_INDEX}/>
                     <MySelect key={A_INDEX} items={this.getRegions()} onChange={this._onChange}
-                              province={this.state.province} city={this.state.city} area={this.state.area} index={A_INDEX}/>
+                              province={this.props.province} city={this.props.city} area={this.props.area} index={A_INDEX}/>
                     <span className="u-popover hidden">a</span>
                 </div>
             );

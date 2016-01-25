@@ -170,9 +170,12 @@ let SiteInfo = React.createClass({
         });
     },
     onSave: function(){
-        if( __globals__.siteinfo == undefined )
+        if( __globals__.siteinfo == undefined ) {
             __globals__.siteinfo = {};
+            __globals__.domains = [];
+        }
         __globals__.siteinfo = this.state.siteInfo;
+        __globals__.domains = this.state.domains;
 
         __globals__.drafttype = 3;
         //savedraft
@@ -207,6 +210,7 @@ let SiteInfo = React.createClass({
 
         if( __globals__.siteinfo != undefined ) {
             this.setState( {siteInfo: __globals__.siteinfo } );
+            this.setState( {domains: __globals__.domains} );
         }
     },
 
@@ -691,10 +695,13 @@ let SiteInfo = React.createClass({
     renderDomains: function(){
 
         return this.state.domains.map((domain)=>{
+            var value = domain == 1 ? this.state.siteInfo.domain1 :
+                        domain == 2 ? this.state.siteInfo.domain2 :
+                        domain == 3 ? this.state.siteInfo.domain3 : this.state.siteInfo.domain4;
             return (
                 <div className="item-ctrl item-ctrl-in" key={domain}>
                     <label className="siteurl">www</label>
-                    <input type="text" name="identity" className="siteurl-input" onChange={this.handleDomainOther} id={domain}/>
+                    <input type="text" name="identity" className="siteurl-input" onChange={this.handleDomainOther} id={domain} value={value}/>
                     <button className="siteurl-delete" type="button" onClick={this.onRemoveSite}></button>
                 </div>
             )

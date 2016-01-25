@@ -262,11 +262,11 @@ let CompanyInfo = React.createClass({
     },
 
     componentDidMount: function(){
-        console.log(__globals__.companyinfo);
         this.interval = setInterval(this.tick, 100*1000);
         if( __globals__.companyinfo != undefined ) {
             this.setState( {companyInfo: __globals__.companyinfo } );
         }
+        console.log(__globals__.companyinfo);
     },
 
     componentWillUnmount: function(){
@@ -286,7 +286,7 @@ let CompanyInfo = React.createClass({
                             <div className="item-label">
                                 <span className="red f-fl">*</span><label>主体单位所属区域:</label>
                             </div>
-                            <CascadeSelect  onChange={this.handleRegion}/>
+                            <CascadeSelect  onChange={this.handleRegion} province={this.state.companyInfo.province} city={this.state.companyInfo.city} area={this.state.companyInfo.area}/>
                         </div>
                         <div className="m-companyinfo-item">
                             <div className="item-label">
