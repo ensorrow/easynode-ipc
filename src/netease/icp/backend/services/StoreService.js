@@ -49,20 +49,13 @@ var utils = require('utility');
          * @apiSuccess { return true|false }
          * @apiVersion {}
          * */
-        isFirst(tenantId,userName,email) {
+        isFirst(tenantId) {
             var me = this;
             return function* ()
             {
                 var sql = '';
-                sql = `SELECT
-                id
-                FROM
-                user
-                WHERE
-                tenantId = #tenantId# and
-                userName = #userName# and
-                email = #email#`;
-                var args = {tenantId: tenantId, userName: userName, email: email};
+                sql = `SELECT id FROM user WHERE tenantid = #tenantid#`;
+                var args = {tenantid: tenantId};
                 var arr = [];
                 var conn = null;
                 try{
@@ -127,6 +120,7 @@ var utils = require('utility');
                 model.merge( {lastlogintime: Date.now()} );
                 var id = 0;
 
+                console.log("update",user);
                 try {
                     conn = yield  me.app.ds.getConnection();
                     var r = yield conn.update(model);
