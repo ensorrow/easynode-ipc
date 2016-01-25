@@ -85,6 +85,10 @@ let Operation = React.createClass({
 
 let Records = React.createClass({
 
+    format: function(m){
+        var d = new Date(m);
+        return d.getFullYear() + "年" + d.getMonth()+1 + "月" + d.getDate() + "日" + " " + d.getHours() + "时" + d.getMinutes() + "分" +  d.getSeconds() + "秒";
+    },
     render: function(){
         var records = this.props.data.map((record)=>{
             let type = record.type;
@@ -121,9 +125,9 @@ let Records = React.createClass({
                    <tr key={record.id}>
                        <td> {record.id} </td>
                        <td> {typeStr}</td>
-                       <td> {record.serverregion} </td>
+                       <td> {record.serverregion == "1" ? "HZ1":"HZ1"} </td>
                        <td className={status}> {prgStr} </td>
-                       <td> {record.updatetime} </td>
+                       <td> { this.format(record.updatetime) } </td>
                        <Operation key={record.id} record={record}/>
                    </tr>
            );

@@ -22,7 +22,7 @@ var data = [
 let RecordType = React.createClass({
 
     getInitialState: function() {
-        return {type:0,serverregion:0};
+        return {type:0,serverregion:"1"};
     },
 
     render: function () {
@@ -74,7 +74,7 @@ let RecordType = React.createClass({
         });
         this.props.selected.type = id;
         var onChange = this.props.onChange;
-        onChange && onChange( this.props.selected.type , 0 );
+        onChange && onChange( this.props.selected.type , "1" );
     }
 });
 

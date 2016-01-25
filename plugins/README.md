@@ -266,3 +266,5 @@ CREATE TABLE `website` (
                     console.log("sessionid");
                     console.dir(this.cookies.get('koa.sid'));
 
+45. serverregion , website.serverregion record website.serverregion varchar
+ "1"=>hz1

@@ -22,7 +22,7 @@ import reqwest from 'reqwest';
 let BaseInfo = React.createClass({
 
     getInitialState: function() {
-        return {type:0,serverregion:0};
+        return {type:0,serverregion:"1"};
     },
     onSave: function(){
         if( __globals__.baseinfo == undefined )
