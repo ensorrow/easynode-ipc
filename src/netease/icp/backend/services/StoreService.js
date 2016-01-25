@@ -414,7 +414,7 @@ var utils = require('utility');
                 var id = 0;
                 var conn = null;
                 var model = new Record();
-
+                var code = '';
 
                 try{
                     conn = yield me.app.ds.getConnection();
