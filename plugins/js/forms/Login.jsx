@@ -42,6 +42,15 @@ let Login = React.createClass({
         //this.setState({accountName:'',password:''});
     },
     render: function () {
+
+        var accouttip = '';
+        var passwordtip = '';
+        if( __globals__.user &&  __globals__.user.hasOwnProperty('resCode') &&   __globals__.user.resCode != 1005 ){
+            accouttip = <label> { __globals__.user.resReason } </label>;
+        }
+        if( __globals__.user &&  __globals__.user.hasOwnProperty('resCode') && __globals__.user.resCode == 1005 ){
+            passwordtip = <label> { __globals__.user.resReason } </label>;
+        }
         return (
             <div className="m-login">
                 <form method="POST" action="https://auth.c.163.com/rest/login/callback">
@@ -51,7 +60,7 @@ let Login = React.createClass({
                     <input type="hidden" name="callback" value={__globals__.loginCallback.success}/>
                     <input type="hidden" name="autoLogin" value="true"/>
                     <div className="m-login-hd">
-                        <label>账号登录</label><img src="../assets/close.png"></img>
+                        <label>账号登录</label>
                     </div>
                     <div className="m-login-bd">
                         <ul className="login-type">
@@ -60,8 +69,9 @@ let Login = React.createClass({
                         </ul>
 
                         <input type="text" name="userName" placeholder={this.state.loginType == LOGINTYPE_CLOUND? "账号/手机/邮箱":"邮箱"} value={this.state.accountName} onChange={this.handleAccountnameChange}/>
+                        {accouttip};
                         <input type="password" name="password" placeholder="密码" value={this.state.password} onChange={this.handlePasswordChange}/>
-
+                        {passwordtip};
                         <input type="submit" className="u-commit" value="登陆"/>
                     </div>
                 </form>

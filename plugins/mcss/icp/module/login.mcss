@@ -48,7 +48,7 @@
 		padding: 20px 40px;
 		.login-type{
 
-			height: 50px;
+			height: 40px;
 
 			margin-top: 20px;
 			text-align: center;
@@ -75,7 +75,7 @@
 
 		> input[type="text"], > input[type="password"] {
 			width: 320px;
-			height: 40px;
+			height: 32px;
 			margin-top: 20px;
 			background: #fafec0;
 			font-size: 18px;

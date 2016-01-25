@@ -58,7 +58,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 var user = this.session.user !== undefined ? this.session.user : undefined;
 
                 if( user === undefined ){
-                    yield this.render('index',{user:user,loginCallback:app.config.loginCallback});
+                    console.log("user === undefined")
+                    yield this.render('index',{user:this.session.user,loginCallback:app.config.loginCallback});
                 }else{
                     yield this.render('index',{user:user,loginCallback:app.config.loginCallback});
                 }
@@ -241,12 +242,35 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             return function *(){
                 var loginService = new LoginService(app);
                 var result = yield loginService.login(this.query);
-                if( result.hasOwnProperty('user') ){
-                     this.session.user = result.user;
-                     this.redirect('/');
+                //console.log(result);
+                //if( result.hasOwnProperty('user') ){
+                //     this.session.user = result.user;
+                //     this.redirect('/');
+                //}else{
+                //    //TODO
+                //    this.session.ret = result;
+                //    this.redirect('/');
+                //}
+                /*
+                { user:
+   { tenantid: 'b261f52d302b43ba821a6d731b17034c',
+     status: '1',
+     logintype: '1',
+     email: 'hujb2000@163.com',
+     username: 'hujb2000@163.com' },
+  resCode: 200,
+  resReason: '登陆恭喜!' }
+    resReason: '登陆恭喜!' }
+{ resCode: 1012, resReason: 'urs用户名或者密码错误' }
+
+
+                * */
+                if( result.hasOwnProperty('user') ) {
+                    this.session.user = result.user;
                 }else{
-                    //TODO
+                    this.session.user = result;
                 }
+                this.redirect('/');
             }
         }
 

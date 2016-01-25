@@ -275,11 +275,11 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-login .m-login-hd >label{font-family:MicrosoftYaHei;font-size:14px;color:#666;line-height:14px;}
 .m-login .m-login-hd >img{margin-top:20px;}
 .m-login .m-login-bd{border-top:1px solid #555;padding:20px 40px;}
-.m-login .m-login-bd .login-type{height:50px;margin-top:20px;text-align:center;}
+.m-login .m-login-bd .login-type{height:40px;margin-top:20px;text-align:center;}
 .m-login .m-login-bd .login-type >li{display:inline-block;width:162px;height:20px;line-height:20px;font-size:18px;color:#999;cursor:pointer;}
 .m-login .m-login-bd .login-type >li.active{color:#22b2e6;font-size:20px;}
 .m-login .m-login-bd .login-type >li:first-child{border-right:2px solid #a9a9af;}
-.m-login .m-login-bd >input[type="text"],.m-login .m-login-bd >input[type="password"]{width:320px;height:40px;margin-top:20px;background:#fafec0;font-size:18px;}
+.m-login .m-login-bd >input[type="text"],.m-login .m-login-bd >input[type="password"]{width:320px;height:32px;margin-top:20px;background:#fafec0;font-size:18px;}
 .m-login .m-login-bd >input[type="submit"]{width:320px;height:40px;line-height:40px;font-size:20px;margin-top:20px;color:#fff;background:#2eb2e3;}
 .m-help{width:992px;height:auto;margin:10px auto;padding:20px 40px;}
 .m-help{width:992px;height:auto;margin:10px auto;padding:20px 40px;}
