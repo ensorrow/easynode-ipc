@@ -272,6 +272,26 @@ let CompanyInfo = React.createClass({
     componentWillUnmount: function(){
         clearInterval(this.interval);
     },
+    getIdType: function(){
+        if( this.state.companyInfo.nature > 0 ){
+            return (
+                <select  onChange={this.handleIdType} value={this.state.companyInfo.idtype}>
+                    <option value ="0">请选择主体单位证件类型</option>
+                    <option value ="1">工商执照</option>
+                    <option value="2">组织机构代码</option>
+                </select>
+            );
+        }
+        else {
+            return (
+                <select onChange={this.handleIdType} value={this.state.companyInfo.idtype} disabled="false">
+                    <option value ="0">请选择主体单位证件类型</option>
+                    <option value ="1">工商执照</option>
+                    <option value="2">组织机构代码</option>
+                </select>
+            );
+        }
+    },
     render: function () {
 
         return (
@@ -309,11 +329,7 @@ let CompanyInfo = React.createClass({
                                 <span className="red f-fl">*</span><label>主体单位证件类型:</label>
                             </div>
                             <div className="item-ctrl">
-                                <select  onChange={this.handleIdType} value={this.state.companyInfo.idtype}>
-                                    <option value ="0">请选择主体单位证件类型</option>
-                                    <option value ="1">工商执照</option>
-                                    <option value="2">组织机构代码</option>
-                                </select>
+                                {this.getIdType()}
                                 <span className={this.state.formError.idtype.isBlank ? "u-popover" : "u-popover hidden" }>1、企业建议选择工商执照 2、民办企业建议选择组织机构代码</span>
                             </div>
                         </div>
@@ -381,11 +397,10 @@ let CompanyInfo = React.createClass({
                             <div className="item-ctrl">
                                 <select onChange={this.handleManagerIdType} value={this.state.companyInfo.manageridtype}>
                                     <option value ="0">请选择主体单位的性质</option>
-                                    <option value ="1">军队</option>
-                                    <option value ="2">政府机关</option>
-                                    <option value="3">企事业单位</option>
-                                    <option value="4">企业</option>
-                                    <option value="5">个人</option>
+                                    <option value ="1">身份证</option>
+                                    <option value="2">护照</option>
+                                    <option value="3">军官证</option>
+                                    <option value="4">台胞证</option>
                                 </select>
                                 <span className={this.state.formError.manageridtype.isBlank ? "u-popover" : "u-popover hidden" }>请选择法人证件类型</span>
                             </div>

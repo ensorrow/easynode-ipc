@@ -463,6 +463,18 @@ let SiteInfo = React.createClass({
         siteInfo.qq = e.target.value;
         this.setState({siteInfo: siteInfo});
     },
+    getLanguageInput: function(){
+        var siteInfo = this.state.siteInfo;
+        if( siteInfo.languages.customize ){
+            return (
+                <input type="text" name="identity"  className="item-ctrl-language-customize"  onChange={this.handleLanguagesCustomiz} value={this.state.siteInfo.customizeLang}/>
+            );
+        }else {
+            return (
+                <input type="text" name="identity"  className="item-ctrl-language-customize" disabled  onChange={this.handleLanguagesCustomiz} value={this.state.siteInfo.customizeLang}/>
+            );
+        }
+    },
     render: function () {
         return (
             <div>
@@ -533,7 +545,7 @@ let SiteInfo = React.createClass({
                                         <label><input type="checkbox" id="7" onChange={this.handleLanguages.bind(this,LANG_ARABIC)} checked={this.state.siteInfo.languages.arabic ? "checked": "" }/> <span>阿拉伯语</span></label>
                                         <label><input type="checkbox" id="8" onChange={this.handleLanguages.bind(this,LANG_RUSSIAN)} checked={this.state.siteInfo.languages.russian ? "checked": "" }/> <span>俄罗斯语</span></label>
                                         <label><input type="checkbox" id="9" onChange={this.handleLanguages.bind(this,LANG_CUSTOMIZE)} checked={this.state.siteInfo.languages.customize ? "checked": "" }/> <span>自定义:</span></label>
-                                        <input type="text" name="identity"  className="item-ctrl-language-customize" onChange={this.handleLanguagesCustomiz} value={this.state.siteInfo.customizeLang}/>
+                                        {this.getLanguageInput()}
                                         <span className={this.enableLanguagesTips()  ? "u-popover" : "u-popover hidden" }>请选择网站语言</span>
                                     </div>
                                 </div>
@@ -559,7 +571,7 @@ let SiteInfo = React.createClass({
                                 <div className="item-ctrl">
                                     <select onChange={this.handleManagerIdType} value={this.state.siteInfo.manageridtype}>
                                         <option value ="0">--请选择证件类型--</option>
-                                        <option value ="1">身份证b</option>
+                                        <option value ="1">身份证</option>
                                         <option value="2">护照</option>
                                         <option value="3">军官证</option>
                                         <option value="4">台胞证</option>
