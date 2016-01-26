@@ -91,8 +91,9 @@ let UploadMaterial = React.createClass({
             type:'json',
             contentType: 'application/json',
             success: function(resp){
+                //{ code: code, id: id }
                 __globals__.record = resp.ret;
-                location.href = "#/committrial";
+                location.href = "#/submittrialsuccess";
             },
             error: function(err){
                 //TODO
@@ -195,8 +196,8 @@ let UploadMaterial = React.createClass({
         return formError;
     },
     componentDidMount: function(){
-        if( __globals__.record != undefined ) {
-            this.setState( {materials: __globals__.record } );
+        if( __globals__.material != undefined ) {
+            this.setState( {materials: __globals__.material } );
         }
     },
     componentWillUnmount: function(){

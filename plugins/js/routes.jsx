@@ -176,7 +176,7 @@ export default{
             }
         },
         {
-            path:'/committrial',
+            path:'/submittrialsuccess',
             getComponent: (location,cb) => {
                 require.ensure([],(require) => {
                     cb(null,require('./forms/SubmitTrialSuccess'));

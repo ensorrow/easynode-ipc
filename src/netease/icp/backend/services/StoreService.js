@@ -294,7 +294,7 @@ var utils = require('utility');
                     code = utils.randomString(32, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
                     model.merge( Object.assign({},formData.baseinfo,formData.material,{tenantid:formData.user.tenantid,companyid:companyid,websiteid:websiteid,status: 1,code:code},{createtime:Date.now(),updatetime:Date.now()} ));
 
-                    if( formData.material.hasOwnProperty("id") ){
+                    if( formData.baseinfo.hasOwnProperty("id") || formData.material.hasOwnProperty("id") ){
                         r = yield conn.update(model);
                         id = formData.material.id;
                     }else{
@@ -544,7 +544,7 @@ var utils = require('utility');
                         {createtime: Date.now(), updatetime: Date.now()}));
 
 
-                    if (formData.material.hasOwnProperty("id")) {
+                    if (formData.baseinfo.hasOwnProperty("id") || formData.material.hasOwnProperty("id")) {
                         r = yield conn.update(model);
                         id = formData.material.id;
                     } else {

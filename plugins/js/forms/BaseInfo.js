@@ -68,7 +68,7 @@ let BaseInfo = React.createClass({
     onChange: function(type, region){
         this.setState({type:type,serverregion: region});
     },
-    onClick: function(){
+    handleSubmit: function(){
         this.onSave();
         location.href = "#/fillcompanyinfo";
     },
@@ -82,7 +82,7 @@ let BaseInfo = React.createClass({
                     <ProgressBar step={1} key={1}/>
                     <RecordType selected={this.state} onChange={this.onChange}/>
                     <div className="w-btn">
-                        <button className="u-main" type="button" onClick={this.onClick}>开始填写主体信息</button>
+                        <button className="u-main" type="button" onClick={this.handleSubmit}>开始填写主体信息</button>
                         <button className="u-draft" type="button" onClick={this.onSave}>保存草稿</button>
                     </div>
                 </div>

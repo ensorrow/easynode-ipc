@@ -90,13 +90,11 @@ $m-recordinfo_ctrl_width = 430px;
 		height: 140px;
 		background: #f5f5f5;
 		border: 1px solid #DDD;
+		line-height: 140px;
+		text-align: center;
 
         > img {
-            display: block;
-            max-width: 100%;
-            height: auto;
-            vertical-align: middle;
-            margin-top: 15px;
+
         }
         @extend .f-fl;
     }
