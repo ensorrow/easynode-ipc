@@ -17,6 +17,8 @@ var CheckboxGroup = ReactUI.CheckboxGroup;
 import ProgressBar from './ProgressBar.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 
+
+
 /*
 {
     user:
@@ -290,7 +292,6 @@ let RecordInfo = React.createClass({
     getLanguages: function(){
 
         var l  =  __globals__.siteinfo.languages;
-        console.log(l);
         var lStr = '';
         if(l.chinese){
             lStr = lStr + "中文简体";

@@ -54,7 +54,7 @@ import bodyParse from 'koa-body';
             httpServer.addRoute('post','/savedraft',Controllers.savedraft(httpServer));
             httpServer.addRoute('post','/getapplyrecord',Controllers.listApplyRecord(httpServer));
             httpServer.addRoute('post','/deleteapplyrecord',Controllers.deleteApplyRecord(httpServer));
-
+            httpServer.addRoute('post','/getrecord',Controllers.getRecord(httpServer));
         }
 
         getClassName()

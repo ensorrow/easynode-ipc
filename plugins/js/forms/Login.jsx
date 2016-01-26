@@ -80,7 +80,6 @@ let Login = React.createClass({
     },
 
     loggin:function(){
-        console.log("loggin ll");
     },
 
     switchAccount: function(){

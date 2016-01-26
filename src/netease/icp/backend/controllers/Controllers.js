@@ -142,6 +142,34 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             }
         }
 
+
+
+        /**
+         * @api {post} /getRecord'
+         * @apiDescription:  获取申请记录
+         * @apiName {getRecord}
+         * @apiGroup {}
+         *
+         * @apiParam {id} record.id
+         *
+         * @apiSuccess {}
+         *
+         * @apiError {Object} error 参数验证错误或服务器内部错误描述
+         */
+        static getRecord(app){
+            var me = this;
+            return function *(){
+                var session = this.session;
+                var ret = {};
+
+                var storeService = new StoreService(app)
+                ret = yield storeService.getRecord(this.request.body);
+
+                this.type = 'json';
+                this.body = {ret: ret};
+            }
+        }
+
         /**
          * @api {post} /getapplyrecord/'
          * @apiDescription:  列出申请列表
@@ -165,12 +193,9 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 var session = this.session;
                 var ret = {};
 
-                console.log(this.request.body);
-
                 var storeService = new StoreService(app)
                 ret = yield storeService.getApplyRecords(this.request.body);
 
-                console.log(ret);
 
                 this.type = 'json';
                 this.body = {ret: ret};

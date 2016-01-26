@@ -151,23 +151,19 @@ let CompanyInfo = React.createClass({
             type:'json',
             contentType: 'application/json',
             success: function(resp){
-                console.log("savetodraft success",__globals__.drafttype);
                 //{drafttype: formData.drafttype, id: r.insertId};
-                console.log(resp);
                 if( resp.ret.drafttype == 2 ){
                     __globals__.companyinfo.id = resp.ret.id;
                 }
             },
             error: function(err){
                 //TODO
-                console.log(err);
-                console.log("savetodraft error",__globals__.drafttype);
             }
         });
 
     },
     onReturn: function(){
-        location.href = "#/";
+        location.href = "#/returntobase";
     },
     handleNature: function(e){
         e.preventDefault();
@@ -285,7 +281,6 @@ let CompanyInfo = React.createClass({
     },
 
     tick: function(){
-        console.log("tick ccom");
     },
 
     componentDidMount: function(){
@@ -293,7 +288,6 @@ let CompanyInfo = React.createClass({
         if( __globals__.companyinfo != undefined ) {
             this.setState( {companyInfo: __globals__.companyinfo } );
         }
-        console.log(__globals__.companyinfo);
     },
 
     componentWillUnmount: function(){

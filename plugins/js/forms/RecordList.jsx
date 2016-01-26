@@ -45,7 +45,6 @@ let Operation = React.createClass({
                 '取消': true,
                 '确定': () => {
 
-                    console.log(this.props.record);
                     reqwest({
                         url: '/deleteapplyrecord',
                         method: 'post',
@@ -53,7 +52,6 @@ let Operation = React.createClass({
                         type:'json',
                         contentType: 'application/json',
                         success: function(resp){
-                            console.log(resp);
                             //{ret:{id:96,ret:false}}
                             //me.setState({data: resp.ret.data});
                             if( resp.ret.ret ){
@@ -63,7 +61,6 @@ let Operation = React.createClass({
                         },
                         error: function(err){
                             //TODO
-                            console.log(err);
                         }
                     });
 
@@ -73,13 +70,84 @@ let Operation = React.createClass({
         });
 
     },
+    handleModify: function(){
+        var tenantId = __globals__.user == undefined ? '111111' : __globals__.user.tenantId;
+
+        reqwest({
+            url: '/getrecord',
+            method: 'post',
+            data: JSON.stringify({id:this.props.record.id}),
+            type:'json',
+            contentType: 'application/json',
+            success: function(resp){
+                console.log(resp.ret);
+                var record  = resp.ret.record;
+                var company = resp.ret.company;
+                var siteinfo = resp.ret.website;
+
+                __globals__.baseinfo = {};
+                __globals__.companyinfo = {};
+                __globals__.siteinfo = {};
+                __globals__.material = {};
+                __globals__.domains = [];
+
+                __globals__.baseinfo.type = record.type;;
+                __globals__.baseinfo.serverregion = record.serverregion;
+                __globals__.baseinfo.id = record.id;
+
+                if( company ){
+                    Object.assign(__globals__.companyinfo,company);
+                }
+                if( siteinfo ){
+                    Object.assign(__globals__.siteinfo,siteinfo);
+                    console.log(siteinfo);
+                    var domains = [];
+                    if( siteinfo.domain1 && siteinfo.domain1.length > 0  ){
+                        domains.push(1);
+                    }
+                    if( siteinfo.domain2 && siteinfo.domain2.length > 0  ){
+                        domains.push(2);
+                    }
+                    if( siteinfo.domain3 && siteinfo.domain3.length > 0  ){
+                        domains.push(3);
+                    }
+                    if( siteinfo.domain4 && siteinfo.domain4.length > 0  ){
+                        domains.push(4);
+                    }
+                    __globals__.domains = domains;
+                    if( siteinfo.hasOwnProperty('accessmethod') ){
+                        __globals__.siteinfo.accessmethod =  JSON.parse(siteinfo.accessmethod);
+                    }
+                    if( siteinfo.hasOwnProperty('ip') ){
+                        //__globals__.siteinfo.ip =  JSON.parse(siteinfo.ip);
+                    }
+                    if( siteinfo.hasOwnProperty('languages') ){
+                        __globals__.siteinfo.languages =  JSON.parse(siteinfo.languages);
+                    }
+                }
+                __globals__.material.sitemanagerurl = record.sitemanagerurl;
+                __globals__.material.checklisturl = record.checklisturl;
+                __globals__.material.protocolurl1 = record.protocolurl1;
+                __globals__.material.protocolurl2 = record.protocolurl2;
+                __globals__.material.securityurl1 = record.securityurl1;
+                __globals__.material.securityurl2 = record.securityurl2;
+
+                location.href = "#/returntobase";
+            },
+            error: function(err){
+                //TODO
+            }
+        });
+
+        return true;
+    },
     render(){
         let type = this.props.record.type;
         let prg = this.props.record.status;
 
         if( prg == 0 ) {
             return (
-                <td><Link to="/modify">修改</Link> <button type="button" onClick={this.handleDelete}>删除</button></td>
+                <td><button type="button" onClick={this.handleModify}>修改</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else if( prg == 1){
@@ -212,12 +280,10 @@ let RecordList = React.createClass({
             type:'json',
             contentType: 'application/json',
             success: function(resp){
-                console.log(resp);
                 me.setState({data: resp.ret.data});
             },
             error: function(err){
                 //TODO
-                console.log(err);
             }
         });
     },
@@ -227,11 +293,17 @@ let RecordList = React.createClass({
     componentDidMount: function(){
         this.loadRecords();
     },
+    handleClick: function(){
+        location.href = "#/returntobase";
+    },
     render: function () {
         return (
             <div>
                 <div className="m-recordlist">
-                    <Button>备案申请</Button>
+                    <Button onClick={this.handleClick}>备案申请</Button>
+
+                    <div>
+                    </div>
                     <table className="gridtable">
                         <thead>
                             <tr>

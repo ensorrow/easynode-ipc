@@ -42,6 +42,10 @@ $m-recordlist_recordapply_btn_background =  #69A9CC;
 		background: $m-recordlist_recordapply_btn_background;
 	}
 
+	> button {
+		margin-bottom: 10px;
+		background: #69A9CC;
+	}
 
 }
 

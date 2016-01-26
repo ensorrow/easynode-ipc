@@ -186,7 +186,6 @@ let SiteInfo = React.createClass({
             type:'json',
             contentType: 'application/json',
             success: function(resp){
-                console.log("savetodraft success",__globals__.drafttype);
                 //{drafttype: formData.drafttype, id: r.insertId};
                 if( resp.ret.drafttype == 3 ){
                     __globals__.siteinfo.id = resp.ret.id;
@@ -194,24 +193,25 @@ let SiteInfo = React.createClass({
             },
             error: function(err){
                 //TODO
-                console.log("savetodraft error",__globals__.drafttype);
             }
         });
     },
     tick: function(){
-        console.log("tick siteinfo");
     },
 
     componentDidMount: function(){
         this.interval = setInterval(this.tick, 100*1000);
 
         var url = location.search;
-        console.log("url",location.hash);
+        //console.log("url",location.hash);
 
-        if( __globals__.siteinfo != undefined ) {
+        if( __globals__.siteinfo != undefined && __globals__.siteinfo.hasOwnProperty('name') ) {
+            console.log("1")
             this.setState( {siteInfo: __globals__.siteinfo } );
             this.setState( {domains: __globals__.domains} );
+            console.log("2")
         }
+        console.log("3");
     },
 
     componentWillUnmount: function(){
@@ -341,7 +341,7 @@ let SiteInfo = React.createClass({
         e.preventDefault();
 
         var siteInfo = this.state.siteInfo;
-        siteInfo.languagez.customizeLang = e.target.value;
+        siteInfo.languages.customizeLang = e.target.value;
         this.setState({siteInfo: siteInfo});
     },
     handleIspName: function(e){
@@ -692,7 +692,7 @@ let SiteInfo = React.createClass({
         );
     },
     onRemoveSite: function(){
-        console.log("onRemoveSite");
+        //console.log("onRemoveSite");
         var count = this.state.sitesCount-1;
         this.setState({
             sitesCount: count
@@ -702,7 +702,6 @@ let SiteInfo = React.createClass({
         this.setState({
             domains: domains
         });
-        console.log(domains);
     },
     renderDomains: function(){
 

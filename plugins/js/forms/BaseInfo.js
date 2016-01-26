@@ -30,7 +30,6 @@ let BaseInfo = React.createClass({
         __globals__.baseinfo.type = this.state.type;
         __globals__.baseinfo.serverregion = this.state.serverregion;
 
-        console.log(__globals__.baseinfo);
 
         __globals__.drafttype = 1;
 
@@ -42,7 +41,6 @@ let BaseInfo = React.createClass({
             type:'json',
             contentType: 'application/json',
             success: function(resp){
-               console.log("savetodraft success",__globals__.drafttype);
                 //{drafttype: formData.drafttype, id: r.insertId};
                 if( resp.ret.drafttype == 1 ){
                     __globals__.baseinfo.id = resp.ret.id;
@@ -50,8 +48,6 @@ let BaseInfo = React.createClass({
             },
             error: function(err){
                 //TODO
-                console.log(err);
-                console.log("savetodraft error",__globals__.drafttype);
             }
         });
     },
@@ -62,7 +58,6 @@ let BaseInfo = React.createClass({
     },
 
     componentWillUnmount: function(){
-        console.log("componentWillUnmount");
     },
 
     onChange: function(type, region){
@@ -73,8 +68,6 @@ let BaseInfo = React.createClass({
         location.href = "#/fillcompanyinfo";
     },
     render: function () {
-        console.log("render");
-        console.log(this.state);
         return (
             <div classNameName="g-bd">
                 <ReturnWidget/>

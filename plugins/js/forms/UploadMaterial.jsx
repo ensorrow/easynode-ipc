@@ -68,7 +68,6 @@ let UploadMaterial = React.createClass({
         });
 
         var hasError = FormValidator.check(formError);
-        console.log("hasError",hasError);
 
         if( hasError ){
             this.setState({
@@ -123,9 +122,7 @@ let UploadMaterial = React.createClass({
             type:'json',
             contentType: 'application/json',
             success: function(resp){
-                console.log("savetodraft success",__globals__.drafttype);
                 //{drafttype: formData.drafttype, id: r.insertId};
-                console.log(resp);
                 if( resp.ret.drafttype == 4 ){
                     __globals__.material.id = resp.ret.id;
                 }
@@ -133,7 +130,6 @@ let UploadMaterial = React.createClass({
             error: function(err){
                 //TODO
                 console.log(err);
-                console.log("savetodraft error",__globals__.drafttype);
             }
         });
     },
@@ -177,7 +173,6 @@ let UploadMaterial = React.createClass({
             onLoad: (e) =>{
                 var resp = JSON.parse(e.currentTarget.responseText);
                 this.assignUrl(ee.target.id,resp.url);
-                console.log(resp.url);
             },
             onError: (e)=>{
                 console.log("file upload error");

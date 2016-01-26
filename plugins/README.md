@@ -287,3 +287,12 @@ However, React makes this even easier for you. Instead of defining selected on e
   <option value="B">Banana</option>
   <option value="C">Cranberry</option>
 </select>
+
+48.aliyun rds, program and cloud console not inconsistent
+
+49. can't work
+UPDATE record SET COMPANYID = 88 WHERE ID = 0
+model.merge( Object.assign({}, {id:id,websiteid:websiteid} ));
+                       r = yield conn.update(model);
+
+50. ip varchar(32)  存为JSON字符串时不够长,截断了.
