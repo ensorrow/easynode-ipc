@@ -40,6 +40,7 @@ var Model = using('easynode.framework.mvc.Model');
                 .defineField('status', 'int')
                 .defineField('email', 'string')
                 .defineField('username', 'string')
+                .defineField('recordnumber', 'int')
                 .defineField('lastlogintime', 'int')
                 .defineField('createtime', 'int')
             ;

@@ -15,12 +15,21 @@ var FormSubmit = ReactUI.FormSubmit;
 
 
 let ReturnWidget = React.createClass({
+
+
     render: function () {
-        return (
-            <div className="u-goback">
-                <a className="u-goback" href=""><img src="../assets/return.png" />返回列表</a>
-            </div>
-        );
+        if( __globals__.user && __globals__.user.recordnumber > 0 ){
+            return (
+                <div className="u-goback">
+                    <a className="u-goback" href=""><img src="../assets/return.png" />返回列表</a>
+                </div>
+            );
+        }else {
+            return (
+                <div>
+                </div>
+            );
+        }
     }
 });
 

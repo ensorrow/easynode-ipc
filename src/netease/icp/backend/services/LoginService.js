@@ -99,12 +99,15 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                     user.email = query.email;
                     user.username = query.userName;
 
-                    var res = Object.assign({},{user:user},LOGIN_SUCCESS);
 
                     var storeService = new StoreService(me.app);
 
                     var id = yield  storeService.isFirst(user.tenantid);
-                    console.log("first",id);
+
+                    var recordnumber = yield storeService.getRecordNumber(user.tenantid);
+                    user.recordnumber = recordnumber;
+                    var res = Object.assign({},{user:user},LOGIN_SUCCESS);
+
 
                     id ? yield  storeService.updateUser(Object.assign({},user,{id:id})) : yield  storeService.addUser(user);
                     return res;

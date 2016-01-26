@@ -40,8 +40,14 @@ export default{
                         });
                 }
                 return require.ensure([],(require) =>{
-                    cb(null,require('./forms/BaseInfo' +
+                    if( __globals__.user && __globals__.user.recordnumber > 0 ) {
+                        require.ensure([],(require) => {
+                            cb(null,require('./forms/RecordList.jsx'));
+                        });
+                    } else {
+                        cb(null,require('./forms/BaseInfo' +
                         ''));
+                    }
                 })
             }
         },

@@ -230,7 +230,6 @@ let RecordList = React.createClass({
     render: function () {
         return (
             <div>
-                <ReturnWidget/>
                 <div className="m-recordlist">
                     <Button>备案申请</Button>
                     <table className="gridtable">

@@ -74,6 +74,40 @@ var utils = require('utility');
         }
 
         /**
+         * @api: getRecordNumber
+         * @apiDescription: 获取租户备案记录数
+         * @apiName {storeService}
+         * @apiGroup {}
+
+         * @apiParam {String tenanatId} 租户ID
+         * @apiSuccess { recordNumber }
+         * @apiError   { 0 }
+         * @apiVersion {}
+         * */
+        getRecordNumber(tenantId) {
+            var me = this;
+            return function* ()
+            {
+                var sql = '';
+                sql = `SELECT id FROM record WHERE tenantid = #tenantid#`;
+                var args = {tenantid: tenantId};
+                var arr = [];
+                var conn = null;
+                var id = 0;
+                try{
+                    conn = yield  me.app.ds.getConnection();
+                    arr = yield conn.execQuery(sql, args);
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                    return 0;
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                    return arr.length;
+                }
+            }
+        }
+
+        /**
          * @api: addUser
          * @apiDescription:
          * @apiName {storeService}
@@ -118,6 +152,7 @@ var utils = require('utility');
             return function *(){
                 var conn = null;
                 var model = new User();
+
                 model.merge( Object.assign({},user) );
                 model.merge( {lastlogintime: Date.now()} );
                 var id = 0;
