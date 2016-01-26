@@ -108,13 +108,15 @@ $m-uploadmaterial_item_desc_width = 546px;
 
 	.m-uploadmaterial-ctrl-button{
         width: 140px;
-        height: 46px;
+        height: 36px;
+        overflow: hidden;
+        position: relative;
+        margin-top: 10px;
 
 		 > input[type="button"], button{
             background:#339BBF;
             width:140px;
             height:36px;
-            margin-top:10px;
         }
 
          > input[type="file"]{
