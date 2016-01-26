@@ -45,7 +45,8 @@ let CompanyInfo = React.createClass({
                // officephoneregion: {isBlank: false},
                 officephonenumber: {isBlank: false},
                 mobile: {isBlank: false},
-                email: {isBlank: false}
+                email: {isBlank: false},
+                recordnumber: {isBlank: false}
             },
             companyInfo: {
                 province: '',
@@ -64,7 +65,8 @@ let CompanyInfo = React.createClass({
               //  officephoneregion: '',
                 officephonenumber: '',
                 mobile: '',
-                email: ''
+                email: '',
+                recordnumber: ''
             }
         };
     },
@@ -75,6 +77,24 @@ let CompanyInfo = React.createClass({
             formError[fieldName].isBlank = false;
         }
         return formError;
+    },
+    getRecordNumber: function(){
+        if( __globals__.baseinfo && __globals__.baseinfo.type > 0 ){
+            this.state.formError.recordnumber.checked = false;
+            return (
+                <div className="m-companyinfo-item">
+                    <div className="item-label">
+                        <span className="red f-fl">*</span><label>主体备案号:</label>
+                    </div>
+                    <div className="item-ctrl">
+                        <input type="text" name="identity"  onChange={this.handleRecordNumber} value={this.state.companyInfo.recordnumber}/>
+                        <span className={this.state.formError.recordnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体备案</span>
+                    </div>
+                </div>
+            );
+        }else {
+            this.state.formError.recordnumber.checked = true;
+        }
     },
     handleSubmit: function(e){
         e.preventDefault();
@@ -176,6 +196,13 @@ let CompanyInfo = React.createClass({
         e.preventDefault();
         var companyInfo = this.state.companyInfo;
         companyInfo.idnumber = e.target.value;
+        this.setState({companyInfo: companyInfo});
+
+    },
+    handleRecordNumber: function(e){
+        e.preventDefault();
+        var companyInfo = this.state.companyInfo;
+        companyInfo.recordnumber = e.target.value;
         this.setState({companyInfo: companyInfo});
 
     },
@@ -302,6 +329,7 @@ let CompanyInfo = React.createClass({
                 <form className="">
                     <fieldset>
                         <div className="m-companyinfo-legend"><span>主体单位信息</span></div>
+                        {this.getRecordNumber()}
                         <div className="m-companyinfo-item">
                             <div className="item-label">
                                 <span className="red f-fl">*</span><label>主体单位所属区域:</label>

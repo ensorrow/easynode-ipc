@@ -53,6 +53,7 @@ var Model = using('easynode.framework.mvc.Model');
                 .defineField('mobile', 'string')
                 .defineField('email', 'string')
                 .defineField('tenantid', 'string')
+                .defineField('recordnumber', 'string')
                 .defineField('updatetime', 'int')
                 .defineField('createtime', 'int')
             ;
