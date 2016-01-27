@@ -367,6 +367,12 @@ let RecordList = React.createClass({
         this.loadRecords();
     },
     handleClick: function(){
+
+        __globals__.baseinfo = {};
+        __globals__.material = {};
+        __globals__.companyinfo = {};
+       __globals__.siteinfo = {};
+
         location.href = "#/returntobase";
     },
     render: function () {

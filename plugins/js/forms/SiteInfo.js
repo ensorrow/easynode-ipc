@@ -66,14 +66,16 @@ let SiteInfo = React.createClass({
                     arabic: false,
                     russian: false,
                     customize: false,
-                    customizeLang: ''
+                    customizeLang: '',
+                    checked: true
                 },
                 ispname: {isBlank: false,checked:true},
                 ip: {
                     ip1: false,
                     ip2: false,
                     ip3: false,
-                    ip4: false
+                    ip4: false,
+                    checked: true
                 },
                 accessmethod: {
                     specialline: false,
