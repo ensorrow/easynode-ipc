@@ -206,12 +206,9 @@ let SiteInfo = React.createClass({
         //console.log("url",location.hash);
 
         if( __globals__.siteinfo != undefined && __globals__.siteinfo.hasOwnProperty('name') ) {
-            console.log("1")
-            this.setState( {siteInfo: __globals__.siteinfo } );
+            this.setState( {siteInfo: Object.assign( {},this.state.siteinfo,__globals__.siteinfo ) } );
             this.setState( {domains: __globals__.domains} );
-            console.log("2")
         }
-        console.log("3");
     },
 
     componentWillUnmount: function(){

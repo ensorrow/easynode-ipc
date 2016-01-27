@@ -323,7 +323,7 @@ let RecordInfo = React.createClass({
         return lStr;
     },
     getManagerIdType: function(){
-        return  __globals__.siteinfo.manageridtype == 1 ? "身分证" :
+        return  __globals__.siteinfo.manageridtype == 1 ? "身份证" :
                 __globals__.siteinfo.manageridtype == 2 ? "护照" :
                 __globals__.siteinfo.manageridtype == 3 ? "军官证" :
                 __globals__.siteinfo.manageridtype == 4 ? "台胞证" : "台胞证";

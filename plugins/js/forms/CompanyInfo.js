@@ -101,6 +101,7 @@ let CompanyInfo = React.createClass({
         if( this.state.processing ){
             return;
         }
+        console.log(this.state);
         var companyInfo = this.state.companyInfo;
         var formError;
         for( var field in companyInfo ){
@@ -111,11 +112,10 @@ let CompanyInfo = React.createClass({
         this.setState({
             formError: formError
         });
-        var hasError = false;
-
 
         var hasError = FormValidator.check(formError);
 
+        console.log(hasError);
 
         if( hasError ){
             this.setState({
@@ -286,7 +286,7 @@ let CompanyInfo = React.createClass({
     componentDidMount: function(){
         this.interval = setInterval(this.tick, 100*1000);
         if( __globals__.companyinfo != undefined ) {
-            this.setState( {companyInfo: __globals__.companyinfo } );
+            this.setState( {companyInfo: Object.assign( {},this.state.companyInfo,__globals__.companyinfo) } );
         }
     },
 

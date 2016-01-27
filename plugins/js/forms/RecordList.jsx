@@ -157,19 +157,21 @@ let Operation = React.createClass({
                 var siteinfo = resp.ret.website;
 
                 __globals__.baseinfo = {};
-                __globals__.companyinfo = {};
-                __globals__.siteinfo = {};
                 __globals__.material = {};
-                __globals__.domains = [];
 
                 __globals__.baseinfo.type = record.type;;
                 __globals__.baseinfo.serverregion = record.serverregion;
                 __globals__.baseinfo.id = record.id;
 
                 if( company ){
+                    __globals__.companyinfo = {};
+
                     Object.assign(__globals__.companyinfo,company);
                 }
                 if( siteinfo ){
+                    __globals__.siteinfo = {};
+                    __globals__.domains = [];
+
                     Object.assign(__globals__.siteinfo,siteinfo);
                     console.log(siteinfo);
                     var domains = [];

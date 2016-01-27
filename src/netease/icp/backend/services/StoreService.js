@@ -293,7 +293,10 @@ var utils = require('utility');
          * @apiGroup {}
          * @apiParam {formData}
          * @apiParam {formData.id} record.id
-         * @apiSuccess {}
+         * @apiSuccess { ret }
+         * @apiSuccess { ret.record } must have
+         * @apiSuccess { ret.company } option have
+         * @apiSuccess { ret.website } option have
          * @apiVersion {}
          * */
         getRecord(formData){
@@ -330,12 +333,15 @@ var utils = require('utility');
                         arr =  yield conn.execQuery(sql,{id:record.websiteid});
                         website = arr[0];
                     }
+                    if( website ){
+                        website.ip = JSON.parse(website.ip);
+                        ret.website = website;
+                    }
+                    if( company ){
+                        ret.company = company;
+                    }
 
-                    console.log(website);
-                    website.ip = JSON.parse(website.ip);
                     ret.record = record;
-                    ret.company = company;
-                    ret.website = website;
                     return ret;
                 } catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
