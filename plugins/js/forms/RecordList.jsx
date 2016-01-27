@@ -345,11 +345,12 @@ let RecordList = React.createClass({
     },
     loadRecords: function(){
         var me = this;
-        var tenantId = __globals__.user == undefined ? '111111' : __globals__.user.tenantId;
+        var tid = __globals__.user == undefined ? '111111' : __globals__.user.tenantid;
+        var reqData = {page:1,tenantId:tid};
         reqwest({
             url: '/getapplyrecord',
             method: 'post',
-            data: JSON.stringify({page:1,tenantId:tenantId}),
+            data: JSON.stringify(reqData),
             type:'json',
             contentType: 'application/json',
             success: function(resp){

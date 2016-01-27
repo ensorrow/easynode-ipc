@@ -270,7 +270,8 @@ var utils = require('utility');
                 var conn = null;
                 var ret = {rows:0, pages:0, page:0, rpp:0,data:[]};
                 try{
-                    var model = new Record();
+                    console.dir(formData);
+                    var model = new Record().merge({tenantid:formData.tenantId});
                     conn = yield  me.app.ds.getConnection();
                     if( formData.tenantId == "111111"){
                         return yield conn.list(model,{status:{exp:'<>',value:0}},{page:formData.page});

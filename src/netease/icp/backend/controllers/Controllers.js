@@ -189,7 +189,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          */
         static listApplyRecord(app){
             var me = this;
-            return function *(page){
+            return function *(){
                 var session = this.session;
                 var ret = {};
 

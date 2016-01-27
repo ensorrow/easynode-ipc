@@ -296,3 +296,26 @@ model.merge( Object.assign({}, {id:id,websiteid:websiteid} ));
                        r = yield conn.update(model);
 
 50. ip varchar(32)  存为JSON字符串时不够长,截断了.
+
+51. 这样HEADER Request header为空,只家{page:1}
+var tid = __globals__.user == undefined ? '111111' : __globals__.user.tenantId;
+        reqwest({
+            url: '/getapplyrecord',
+            method: 'post',
+            data: JSON.stringify({page:1,tenantId:1}),
+
+var reqData = {page:1,tenantId:tid};
+        reqwest({
+            url: '/getapplyrecord',
+            method: 'post',
+            data: reqData,
+            提示
+            17:59:35.954] [ERROR] console -   Error: invalid JSON, only supports object and array
+                  at parse (/Users/hujiabao/workspace_docker/icp/easynode-icp/node_modules/koa-body/node_modules/co-body/lib/json.js:53:13)
+                  at /Users/hujiabao/workspace_docker/icp/easynode-icp/node_modules/koa-body/node_modules/co-body/lib/json.js:39:16
+                  at run (/usr/local/lib/node_modules/babel-cli/node_modules/babel-polyfill/node_modules/core-js/modules/es6.promise.js:104:47)
+                  at /usr/local/lib/node_modules/babel-cli/node_modules/babel-polyfill/node_modules/core-js/modules/es6.promise.js:115:28
+                  at flush (/usr/local/lib/node_modules/babel-cli/node_modules/babel-polyfill/node_modules/core-js/modules/$.microtask.js:19:5)
+                  at doNTCallback0 (node.js:407:9)
+                  at process._tickDomainCallback (node.js:377:13)
+还必须是字符串.
