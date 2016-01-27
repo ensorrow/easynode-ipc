@@ -319,3 +319,6 @@ var reqData = {page:1,tenantId:tid};
                   at doNTCallback0 (node.js:407:9)
                   at process._tickDomainCallback (node.js:377:13)
 还必须是字符串.
+
+52. after page refresh, the  __globals__ only keep the user and logincallback object.
+

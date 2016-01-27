@@ -28,7 +28,6 @@ let UploadMaterial = React.createClass({
       return {
           processing:  false,
           formError:{
-              id: {isBlank: false, checked: true},
               sitemanagerurl: {isBlank: false},
               checklisturl: {isBlank: false},
               protocolurl1: {isBlank: false},
@@ -122,9 +121,10 @@ let UploadMaterial = React.createClass({
             type:'json',
             contentType: 'application/json',
             success: function(resp){
-                //{drafttype: formData.drafttype, id: r.insertId};
+                console.log(resp)
+                console.log(resp.ret.id);
                 if( resp.ret.drafttype == 4 ){
-                    __globals__.material.id = resp.ret.id;
+                    __globals__.baseinfo.id = resp.ret.id;
                 }
             },
             error: function(err){

@@ -233,9 +233,9 @@ var utils = require('utility');
                     code = utils.randomString(32, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
                     model.merge( Object.assign({},formData.baseinfo,formData.material,{tenantid:formData.user.tenantid,companyid:companyid,websiteid:websiteid,status: 1,code:code},{createtime:Date.now(),updatetime:Date.now()} ));
 
-                    if( formData.baseinfo.hasOwnProperty("id") || formData.material.hasOwnProperty("id") ){
+                    if( formData.baseinfo.hasOwnProperty("id") ){
                         r = yield conn.update(model);
-                        id = formData.material.id;
+                        id = formData.baseinfo.id;
                     }else{
                         r = yield conn.create(model);
                         id = r.insertId;
@@ -270,7 +270,6 @@ var utils = require('utility');
                 var conn = null;
                 var ret = {rows:0, pages:0, page:0, rpp:0,data:[]};
                 try{
-                    console.dir(formData);
                     var model = new Record().merge({tenantid:formData.tenantId});
                     conn = yield  me.app.ds.getConnection();
                     if( formData.tenantId == "111111"){
@@ -602,7 +601,7 @@ var utils = require('utility');
             }
         }
 
-        //4.
+        //4. here, where in the draft status, it'll not generate the apply code.
         saveMaterial( formData ){
             var me = this;
             return function*() {
@@ -631,11 +630,10 @@ var utils = require('utility');
                         model.merge(Object.assign({},{updatetime: Date.now()}));
 
                         r = yield conn.update(model);
-                        id = formData.material.id;
+                        id = formData.baseinfo.id;
                     } else {
-                        var code = utils.randomString(32, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-                        model.merge(Object.assign({},{code: code}));
-
+                        //var code = utils.randomString(32, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+                        //model.merge(Object.assign({},{code: code}));
                         r = yield conn.create(model);
                         id = r.insertId;
                     }

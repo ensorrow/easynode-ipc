@@ -372,7 +372,9 @@ let RecordList = React.createClass({
         __globals__.baseinfo = {};
         __globals__.material = {};
         __globals__.companyinfo = {};
-       __globals__.siteinfo = {};
+        __globals__.siteinfo = {};
+        __globals__.record = {};
+        __globals__.domains = [];
 
         location.href = "#/returntobase";
     },
