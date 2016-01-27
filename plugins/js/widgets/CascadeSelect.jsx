@@ -24,7 +24,7 @@ let A_INDEX = 3;
 
 let MySelect = React.createClass({
     propTypes:{
-        items: React.PropTypes.object.isRequired,
+        items: React.PropTypes.array.isRequired,
         index: React.PropTypes.number.isRequired,
         province: React.PropTypes.string.isRequired,
         city: React.PropTypes.string.isRequired,
@@ -42,25 +42,15 @@ let MySelect = React.createClass({
         let index = this.props.index;
         let items = this.props.items;
         var value = '';
+
         if( index == P_INDEX ){
-            items = this.props.items.p;
             value = this.props.province;
         }else if( index == C_INDEX){
-            items = this.props.items.c[this.props.province];
             value = this.props.city;
         }else if( index == A_INDEX){
-            if( this.props.city.length <= 0 ){
-                items = [];
-            }
-            else{
-                items = this.props.items.a[this.props.province + '-' + this.props.city];
-            }
             value = this.props.area;
         }
-        if( items === undefined ){
-            items = [];
-        }
-        this.index = index;
+        this.index = index;//must
         return (
             <select data-order={index} onChange={this._handleChange} className="item-ctrl-three" value={value}>
                 {
@@ -86,6 +76,11 @@ let CascadeSelect = React.createClass({
     },
 
     componentWillMount: function(){
+        this.setState({
+            province:this.props.province,
+            city:this.props.city,
+            area:this.props.area
+        });
     },
 
 
@@ -96,18 +91,21 @@ let CascadeSelect = React.createClass({
             </div>
         );
     },
-    _onChange: function(index, value){
+    _onChange: function(index, value, p){
         var onChange = this.props.onChange;
 
          if( index == P_INDEX ) {
              this.setState({
                  province: value
              });
+
+             this._onChange( C_INDEX, this.getCities(value)[0],value);
              onChange && onChange(value,'','');
          }else if( index == C_INDEX ){
              this.setState({
                  city: value
              });
+             this._onChange( A_INDEX, this.getAreas(p||this.state.province, value)[0]);
              onChange && onChange(this.state.province,value,'');
          }else if( index == A_INDEX ){
              this.setState({
@@ -118,15 +116,24 @@ let CascadeSelect = React.createClass({
     },
 
     renderMySelects(){
+            var provinces = this.getProvinces();
+            var cities  = this.getCities(this.state.province);
+            var areas = this.getAreas(this.state.province,this.state.city);
 
+            var area = null;
+            if( this.hasArea(this.state.province) ){
+                area =
+                    <MySelect key={A_INDEX} items={areas} onChange={this._onChange}
+                                 province={this.props.province} city={this.props.city} area={this.props.area} index={A_INDEX}/>
+                ;
+            }
             return (
                 <div className="item-ctrl">
-                    <MySelect key={P_INDEX} items={this.getRegions()} onChange={this._onChange}
+                    <MySelect key={P_INDEX} items={provinces} onChange={this._onChange}
                               province={this.props.province} city={this.props.city} area={this.props.area} index={P_INDEX}/>
-                    <MySelect key={C_INDEX} items={this.getRegions()} onChange={this._onChange}
+                    <MySelect key={C_INDEX} items={cities} onChange={this._onChange}
                               province={this.props.province} city={this.props.city} area={this.props.area} index={C_INDEX}/>
-                    <MySelect key={A_INDEX} items={this.getRegions()} onChange={this._onChange}
-                              province={this.props.province} city={this.props.city} area={this.props.area} index={A_INDEX}/>
+                    {area}
                     <span className="u-popover hidden">a</span>
                 </div>
             );
@@ -134,8 +141,19 @@ let CascadeSelect = React.createClass({
 
     getRegions(){
         return regions;
+    },
+    getProvinces(){
+        return regions.p;
+    },
+    getCities(p){
+        return regions.c[p] || [];
+    },
+    getAreas(p,c){
+        return regions.a[p + '-' + c] || [];
+    },
+    hasArea(p){
+        return !regions.s[p];
     }
-
 });
 
 module.exports = CascadeSelect;

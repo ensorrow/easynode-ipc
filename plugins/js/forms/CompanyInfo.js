@@ -49,9 +49,9 @@ let CompanyInfo = React.createClass({
                 recordnumber: {isBlank: false}
             },
             companyInfo: {
-                province: '',
-                city: '',
-                area: '',
+                province: '浙江省',
+                city: '杭州市',
+                area: '滨江区',
                 nature: 0,
                 idtype: 0,
                 idnumber: '',
@@ -296,7 +296,7 @@ let CompanyInfo = React.createClass({
     getIdType: function(){
         if( this.state.companyInfo.nature > 0 ){
             return (
-                <select  onChange={this.handleIdType} value={this.state.companyInfo.idtype}>
+                <select  onChange={this.handleIdType} value={this.state.companyInfo.idtype} >
                     <option value ="0">请选择主体单位证件类型</option>
                     <option value ="1">工商执照</option>
                     <option value="2">组织机构代码</option>
@@ -305,7 +305,7 @@ let CompanyInfo = React.createClass({
         }
         else {
             return (
-                <select onChange={this.handleIdType} value={this.state.companyInfo.idtype} disabled="false">
+                <select onChange={this.handleIdType} value={this.state.companyInfo.idtype} disabled="false" className="gray">
                     <option value ="0">请选择主体单位证件类型</option>
                     <option value ="1">工商执照</option>
                     <option value="2">组织机构代码</option>
@@ -418,7 +418,7 @@ let CompanyInfo = React.createClass({
                             </div>
                             <div className="item-ctrl">
                                 <select onChange={this.handleManagerIdType} value={this.state.companyInfo.manageridtype}>
-                                    <option value ="0">请选择主体单位的性质</option>
+                                    <option value ="0">请选择证件类型</option>
                                     <option value ="1">身份证</option>
                                     <option value="2">护照</option>
                                     <option value="3">军官证</option>
