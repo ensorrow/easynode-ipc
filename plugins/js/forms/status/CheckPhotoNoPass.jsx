@@ -19,9 +19,15 @@ var Checkbox = ReactUI.Checkbox;
 let CheckPhotoNoPass = React.createClass({
     render: function () {
         return (
-            <div>
-                <p>照片审核未通过，请根据下列提示信息，修改备案申请！</p>
-                <p>1、没有使用幕布。</p>
+            <div className="m-checkphotonopass">
+                <div className="tip-label">
+                    <img src="../assets/icon-err.png" alt="" className="tip-icon"/>
+                </div>
+                <div className="tip">
+                    <p className="tip-header">照片审核未通过，请根据下列提示信息，修改备案申请！</p>
+
+                    <p className="tip-bd">1、没有使用幕布</p>
+                </div>
             </div>
         );
     }

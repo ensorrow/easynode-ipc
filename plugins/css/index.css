@@ -22,8 +22,8 @@ a,a:hover{color:#666;}
 .f-ib{display:inline-block;*display:inline;*zoom:1;}
 .f-dn{display:none;}
 .f-db{display:block;}
-.f-fl,.m-companyinfo-item .item-label,.m-companyinfo-item .item-ctrl,.m-companyinfo-item select.item-ctrl-three,.m-siteinfo-item .item-label,.m-siteinfo-item .item-ctrl,.m-siteinfo-item .item-ctrl-three,.siteurl,.languages >label,.m-submittrialsuccess .tip-label,.m-submittrialsuccess .tip .tip-bd,.m-submittrialsuccess .tip .tip-button-detail,.m-submittrialsuccess .tip .tip-footer,.m-submittrialsuccess .tip,.m-uploadmaterial-item .red,.m-uploadmaterial-label .red,.m-uploadmaterial-label,.m-uploadmaterial-ctrl,.m-uploadmaterial-desc,.m-uploadphoto-label,.m-uploadphoto-ctrl,.m-uploadphoto-desc,.m-applycurtain-bd .m-applycurtain-item .m-applycurtain-item-label,.m-applycurtain-bd .m-applycurtain-item .m-applycurtain-item-ctrl,.m-recordinfo-item .m-recordinfo-item-label-onetwo,.m-recordinfo-item .m-recordinfo-item-ctrl-onetwo,.m-recordinfo-item .m-recordinfo-item-label,.m-recordinfo-item .m-recordinfo-item-ctrl,.m-recordinfo-item2 .m-recordinfo-item-icon,.m-recordinfo-item2{float:left;}
-.f-fr,.m-siteinfo-item .item-label >label,.m-submittrialsuccess .tip-label .tip-icon,.m-uploadmaterial-label >label,.m-uploadphoto-label >label,.m-applycurtain-header >img,.m-login .m-login-hd >img{float:right;}
+.f-fl,.m-companyinfo-item .item-label,.m-companyinfo-item .item-ctrl,.m-companyinfo-item select.item-ctrl-three,.m-siteinfo-item .item-label,.m-siteinfo-item .item-ctrl,.m-siteinfo-item .item-ctrl-three,.siteurl,.languages >label,.m-submittrialsuccess .tip-label,.m-submittrialsuccess .tip .tip-bd,.m-submittrialsuccess .tip .tip-button-detail,.m-submittrialsuccess .tip .tip-footer,.m-submittrialsuccess .tip,.m-uploadmaterial-item .red,.m-uploadmaterial-label .red,.m-uploadmaterial-label,.m-uploadmaterial-ctrl,.m-uploadmaterial-desc,.m-uploadphoto-label,.m-uploadphoto-ctrl,.m-uploadphoto-desc,.m-applycurtain-bd .m-applycurtain-item .m-applycurtain-item-label,.m-applycurtain-bd .m-applycurtain-item .m-applycurtain-item-ctrl,.m-recordinfo-item .m-recordinfo-item-label-onetwo,.m-recordinfo-item .m-recordinfo-item-ctrl-onetwo,.m-recordinfo-item .m-recordinfo-item-label,.m-recordinfo-item .m-recordinfo-item-ctrl,.m-recordinfo-item2 .m-recordinfo-item-icon,.m-recordinfo-item2,.m-checktrialnopass .tip-label,.m-checktrialnopass .tip,.m-checktrialpass .tip-label,.m-checktrialpass .tip .tip-bd,.m-checktrialpass .tip .tip-button-detail,.m-checktrialpass .tip,.m-checkphotonopass .tip-label,.m-checkphotonopass .tip,.m-checkphotopass .tip-label,.m-checkphotopass .tip .tip-bd,.m-checkphotopass .tip .tip-button-detail,.m-checkphotopass .tip .tip-footer,.m-checkphotopass .tip,.m-checkcouncilnopass .tip-label,.m-checkcouncilnopass .tip,.m-checkcouncilpass .tip-label,.m-checkcouncilpass .tip .tip-bd,.m-checkcouncilpass .tip .tip-button-detail,.m-checkcouncilpass .tip{float:left;}
+.f-fr,.m-siteinfo-item .item-label >label,.m-submittrialsuccess .tip-label .tip-icon,.m-uploadmaterial-label >label,.m-uploadphoto-label >label,.m-applycurtain-header >img,.m-login .m-login-hd >img,.m-checktrialnopass .tip-label .tip-icon,.m-checktrialpass .tip-label .tip-icon,.m-checkphotonopass .tip-label .tip-icon,.m-checkphotopass .tip-label .tip-icon,.m-checkcouncilnopass .tip-label .tip-icon,.m-checkcouncilpass .tip-label .tip-icon{float:right;}
 .f-pr{position:relative;}
 .f-prz{position:relative;zoom:1;}
 .f-oh{overflow:hidden;}
@@ -296,6 +296,64 @@ table.gridtable td >a{font-family:MicrosoftYaHei;font-size:10.6px;color:#38abd0;
 .nopass{color:#d92b3a;}
 .passed{color:#6e9917;}
 .checking{color:#cfa972;}
+.m-checktrialnopass{background:#fff;}
+.m-checktrialnopass{outline:#ddd solid 1px;min-height:260px;width:992px;margin:40px auto;*zoom:1;}
+.m-checktrialnopass .tip-label{width:298px;height:260px;}
+.m-checktrialnopass .tip-label .tip-icon{margin-left:234px;margin-top:64px;}
+.m-checktrialnopass .tip{width:-38px;height:260px;padding:60px 0 0 20px;}
+.m-checktrialnopass .tip .tip-header{font-family:MicrosoftYaHei;font-size:16px;color:#333;line-height:18px;margin:10px 10px 50px 10px;}
+.m-checktrialnopass .tip .tip-bd{font-family:MicrosoftYaHei;font-size:14px;color:#666;line-height:14px;margin:15px 15px 15px 15px;}
+.m-checktrialnopass:before,.m-checktrialnopass:after{display:table;content:"";line-height:0;}
+.m-checktrialnopass:after{clear:both;}
+.m-checktrialpass{background:#fff;}
+.m-checktrialpass{outline:#ddd solid 1px;min-height:260px;width:992px;margin:40px auto;*zoom:1;}
+.m-checktrialpass .tip-label{width:298px;height:260px;}
+.m-checktrialpass .tip-label .tip-icon{margin-left:234px;margin-top:64px;}
+.m-checktrialpass .tip{width:-38px;height:260px;padding:60px 0 0 20px;}
+.m-checktrialpass .tip .tip-header{font-family:MicrosoftYaHei;font-size:16px;color:#333;line-height:18px;margin:10px 10px 50px 10px;}
+.m-checktrialpass .tip .tip-bd{font-family:MicrosoftYaHei;font-size:14px;color:#666;line-height:14px;margin:15px 15px 15px 15px;}
+.m-checktrialpass .tip .tip-button-detail{border:none;background:transparent;font-size:16px;color:#38abd0;margin:15px 15px 15px 15px;}
+.m-checktrialpass:before,.m-checktrialpass:after{display:table;content:"";line-height:0;}
+.m-checktrialpass:after{clear:both;}
+.m-checkphotonopass{background:#fff;}
+.m-checkphotonopass{outline:#ddd solid 1px;min-height:260px;width:992px;margin:40px auto;*zoom:1;}
+.m-checkphotonopass .tip-label{width:298px;height:260px;}
+.m-checkphotonopass .tip-label .tip-icon{margin-left:234px;margin-top:64px;}
+.m-checkphotonopass .tip{width:-38px;height:260px;padding:60px 0 0 20px;}
+.m-checkphotonopass .tip .tip-header{font-family:MicrosoftYaHei;font-size:16px;color:#333;line-height:18px;margin:10px 10px 50px 10px;}
+.m-checkphotonopass .tip .tip-bd{font-family:MicrosoftYaHei;font-size:14px;color:#666;line-height:14px;margin:15px 15px 15px 15px;}
+.m-checkphotonopass:before,.m-checkphotonopass:after{display:table;content:"";line-height:0;}
+.m-checkphotonopass:after{clear:both;}
+.m-checkphotopass{background:#fff;}
+.m-checkphotopass{outline:#ddd solid 1px;min-height:260px;width:992px;margin:40px auto;*zoom:1;}
+.m-checkphotopass .tip-label{width:298px;height:260px;}
+.m-checkphotopass .tip-label .tip-icon{margin-left:234px;margin-top:64px;}
+.m-checkphotopass .tip{width:-38px;height:260px;padding:60px 0 0 20px;}
+.m-checkphotopass .tip .tip-header{font-family:MicrosoftYaHei;font-size:16px;color:#333;line-height:18px;margin:10px 10px 10px 10px;}
+.m-checkphotopass .tip .tip-bd{font-family:MicrosoftYaHei;font-size:14px;color:#666;line-height:14px;margin:15px 15px 15px 15px;}
+.m-checkphotopass .tip .tip-button-detail{border:none;background:transparent;font-size:16px;color:#38abd0;margin:15px 15px 15px 15px;}
+.m-checkphotopass .tip .tip-footer{font-family:MicrosoftYaHei;font-size:12px;color:#666;line-height:14px;margin:15px 15px 15px 15px;}
+.m-checkphotopass:before,.m-checkphotopass:after{display:table;content:"";line-height:0;}
+.m-checkphotopass:after{clear:both;}
+.m-checkcouncilnopass{background:#fff;}
+.m-checkcouncilnopass{outline:#ddd solid 1px;min-height:260px;width:992px;margin:40px auto;*zoom:1;}
+.m-checkcouncilnopass .tip-label{width:298px;height:260px;}
+.m-checkcouncilnopass .tip-label .tip-icon{margin-left:234px;margin-top:64px;}
+.m-checkcouncilnopass .tip{width:-38px;height:260px;padding:60px 0 0 20px;}
+.m-checkcouncilnopass .tip .tip-header{font-family:MicrosoftYaHei;font-size:16px;color:#333;line-height:18px;margin:10px 10px 50px 10px;}
+.m-checkcouncilnopass .tip .tip-bd{font-family:MicrosoftYaHei;font-size:14px;color:#666;line-height:14px;margin:15px 15px 15px 15px;}
+.m-checkcouncilnopass:before,.m-checkcouncilnopass:after{display:table;content:"";line-height:0;}
+.m-checkcouncilnopass:after{clear:both;}
+.m-checkcouncilpass{background:#fff;}
+.m-checkcouncilpass{outline:#ddd solid 1px;min-height:260px;width:992px;margin:40px auto;*zoom:1;}
+.m-checkcouncilpass .tip-label{width:298px;height:260px;}
+.m-checkcouncilpass .tip-label .tip-icon{margin-left:234px;margin-top:64px;}
+.m-checkcouncilpass .tip{width:-38px;height:260px;padding:60px 0 0 20px;}
+.m-checkcouncilpass .tip .tip-header{font-family:MicrosoftYaHei;font-size:16px;color:#333;line-height:18px;margin:10px 10px 50px 10px;}
+.m-checkcouncilpass .tip .tip-bd{font-family:MicrosoftYaHei;font-size:14px;color:#666;line-height:14px;margin:15px 15px 15px 15px;}
+.m-checkcouncilpass .tip .tip-button-detail{border:none;background:transparent;font-size:16px;color:#38abd0;margin:15px 15px 15px 15px;}
+.m-checkcouncilpass:before,.m-checkcouncilpass:after{display:table;content:"";line-height:0;}
+.m-checkcouncilpass:after{clear:both;}
 .u-goback{background:#fff;position:static;padding-left:20px;height:54px;line-height:54px;}
 .u-popover{background-color:#fff;padding:0 10px;line-height:30px;height:30px;display:inline-block;color:#fc7272;white-space:nowrap;position:absolute;z-index:1;border:1px solid #fc7272;border-radius:2px;font-size:12px;left:100%;margin-left:10px;top:0px;}
 .u-popover:before{position:absolute;top:7px;left:-3px;z-index:1;content:"";width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-right:4px solid #fff;}

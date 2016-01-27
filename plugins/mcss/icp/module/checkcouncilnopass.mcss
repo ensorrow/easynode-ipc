@@ -1,0 +1,74 @@
+// Name:            通管局审核未通过
+// Description:     CheckCouncilNoPass
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+@import "../../core/module/checkcouncilnopass.mcss";
+
+// Varibles:
+// ========================================================================
+
+$m-checkcouncilnopass_width =  992px;
+$m-checkcouncilnopass_height = 260px;
+$m-checkcouncilnopass_border_color = #DDD;
+
+$m-checkcouncilnopass_tip_label_width =  298px;
+$m-checkcouncilnopass_tip_icon_margin_left = 234px;
+$m-checkcouncilnopass_tip_icon_margin_top = 64px;
+
+$m-checkcouncilnopass_tip_width = $m-checkcouncilnopass_height - $m-checkcouncilnopass_tip_label_width;
+
+
+
+
+
+
+// Component:       `m-checkcouncilnopass`
+// ========================================================================
+
+.m-checkcouncilnopass {
+
+	outline: $m-checkcouncilnopass_border_color solid 1px;
+
+	min-height: $m-checkcouncilnopass_height;
+	width: $m-checkcouncilnopass_width;
+
+	margin: 40px auto;
+
+	.tip-label{
+		width: $m-checkcouncilnopass_tip_label_width;
+		height: $m-checkcouncilnopass_height;
+
+		.tip-icon{
+			margin-left: $m-checkcouncilnopass_tip_icon_margin_left;
+			margin-top:  $m-checkcouncilnopass_tip_icon_margin_top;
+			@extend .f-fr;
+		}
+		@extend .f-fl;
+	}
+	.tip{
+		width: $m-checkcouncilnopass_tip_width;
+		height: $m-checkcouncilnopass_height;
+		padding: 60px 0 0 20px;
+
+		.tip-header{
+			font-family:MicrosoftYaHei;
+	        font-size:16px;
+	        color:#333333;;
+	        line-height:18px;
+			margin: 10px 10px 50px 10px;
+	 	}
+
+		.tip-bd{
+			font-family:MicrosoftYaHei;
+	        font-size:14px;
+	        color:#666666;;
+	        line-height:14px;
+	        margin: 15px 15px 15px 15px;
+
+		}
+		@extend .f-fl;
+	}
+
+	$clearfix();
+}

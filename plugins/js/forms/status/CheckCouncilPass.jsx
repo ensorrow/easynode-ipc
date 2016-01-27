@@ -19,9 +19,16 @@ var Checkbox = ReactUI.Checkbox;
 let CheckCouncilPass = React.createClass({
     render: function () {
         return (
-            <div>
-                <p>通管局审核已通过，备案号和备案密码已生成并邮件发送给您，请及时查收邮件！</p>
-                <p>备案订单号: Icqrq-qtk5v123</p> <Button><Link to="/reviewrecorddetail">查看备案详请</Link></Button>
+            <div className="m-checkcouncilpass">
+                <div className="tip-label">
+                    <img src="../assets/selected.png" alt="" className="tip-icon"/>
+                </div>
+                <div className="tip">
+                    <p className="tip-header">备案信息初审已通过，请点击列表中的上传照片，完成后续步骤！</p>
+                    <div>
+                        <p className="tip-bd">备案订单号: Icqrq-qtk5v123</p><input type="button" value="查看备案详请" className="tip-button-detail"/>
+                    </div>
+                </div>
             </div>
         );
     }

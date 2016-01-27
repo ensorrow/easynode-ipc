@@ -19,13 +19,19 @@ var Checkbox = ReactUI.Checkbox;
 let CheckTrialNoPass = React.createClass({
     render: function () {
         return (
-           <div>
-               <div>备案信息初审未通过,请根据下列提示信息,修改备案申请!</div>
-               <p>1、主体单位所属区域填写不正确。</p>
-               <p>2、网站域名输入错误。</p>
-               <p>3、主体单位所属区域填写不正确。</p>
-               <p>1、主体单位所属区域填写不正确!。</p>
-           </div>
+            <div className="m-checktrialnopass">
+                <div className="tip-label">
+                    <img src="../assets/icon-err.png" alt="" className="tip-icon"/>
+                </div>
+                <div className="tip">
+                    <p className="tip-header">备案信息初审未通过，请根据下列提示信息，修改备案申请！</p>
+
+                    <p className="tip-bd">1、主体单位所属区域填写不正确。</p>
+                    <p className="tip-bd">2、网站域名输入错误。</p>
+                    <p className="tip-bd">3、主体单位所属区域填写不正确。</p>
+                    <p className="tip-bd">4、网站域名输入错误。</p>
+                </div>
+            </div>
         );
     }
 });

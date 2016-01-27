@@ -141,6 +141,77 @@ let Operation = React.createClass({
 
         return true;
     },
+    handleDetail: function(){
+        var tenantId = __globals__.user == undefined ? '111111' : __globals__.user.tenantId;
+
+        reqwest({
+            url: '/getrecord',
+            method: 'post',
+            data: JSON.stringify({id:this.props.record.id}),
+            type:'json',
+            contentType: 'application/json',
+            success: function(resp){
+                console.log(resp.ret);
+                var record  = resp.ret.record;
+                var company = resp.ret.company;
+                var siteinfo = resp.ret.website;
+
+                __globals__.baseinfo = {};
+                __globals__.companyinfo = {};
+                __globals__.siteinfo = {};
+                __globals__.material = {};
+                __globals__.domains = [];
+
+                __globals__.baseinfo.type = record.type;;
+                __globals__.baseinfo.serverregion = record.serverregion;
+                __globals__.baseinfo.id = record.id;
+
+                if( company ){
+                    Object.assign(__globals__.companyinfo,company);
+                }
+                if( siteinfo ){
+                    Object.assign(__globals__.siteinfo,siteinfo);
+                    console.log(siteinfo);
+                    var domains = [];
+                    if( siteinfo.domain1 && siteinfo.domain1.length > 0  ){
+                        domains.push(1);
+                    }
+                    if( siteinfo.domain2 && siteinfo.domain2.length > 0  ){
+                        domains.push(2);
+                    }
+                    if( siteinfo.domain3 && siteinfo.domain3.length > 0  ){
+                        domains.push(3);
+                    }
+                    if( siteinfo.domain4 && siteinfo.domain4.length > 0  ){
+                        domains.push(4);
+                    }
+                    __globals__.domains = domains;
+                    if( siteinfo.hasOwnProperty('accessmethod') ){
+                        __globals__.siteinfo.accessmethod =  JSON.parse(siteinfo.accessmethod);
+                    }
+                    if( siteinfo.hasOwnProperty('ip') ){
+                        //__globals__.siteinfo.ip =  JSON.parse(siteinfo.ip);
+                    }
+                    if( siteinfo.hasOwnProperty('languages') ){
+                        __globals__.siteinfo.languages =  JSON.parse(siteinfo.languages);
+                    }
+                }
+                __globals__.material.sitemanagerurl = record.sitemanagerurl;
+                __globals__.material.checklisturl = record.checklisturl;
+                __globals__.material.protocolurl1 = record.protocolurl1;
+                __globals__.material.protocolurl2 = record.protocolurl2;
+                __globals__.material.securityurl1 = record.securityurl1;
+                __globals__.material.securityurl2 = record.securityurl2;
+
+                location.href = "#/reviewrecorddetail";
+            },
+            error: function(err){
+                //TODO
+            }
+        });
+
+        return true;
+    },
     render(){
         let type = this.props.record.type;
         let prg = this.props.record.status;
@@ -152,47 +223,47 @@ let Operation = React.createClass({
         }
         else if( prg == 1){
             return (
-                <td><Link to="/detail">备案详情</Link> <Link to="/delete">删除</Link></td>
+                <td><button type="button" onClick={this.handleDetail}>备案详情</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else if( prg == 2){
             return (
-                <td><Link to="/detail">备案详情</Link> <Link to="/checkresulttrialnopass">审核结果</Link> <Link to="/modify">修改</Link> <Link to="/delete">删除</Link></td>
+                <td><button type="button" onClick={this.handleDetail}>备案详情</button> <Link to="/checkresulttrialnopass">审核结果</Link> <button type="button" onClick={this.handleModify}>修改</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else if( prg == 3){
             return (
-                <td><Link to="/detail">备案详情</Link> <Link to="/checkresulttrialpass">审核结果</Link> <Link to="/uploadphoto">上传照片</Link> <Link to="/delete">删除</Link></td>
+                <td><button type="button" onClick={this.handleDetail}>备案详情</button> <Link to="/checkresulttrialpass">审核结果</Link> <Link to="/uploadphoto">上传照片</Link> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else if( prg == 4){
             return (
-                <td><Link to="/detail">备案详情</Link> <Link to="/delete">删除</Link></td>
+                <td><button type="button" onClick={this.handleDetail}>备案详情</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else if( prg == 5){
             return (
-                <td><Link to="/detail">备案详情</Link> <Link to="/checkresultphotonopass">审核结果</Link> <Link to="/modify">修改</Link> <Link to="/delete">删除</Link></td>
+                <td><button type="button" onClick={this.handleDetail}>备案详情</button> <Link to="/checkresultphotonopass">审核结果</Link> <button type="button" onClick={this.handleModify}>修改</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else if( prg == 6){
             return (
-                <td><Link to="/detail">备案详情</Link>  <Link to="/checkresultphotopass">审核结果</Link> <Link to="/delete">删除</Link></td>
+                <td><button type="button" onClick={this.handleDetail}>备案详情</button>  <Link to="/checkresultphotopass">审核结果</Link> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else if( prg == 7){
             return (
-                <td><Link to="/detail">备案详情</Link> <Link to="/delete">删除</Link></td>
+                <td><button type="button" onClick={this.handleDetail}>备案详情</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else if( prg == 8){
             return (
-                <td><Link to="/detail">备案详情</Link> <Link to="/checkresultcouncilpass">审核结果</Link> <Link to="/modify">修改</Link> <Link to="/delete">删除</Link></td>
+                <td><button type="button" onClick={this.handleDetail}>备案详情</button> <Link to="/checkresultcouncilpass">审核结果</Link> <Link to="/modify">修改</Link> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else {
             return (
-                <td><Link to="/detail">备案详情</Link> <Link to="/checkresultcouncilnopass">审核结果</Link> <Link to="/delete">删除</Link></td>
+                <td><button type="button" onClick={this.handleDetail}>备案详情</button> <Link to="/checkresultcouncilnopass">审核结果</Link> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
     }
