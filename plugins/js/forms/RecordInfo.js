@@ -345,13 +345,13 @@ let RecordInfo = React.createClass({
                                     <label>网站服务内容:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl-onetwo">
-                                    <label>{__globals__.siteinfo.servicecontent}</label>
+                                    <label>{__globals__.siteinfo.servicecontent == "1" ?  "其它" : "其它"}</label>
                                 </div>
                                 <div className="m-recordinfo-item-label-onetwo">
                                     <label>服务器放置地:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl-onetwo">
-                                    <label>{__globals__.siteinfo.serverregion}</label>
+                                    <label>{__globals__.siteinfo.serverregion == "1" ? "HZ1" : "HZ1"}</label>
                                 </div>
                             </div>
                             <div className="m-recordinfo-item">

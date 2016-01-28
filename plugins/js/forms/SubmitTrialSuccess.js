@@ -15,12 +15,24 @@ var FormSubmit = ReactUI.FormSubmit;
 
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 
+import DataService from '../services/DataService.js';
+import Global from '../utils/globals';
 
 let SubmitTrialSuccess = React.createClass({
 
     handleSubmit: function(e){
         e.preventDefault();
-        location.href = "#/reviewrecorddetail";
+
+        DataService.getRecord( __globals__.record.id||0,
+            function(){
+                Global.set('global',__globals__);
+                location.href = "#/reviewrecorddetail";
+            },
+            function(err){
+                console.log("getRecord err")
+                console.log(err);
+            }
+        );
     },
     render: function () {
         var code = '';

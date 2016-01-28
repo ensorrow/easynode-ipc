@@ -22,8 +22,10 @@ var Modal = ReactUI.Modal;
 import records from '../mocks/records';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 
-import reqwest from 'reqwest';
+
 import Global from '../utils/globals';
+import DataService from '../services/DataService.js';
+import reqwest from 'reqwest';
 
 let Operation = React.createClass({
     propTypes:{
@@ -72,7 +74,7 @@ let Operation = React.createClass({
 
     },
     handleModify: function(){
-        this.requestRecord(
+        DataService.getRecord(this.props.record.id,
             function(){
                 Global.set('global',__globals__);
                 location.href = "#/returntobase";
@@ -84,18 +86,21 @@ let Operation = React.createClass({
         );
     },
     handleDetail: function(){
-    this.requestRecord(
-        function(){
-            Global.set('global',__globals__);
-            location.href = "#/reviewrecorddetail";
-        },
-        function(err){
-            console.log("getRecord err")
-            console.log(err);
-        }
+        DataService.getRecord(this.props.record.id,
+            function(){
+                console.log("2");
+                console.log(__globals__);
+                Global.set('global',__globals__);
+                console.log(Global.get('global'));
+                location.href = "#/reviewrecorddetail";
+            },
+            function(err){
+                console.log("getRecord err")
+                console.log(err);
+            }
         );
     },
-    requestRecord: function(succ,err) {
+    /*requestRecord: function(succ,err) {
         var tenantId = __globals__.user == undefined ? '111111' : __globals__.user.tenantId;
 
         reqwest({
@@ -158,13 +163,15 @@ let Operation = React.createClass({
                 __globals__.material.protocolurl2 = record.protocolurl2;
                 __globals__.material.securityurl1 = record.securityurl1;
                 __globals__.material.securityurl2 = record.securityurl2;
+                console.log("1");
+                console.log(__globals__);
                 succ();
             },
             error: function (e) {
                 err(e);
             }
         });
-    },
+    },*/
     render(){
         let type = this.props.record.type;
         let prg = this.props.record.status;
