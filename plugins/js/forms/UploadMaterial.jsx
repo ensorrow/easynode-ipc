@@ -21,6 +21,7 @@ import ReturnWidget from '../widgets/ReturnWidget.jsx';
 import upload from '../utils/upload';
 import FormValidator from '../utils/FormValidator';
 import reqwest from 'reqwest';
+import Toast from '../widgets/Toast.jsx';
 
 let UploadMaterial = React.createClass({
 
@@ -92,10 +93,11 @@ let UploadMaterial = React.createClass({
                 //{ code: code, id: id }
                 __globals__.record = resp.ret;
                 location.href = "#/submittrialsuccess";
+                Toast.show("保存草稿成功");
             },
             error: function(err){
                 //TODO
-                console.log(err);
+                Toast.show("保存草稿失败");
             }
         });
 

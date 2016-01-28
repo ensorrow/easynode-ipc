@@ -18,6 +18,7 @@ var FormSubmit = ReactUI.FormSubmit;
 
 let messageContainer = null;
 let message = '';
+let className = '';
 
 let Toast = React.createClass({
 
@@ -25,20 +26,39 @@ let Toast = React.createClass({
         className: React.PropTypes.string.isRequired,
         message: React.PropTypes.string.isRequired
     },
+    getInitialState:function(){
+        return {className:''};
+    },
+    componentDidMount: function(){
+        this.interval = setTimeout(this.tick, 3*1000);
+        this.setState({className:this.props.className});
+    },
+    tick: function(){
+        this.setState({});
+        if( messageContainer ){
+            document.body.removeChild(messageContainer);
+            messageContainer = null;
+        }
+    },
+    componentWillUnmount: function(){
+        clearInterval(this.interval);
+    },
 
-    show
     render: function () {
+
         return (
-            <div className={this.props.className}>
+            <div className={this.state.className}>
                 {this.props.message}
             </div>
         );
     }
 });
 
-Toast.show = function(msg){
-    createContainer();
+Toast.show = function(msg,clsname='m-toast'){
+    if(!messageContainer)
+        createContainer();
     message = msg;
+    className = clsname;
 
     renderContent();
 }
@@ -48,8 +68,12 @@ function  createContainer(){
     document.body.appendChild(messageContainer);
 }
 
+/*
+rct-message-container .rct-overlay {\\n  left: 0;\\n  opacity: 0.01;\\n  filter: alpha(opacity=1);\\n}\\n.rct-message-container .rct-message {\\n  position: relative;\\n  z-index: 1051;\\n  padding: 20px 40px 20px 20px;\\n  color: #fff;\\n  background: #0078E7;\\n  border-radius: 2px;\\n  -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);\\n  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);\\n  margin-bottom: 15px;\\n  overflow: hidden;\\n  -webkit-animation: fadein 0.45s ease;\\n  animation: fadein 0.45s ease;\\n  -webkit-transition: 0.45s;\\n  -o-transition: 0.45s;\\n  transition: 0.45s;\\n}\\n@keyframes fadein {\\n  from {\\n    opacity: 0;\\n    filter: alpha(opacity=0);\\n    max-height: 0;\\n  }
+* */
+
 function renderContent(){
-    ReactDOM.render(<Message message={message} />, messageContainer);
+    render(<Toast message={message} className={className}/>, messageContainer);
 }
 
 module.exports = Toast;

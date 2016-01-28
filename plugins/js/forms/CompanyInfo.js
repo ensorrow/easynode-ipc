@@ -20,6 +20,7 @@ import CascadeSelect from '../widgets/CascadeSelect.jsx';
 import FormValidator from '../utils/FormValidator';
 
 import reqwest from 'reqwest';
+import Toast from '../widgets/Toast.jsx';
 
 let CompanyInfo = React.createClass({
 
@@ -154,10 +155,11 @@ let CompanyInfo = React.createClass({
                 //{drafttype: formData.drafttype, id: r.insertId};
                 if( resp.ret.drafttype == 2 ){
                     __globals__.companyinfo.id = resp.ret.id;
+                    Toast.show("保存草稿成功");
                 }
             },
             error: function(err){
-                //TODO
+                Toast.show("保存草稿失败");
             }
         });
 
@@ -281,10 +283,11 @@ let CompanyInfo = React.createClass({
     },
 
     tick: function(){
+        this.onSave();
     },
 
     componentDidMount: function(){
-        this.interval = setInterval(this.tick, 100*1000);
+        this.interval = setInterval(this.tick, 30*1000);
         if( __globals__.companyinfo != undefined ) {
             this.setState( {companyInfo: Object.assign( {},this.state.companyInfo,__globals__.companyinfo) } );
         }

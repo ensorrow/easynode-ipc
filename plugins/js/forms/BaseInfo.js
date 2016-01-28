@@ -14,11 +14,13 @@ var Button = ReactUI.Button;
 var FormSubmit = ReactUI.FormSubmit;
 var Message =  ReactUI.Message;
 
+
 import RecordType from './RecordType.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 
 import ProgressBar from './ProgressBar.jsx';
 import reqwest from 'reqwest';
+import Toast from '../widgets/Toast.jsx';
 
 let BaseInfo = React.createClass({
 
@@ -45,12 +47,12 @@ let BaseInfo = React.createClass({
                 //{drafttype: formData.drafttype, id: r.insertId};
                 if( resp.ret.drafttype == 1 ){
                     __globals__.baseinfo.id = resp.ret.id;
-                    Message.show("保存草稿成功");
+                    Toast.show("保存草稿成功");
                 }
             },
             error: function(err){
                 //TODO
-                Message.show("保存草稿失败");
+                Toast.show("保存草稿失败");
             }
         });
     },

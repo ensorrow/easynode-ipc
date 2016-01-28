@@ -1,0 +1,20 @@
+// Name:            Toast
+// Description:     Toast
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+// Varibles:
+// ========================================================================
+
+$m-toast_height = 340px;
+$m-toast_background = #FFF;
+
+
+// Component:       `m-toast`
+// ========================================================================
+
+.m-toast {
+    background: $m-uploadphoto_background;
+
+
+}

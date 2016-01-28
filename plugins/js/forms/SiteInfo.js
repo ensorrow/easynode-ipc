@@ -21,6 +21,8 @@ import ProgressBar from './ProgressBar.jsx';
 import FormValidator from '../utils/FormValidator';
 
 import reqwest from 'reqwest';
+import Toast from '../widgets/Toast.jsx';
+
 
 var LANG_CHINESE = 1;
 var LANG_CHINESETRADITIONAL = 2 ;
@@ -191,18 +193,20 @@ let SiteInfo = React.createClass({
                 //{drafttype: formData.drafttype, id: r.insertId};
                 if( resp.ret.drafttype == 3 ){
                     __globals__.siteinfo.id = resp.ret.id;
+                    Toast.show("保存草稿成功");
                 }
             },
             error: function(err){
-                //TODO
+                Toast.show("保存草稿失败");
             }
         });
     },
     tick: function(){
+        this.onSave();
     },
 
     componentDidMount: function(){
-        this.interval = setInterval(this.tick, 100*1000);
+        this.interval = setInterval(this.tick, 30*1000);
 
         var url = location.search;
         //console.log("url",location.hash);
