@@ -23,6 +23,7 @@ import records from '../mocks/records';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 
 import reqwest from 'reqwest';
+import Global from '../utils/globals';
 
 let Operation = React.createClass({
     propTypes:{
@@ -73,6 +74,7 @@ let Operation = React.createClass({
     handleModify: function(){
         this.requestRecord(
             function(){
+                Global.set('global',__globals__);
                 location.href = "#/returntobase";
             },
             function(err){
@@ -81,18 +83,30 @@ let Operation = React.createClass({
             }
         );
     },
-    requestRecord: function(succ,err){
+    handleDetail: function(){
+    this.requestRecord(
+        function(){
+            Global.set('global',__globals__);
+            location.href = "#/reviewrecorddetail";
+        },
+        function(err){
+            console.log("getRecord err")
+            console.log(err);
+        }
+        );
+    },
+    requestRecord: function(succ,err) {
         var tenantId = __globals__.user == undefined ? '111111' : __globals__.user.tenantId;
 
         reqwest({
             url: '/getrecord',
             method: 'post',
-            data: JSON.stringify({id:this.props.record.id}),
-            type:'json',
+            data: JSON.stringify({id: this.props.record.id}),
+            type: 'json',
             contentType: 'application/json',
-            success: function(resp){
+            success: function (resp) {
                 console.log(resp.ret);
-                var record  = resp.ret.record;
+                var record = resp.ret.record;
                 var company = resp.ret.company;
                 var siteinfo = resp.ret.website;
 
@@ -102,38 +116,39 @@ let Operation = React.createClass({
                 __globals__.material = {};
                 __globals__.domains = [];
 
-                __globals__.baseinfo.type = record.type;;
+                __globals__.baseinfo.type = record.type;
+                ;
                 __globals__.baseinfo.serverregion = record.serverregion;
                 __globals__.baseinfo.id = record.id;
 
-                if( company ){
-                    Object.assign(__globals__.companyinfo,company);
+                if (company) {
+                    Object.assign(__globals__.companyinfo, company);
                 }
-                if( siteinfo ){
-                    Object.assign(__globals__.siteinfo,siteinfo);
+                if (siteinfo) {
+                    Object.assign(__globals__.siteinfo, siteinfo);
                     console.log(siteinfo);
                     var domains = [];
-                    if( siteinfo.domain1 && siteinfo.domain1.length > 0  ){
+                    if (siteinfo.domain1 && siteinfo.domain1.length > 0) {
                         domains.push(1);
                     }
-                    if( siteinfo.domain2 && siteinfo.domain2.length > 0  ){
+                    if (siteinfo.domain2 && siteinfo.domain2.length > 0) {
                         domains.push(2);
                     }
-                    if( siteinfo.domain3 && siteinfo.domain3.length > 0  ){
+                    if (siteinfo.domain3 && siteinfo.domain3.length > 0) {
                         domains.push(3);
                     }
-                    if( siteinfo.domain4 && siteinfo.domain4.length > 0  ){
+                    if (siteinfo.domain4 && siteinfo.domain4.length > 0) {
                         domains.push(4);
                     }
                     __globals__.domains = domains;
-                    if( siteinfo.hasOwnProperty('accessmethod') ){
-                        __globals__.siteinfo.accessmethod =  JSON.parse(siteinfo.accessmethod);
+                    if (siteinfo.hasOwnProperty('accessmethod')) {
+                        __globals__.siteinfo.accessmethod = JSON.parse(siteinfo.accessmethod);
                     }
-                    if( siteinfo.hasOwnProperty('ip') ){
+                    if (siteinfo.hasOwnProperty('ip')) {
                         //__globals__.siteinfo.ip =  JSON.parse(siteinfo.ip);
                     }
-                    if( siteinfo.hasOwnProperty('languages') ){
-                        __globals__.siteinfo.languages =  JSON.parse(siteinfo.languages);
+                    if (siteinfo.hasOwnProperty('languages')) {
+                        __globals__.siteinfo.languages = JSON.parse(siteinfo.languages);
                     }
                 }
                 __globals__.material.sitemanagerurl = record.sitemanagerurl;
@@ -144,21 +159,10 @@ let Operation = React.createClass({
                 __globals__.material.securityurl2 = record.securityurl2;
                 succ();
             },
-            error: function(e){
+            error: function (e) {
                 err(e);
             }
         });
-    },
-    handleDetail: function(){
-        this.requestRecord(
-            function(){
-                location.href = "#/reviewrecorddetail";
-            },
-            function(err){
-                console.log("getRecord err")
-                console.log(err);
-            }
-        );
     },
     render(){
         let type = this.props.record.type;

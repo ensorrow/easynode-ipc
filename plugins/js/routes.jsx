@@ -1,4 +1,5 @@
 import auth from './utils/auth';
+import Global from './utils/globals';
 
 import App from './App.jsx';
 
@@ -14,7 +15,15 @@ import SubmitCheckSuccess from './forms/SubmitCheckSuccess';
 import UploadPhoto from './forms/UploadPhoto.jsx';
 
 
+window.onbeforeunload = function(){
+    console.log("onbeforeunload");
+    Global.set('global',__globals__);
+}
 
+window.onload  = function(){
+    console.log("onload");
+    __globals__ =  Global.get('global');
+}
 
 function redirectToLogin(nextState, replaceState){
     if(!auth.loggedIn()){
@@ -34,6 +43,7 @@ export default{
         {
             path: '/',
             getComponent: (location,cb) => {
+                console.log("aaa")
                 if(!auth.loggedIn()){
                     return require.ensure([],(require)=>{
                             cb(null,require('./forms/Login.jsx'))
@@ -192,6 +202,10 @@ export default{
         {
             path:'/reviewrecorddetail',
             getComponent: (location,cb) => {
+                var a = Global.get('global');
+                if (a.hasOwnProperty('companyinfo') ){
+                    __globals__ = a;
+                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/RecordInfo'));
                 });
