@@ -322,3 +322,4 @@ var reqData = {page:1,tenantId:tid};
 
 52. after page refresh, the  __globals__ only keep the user and logincallback object.
 
+53. onload发生在 login之后,

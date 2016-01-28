@@ -22,7 +22,7 @@ window.onbeforeunload = function(){
 
 window.onload  = function(){
     console.log("onload");
-    __globals__ =  Global.get('global');
+    //__globals__ =  Global.get('global');
 }
 
 function redirectToLogin(nextState, replaceState){
