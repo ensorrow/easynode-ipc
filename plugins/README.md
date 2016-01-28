@@ -350,3 +350,16 @@ var reqData = {page:1,tenantId:tid};
 
 	CMD ["./start.sh"]
  * docker build -t hujb2000/icp@0.0.1 .
+ * docker run -ti --name bbb --env CONFIG_URL='http://218.205.113.98:6006/configicp.json' hujb2000/icp@0.0.1
+ * docker run -ti --name ddd --net=host --env CONFIG_URL='http://218.205.113.98:6006/configicp.json' hujb2000/icp@0.0.1
+
+ 55. deploy to c.163.com
+ * docker login –u 用户名 –p 密码 –e 邮箱 hub.c.163.com
+ * docker tag hujb2000/icp@0.0.1 hub.c.163.com/hujb2000/icp@0.0.1
+ * docker push hub.c.163.com/hujb2000/icp@0.0.1
+ * start container server, map the host and container port, and start lb, inject the CONFIG_URL env.
+
+ 56. 数据库所有设置为小字字段暂时作为一个原则,因为easynode's bug
+
+
+
