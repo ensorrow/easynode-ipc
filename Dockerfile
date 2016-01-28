@@ -11,5 +11,5 @@ RUN npm install
 
 WORKDIR /usr/src/app/bin
 
-CMD ["./start.sh"]
+ENTRYPOINT ["./start_servers.sh"]
 
