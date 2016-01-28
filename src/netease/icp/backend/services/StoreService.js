@@ -499,7 +499,7 @@ var utils = require('utility');
                     ));
 
                     if( formData.companyinfo && formData.companyinfo.hasOwnProperty('id') ){
-                        model.merge({compnayid:formData.companyinfo.id});
+                        model.merge({companyid:formData.companyinfo.id});
                     }
                     if( formData.siteinfo && formData.siteinfo.hasOwnProperty('id') ){
                         model.merge({websiteid:formData.siteinfo.id});

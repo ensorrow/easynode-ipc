@@ -12,6 +12,7 @@ var Icon = ReactUI.Icon;
 var Input = ReactUI.Input;
 var Button = ReactUI.Button;
 var FormSubmit = ReactUI.FormSubmit;
+var Message =  ReactUI.Message;
 
 import RecordType from './RecordType.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
@@ -44,10 +45,12 @@ let BaseInfo = React.createClass({
                 //{drafttype: formData.drafttype, id: r.insertId};
                 if( resp.ret.drafttype == 1 ){
                     __globals__.baseinfo.id = resp.ret.id;
+                    Message.show("保存草稿成功");
                 }
             },
             error: function(err){
                 //TODO
+                Message.show("保存草稿失败");
             }
         });
     },
