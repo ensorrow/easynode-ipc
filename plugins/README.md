@@ -323,3 +323,30 @@ var reqData = {page:1,tenantId:tid};
 52. after page refresh, the  __globals__ only keep the user and logincallback object.
 
 53. onload发生在 login之后,
+
+54. deploy based on docker tecknology:
+ * docker pull node@5.5.0-wheezy
+ * docker run -t -i --name node  node@5.5.0-wheezy /bin/bash
+ * npm install -g cnpm --registry=https://r.cnpmjs.org
+ * npm install -g babel-cli
+ * docker commit -m "cnpm,babel,webpack" -a "hujiabao" 6b075ceaa41d  hujb2000/easynode@5.5.0
+ * edit Dockerfile
+ ```
+	FROM hujb2000/easynode@5.5.0
+
+	MAINTAINER hujiabao
+
+	RUN mkdir -p /usr/src/app
+
+	COPY . /usr/src/app
+
+	WORKDIR /usr/src/app
+	RUN cnpm install
+
+	WORKDIR /usr/src/app/plugins
+	RUN webpack
+
+	WORKDIR /usr/src/app/bin
+
+	CMD ["./start.sh"]
+ * docker build -t hujb2000/icp@0.0.1 .
