@@ -317,7 +317,7 @@ var utils = require('utility');
                     var sql = '';
                     conn = yield  me.app.ds.getConnection();
 
-                    sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,protocolurl1,protocolurl2,securityurl1,securityurl2 FROM record WHERE id = #id#`;
+                    sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,code,status,tenantid FROM record WHERE id = #id#`;
                     arr =  yield conn.execQuery(sql,{id:formData.id});
                     if( arr.length <= 0 )
                         return ret;

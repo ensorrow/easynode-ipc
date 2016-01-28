@@ -137,6 +137,20 @@ let RecordInfo = React.createClass({
                 __globals__.siteinfo.manageridtype == 4 ? "台胞证" : "台胞证";
     },
     render: function () {
+        var uppic;
+        if( __globals__.baseinfo.status != 1 ){
+            uppic = (
+                <fieldset>
+                <div className="m-recordinfo-legend"><span>上传照片</span></div>
+                <div className="m-recordinfo-item2">
+                <div className="m-recordinfo-item-icon">
+                <img src="../assets/view.png" alt=""/>
+                </div>
+                <span className="m-recordinfo-item-icon-title">照片</span>
+                </div>
+                </fieldset>
+            );
+        }
         return (
             <div>
                 <ReturnWidget/>
@@ -450,15 +464,7 @@ let RecordInfo = React.createClass({
                                 <span className="m-recordinfo-item-icon-title">信息安全管理责任书第二页图片</span>
                             </div>
                         </fieldset>
-                        <fieldset>
-                            <div className="m-recordinfo-legend"><span>上传照片</span></div>
-                            <div className="m-recordinfo-item2">
-                                <div className="m-recordinfo-item-icon">
-                                    <img src="../assets/view.png" alt=""/>
-                                </div>
-                                <span className="m-recordinfo-item-icon-title">照片</span>
-                            </div>
-                        </fieldset>
+                        {uppic}
                     </form>
                 </div>
             </div>

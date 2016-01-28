@@ -120,6 +120,7 @@ let Operation = React.createClass({
                 ;
                 __globals__.baseinfo.serverregion = record.serverregion;
                 __globals__.baseinfo.id = record.id;
+                __globals__.baseinfo.status = record.status;
 
                 if (company) {
                     Object.assign(__globals__.companyinfo, company);
