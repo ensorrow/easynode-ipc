@@ -194,6 +194,12 @@ let UploadMaterial = React.createClass({
     },
     componentDidMount: function(){
         if( __globals__.material != undefined ) {
+            __globals__.material.sitemanagerurl =  __globals__.material.sitemanagerurl || '';
+            __globals__.material.checklisturl =  __globals__.material.checklisturl || '';
+            __globals__.material.protocolurl1 =  __globals__.material.protocolurl1 || '';
+            __globals__.material.protocolurl2 =  __globals__.material.protocolurl2 || '';
+            __globals__.material.securityurl1 =  __globals__.material.securityurl1 || '';
+            __globals__.material.securityurl2 =  __globals__.material.securityurl2 || '';
             this.setState( {materials: __globals__.material } );
         }
     },
