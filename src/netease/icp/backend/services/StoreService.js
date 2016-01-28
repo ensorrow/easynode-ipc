@@ -498,6 +498,13 @@ var utils = require('utility');
                         {createtime:Date.now(),updatetime:Date.now()}
                     ));
 
+                    if( formData.companyinfo && formData.companyinfo.hasOwnProperty('id') ){
+                        model.merge({compnayid:formData.companyinfo.id});
+                    }
+                    if( formData.siteinfo && formData.siteinfo.hasOwnProperty('id') ){
+                        model.merge({websiteid:formData.siteinfo.id});
+                    }
+
 
                     if( formData.baseinfo.hasOwnProperty("id") ){
                         model.merge( Object.assign({},
@@ -625,7 +632,7 @@ var utils = require('utility');
                         {createtime: Date.now(), updatetime: Date.now()}
                     ));
 
-                    if (formData.baseinfo.hasOwnProperty("id") || formData.material.hasOwnProperty("id")) {
+                    if (formData.baseinfo.hasOwnProperty("id")) {
 
                         model.merge(Object.assign({},{updatetime: Date.now()}));
 
