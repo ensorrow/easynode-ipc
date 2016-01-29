@@ -361,5 +361,5 @@ var reqData = {page:1,tenantId:tid};
 
  56. 数据库所有设置为小字字段暂时作为一个原则,因为easynode's bug
 
-
+57. fc's container access fc's rds fail, but can't look log, site bug,  It's ok to access fc's rds by local hos
 
