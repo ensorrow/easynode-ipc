@@ -119,15 +119,110 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
 
 
-
-        static getRecord(app){
+        /**
+         * @api {get} /records 获取记录详情
+         * @apiName getRecord
+         * @apiGroup Record
+         * @apiPermission admin or self
+         * @apiVersion 0.0.1
+         * @apiDescription 管理员(登录后用户对象里用idadmin字段表示)能获取所有用户申请记录详情,本用户只能获取他自己的申请记录详情
+         *
+         * @apiParam {Number} id 记录id.
+         *
+         * @apiSampleRequest http://icp.hzspeed.cn/record/:id
+         *
+         * @apiSuccess {Object} record 记录
+         * @apiSuccess {Number} record.id 记录id
+         * @apiSuccess {Number} record.type 备案类型：\n0-首次备案\n1-新增网站\n2-新增接入
+         * @apiSuccess {String} record.serverregion 主机区域
+         * @apiSuccess {Number} record.companyid 公司id
+         * @apiSuccess {Number} record.websiteid 网站id
+         * @apiSuccess {Number} record.sitemanagerurl 主体单位负责人图片URL
+         * @apiSuccess {String} record.checklisturl 核验单图片URL
+         * @apiSuccess {String} record.protocolurl1 云平台服务协议第一页l图片URL
+         * @apiSuccess {String} record.protocolurl2 云平台服务协议第二页图片URL
+         * @apiSuccess {String} record.securityurl1 信息安全管理责任书第一页图片URL
+         * @apiSuccess {String} record.securityurl2 信息安全管理责任书第二页图片URL
+         * @apiSuccess {String} record.code 备案号
+         * @apiSuccess {Number} record.status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-未知状态\n
+         * @apiSuccess {String} record.tenantid 租户ID
+         * @apiSuccess {Number} record.updatetime 记录更新时间
+         * @apiSuccess {Number} record.createtime 记录创建时间
+         *
+         * @apiSuccess {Object} comapny 记录
+         * @apiSuccess {Number} comapny.id 公司ID
+         * @apiSuccess {String} comapny.province 省
+         * @apiSuccess {String} comapny.city 市
+         * @apiSuccess {String} comapny.area 区
+         * @apiSuccess {Number} comapny.nature 性质 \n1-军队\n2-政府机关\n3-事业单位\n4-企业\n5-个人\n
+         * @apiSuccess {Number} comapny.idtype 证件类型\n1-工商执照\n2-组织机构代码
+         * @apiSuccess {String} comapny.idnumber 证件号码
+         * @apiSuccess {String} comapny.name 名称
+         * @apiSuccess {String} comapny.liveaddress 居住地址
+         * @apiSuccess {String} comapny.commaddress 通讯地址
+         * @apiSuccess {String} comapny.owner 投资人或主管单位名称
+         * @apiSuccess {String} comapny.managername 法人姓名
+         * @apiSuccess {Number} comapny.manageridtype 法人证件类型\n性质 \n1-军队\n2-政府机关\n3-事业单位\n4-企业\n5-个人\n
+         * @apiSuccess {String} comapny.manageridnumber 法人证件号码
+         * @apiSuccess {String} comapny.officephoneregion 办公室电话区号
+         * @apiSuccess {String} comapny.officephonenumber 办公室电话号码
+         * @apiSuccess {String} comapny.mobile 手机号码
+         * @apiSuccess {String} comapny.email 电子邮箱
+         * @apiSuccess {String} comapny.recordnumber 主体备案号
+         *
+         * @apiSuccess {Object} website 网站
+         * @apiSuccess {Number} website.id 网站ID
+         * @apiSuccess {String} website.name 网站名称
+         * @apiSuccess {String} website.domain 网站域名
+         * @apiSuccess {String} website.domain1 网站域名1
+         * @apiSuccess {String} website.domain2 网站域名2
+         * @apiSuccess {String} website.domain3 网站域名3
+         * @apiSuccess {String} website.domain4 网站域名4
+         * @apiSuccess {String} website.homeurl 网站首页URL
+         * @apiSuccess {String} website.servicecontent 网站服务内容
+         * @apiSuccess {Object} website.languages 网站语言,json结构
+                                        {
+                                            chinese: true,
+                                            chinesetraditional: false,
+                                            eglish: false,
+                                            japanese: false,
+                                            french: false,
+                                            spanish: false,
+                                            arabic: false,
+                                            russian: false,
+                                            customize: false,
+                                            customizeLang: ''
+                                        }
+         * @apiSuccess {String} website.ispname ISP名称
+         * @apiSuccess {String} website.ip 网站IP地址:1.2.3.4'
+         * @apiSuccess {Object} website.accessmethod 网站接入方式,json结构
+                                        {
+                                            specialline: false,
+                                            webhost: false,
+                                            virtualhost: true,
+                                            other: false
+                                        }
+         * @apiSuccess {String} website.serverregion 服务器放置地
+         *
+         * @apiSuccess {String} website.managername 负责人姓名
+         * @apiSuccess {Number} website.manageridtype 证件类型：1-身分证 2-护照 3-军官证 4-台胞证
+         * @apiSuccess {String} website.manageridnumber 证件号码
+         * @apiSuccess {String} website.officephoneregion 办公室电话区号
+         * @apiSuccess {String} website.officephonenumber 办公室电话号码
+         * @apiSuccess {String} website.mobile 手机号码
+         * @apiSuccess {String} website.email 电子邮箱
+         * @apiSuccess {String} website.qq qq号码
+         *
+         * @apiUse
+         */
+       static getRecord(app){
             var me = this;
             return function *(){
                 var session = this.session;
                 var ret = {};
 
                 var storeService = new StoreService(app)
-                ret = yield storeService.getRecord(this.request.body);
+                ret = yield storeService.getRecord();
 
                 this.type = 'json';
                 this.body = {ret: ret};

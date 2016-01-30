@@ -240,7 +240,7 @@ var utils = require('utility');
         }
 
 
-        getRecord(formData){
+        getRecord(){
             var me = this;
             return function *(){
 
@@ -256,16 +256,17 @@ var utils = require('utility');
                 //3. website
                 try{
                     var sql = '';
+                    var id = this.parameter.param('id') || 0;
                     conn = yield  me.app.ds.getConnection();
 
                     sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,code,status,tenantid FROM record WHERE id = #id#`;
-                    arr =  yield conn.execQuery(sql,{id:formData.id});
+                    arr =  yield conn.execQuery(sql,{ id:id });
                     if( arr.length <= 0 )
                         return ret;
                     record = arr[0];
 
                     if( record.companyid > 0 ){
-                        sql = `SELECT id,province,city,area,nature,idtype,idnumber,name,liveaddress,commaddress,owner,managername,manageridtype,manageridnumber,officephonenumber,officephonenumber,mobile,email,recordnumber FROM company WHERE id = #id#`;
+                        sql = `SELECT id,province,city,area,nature,idtype,idnumber,name,liveaddress,commaddress,owner,managername,manageridtype,manageridnumber,officephoneregion,officephonenumber,mobile,email,recordnumber FROM company WHERE id = #id#`;
                         arr =  yield conn.execQuery(sql,{id:record.companyid});
                         company = arr[0];
                     }

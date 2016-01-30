@@ -3,15 +3,15 @@ import reqwest from 'reqwest';
 module.exports = {
 
     getRecord: function(id,succ,err) {
-        var tenantId = __globals__.user == undefined ? '111111' : __globals__.user.tenantId;
-
         reqwest({
-            url: '/getrecord',
-            method: 'post',
-            data: JSON.stringify({id: id}),
+            url: '/record',
+            method: 'get',
+            data: {id: id},
             type: 'json',
             contentType: 'application/json',
             success: function (resp) {
+                console.log("111");
+                console.log(resp);
                 var record = resp.ret.record;
                 var company = resp.ret.company;
                 var siteinfo = resp.ret.website;
@@ -64,8 +64,6 @@ module.exports = {
                 __globals__.material.protocolurl2 = record.protocolurl2;
                 __globals__.material.securityurl1 = record.securityurl1;
                 __globals__.material.securityurl2 = record.securityurl2;
-                console.log("1");
-                console.log(__globals__);
                 succ();
             },
             error: function (e) {
