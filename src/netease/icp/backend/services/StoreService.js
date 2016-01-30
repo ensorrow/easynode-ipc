@@ -294,6 +294,30 @@ var utils = require('utility');
             }
         }
 
+        putRecord(){
+            var me = this;
+            return function *(){
+                var r = null;
+                var conn = null;
+                var model = new Record();
+                var form = this.request.body;
+                var status = form.status;
+                var reasons = form.reasons;
+                var id = form.id;
+
+                try{
+                    conn = yield me.app.ds.getConnection();
+                    model.merge( Object.assign({}, { status: status, id: id, reasons: reasons } ));
+                    r = yield conn.update(model);
+                    return true;
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                    return false;
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
 
         deleteApplyRecords(formData){
             var me = this;

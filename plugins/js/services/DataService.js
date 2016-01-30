@@ -12,9 +12,9 @@ module.exports = {
             success: function (resp) {
                 console.log("111");
                 console.log(resp);
-                var record = resp.ret.record;
-                var company = resp.ret.company;
-                var siteinfo = resp.ret.website;
+                var record = resp.record;
+                var company = resp.company;
+                var siteinfo = resp.website;
 
                 __globals__.baseinfo = {};
                 __globals__.companyinfo = {};
@@ -70,5 +70,5 @@ module.exports = {
                 err(e);
             }
         });
-    },
+    }
 }

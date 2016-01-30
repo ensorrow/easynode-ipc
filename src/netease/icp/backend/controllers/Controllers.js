@@ -213,7 +213,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} website.email 电子邮箱
          * @apiSuccess {String} website.qq qq号码
          *
-         * @apiUse
+         * @apiUse EmptyRecord
          */
        static getRecord(app){
             var me = this;
@@ -225,10 +225,37 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 ret = yield storeService.getRecord();
 
                 this.type = 'json';
-                this.body = {ret: ret};
+                this.body = ret;
             }
         }
 
+        /**
+         * @api {put} /record 审核申请
+         * @apiName putRecord
+         * @apiGroup Record
+         * @apiPermission admin or self
+         * @apiVersion 0.0.1
+         * @apiDescription 管理员(登录后用户对象里用idadmin字段表示)审核申请记录
+         *
+         * @apiParam {Number} id 记录ID
+         * @apiParam {Number} status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-未知状态\n
+         * @apiParam {String} reasons 通过则为备注,拒绝则为理由(多条用p标签分隔)
+         *
+         * @apiSuccess {Number} ret true:成功,false:失败
+         */
+        static putRecord(app){
+            var me = this;
+            return function *(){
+                var session = this.session;
+                var ret = {};
+
+                var storeService = new StoreService(app)
+                ret = yield storeService.putRecord();
+
+                this.type = 'json';
+                this.body = {ret: ret};
+            }
+        }
 
         /**
          * @api {get} /records 获取记录列表
