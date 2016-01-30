@@ -34,7 +34,8 @@ var HTTPUtil =  using('easynode.framework.util.HTTPUtil');
         static * main(){
             //load config
             var configUrl = process.env.CONFIG_URL;
-            var config = yield HTTPUtil.getJSON(configUrl);
+            var config = {};
+            config = configUrl.startsWith("http") ? yield HTTPUtil.getJSON(configUrl) : require(configUrl);
             //
             //
             ////Database source, connection pool
