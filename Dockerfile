@@ -1,13 +1,20 @@
-FROM easynode:0.0.3
+FROM hujb2000/easynode@0.0.1
 
 MAINTAINER hujb
 
 RUN mkdir -p /usr/src/app
 
-COPY . /usr/src/app
+COPY package.json /usr/src/app
 
 WORKDIR /usr/src/app
-RUN npm install
+
+RUN cnpm install
+
+COPY . /usr/src/app
+
+WORKDIR /usr/src/app/plugins
+RUN webpack
+
 
 WORKDIR /usr/src/app/bin
 
