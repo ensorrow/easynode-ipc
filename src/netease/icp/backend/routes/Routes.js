@@ -52,7 +52,7 @@ import bodyParse from 'koa-body';
             httpServer.addRoute('post','/upl',Controllers.upload(httpServer));
             httpServer.addRoute('post','/committrial',Controllers.committrial(httpServer));
             httpServer.addRoute('post','/savedraft',Controllers.savedraft(httpServer));
-            httpServer.addRoute('post','/getapplyrecord',Controllers.listApplyRecord(httpServer));
+            httpServer.addRoute('get','/records',Controllers.getRecords(httpServer));
             httpServer.addRoute('post','/deleteapplyrecord',Controllers.deleteApplyRecord(httpServer));
             httpServer.addRoute('post','/getrecord',Controllers.getRecord(httpServer));
         }

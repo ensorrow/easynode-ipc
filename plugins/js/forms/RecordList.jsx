@@ -303,16 +303,16 @@ let RecordList = React.createClass({
     },
     loadRecords: function(){
         var me = this;
-        var tid = __globals__.user == undefined ? '111111' : __globals__.user.tenantid;
-        var reqData = {page:1,tenantId:tid};
+        var reqData = { page:1, rpp1: 100};
         reqwest({
-            url: '/getapplyrecord',
-            method: 'post',
-            data: JSON.stringify(reqData),
+            url: '/records',
+            method: 'get',
+            data: reqData,
             type:'json',
             contentType: 'application/json',
             success: function(resp){
-                me.setState({data: resp.ret.data});
+                me.setState({data: resp.data});
+                console.log(resp);
             },
             error: function(err){
                 //TODO

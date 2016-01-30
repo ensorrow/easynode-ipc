@@ -48,7 +48,43 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             this.app = app;
         }
 
-
+        /**
+         * @api: login
+         * @apiDescription:
+         * @apiName {login: 登陆处理}
+         * @apiGroup {}
+         * @apiPermission {}
+         * @apiParam {query:
+         *              当query.code=200时
+         *              {
+                          code: '200',
+                          result: 200,
+                          string2Sign: 'email=hujb2000@163.comtenantId=b261f52d302b43ba821a6d731b17034cuserName=hujb2000@163.comexpire=1452839492437',
+                          tenantId: 'b261f52d302b43ba821a6d731b17034c',
+                          expire: '1452839492437',
+                          status: '1',
+                          regIn: 'NCE',
+                          loginType: '1',
+                          sign: 'uW9eFRmjlXz8HNFSDfOrbpgzk+3ZRZV61cRp0XM5OGU=',
+                          category: '0',
+                          email: 'hujb2000@163.com',
+                          errorCallback: 'http://127.0.0.1/login/callback?code=201',
+                          callback: 'http://127.0.0.1/login/callback?code=200',
+                          userName: 'hujb2000@163.com'
+                         }
+                         当query.code!=200时
+                         {
+                              result: '201',
+                              message: 'username is not exist.',
+                              userName: 'hujb2000@163.com1',
+                              code: '1004',
+                              loginType: '0'
+                          }
+         *          }
+         * @apiSuccess { return LOGIN_SUCCESS }
+         * @apiFail   { reutnr !LOGIN_SUCCESS }
+         * @apiVersion {}
+         * */
         login(query = {code: LOGIN_PARA_LACK_ERR.resCode}) {
             var me = this;
             return function * (){

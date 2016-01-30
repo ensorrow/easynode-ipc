@@ -39,16 +39,11 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             //调用super()后再定义子类成员。
         }
 
-        /**
-         * @apiDefine EmptyRecord
-         * @apiError EmptyRecord Please login again or register an aacount, maybe the session is expired
-         *
-         * @apiErrorExample Empty-Response:
-         *
-         *          { rows:0, pages:0, page:0, rpp:0, data:[] };
-         *
-         */
 
+        /**
+         * apiDescription: 首页
+         * apiName {}
+         * */
         static home(app){
             return function *(){
                 var user = this.session.user !== undefined ? this.session.user : undefined;
@@ -85,7 +80,17 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         }
 
 
-
+        /**
+         * @apiDescription: 提交初审核
+         * @apiName {}
+         * @apiGroup {}
+         * @apiPermission {}
+         * @apiVersion {}
+         * print:
+         * console.log( this.parameter );
+         * console.log( this.body );
+         * console.log( this.query );
+         * */
         static committrial(app){
             var me = this;
             return function *(){
@@ -101,7 +106,14 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             }
         }
 
-
+        /**
+         * @apiDescription: 保存草稿
+         * @apiName {}
+         * @apiGroup {}
+         * @apiPermission {}
+         * @apiVersion {}
+         * print:
+         * */
         static savedraft(app){
             var me = this;
             return function *(){
@@ -119,7 +131,16 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
 
 
-
+        /**
+         * @apiDescription:  获取申请记录
+         * @apiName {getRecord}
+         * @apiGroup {}
+         *
+         * @apiParam {id} record.id
+         *
+         *
+         * @apiError {Object} error 参数验证错误或服务器内部错误描述
+         */
         static getRecord(app){
             var me = this;
             return function *(){
@@ -134,56 +155,52 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             }
         }
 
-
         /**
-         * @api {get} /records 获取记录列表
-         * @apiName getRecords
-         * @apiGroup Record
-         * @apiPermission admin or self
-         * @apiVersion 0.0.1
-         * @apiDescription 管理员(登录后用户对象里用idadmin字段表示)能获取所有用户申请记录,本用户只能获取他自己的申请记录
+         * @a1pi {post} /getapplyrecord/'
+         * @apiDescription:  列出申请列表
+         * @apiName {listApplyRecord}
+         * @apiGroup {Manager}
          *
-         * @apiParam {Number} page 页号.
-         * @apiParam {Number} rpp  每页记录数.
+         * @apiParam {Number} page 页号
+         * @apiParam {String} tenantId 租户ID
          *
-         * @apiSampleRequest http://icp.hzspeed.cn/records
+         * @apiSuccess {Number} deviceId 所绑定设备id
+         * @apiSuccess {String} phone 设备电话号码
+         * @apiSuccess {Number} userId 当前用户id
+         * @apiSuccess {Number} bindId 绑定关系id 注-只有_method为check且已经注册过才有此字段
+         * @apiSuccess {Number} status 绑定关系状态 0-已审核 1-待审核 2-已删除
          *
-         * @apiSuccess {Object[]} data 记录列表
-         * @apiSuccess {Number} data.id 记录id
-         * @apiSuccess {String} data.checklisturl 核验单图片URL
-         * @apiSuccess {String} data.protocolurl1 云平台协议第一页图片
-         * @apiSuccess {String} data.protocolurl2 云平台协议第二页图片
-         * @apiSuccess {String} data.securityurl1 信息安全管理责任书第一页图片URL
-         * @apiSuccess {String} data.securityurl2 信息安全管理责任书第二页图片URL
-         * @apiSuccess {Number} data.companyid 公司id
-         * @apiSuccess {Number} data.websiteid 网站id
-         * @apiSuccess {String} data.tenantid 租户id
-         * @apiSuccess {Number} data.type  备案类型: 0-首次备案, 1-新增网站, 2-新增接入
-         * @apiSuccess {Number} data.status 备案状态: 0-草稿,1-初审中,2-初审未通过,3-初审已通过,4-照片审核中,5-照片审核未通过,6-照片审核已通过,7-通管局审核中,8-通管局审核未通过,9-通管局审核已通过,10-未知状态
-         * @apiSuccess {String} data.code 备案编号
-         * @apiSuccess {Number} data.updatetime 记录更新时间
-         * @apiSuccess {Number} data.createtime 记录创建时间
-         * @apiSuccess {Number} page 页号
-         * @apiSuccess {Number} pages 总页数
-         * @apiSuccess {Number} rows 总记录数
-         * @apiSuccess {Number} rpp 每页显示数
-         *
-         * @apiUse  EmptyRecord
-        */
-        static getRecords(app){
+         * @apiError {Object} error 参数验证错误或服务器内部错误描述
+         */
+        static listApplyRecord(app){
             var me = this;
             return function *(){
                 var session = this.session;
                 var ret = {};
 
                 var storeService = new StoreService(app)
-                ret = yield storeService.getRecords();
+                ret = yield storeService.getApplyRecords(this.request.body);
+
 
                 this.type = 'json';
-                this.body = ret;
+                this.body = {ret: ret};
             }
         }
 
+
+        /**
+         * @a1pi {post} /deleteapplyrecord/'
+         * @apiDescription:  删除申请列表
+         * @apiName {deleteApplyRecord}
+         * @apiGroup {Manager}
+         *
+         * @apiParam {String} id 申请记录ID
+         * @apiParam {String} tenantId 租户ID
+         *
+         * @apiSuccess {Bool} 1: 成功删除 0 :删除失败
+         *
+         * @apiError {Object} error 参数验证错误或服务器内部错误描述
+         */
         static deleteApplyRecord(app){
             var me = this;
             return function *(page){
@@ -200,7 +217,18 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
 
 
-
+        /**
+         * @ap1i:
+         * @apiDescription: 上传照片
+         * @apiName {}
+         * @apiGroup {}
+         * @apiPermission {}
+         * @apiVersion {}
+         * print:
+         * console.log( this.parameter );
+         * console.log( this.body );
+         * console.log( this.query );
+         * */
         static upload(app){
             var supportFileTypes = '^.*\.(?:jpg|png|gif)$';
             var regEx = new RegExp(supportFileTypes);
