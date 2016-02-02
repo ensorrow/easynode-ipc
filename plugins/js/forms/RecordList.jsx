@@ -232,7 +232,7 @@ let RecordList = React.createClass({
     },
     loadRecords: function(){
         var me = this;
-        var reqData = { page:1, rpp1: 100};
+        var reqData = { page:1, rpp1: 100 };
         reqwest({
             url: '/records',
             method: 'get',

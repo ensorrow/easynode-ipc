@@ -230,12 +230,12 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         }
 
         /**
-         * @api {put} /record 审核申请
+         * @api {put} /record 审核
          * @apiName putRecord
          * @apiGroup Record
          * @apiPermission admin or self
          * @apiVersion 0.0.1
-         * @apiDescription 管理员(登录后用户对象里用idadmin字段表示)审核申请记录
+         * @apiDescription 管理员(登录后用户对象里用idadmin字段表示)审核记录
          *
          * @apiParam {Number} id 记录ID
          * @apiParam {Number} status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-未知状态\n
@@ -265,6 +265,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiVersion 0.0.1
          * @apiDescription 管理员(登录后用户对象里用idadmin字段表示)能获取所有用户申请记录,本用户只能获取他自己的申请记录
          *
+         * @apiParam {Number} filter 查询状态过滤条件 0-全部(除草稿) 1-待审核  2-已审核通过 3-审核失败的
          * @apiParam {Number} page 页号.
          * @apiParam {Number} rpp  每页记录数.
          *

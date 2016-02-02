@@ -17,6 +17,11 @@ var utils = require('utility');
 
 (function () {
 
+    const FILTER_CONDITION_ALL = 0;
+    const FILTER_CONDITION_WAITED = 1;
+    const FILTER_CONDITION_PASSED = 2;
+    const FILTER_CONDITION_NOPASS = 3;
+
     /**
      * Class StoreService
      *
@@ -217,6 +222,7 @@ var utils = require('utility');
                 var conn = null;
                 var tenantid = this.session.user.tenantid;
                 var isadmin = this.session.user.isadmin || false;
+                var filter = parseInt(this.parameter.param('filter'));
                 var page = parseInt(this.parameter.param('page'));
                 var rpp = parseInt(this.parameter.param('rpp'));
                 var ret = { rows:0, pages:0, page:0, rpp:0, data:[] };
@@ -226,7 +232,18 @@ var utils = require('utility');
 
                     conn = yield  me.app.ds.getConnection();
                     if( isadmin ){
-                        return yield conn.list(model,{ status: { exp:'<>',value:0 } },{ page: page,rpp: rpp });
+                        const FILTER_CONDITION_ALL = 0;
+                        const FILTER_CONDITION_WAITED = 1;
+                        const FILTER_CONDITION_PASSED = 2;
+                        const FILTER_CONDITION_NOPASS = 3;
+                        if( filter ==  FILTER_CONDITION_ALL )
+                            return yield conn.list(model,{ status: { exp:'<>',value:0 } },{ page: page,rpp: rpp });
+                        if( filter ==  FILTER_CONDITION_WAITED )
+                            return yield conn.list(model,{ status: { exp:'in',value:[1,4,7] } },{ page: page,rpp: rpp });
+                        if( filter ==  FILTER_CONDITION_PASSED )
+                            return yield conn.list(model,{ status: { exp:'in',value:[3,6,9] } },{ page: page,rpp: rpp });
+                        if( filter ==  FILTER_CONDITION_NOPASS )
+                            return yield conn.list(model,{ status: { exp:'in',value:[2,5,8] } },{ page: page,rpp: rpp });
                     }else{
                         return yield conn.list(model,{ tenantid: { exp:'=',value: tenantid } },{ page: page,rpp: rpp });
                     }
