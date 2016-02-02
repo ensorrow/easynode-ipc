@@ -363,3 +363,13 @@ var reqData = {page:1,tenantId:tid};
 
 57. fc's container access fc's rds fail, but can't look log, site bug,  It's ok to access fc's rds by local hos
 
+58. easynode对delete 方法有问题
+console.log( this.parameter );
+console.log( this.body );
+console.log( this.query );取不到数据
+
+reqwest({
+    url: '/records',
+    method: 'delete',
+    data: {id:this.props.record.id},
+    type:'json'

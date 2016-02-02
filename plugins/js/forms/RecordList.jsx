@@ -49,7 +49,7 @@ let Operation = React.createClass({
                 '确定': () => {
 
                     reqwest({
-                        url: '/deleteapplyrecord',
+                        url: '/delrecord',
                         method: 'post',
                         data: JSON.stringify({id:this.props.record.id}),
                         type:'json',

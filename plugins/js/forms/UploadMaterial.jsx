@@ -84,7 +84,7 @@ let UploadMaterial = React.createClass({
 
         //commit
         reqwest({
-            url: '/committrial',
+            url: '/records',
             method: 'post',
             data: JSON.stringify(__globals__),
             type:'json',

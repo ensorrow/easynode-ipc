@@ -139,8 +139,7 @@ var utils = require('utility');
             }
         }
 
-
-        insertApplyRecord(formData) {
+        createRecord() {
             var me = this;
             return function *(){
 
@@ -151,6 +150,8 @@ var utils = require('utility');
                 var r = null;
                 var conn = null;
                 var code = '';
+                var tenantid = this.session.user.tenantid;
+                var formData = this.request.body;
 
                 try{
                     conn = yield  me.app.ds.getConnection();
@@ -158,7 +159,7 @@ var utils = require('utility');
 
                     //1. insert companyinfo
                     model = new Company();
-                    model.merge( Object.assign({},formData.companyinfo,{tenantid:formData.user.tenantid},{createtime:Date.now(),updatetime:Date.now()} ));
+                    model.merge( Object.assign({},formData.companyinfo,{tenantid:tenantid},{createtime:Date.now(),updatetime:Date.now()} ));
 
                     if( formData.companyinfo.hasOwnProperty("id") ){
                         r = yield conn.update(model);
@@ -172,7 +173,7 @@ var utils = require('utility');
                     //2. insert siteinfo
                     model = null;
                     model = new  Website();
-                    var data  = Object.assign({},formData.siteinfo,{tenantid:formData.user.tenantid},{createtime:Date.now(),updatetime:Date.now()} );
+                    var data  = Object.assign({},formData.siteinfo,{tenantid:tenantid},{createtime:Date.now(),updatetime:Date.now()} );
                     data.manageridtype = parseInt(data.manageridtype);
                     data.accessmethod = JSON.stringify(data.accessmethod);
                     data.ip = JSON.stringify(data.ip);
@@ -192,7 +193,7 @@ var utils = require('utility');
                     model = null;
                     model = new Record();
                     code = utils.randomString(32, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-                    model.merge( Object.assign({},formData.baseinfo,formData.material,{tenantid:formData.user.tenantid,companyid:companyid,websiteid:websiteid,status: 1,code:code},{createtime:Date.now(),updatetime:Date.now()} ));
+                    model.merge( Object.assign({},formData.baseinfo,formData.material,{tenantid:tenantid,companyid:companyid,websiteid:websiteid,status: 1,code:code},{createtime:Date.now(),updatetime:Date.now()} ));
 
                     if( formData.baseinfo.hasOwnProperty("id") ){
                         r = yield conn.update(model);
@@ -336,10 +337,12 @@ var utils = require('utility');
             }
         }
 
-        deleteApplyRecords(formData){
+        deleteRecord(){
             var me = this;
             return function *(){
                 var conn = null;
+                var formData = this.request.body;
+
                 try{
                     var model = new Record();
                     conn = yield  me.app.ds.getConnection();
@@ -441,7 +444,7 @@ var utils = require('utility');
 
                     model.merge( Object.assign({},
                         formData.baseinfo,
-                        {sitemanagerurl:'',checklisturl:'',protocolurl1:'',protocolurl2:'',securityurl1:'',securityurl2:''},
+                        {sitemanagerurl:'',checklisturl:'',protocolurl1:'',protocolurl2:'',securityurl1:'',securityurl2:'',reasons:''},
                         {tenantid:formData.user.tenantid,companyid:0,websiteid:0,status: 0},
                         {createtime:Date.now(),updatetime:Date.now()}
                     ));
@@ -602,6 +605,10 @@ var utils = require('utility');
         }
 
 
+        /*
+        * key:  object key, can be date object
+        * filename: 文件名
+        * */
         uploadNos(key,filename){
             return function* (){
                 var url = `http://apollodev.nos.netease.com/${key}`;

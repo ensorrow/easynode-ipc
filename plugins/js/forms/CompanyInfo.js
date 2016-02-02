@@ -43,7 +43,7 @@ let CompanyInfo = React.createClass({
                 managername: {isBlank: false},
                 manageridtype:  {isBlank: false},
                 manageridnumber: {isBlank: false},
-               // officephoneregion: {isBlank: false},
+                officephoneregion: {isBlank: false,checked:true},
                 officephonenumber: {isBlank: false},
                 mobile: {isBlank: false},
                 email: {isBlank: false},
