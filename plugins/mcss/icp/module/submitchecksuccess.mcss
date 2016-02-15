@@ -1,0 +1,92 @@
+// Name:            提交照片成功信息
+// Description:     SubmitCheckSuccess
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+@import "../../core/module/submitchecksuccess.mcss";
+
+// Varibles:
+// ========================================================================
+
+$m-submitchecksuccess_width =  992px;
+$m-submitchecksuccess_height = 260px;
+$m-submitchecksuccess_border_color = #DDD;
+
+$m-submitchecksuccess_tip_label_width =  298px;
+$m-submitchecksuccess_tip_icon_margin_left = 234px;
+$m-submitchecksuccess_tip_icon_margin_top = 64px;
+
+$m-submitchecksuccess_tip_width = $m-submitchecksuccess_height - $m-submitchecksuccess_tip_label_width;
+
+
+
+
+
+
+// Component:       `m-submitchecksuccess`
+// ========================================================================
+
+.m-submitchecksuccess {
+
+	outline: $m-submitchecksuccess_border_color solid 1px;
+
+	min-height: $m-submitchecksuccess_height;
+	width: $m-submitchecksuccess_width;
+
+	margin: 40px auto;
+
+	.tip-label{
+		width: $m-submitchecksuccess_tip_label_width;
+		height: $m-submitchecksuccess_height;
+
+		.tip-icon{
+			margin-left: $m-submitchecksuccess_tip_icon_margin_left;
+			margin-top:  $m-submitchecksuccess_tip_icon_margin_top;
+			@extend .f-fr;
+		}
+		@extend .f-fl;
+	}
+	.tip{
+		width: $m-submitchecksuccess_tip_width;
+		height: $m-submitchecksuccess_height;
+		padding: 60px 0 0 20px;
+
+		.tip-header{
+			font-family:MicrosoftYaHei;
+	        font-size:16px;
+	        color:#333333;;
+	        line-height:18px;
+			margin: 10px 10px 10px 10px;
+	 	}
+
+		.tip-bd{
+			font-family:MicrosoftYaHei;
+	        font-size:14px;
+	        color:#666666;;
+	        line-height:14px;
+	        margin: 15px 15px 15px 15px;
+	        @extend .f-fl;
+		}
+
+		.tip-button-detail{
+			border: none;
+        	background: transparent;
+        	font-size:16px;
+        	color:#38ABD0;
+        	margin: 15px 15px 15px 15px;
+        	@extend .f-fl;
+		}
+
+		.tip-footer{
+			font-family:MicrosoftYaHei;
+	        font-size:12px;
+	        color:#666666;;
+	        line-height:14px;
+	        margin: 15px 15px 15px 15px;
+	        @extend .f-fl;
+		}
+		@extend .f-fl;
+	}
+
+	$clearfix();
+}

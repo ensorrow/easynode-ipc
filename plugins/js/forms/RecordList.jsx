@@ -108,7 +108,7 @@ let Operation = React.createClass({
         }
         else if( prg == 3){
             return (
-                <td><button type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") }>备案详情</button> <button type="button"  onClick={ me.handleResult.bind(me,"#/checkresulttrialpass") }>审核结果</button><Link to="/uploadphoto">上传照片</Link> <button type="button" onClick={this.handleDelete}>删除</button></td>
+                <td><button type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") }>备案详情</button> <button type="button"  onClick={ me.handleResult.bind(me,"#/checkresulttrialpass") }>审核结果</button> <button type="button"  onClick={ me.handleResult.bind(me,"#/uploadphoto") }>上传照片</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else if( prg == 4){

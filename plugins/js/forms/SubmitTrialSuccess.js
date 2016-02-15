@@ -61,6 +61,5 @@ let SubmitTrialSuccess = React.createClass({
     }
 });
 
-//<input type="button" value="查看备案详请" className="tip-button-detail"/><a href="#/reviewrecorddetail">查看备案详请</a>
 
 module.exports = SubmitTrialSuccess;

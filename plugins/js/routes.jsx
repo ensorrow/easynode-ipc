@@ -225,6 +225,14 @@ export default{
             }
         },
         {
+            path:'/submitchecksuccess',
+            getComponent: (location,cb) => {
+                require.ensure([],(require) => {
+                    cb(null,require('./forms/SubmitCheckSuccess'));
+                });
+            }
+        },
+        {
             path:'/reviewrecorddetail',
             getComponent: (location,cb) => {
                 var a = Global.get('global');

@@ -21,12 +21,15 @@ import ProgressBar from './ProgressBar.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 import ApplyCurtain from './ApplyCurtain.js';
 
+import reqwest from 'reqwest';
+import Toast from '../widgets/Toast.jsx';
+
 let UploadPhoto = React.createClass({
     handleApplyCurtain: function(){
         this.setState({showApplyCurt:true});
     },
     getInitialState: function(){
-        return {showApplyCurt:false,curturl:''};
+        return {showApplyCurt:false,curtainurl:'',processing:  false};
     },
     onChange: function(ee){
         var file = ee.target.files[0];
@@ -52,10 +55,42 @@ let UploadPhoto = React.createClass({
         switch(id){
             case "1":
                 this.setState({
-                    curturl:url
+                    curtainurl:url
                 });
                 break;
         }
+    },
+    handleSubmit: function(e){
+        e.preventDefault();
+
+        if( this.state.processing ){
+            return;
+        }
+
+        this.setState({
+            processing: true
+        });
+
+        //commit
+        reqwest({
+            url: '/record',
+            method: 'put',
+            data: JSON.stringify({id:__globals__.record.id,status:4,curtainurl: this.state.curtainurl}),
+            type:'json',
+            contentType: 'application/json',
+            success: function(resp){
+                //{ true|false }
+                console.log(resp);
+                location.href = "#/submitchecksuccess";
+            },
+            error: function(err){
+                //TODO
+            }
+        });
+
+        this.setState({
+            processing: false
+        });
     },
     render: function () {
         var curtain = '';
@@ -88,7 +123,7 @@ let UploadPhoto = React.createClass({
                                 </div>
                                 <div className="m-uploadphoto-ctrl">
                                     <div className="m-uploadphoto-ctrl-picture">
-                                        <img src={this.state.curturl.length > 0 ? this.state.curturl : "../assets/view.png"} alt=""/>
+                                        <img src={this.state.curtainurl.length > 0 ? this.state.curtainurl : "../assets/view.png"} alt=""/>
                                     </div>
                                     <div className="m-uploadphoto-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -107,7 +142,7 @@ let UploadPhoto = React.createClass({
                 </div>
 
                 <div className="w-btn">
-                    <button className="u-main" type="button"><a href="#/fillsiteinfo">提交审核</a></button>
+                    <button className="u-main" type="button" onClick={this.handleSubmit}> 提交审核 </button>
                 </div>
 
                 {curtain}

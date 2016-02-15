@@ -322,10 +322,17 @@ var utils = require('utility');
                 var status = form.status;
                 var reasons = form.reasons;
                 var id = form.id;
+                var curtainurl = form.curtainurl;
 
                 try{
                     conn = yield me.app.ds.getConnection();
-                    model.merge( Object.assign({}, { status: status, id: id, reasons: reasons } ));
+                    model.merge( Object.assign({}, { status: status, id: id } ));
+                    if( reasons ){
+                        model.merge( Object.assign({}, { reasons: reasons } ));
+                    }
+                    if( curtainurl ){
+                        model.merge( Object.assign({}, { curtainurl: curtainurl } ));
+                    }
                     r = yield conn.update(model);
                     return true;
                 }catch(e){
