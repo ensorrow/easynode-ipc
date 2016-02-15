@@ -97,6 +97,10 @@ export default{
         {
             path:'/checkresulttrialnopass',
             getComponent: (location,cb) => {
+                var a = Global.get('global');
+                if (a.hasOwnProperty('companyinfo') ){
+                    __globals__ = a;
+                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/status/CheckTrialNoPass.jsx'));
                 });
@@ -105,6 +109,10 @@ export default{
         {
             path:'/checkresulttrialpass',
             getComponent: (location,cb) => {
+                var a = Global.get('global');
+                if (a.hasOwnProperty('companyinfo') ){
+                    __globals__ = a;
+                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/status/CheckTrialPass.jsx'));
                 });
@@ -113,6 +121,10 @@ export default{
         {
             path:'/checkresultphotonopass',
             getComponent: (location,cb) => {
+                var a = Global.get('global');
+                if (a.hasOwnProperty('companyinfo') ){
+                    __globals__ = a;
+                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/status/CheckPhotoNoPass.jsx'));
                 });
@@ -121,6 +133,10 @@ export default{
         {
             path:'/checkresultphotopass',
             getComponent: (location,cb) => {
+                var a = Global.get('global');
+                if (a.hasOwnProperty('companyinfo') ){
+                    __globals__ = a;
+                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/status/CheckPhotoPass.jsx'));
                 });
@@ -129,6 +145,10 @@ export default{
         {
             path:'/checkresultcouncilpass',
             getComponent: (location,cb) => {
+                var a = Global.get('global');
+                if (a.hasOwnProperty('companyinfo') ){
+                    __globals__ = a;
+                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/status/CheckCouncilNoPass.jsx'));
                 });
@@ -137,6 +157,10 @@ export default{
         {
             path:'/checkresultcouncilnopass',
             getComponent: (location,cb) => {
+                var a = Global.get('global');
+                if (a.hasOwnProperty('companyinfo') ){
+                    __globals__ = a;
+                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/status/CheckCouncilPass.jsx'));
                 });
@@ -145,6 +169,7 @@ export default{
         {
             path:'/delete',
             getComponent: (location,cb) => {
+
                 require.ensure([],(require) => {
                     //ToDo ,execute delete operation
                     //cb(null,require('./forms/CompanyInfo'));

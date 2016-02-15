@@ -20,6 +20,12 @@ $m-applycurtain_ctrl__onethird_width = 120px;
 
 .m-applycurtain {
 	outline: #F8F8F8 solid 1px;
+
+	position: fixed;
+    left: 15%;
+    top: 66px;
+    text-align: center;
+    display: block;
 }
 
 

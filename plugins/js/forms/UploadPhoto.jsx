@@ -15,11 +15,53 @@ var FormSubmit = ReactUI.FormSubmit;
 var CheckboxGroup = ReactUI.CheckboxGroup;
 var Upload = ReactUI.Upload;
 
+import upload from '../utils/upload';
+
 import ProgressBar from './ProgressBar.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
+import ApplyCurtain from './ApplyCurtain.js';
 
 let UploadPhoto = React.createClass({
+    handleApplyCurtain: function(){
+        this.setState({showApplyCurt:true});
+    },
+    getInitialState: function(){
+        return {showApplyCurt:false,curturl:''};
+    },
+    onChange: function(ee){
+        var file = ee.target.files[0];
+        upload({
+            url: '/upl',
+            name: file.name||'temp123',
+            cors: true,
+            withCredentials: false,
+            file: file,
+            onProgress: (e)=>{
+                console.log(e.loaded/e.total*100 + '%');
+            },
+            onLoad: (e) =>{
+                var resp = JSON.parse(e.currentTarget.responseText);
+                this.assignUrl(ee.target.id,resp.url);
+            },
+            onError: (e)=>{
+                console.log("file upload error");
+            }
+        });
+    },
+    assignUrl: function(id,url){
+        switch(id){
+            case "1":
+                this.setState({
+                    curturl:url
+                });
+                break;
+        }
+    },
     render: function () {
+        var curtain = '';
+        if( this.state.showApplyCurt ){
+            curtain = <ApplyCurtain/>
+        }
         return (
             <div>
                 <ReturnWidget/>
@@ -33,8 +75,7 @@ let UploadPhoto = React.createClass({
                             <div className="m-uploadphoto-item-1">
                                 <div className="m-uploadphoto-ctrl">
                                     <div className="m-uploadphoto-ctrl-button">
-                                        <input type="button" value="申请幕布"/>
-                                        <input type="file" class="" placeholder="" name="" accept="image/jpeg,image/png,image/gif" required/>
+                                        <input type="button" value="申请幕布" onClick={this.handleApplyCurtain}/>
                                     </div>
                                 </div>
                             </div>
@@ -47,11 +88,11 @@ let UploadPhoto = React.createClass({
                                 </div>
                                 <div className="m-uploadphoto-ctrl">
                                     <div className="m-uploadphoto-ctrl-picture">
-                                        <img src="../assets/view.png" alt=""/>
+                                        <img src={this.state.curturl.length > 0 ? this.state.curturl : "../assets/view.png"} alt=""/>
                                     </div>
                                     <div className="m-uploadphoto-ctrl-button">
                                         <input type="button" value="上传图片"/>
-                                        <input type="file" class="" placeholder="" name="" accept="image/jpeg,image/png,image/gif" required/>
+                                        <input type="file" className="" placeholder="" name="" id="1" accept="image/jpeg,image/png,image/gif" required onChange={this.onChange}/>
                                     </div>
                                 </div>
                                 <div className="m-uploadphoto-desc">
@@ -60,6 +101,7 @@ let UploadPhoto = React.createClass({
                                     <span>3、请务必上传带有相关幕布背景的照片</span>
                                 </div>
                             </div>
+
                         </fieldset>
                     </form>
                 </div>
@@ -67,6 +109,8 @@ let UploadPhoto = React.createClass({
                 <div className="w-btn">
                     <button className="u-main" type="button"><a href="#/fillsiteinfo">提交审核</a></button>
                 </div>
+
+                {curtain}
             </div>
         );
     }

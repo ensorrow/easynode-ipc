@@ -1,3 +1,5 @@
+
+
 module.exports ={
     getRequest: function(){
         var url = location.hash;
@@ -11,5 +13,12 @@ module.exports ={
             }
         }
         return theRequest;
+    },
+
+    parsePTag: function(str){
+        var s = str || '';
+        var reg = /<p>(.*?)<\/p>/gim;
+
+        return s.match(reg);
     }
 }

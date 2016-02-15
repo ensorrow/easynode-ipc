@@ -226,8 +226,7 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-uploadphoto-label{width:80px;margin-top:30px;margin-right:30px;}
 .m-uploadphoto-label >label{font-family:MicrosoftYaHei;font-size:12px;color:#aaa;line-height:14px;}
 .m-uploadphoto-ctrl{width:140px;position:relative;overflow:hidden;}
-.m-uploadphoto-ctrl .m-uploadphoto-ctrl-picture{width:140px;height:140px;background:#f5f5f5;border:1px solid #ddd;}
-.m-uploadphoto-ctrl .m-uploadphoto-ctrl-picture >img{display:inline-block;width:50px;height:46px;margin:47px 45px;}
+.m-uploadphoto-ctrl .m-uploadphoto-ctrl-picture{width:140px;height:140px;background:#f5f5f5;border:1px solid #ddd;display:table-cell;vertical-align:middle;text-align:center;}
 .m-uploadphoto-ctrl .m-uploadphoto-ctrl-button{width:140px;height:46px;}
 .m-uploadphoto-ctrl .m-uploadphoto-ctrl-button >input[type="button"]{background:#339bbf;width:140px;height:36px;margin-top:10px;color:#fff;}
 .m-uploadphoto-ctrl .m-uploadphoto-ctrl-button >input[type="file"]{position:absolute;bottom:0;opacity:0;font-size:200px;left:0;}
@@ -235,7 +234,7 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-uploadphoto-desc >span{display:block;font-family:MicrosoftYaHei;font-size:12px;color:#aaa;line-height:14px;line-height:20px;}
 .m-uploadphoto-desc >span >a{font-family:MicrosoftYaHei;font-size:14px;color:#38abd0;line-height:14px;}
 .m-applycurtain{background:#fff;width:560px;height:470px;}
-.m-applycurtain{outline:#f8f8f8 solid 1px;}
+.m-applycurtain{outline:#f8f8f8 solid 1px;position:fixed;left:15%;top:66px;text-align:center;display:block;}
 .m-applycurtain-header{width:auto;height:50px;background:#f5f5f5;line-height:50px;padding:1px 10px 1px 10px;}
 .m-applycurtain-header >label{font-family:MicrosoftYaHei;font-size:14px;color:#666;line-height:14px;}
 .m-applycurtain-header >img{margin-top:15px;}

@@ -21,9 +21,9 @@ module.exports = {
                 __globals__.siteinfo = {};
                 __globals__.material = {};
                 __globals__.domains = [];
-
+                __globals__.record = {};
                 __globals__.baseinfo.type = record.type;
-                ;
+
                 __globals__.baseinfo.serverregion = record.serverregion;
                 __globals__.baseinfo.id = record.id;
                 __globals__.baseinfo.status = record.status;
@@ -57,6 +57,9 @@ module.exports = {
                     if (siteinfo.hasOwnProperty('languages')) {
                         __globals__.siteinfo.languages = JSON.parse(siteinfo.languages);
                     }
+                }
+                if( record ){
+                    __globals__.record = record;
                 }
                 __globals__.material.sitemanagerurl = record.sitemanagerurl;
                 __globals__.material.checklisturl = record.checklisturl;

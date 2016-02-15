@@ -4,6 +4,8 @@ import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute } from 'react-router';
 
 
+import Utility from '../../utils/Utility';
+
 require('../../es5-shim.min.js');
 var ReactUI = require('../../ReactUI');
 var Form = ReactUI.Form;
@@ -18,6 +20,15 @@ var Checkbox = ReactUI.Checkbox;
 
 let CheckCouncilPass = React.createClass({
     render: function () {
+        var reasons = [];
+        if( __globals__.record.hasOwnProperty('reasons') ){
+            var arr = Utility.parsePTag(__globals__.record.reasons);
+            arr.forEach(function(v,i){
+                reasons.push( <p className="tip-bd" key={i}>{i+1}、{v.replace(/<p>|<\/p>/g,"")}</p> );
+            })
+        }
+
+
         return (
             <div className="m-checkcouncilnopass">
                 <div className="tip-label">
@@ -26,8 +37,7 @@ let CheckCouncilPass = React.createClass({
                 <div className="tip">
                     <p className="tip-header">通管局审核未通过，请根据下列提示信息，修改备案申请！</p>
 
-                    <p className="tip-bd">1、**********</p>
-                    <p className="tip-bd">2、**********</p>
+                    {reasons}
                 </div>
             </div>
         );

@@ -15,8 +15,16 @@ var FormSubmit = ReactUI.FormSubmit;
 var Checkbox = ReactUI.Checkbox;
 
 import ProgressBar from './ProgressBar.jsx';
+import CascadeSelect from '../widgets/CascadeSelect2.jsx';
 
 let ApplyCurtain = React.createClass({
+
+    handleRegion: function(p,c,a){
+        this.setState({province: p, city: c, area: a});
+    },
+    getInitialState: function() {
+        return {province:'',city:'',area:''};
+    },
     render: function () {
         return (
             <div className="m-applycurtain">
@@ -30,27 +38,7 @@ let ApplyCurtain = React.createClass({
                         <div className="m-applycurtain-item-label">
                             <span>*</span> <label>幕布邮寄地址:</label>
                         </div>
-                        <div className="m-applycurtain-item-ctrl">
-                            <select className="m-applycurtain-item-ctrl-three">
-                                <option value ="volvo">Volvo</option>
-                                <option value ="saab">Saab</option>
-                                <option value="opel">Opel</option>
-                                <option value="audi">Audi</option>
-                            </select>
-                            <select className="m-applycurtain-item-ctrl-three">
-                                <option value ="volvo">Volvo</option>
-                                <option value ="saab">Saab</option>
-                                <option value="opel">Opel</option>
-                                <option value="audi">Audi</option>
-                            </select>
-                            <select className="m-applycurtain-item-ctrl-three">
-                                <option value ="volvo">Volvo</option>
-                                <option value ="saab">Saab</option>
-                                <option value="opel">Opel</option>
-                                <option value="audi">Audi</option>
-                            </select>
-                            <input type="text" name="identity" placeholder="详细地址"/>
-                        </div>
+                        <CascadeSelect  onChange={this.handleRegion} province={this.state.province} city={this.state.city} area={this.state.area}/>
                     </div>
                     <div className="m-applycurtain-item">
                         <div className="m-applycurtain-item-label">

@@ -138,13 +138,18 @@ let RecordInfo = React.createClass({
     },
     render: function () {
         var uppic;
-        if( __globals__.baseinfo.status != 1 ){
+        if( __globals__.baseinfo.status != 1
+        &&
+            __globals__.baseinfo.status != 2
+        &&
+            __globals__.baseinfo.status != 3
+        ){
             uppic = (
                 <fieldset>
                 <div className="m-recordinfo-legend"><span>上传照片</span></div>
                 <div className="m-recordinfo-item2">
                 <div className="m-recordinfo-item-icon">
-                <img src="../assets/view.png" alt=""/>
+                <img src={__globals__.record.curtainurl} alt=""/>
                 </div>
                 <span className="m-recordinfo-item-icon-title">照片</span>
                 </div>

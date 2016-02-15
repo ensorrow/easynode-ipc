@@ -73,11 +73,11 @@ let Operation = React.createClass({
         });
 
     },
-    handleModify: function(){
+    handleResult: function(to){
         DataService.getRecord(this.props.record.id,
             function(){
                 Global.set('global',__globals__);
-                location.href = "#/returntobase";
+                location.href = to;
             },
             function(err){
                 console.log("getRecord err")
@@ -85,74 +85,60 @@ let Operation = React.createClass({
             }
         );
     },
-    handleDetail: function(){
-        DataService.getRecord(this.props.record.id,
-            function(){
-                console.log("2");
-                console.log(__globals__);
-                Global.set('global',__globals__);
-                console.log(Global.get('global'));
-                location.href = "#/reviewrecorddetail";
-            },
-            function(err){
-                console.log("getRecord err")
-                console.log(err);
-            }
-        );
-    },
-
     render(){
         let type = this.props.record.type;
         let prg = this.props.record.status;
 
+        "#/returntobase"
+        var me = this;
         if( prg == 0 ) {
             return (
-                <td><button type="button" onClick={this.handleModify}>修改</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
+                <td><button type="button" onClick={ me.handleResult.bind(me,"#/returntobase") }>修改</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else if( prg == 1){
             return (
-                <td><button type="button" onClick={this.handleDetail}>备案详情</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
+                <td><button type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") }>备案详情</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else if( prg == 2){
             return (
-                <td><button type="button" onClick={this.handleDetail}>备案详情</button> <Link to="/checkresulttrialnopass">审核结果</Link> <button type="button" onClick={this.handleModify}>修改</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
+                <td><button type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") }>备案详情</button> <button type="button" onClick={ me.handleResult.bind(me,"#/checkresulttrialnopass") }>审核结果</button> <button type="button" onClick={ me.handleResult.bind(me,"#/returntobase") }>修改</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else if( prg == 3){
             return (
-                <td><button type="button" onClick={this.handleDetail}>备案详情</button> <Link to="/checkresulttrialpass">审核结果</Link> <Link to="/uploadphoto">上传照片</Link> <button type="button" onClick={this.handleDelete}>删除</button></td>
+                <td><button type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") }>备案详情</button> <button type="button"  onClick={ me.handleResult.bind(me,"#/checkresulttrialpass") }>审核结果</button><Link to="/uploadphoto">上传照片</Link> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else if( prg == 4){
             return (
-                <td><button type="button" onClick={this.handleDetail}>备案详情</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
+                <td><button type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") }>备案详情</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else if( prg == 5){
             return (
-                <td><button type="button" onClick={this.handleDetail}>备案详情</button> <Link to="/checkresultphotonopass">审核结果</Link> <button type="button" onClick={this.handleModify}>修改</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
+                <td><button type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") }>备案详情</button> <button type="button" onClick={ me.handleResult.bind(me,"#/checkresultphotonopass") }>审核结果</button> <button type="button" onClick={ me.handleResult.bind(me,"#/returntobase") }>修改</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else if( prg == 6){
             return (
-                <td><button type="button" onClick={this.handleDetail}>备案详情</button>  <Link to="/checkresultphotopass">审核结果</Link> <button type="button" onClick={this.handleDelete}>删除</button></td>
+                <td><button type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") }>备案详情</button> <button type="button" onClick={ me.handleResult.bind(me,"#/checkresultphotopass") }>审核结果</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else if( prg == 7){
             return (
-                <td><button type="button" onClick={this.handleDetail}>备案详情</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
+                <td><button type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") }>备案详情</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else if( prg == 8){
             return (
-                <td><button type="button" onClick={this.handleDetail}>备案详情</button> <Link to="/checkresultcouncilpass">审核结果</Link> <Link to="/modify">修改</Link> <button type="button" onClick={this.handleDelete}>删除</button></td>
+                <td><button type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") }>备案详情</button> <button type="button" onClick={ me.handleResult.bind(me,"#/checkresultcouncilnopass") }>审核结果</button> <button type="button" onClick={ me.handleResult.bind(me,"#/returntobase") }>修改</button> <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
         else {
             return (
-                <td><button type="button" onClick={this.handleDetail}>备案详情</button> <Link to="/checkresultcouncilnopass">审核结果</Link> <button type="button" onClick={this.handleDelete}>删除</button></td>
+                <td><button type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") }>备案详情</button> <button type="button" onClick={ me.handleResult.bind(me,"#/checkresultcouncilpass") }>审核结果</button>  <button type="button" onClick={this.handleDelete}>删除</button></td>
             );
         }
     }
