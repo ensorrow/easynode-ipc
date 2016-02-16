@@ -39,6 +39,12 @@ var AM_WEBHOST = 2;
 var AM_VIRTUALHOST = 3;
 var AM_OTHER = 4;
 
+const FT = {
+    "NAME": 0,
+    "DOMAIN": 1,
+    "LIVEADDRESS": 2,
+    "HOMEURL":3
+};
 
 let SiteInfo = React.createClass({
 
@@ -50,13 +56,13 @@ let SiteInfo = React.createClass({
             sitesCount: 0,
             formError: {
                 id: {isBlank: false, checked: true},
-                name: {isBlank: false},
-                domain: {isBlank: false},
+                name: {isBlank: false,focus: false},
+                domain: {isBlank: false,focus: false},
                 domain1: {isBlank: false,checked:true},
                 domain2: {isBlank: false,checked:true},
                 domain3: {isBlank: false,checked:true},
                 domain4: {isBlank: false,checked:true},
-                homeurl: {isBlank: false},
+                homeurl: {isBlank: false,focus: false},
                 servicecontent: {isBlank: false,checked:true},
                 languages: {
                     chinese: true,
@@ -125,6 +131,31 @@ let SiteInfo = React.createClass({
                 email:'', qq:''
             }
         };
+    },
+    handleFocus: function(id){
+        this.addressFocus(id,true);
+    },
+    handleBlur: function(id){
+        this.addressFocus(id,false);
+    },
+    addressFocus: function(id,focus){
+        this.resetFocus();
+        var formError = this.state.formError;
+        var ctrl = id == FT.NAME ? formError.name :
+                   id == FT.DOMAIN ? formError.domain :
+                   id == FT.HOMEURL ? formError.homeurl : formError.homeurl;
+        ctrl.focus = focus;
+        this.setState({
+            formError: formError
+        });
+    },
+    resetFocus: function(){
+        var formError = this.state.formError;
+        for( var prop in formError ){
+            if( formError[prop].hasOwnProperty('focus') ){
+                formError[prop].focus = false;
+            }
+        }
     },
     validator: function(fieldName,value){
         var formError = this.state.formError;
@@ -479,6 +510,7 @@ let SiteInfo = React.createClass({
         }
     },
     render: function () {
+        var me = this;
         return (
             <div>
                 <ReturnWidget/>
@@ -493,8 +525,14 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="identity" onChange={this.handleName} value={this.state.siteInfo.name}/>
+                                    <input type="text" name="identity" onChange={this.handleName} value={this.state.siteInfo.name} onFocus={me.handleFocus.bind(me,FT.NAME)} onBlur={me.handleBlur.bind(me,FT.NAME)}/>
                                     <span className={this.state.formError.name.isBlank  ? "u-popover" : "u-popover hidden" }>请输入网站名称</span>
+                                    <span className={this.state.formError.name.focus  ? "u-popover2" : "u-popover2 hidden" }>
+                                            <p>1、不能以纯数字或纯英文命名，不能包含域名、特殊符号、敏感词语（反腐、赌博、廉政、色情等）</p>
+                                            <p>2、非国家级单位不得以中国、中华、中央、人民、人大、国家等字头命名</p>
+                                            <p>3、单位网站名称必须与主办单位名称之间有关联性</p>
+                                            <p>4、个人备案的网站名称要尽量体现网站的主要内容，不能使用姓名、地名、成语，不能包含公司、组织等企业性质的词语</p>
+                                    </span>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">
@@ -504,8 +542,9 @@ let SiteInfo = React.createClass({
                                 </div>
                                 <div className="item-ctrl">
                                     <div className="item-ctrl item-ctrl-in">
-                                        <label className="siteurl">www</label><input type="text" name="identity" className="siteurl-input" onChange={this.handleDomain} value={this.state.siteInfo.domain}/>
+                                        <label className="siteurl">www</label><input type="text" name="identity" className="siteurl-input" onChange={this.handleDomain} value={this.state.siteInfo.domain} onFocus={me.handleFocus.bind(me,FT.DOMAIN)} onBlur={me.handleBlur.bind(me,FT.DOMAIN)}/>
                                         <span className={this.state.formError.domain.isBlank  ? "u-popover" : "u-popover hidden" }>请输入网站域名</span>
+                                        <span className={this.state.formError.domain.focus  ? "u-popover2" : "u-popover2 hidden" }><p>1、域名不要加www，格式如163.com</p></span>
                                     </div>
                                     { this.renderDomains() }
                                 </div>
@@ -517,8 +556,9 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <label className="siteurl">http://</label><input type="text" name="identity" className="siteurl-input" onChange={this.handleHomeUrl} value={this.state.siteInfo.homeurl}/>
+                                    <label className="siteurl">http://</label><input type="text" name="identity" className="siteurl-input" onChange={this.handleHomeUrl} value={this.state.siteInfo.homeurl} onFocus={me.handleFocus.bind(me,FT.HOMEURL)} onBlur={me.handleBlur.bind(me,FT.HOMEURL)}/>
                                     <span className={this.state.formError.homeurl.isBlank  ? "u-popover" : "u-popover hidden" }>请输入网站首页URL</span>
+                                    <span className={this.state.formError.homeurl.focus  ? "u-popover2" : "u-popover2 hidden" }><p>1、首页URL应该包含填写的域名列表中的任意一个</p><p>2、首页URL不要加http://</p></span>
                                 </div>
                             </div>
                                 <div className="m-siteinfo-item">

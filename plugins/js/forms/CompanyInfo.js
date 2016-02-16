@@ -22,9 +22,17 @@ import FormValidator from '../utils/FormValidator';
 import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 
+const FT = {
+    "IDTYPE": 0,
+    "NAME": 1,
+    "LIVEADDRESS": 2,
+    "COMMADDRESS":3,
+    "OWNER":4,
+    "OFFICEPHONENUMBER":5,
+    "MOBILE":6
+};
+
 let CompanyInfo = React.createClass({
-
-
     getInitialState: function() {
         return {
             processing : false,
@@ -34,18 +42,18 @@ let CompanyInfo = React.createClass({
                 city: {isBlank: false},
                 area: {isBlank: false,checked:true},
                 nature: {isBlank: false},
-                idtype: {isBlank: false},
+                idtype: {isBlank: false,focus: false},
                 idnumber: {isBlank: false},
-                name: {isBlank: false},
-                liveaddress:  {isBlank: false},
-                commaddress: {isBlank: false},
-                owner: {isBlank: false},
+                name: {isBlank: false,focus: false},
+                liveaddress:  {isBlank: false,focus: false},
+                commaddress: {isBlank: false,focus: false},
+                owner: {isBlank: false,focus: false},
                 managername: {isBlank: false},
                 manageridtype:  {isBlank: false},
                 manageridnumber: {isBlank: false},
                 officephoneregion: {isBlank: false,checked:true},
-                officephonenumber: {isBlank: false},
-                mobile: {isBlank: false},
+                officephonenumber: {isBlank: false,focus: false},
+                mobile: {isBlank: false,focus: false},
                 email: {isBlank: false},
                 recordnumber: {isBlank: false}
             },
@@ -71,6 +79,35 @@ let CompanyInfo = React.createClass({
             }
         };
     },
+    handleFocus: function(id){
+        this.addressFocus(id,true);
+    },
+    handleBlur: function(id){
+        this.addressFocus(id,false);
+    },
+    addressFocus: function(id,focus){
+        this.resetFocus();
+        var formError = this.state.formError;
+        var ctrl = id == FT.IDTYPE ? formError.idtype :
+                   id == FT.NAME ? formError.name :
+                   id == FT.LIVEADDRESS ? formError.liveaddress :
+                   id == FT.COMMADDRESS ? formError.commaddress :
+                   id == FT.OWNER ? formError.owner :
+                   id == FT.OFFICEPHONENUMBER ? formError.officephonenumber :
+                   id == FT.MOBILE ? formError.mobile : formError.mobile;
+        ctrl.focus = focus;
+        this.setState({
+            formError: formError
+        });
+    },
+    resetFocus: function(){
+        var formError = this.state.formError;
+      for( var prop in formError ){
+            if( formError[prop].hasOwnProperty('focus') ){
+                formError[prop].focus = false;
+            }
+        }
+    },
     validator: function(fieldName,value){
         var formError = this.state.formError;
         formError[fieldName].isBlank = FormValidator.isEmpty(value);
@@ -88,7 +125,7 @@ let CompanyInfo = React.createClass({
                         <span className="red f-fl">*</span><label>主体备案号:</label>
                     </div>
                     <div className="item-ctrl">
-                        <input type="text" name="identity"  onChange={this.handleRecordNumber} value={this.state.companyInfo.recordnumber}/>
+                        <input type="text" name="identity"  onChange={this.handleRecordNumber} value={this.state.companyInfo.recordnumber} onFocus={this.handleFocus}/>
                         <span className={this.state.formError.recordnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体备案</span>
                     </div>
                 </div>
@@ -297,9 +334,10 @@ let CompanyInfo = React.createClass({
         clearInterval(this.interval);
     },
     getIdType: function(){
+        var me = this;
         if( this.state.companyInfo.nature > 0 ){
             return (
-                <select  onChange={this.handleIdType} value={this.state.companyInfo.idtype} >
+                <select  onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
                     <option value ="0">请选择主体单位证件类型</option>
                     <option value ="1">工商执照</option>
                     <option value="2">组织机构代码</option>
@@ -308,7 +346,7 @@ let CompanyInfo = React.createClass({
         }
         else {
             return (
-                <select onChange={this.handleIdType} value={this.state.companyInfo.idtype} disabled="false" className="gray">
+                <select onChange={this.handleIdType} value={this.state.companyInfo.idtype} disabled="false" className="gray" onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
                     <option value ="0">请选择主体单位证件类型</option>
                     <option value ="1">工商执照</option>
                     <option value="2">组织机构代码</option>
@@ -318,164 +356,171 @@ let CompanyInfo = React.createClass({
     },
     render: function () {
 
+        var me = this;
         return (
-        <div className="g-bd">
-            <ReturnWidget/>
-            <ProgressBar step={2} key={1}/>
-            <div className="m-companyinfo">
-                <form className="">
-                    <fieldset>
-                        <div className="m-companyinfo-legend"><span>主体单位信息</span></div>
-                        {this.getRecordNumber()}
-                        <div className="m-companyinfo-item">
-                            <div className="item-label">
-                                <span className="red f-fl">*</span><label>主体单位所属区域:</label>
+            <div className="g-bd">
+                <ReturnWidget/>
+                <ProgressBar step={2} key={1}/>
+                <div className="m-companyinfo">
+                    <form className="">
+                        <fieldset>
+                            <div className="m-companyinfo-legend"><span>主体单位信息</span></div>
+                            {this.getRecordNumber()}
+                            <div className="m-companyinfo-item">
+                                <div className="item-label">
+                                    <span className="red f-fl">*</span><label>主体单位所属区域:</label>
+                                </div>
+                                <CascadeSelect  onChange={this.handleRegion} province={this.state.companyInfo.province} city={this.state.companyInfo.city} area={this.state.companyInfo.area}/>
                             </div>
-                            <CascadeSelect  onChange={this.handleRegion} province={this.state.companyInfo.province} city={this.state.companyInfo.city} area={this.state.companyInfo.area}/>
-                        </div>
-                        <div className="m-companyinfo-item">
-                            <div className="item-label">
-                                <span className="red f-fl">*</span><label>主体单位性质:</label>
+                            <div className="m-companyinfo-item">
+                                <div className="item-label">
+                                    <span className="red f-fl">*</span><label>主体单位性质:</label>
+                                </div>
+                                <div className="item-ctrl">
+                                    <select onChange={this.handleNature} value={this.state.companyInfo.nature}>
+                                        <option value ="0">请选择主体单位的性质</option>
+                                        <option value ="1">军队</option>
+                                        <option value ="2">政府机关</option>
+                                        <option value="3">企事业单位</option>
+                                        <option value="4">企业</option>
+                                        <option value="5">个人</option>
+                                    </select>
+                                    <span className={this.state.formError.nature.isBlank  ? "u-popover" : "u-popover hidden" }>请选择主体单位性质</span>
+                                </div>
                             </div>
-                            <div className="item-ctrl">
-                                <select onChange={this.handleNature} value={this.state.companyInfo.nature}>
-                                    <option value ="0">请选择主体单位的性质</option>
-                                    <option value ="1">军队</option>
-                                    <option value ="2">政府机关</option>
-                                    <option value="3">企事业单位</option>
-                                    <option value="4">企业</option>
-                                    <option value="5">个人</option>
-                                </select>
-                                <span className={this.state.formError.nature.isBlank  ? "u-popover" : "u-popover hidden" }>请选择主体单位性质</span>
+                            <div className="m-companyinfo-item">
+                                <div className="item-label">
+                                    <span className="red f-fl">*</span><label>主体单位证件类型:</label>
+                                </div>
+                                <div className="item-ctrl">
+                                    {this.getIdType()}
+                                    <span className={this.state.formError.idtype.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、企业建议选择工商执照</p><p>2、民办企业建议选择组织机构代码</p></span>
+                                </div>
                             </div>
-                        </div>
-                        <div className="m-companyinfo-item">
-                            <div className="item-label">
-                                <span className="red f-fl">*</span><label>主体单位证件类型:</label>
+                            <div className="m-companyinfo-item">
+                                <div className="item-label">
+                                    <span className="red f-fl">*</span><label>主体单位证件号码:</label>
+                                </div>
+                                <div className="item-ctrl">
+                                    <input type="text" name="identity"  onChange={this.handleIdNumber} value={this.state.companyInfo.idnumber}/>
+                                    <span className={this.state.formError.idnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位号码</span>
+                                </div>
                             </div>
-                            <div className="item-ctrl">
-                                {this.getIdType()}
-                                <span className={this.state.formError.idtype.isBlank ? "u-popover" : "u-popover hidden" }>1、企业建议选择工商执照 2、民办企业建议选择组织机构代码</span>
+                            <div className="m-companyinfo-item">
+                                <div className="item-label">
+                                    <span className="red f-fl">*</span><label>主体单位名称:</label>
+                                </div>
+                                <div className="item-ctrl">
+                                    <input type="text" name="name" onChange={this.handleName} value={this.state.companyInfo.name} onFocus={me.handleFocus.bind(me,FT.NAME)} onBlur={me.handleBlur.bind(me,FT.NAME)}/>
+                                    <span className={this.state.formError.name.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位名称</span>
+                                    <span className={this.state.formError.name.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、必须输入与主体单位证件上一致的名称 </p><p>2、个人用户请填写个人姓名</p></span>
+                                </div>
                             </div>
-                        </div>
-                        <div className="m-companyinfo-item">
-                            <div className="item-label">
-                                <span className="red f-fl">*</span><label>主体单位证件号码:</label>
+                            <div className="m-companyinfo-item">
+                                <div className="item-label">
+                                    <span className="red f-fl">*</span><label>主体单位证件住所:</label>
+                                </div>
+                                <div className="item-ctrl">
+                                    <input type="text" name="address" onChange={this.handleLiveAddress} value={this.state.companyInfo.liveaddress} onFocus={me.handleFocus.bind(me,FT.LIVEADDRESS)} onBlur={me.handleBlur.bind(me,FT.LIVEADDRESS)}/>
+                                    <span className={this.state.formError.liveaddress.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位信所地址</span>
+                                    <span className={this.state.formError.liveaddress.focus ? "u-popover2" : "u-popover2 hidden" }>1、必须输入与主体单位证件上一致的地址 </span>
+                                </div>
                             </div>
-                            <div className="item-ctrl">
-                                <input type="text" name="identity"  onChange={this.handleIdNumber} value={this.state.companyInfo.idnumber}/>
-                                <span className={this.state.formError.idnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位号码</span>
+                            <div className="m-companyinfo-item">
+                                <div className="item-label">
+                                    <span className="red f-fl">*</span><label>主体单位通讯地址:</label>
+                                </div>
+                                <div className="item-ctrl">
+                                    <input type="text" name="commaddress" onChange={this.handleCommAddress} value={this.state.companyInfo.commaddress} onFocus={me.handleFocus.bind(me,FT.COMMADDRESS)} onBlur={me.handleBlur.bind(me,FT.COMMADDRESS)}/>
+                                    <span className={this.state.formError.commaddress.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位通讯地址</span>
+                                    <span className={this.state.formError.commaddress.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、必须输入真实准确的地址，精确到房间号</p><p>2、通信地址不能包含任何符号</p><p>3、通信地址选择的省市区必须与主体单位所属区</p></span>
+                                </div>
                             </div>
-                        </div>
-                        <div className="m-companyinfo-item">
-                            <div className="item-label">
-                                <span className="red f-fl">*</span><label>主体单位名称:</label>
+                            <div className="m-companyinfo-item">
+                                <div className="item-label">
+                                    <span className="red f-fl">*</span><label>投资人或主管单位名称:</label>
+                                </div>
+                                <div className="item-ctrl">
+                                    <input type="text" name="investorname" onChange={this.handleOwner} value={this.state.companyInfo.owner} onFocus={me.handleFocus.bind(me,FT.OWNER)} onBlur={me.handleBlur.bind(me,FT.OWNER)}/>
+                                    <span className={this.state.formError.owner.isBlank ? "u-popover" : "u-popover hidden" }>请输入投资人或主管单位名称</span>
+                                    <span className={this.state.formError.owner.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、单位用户建议填写法人姓名或主办单位全称</p><p>2、个人用户请填写个人姓名</p></span>
+                                </div>
                             </div>
-                            <div className="item-ctrl">
-                                <input type="text" name="name" onChange={this.handleName} value={this.state.companyInfo.name}/>
-                                <span className={this.state.formError.name.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位名称</span>
+                        </fieldset>
+                        <fieldset>
+                            <div className="m-companyinfo-legend"><span>主体单位负责人信息:</span></div>
+                            <div className="m-companyinfo-item">
+                                <div className="item-label">
+                                    <span className="red f-fl">*</span><label>法人姓名:</label>
+                                </div>
+                                <div className="item-ctrl">
+                                    <input type="text" name="lpname" onChange={this.handleManagerName} value={this.state.companyInfo.managername}/>
+                                    <span className={this.state.formError.managername.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位负责人信息</span>
+                                </div>
                             </div>
-                        </div>
-                        <div className="m-companyinfo-item">
-                            <div className="item-label">
-                                <span className="red f-fl">*</span><label>主体单位证件住所:</label>
+                            <div className="m-companyinfo-item">
+                                <div className="item-label">
+                                    <span className="red f-fl">*</span><label>法人证件类型:</label>
+                                </div>
+                                <div className="item-ctrl">
+                                    <select onChange={this.handleManagerIdType} value={this.state.companyInfo.manageridtype}>
+                                        <option value ="0">请选择证件类型</option>
+                                        <option value ="1">身份证</option>
+                                        <option value="2">护照</option>
+                                        <option value="3">军官证</option>
+                                        <option value="4">台胞证</option>
+                                    </select>
+                                    <span className={this.state.formError.manageridtype.isBlank ? "u-popover" : "u-popover hidden" }>请选择法人证件类型</span>
+                                </div>
                             </div>
-                            <div className="item-ctrl">
-                                <input type="text" name="address" onChange={this.handleLiveAddress} value={this.state.companyInfo.liveaddress}/>
-                                <span className={this.state.formError.liveaddress.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位信所地址</span>
+                            <div className="m-companyinfo-item">
+                                <div className="item-label">
+                                    <span className="red f-fl">*</span><label>法人证件号码:</label>
+                                </div>
+                                <div className="item-ctrl">
+                                    <input type="text" name="npidentity" onChange={this.handleManagerIdNumber} value={this.state.companyInfo.manageridnumber}/>
+                                    <span className={this.state.formError.manageridnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入法人证件号码</span>
+                                </div>
                             </div>
-                        </div>
-                        <div className="m-companyinfo-item">
-                            <div className="item-label">
-                                <span className="red f-fl">*</span><label>主体单位通讯地址:</label>
+                            <div className="m-companyinfo-item">
+                                <div className="item-label">
+                                    <span className="red f-fl">*</span><label>办公室电话:</label>
+                                </div>
+                                <div className="item-ctrl">
+                                    <input type="text" name="officerphone" onChange={this.handleOfficePhoneNumber} value={this.state.companyInfo.officephonenumber} onFocus={me.handleFocus.bind(me,FT.OFFICEPHONENUMBER)} onBlur={me.handleBlur.bind(me,FT.OFFICEPHONENUMBER)}/>
+                                    <span className={this.state.formError.officephonenumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入办公室电话</span>
+                                    <span className={this.state.formError.officephonenumber.focus ? "u-popover2" : "u-popover2 hidden" }>1、请确保电话畅通能联系到本人</span>
+                                </div>
                             </div>
-                            <div className="item-ctrl">
-                                <input type="text" name="commaddress" onChange={this.handleCommAddress} value={this.state.companyInfo.commaddress}/>
-                                <span className={this.state.formError.commaddress.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位通讯地址</span>
+                            <div className="m-companyinfo-item">
+                                <div className="item-label">
+                                    <span className="red f-fl">*</span><label>手机号码:</label>
+                                </div>
+                                <div className="item-ctrl">
+                                    <input type="text" name="mobilephone"onChange={this.handleMobile} value={this.state.companyInfo.mobile} onFocus={me.handleFocus.bind(me,FT.MOBILE)} onBlur={me.handleBlur.bind(me,FT.MOBILE)}/>
+                                    <span className={this.state.formError.mobile.isBlank ? "u-popover" : "u-popover hidden" }>请输入手机号码</span>
+                                    <span className={this.state.formError.mobile.focus ? "u-popover2" : "u-popover2 hidden" }>1、请确保电话畅通能联系到本人</span>
+                                </div>
                             </div>
-                        </div>
-                        <div className="m-companyinfo-item">
-                            <div className="item-label">
-                                <span className="red f-fl">*</span><label>投资人或主管单位名称:</label>
+                            <div className="m-companyinfo-item">
+                                <div className="item-label">
+                                    <span className="red f-fl">*</span><label>电子邮箱:</label>
+                                </div>
+                                <div className="item-ctrl">
+                                    <input type="text" name="email" onChange={this.handleEmail} value={this.state.companyInfo.email}/>
+                                    <span className={this.state.formError.email.isBlank > 0 ? "u-popover" : "u-popover hidden" }>请输入电子邮箱</span>
+                                </div>
                             </div>
-                            <div className="item-ctrl">
-                                <input type="text" name="investorname" onChange={this.handleOwner} value={this.state.companyInfo.owner}/>
-                                <span className={this.state.formError.owner.isBlank ? "u-popover" : "u-popover hidden" }>请输入投资人或主管单位名称</span>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <div className="m-companyinfo-legend"><span>主体单位负责人信息:</span></div>
-                        <div className="m-companyinfo-item">
-                            <div className="item-label">
-                                <span className="red f-fl">*</span><label>法人姓名:</label>
-                            </div>
-                            <div className="item-ctrl">
-                                <input type="text" name="lpname" onChange={this.handleManagerName} value={this.state.companyInfo.managername}/>
-                                <span className={this.state.formError.managername.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位负责人信息</span>
-                            </div>
-                        </div>
-                        <div className="m-companyinfo-item">
-                            <div className="item-label">
-                                <span className="red f-fl">*</span><label>法人证件类型:</label>
-                            </div>
-                            <div className="item-ctrl">
-                                <select onChange={this.handleManagerIdType} value={this.state.companyInfo.manageridtype}>
-                                    <option value ="0">请选择证件类型</option>
-                                    <option value ="1">身份证</option>
-                                    <option value="2">护照</option>
-                                    <option value="3">军官证</option>
-                                    <option value="4">台胞证</option>
-                                </select>
-                                <span className={this.state.formError.manageridtype.isBlank ? "u-popover" : "u-popover hidden" }>请选择法人证件类型</span>
-                            </div>
-                        </div>
-                        <div className="m-companyinfo-item">
-                            <div className="item-label">
-                                <span className="red f-fl">*</span><label>法人证件号码:</label>
-                            </div>
-                            <div className="item-ctrl">
-                                <input type="text" name="npidentity" onChange={this.handleManagerIdNumber} value={this.state.companyInfo.manageridnumber}/>
-                                <span className={this.state.formError.manageridnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入法人证件号码</span>
-                            </div>
-                        </div>
-                        <div className="m-companyinfo-item">
-                            <div className="item-label">
-                                <span className="red f-fl">*</span><label>办公室电话:</label>
-                            </div>
-                            <div className="item-ctrl">
-                                <input type="text" name="officerphone" onChange={this.handleOfficePhoneNumber} value={this.state.companyInfo.officephonenumber}/>
-                                <span className={this.state.formError.officephonenumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入办公室电话</span>
-                            </div>
-                        </div>
-                        <div className="m-companyinfo-item">
-                            <div className="item-label">
-                                <span className="red f-fl">*</span><label>手机号码:</label>
-                            </div>
-                            <div className="item-ctrl">
-                                <input type="text" name="mobilephone"onChange={this.handleMobile} value={this.state.companyInfo.mobile}/>
-                                <span className={this.state.formError.mobile.isBlank ? "u-popover" : "u-popover hidden" }>请输入手机号码</span>
-                            </div>
-                        </div>
-                        <div className="m-companyinfo-item">
-                            <div className="item-label">
-                                <span className="red f-fl">*</span><label>电子邮箱:</label>
-                            </div>
-                            <div className="item-ctrl">
-                                <input type="text" name="email" onChange={this.handleEmail} value={this.state.companyInfo.email}/>
-                                <span className={this.state.formError.email.isBlank > 0 ? "u-popover" : "u-popover hidden" }>请输入电子邮箱</span>
-                            </div>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
+                        </fieldset>
+                    </form>
+                </div>
 
-            <div className="w-btn">
-                <button className="u-return" type="button" onClick={this.onReturn}> 返回修改 </button>
-                <button className="u-main" type="button"  onClick={this.handleSubmit}>填写网站信息</button>
-                <button className="u-draft" type="button"  onClick={this.onSave}>保存草稿</button>
+                <div className="w-btn">
+                    <button className="u-return" type="button" onClick={this.onReturn}> 返回修改 </button>
+                    <button className="u-main" type="button"  onClick={this.handleSubmit}>填写网站信息</button>
+                    <button className="u-draft" type="button"  onClick={this.onSave}>保存草稿</button>
+                </div>
             </div>
-        </div>
         );
     }
 });

@@ -166,7 +166,6 @@ let UploadPhoto = React.createClass({
                 <div className="w-btn">
                     <button className="u-main" type="button" onClick={this.handleSubmit}> 提交审核 </button>
                 </div>
-
                 {curtain}
             </div>
         );

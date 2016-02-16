@@ -81,10 +81,6 @@ export default{
         {
             path:'/modify',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/BaseInfo'));
                 });
@@ -93,10 +89,6 @@ export default{
         {
             path:'/detail',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/CompanyInfo'));
                 });
@@ -177,10 +169,7 @@ export default{
         {
             path:'/delete',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
+
                 require.ensure([],(require) => {
                     //ToDo ,execute delete operation
                     //cb(null,require('./forms/CompanyInfo'));
@@ -190,10 +179,6 @@ export default{
         {
             path:'/fillcompanyinfo',
                 getComponent: (location,cb) => {
-                    var a = Global.get('global');
-                    if (a.hasOwnProperty('companyinfo') ){
-                        __globals__ = a;
-                    }
                     require.ensure([],(require) => {
                         cb(null,require('./forms/CompanyInfo'));
                 });
@@ -202,10 +187,6 @@ export default{
         {
             path:'/savetodraft',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/CompanyInfo'));
                 });
@@ -214,10 +195,6 @@ export default{
         {
             path:'/returntobase',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/BaseInfo'));
                 });
@@ -226,10 +203,6 @@ export default{
         {
             path:'/fillsiteinfo',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/SiteInfo'));
                 });
@@ -238,10 +211,6 @@ export default{
         {
             path:'/uploadmaterial',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/UploadMaterial.jsx'));
                 });
@@ -250,10 +219,6 @@ export default{
         {
             path:'/submittrialsuccess',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/SubmitTrialSuccess'));
                 });
@@ -262,10 +227,6 @@ export default{
         {
             path:'/submitchecksuccess',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/SubmitCheckSuccess'));
                 });
@@ -286,10 +247,6 @@ export default{
         {
             path:'/recordlist',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/RecordList.jsx'));
                 });
@@ -298,16 +255,10 @@ export default{
         {
             path:'/uploadphoto',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/UploadPhoto.jsx'));
                 });
             }
         }
-
-
     ]
 }

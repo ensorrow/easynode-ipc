@@ -17,7 +17,6 @@ $u-popover_padding_left = 20px;
     background-color: #fff;
     padding: 0 10px;
     line-height: 30px;
-    height: 30px;
     display: inline-block;
     color: #fc7272;
     white-space: nowrap;
@@ -54,6 +53,47 @@ $u-popover_padding_left = 20px;
     border-top: 4px solid transparent;
     border-bottom: 4px solid transparent;
     border-right: 4px solid #fc7272;
+}
+
+.u-popover2 {
+    background-color: #fff;
+    padding: 0 10px;
+    line-height: 30px;
+    display: inline-block;
+    white-space: nowrap;
+    position: absolute;
+    z-index: 1;
+    border: 1px solid #8272FC;
+    border-radius: 2px;
+    font-size: 12px;
+    left: 100%;
+    margin-left: 10px;
+    top: 0px;
+}
+
+.u-popover2:before {
+    position: absolute;
+    top: 7px;
+    left: -3px;
+    z-index: 1;
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-right: 4px solid #fff;
+}
+
+.u-popover2:after {
+    position: absolute;
+    top: 7px;
+    left: -5px;
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-right: 4px solid #8272FC;
 }
 
 .hidden{
