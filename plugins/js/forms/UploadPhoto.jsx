@@ -92,11 +92,35 @@ let UploadPhoto = React.createClass({
             processing: false
         });
     },
+    onHidden: function(){
+        this.setState({showApplyCurt:false});
+    },
+    handleModify: function(){
+        this.setState({showApplyCurt:true});
+    },
     render: function () {
         var curtain = '';
+        var applyAddr = '';
+        var address = __globals__.record.mailingaddress || '';
         if( this.state.showApplyCurt ){
-            curtain = <ApplyCurtain/>
+            curtain = <ApplyCurtain onHidden={this.onHidden}/>
         }
+
+        applyAddr = address.trim().length <= 0  ?
+            <div className="m-uploadphoto-ctrl-button">
+                <input type="button" value="申请幕布" onClick={this.handleApplyCurtain}/>
+            </div>
+            :
+            <div className="m-uploadphoto-ctrl-button">
+                <div className="m-recipientinfo-label">
+                    <label>收件信息:</label>
+                </div>
+                <div className="m-recipientinfo-item">
+                    <span> {__globals__.record.mailingaddress} {__globals__.record.companyname} {__globals__.record.recipient} {__globals__.record.recipientmobile}</span> <input type="button" value="修改" onClick={this.handleModify}></input>
+                </div>
+            </div>
+        ;
+
         return (
             <div>
                 <ReturnWidget/>
@@ -109,9 +133,7 @@ let UploadPhoto = React.createClass({
                             <div className="m-uploadphoto-legend"><span>我没有幕布</span></div>
                             <div className="m-uploadphoto-item-1">
                                 <div className="m-uploadphoto-ctrl">
-                                    <div className="m-uploadphoto-ctrl-button">
-                                        <input type="button" value="申请幕布" onClick={this.handleApplyCurtain}/>
-                                    </div>
+                                    {applyAddr}
                                 </div>
                             </div>
                         </fieldset>

@@ -277,7 +277,7 @@ var utils = require('utility');
                     var id = this.parameter.param('id') || 0;
                     conn = yield  me.app.ds.getConnection();
 
-                    sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons FROM record WHERE id = #id#`;
+                    sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons,mailingaddress,recipient,recipientmobile,companyname FROM record WHERE id = #id#`;
                     arr =  yield conn.execQuery(sql,{ id:id });
                     if( arr.length <= 0 )
                         return ret;
@@ -323,16 +323,36 @@ var utils = require('utility');
                 var reasons = form.reasons;
                 var id = form.id;
                 var curtainurl = form.curtainurl;
+                var mailingaddress = form.mailingaddress;
+                var recipient = form.recipient;
+                var recipientmobile = form.recipientmobile;
+                var companyname = form.companyname;
 
                 try{
                     conn = yield me.app.ds.getConnection();
-                    model.merge( Object.assign({}, { status: status, id: id } ));
+                    model.merge( Object.assign({}, { id: id } ));
+                    if( status ){
+                        model.merge( Object.assign({}, { status: status } ));
+                    }
                     if( reasons ){
                         model.merge( Object.assign({}, { reasons: reasons } ));
                     }
                     if( curtainurl ){
                         model.merge( Object.assign({}, { curtainurl: curtainurl } ));
                     }
+                    if( mailingaddress ){
+                        model.merge( Object.assign({}, { mailingaddress: mailingaddress } ));
+                    }
+                    if( recipient ){
+                        model.merge( Object.assign({}, { recipient: recipient } ));
+                    }
+                    if( recipientmobile ){
+                        model.merge( Object.assign({}, { recipientmobile: recipientmobile } ));
+                    }
+                    if( companyname ){
+                        model.merge( Object.assign({}, { companyname: companyname } ));
+                    }
+
                     r = yield conn.update(model);
                     return true;
                 }catch(e){

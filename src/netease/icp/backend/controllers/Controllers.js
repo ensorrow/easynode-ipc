@@ -221,7 +221,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiName getRecord
          * @apiGroup Record
          * @apiPermission admin or self
-         * @apiVersion 0.0.1
+         * @apiVersion 0.0.2
          * @apiDescription 管理员(登录后用户对象里用idadmin字段表示)能获取所有用户申请记录详情,本用户只能获取他自己的申请记录详情
          *
          * @apiParam {Number} id 记录id.
@@ -243,6 +243,11 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} record.code 备案号
          * @apiSuccess {Number} record.status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-未知状态\n
          * @apiSuccess {String} record.tenantid 租户ID
+         * @apiSuccess {String} record.curtainurl 帘布照片URL
+         * @apiSuccess {String} record.mailingaddress 幕布邮寄地址
+         * @apiSuccess {String} record.recipient 收件人
+         * @apiSuccess {String} record.recipientmobile 收件人手机号
+         * @apiSuccess {String} record.companyname 公司名称
          * @apiSuccess {Number} record.updatetime 记录更新时间
          * @apiSuccess {Number} record.createtime 记录创建时间
          *
@@ -331,13 +336,17 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiName putRecord
          * @apiGroup Record
          * @apiPermission admin or self
-         * @apiVersion 0.0.1
+         * @apiVersion 0.0.2
          * @apiDescription 管理员(登录后用户对象里用idadmin字段表示)审核记录
          *
          * @apiParam {Number} id 记录ID
          * @apiParam {Number} status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-未知状态\n
          * @apiParam {String} reasons 通过则为备注,拒绝则为理由(多条用p标签分隔)
          * @apiParam [{String}] curtainurl 帘布照片URL
+         * @apiParam [{String}] mailingaddress 幕布邮寄地址
+         * @apiParam [{String}] recipient 收件人
+         * @apiParam [{String}] recipientmobile 收件人手机号
+         * @apiParam [{String}] companyname 公司名称
          *
          * @apiSuccess {Number} ret true:成功,false:失败
          */
