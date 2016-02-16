@@ -20,6 +20,7 @@ import CascadeSelect from '../widgets/CascadeSelect2.jsx';
 import Global from '../utils/globals';
 import DataService from '../services/DataService.js';
 import reqwest from 'reqwest';
+import FormValidator from '../utils/FormValidator';
 
 
 let ApplyCurtain = React.createClass({
@@ -29,23 +30,81 @@ let ApplyCurtain = React.createClass({
     },
     getInitialState: function() {
         return {
-            province:'',city:'',area:'',mailingaddress:'',recipient:'',recipientmobile:'',companyname:''};
+            processing : false,
+            province:'',city:'',area:'',
+            contactinfo: {
+                mailingaddress: '',
+                recipient: '',
+                recipientmobile: '',
+                companyname: ''
+            },
+            formError: {
+                mailingaddress: {isBlank: false},
+                recipient: {isBlank: false},
+                recipientmobile: {isBlank: false},
+                companyname: {isBlank: false,checked:true}
+            }
+        };
     },
     componentDidMount: function(){
         if( __globals__.record != undefined ) {
-            this.setState( __globals__.record );
+            var contactinfo = {};
+            contactinfo.mailingaddress = __globals__.record.mailingaddress;
+            contactinfo.recipient = __globals__.record.recipient;
+            contactinfo.recipientmobile = __globals__.record.recipientmobile;
+            contactinfo.companyname = __globals__.record.companyname;
+            this.setState( { contactinfo: contactinfo } );
         }
     },
-    handleSubmit: function(){
+    validator: function(fieldName,value){
+        var formError = this.state.formError;
+        formError[fieldName].isBlank = FormValidator.isEmpty(value);
+        if( fieldName == 'id' ){
+            formError[fieldName].isBlank = false;
+        }
+        return formError;
+    },
+    handleSubmit: function(e){
+        e.preventDefault();
+        if( this.state.processing ){
+            return;
+        }
+        var contactinfo = this.state.contactinfo;
+        var formError;
+        for( var field in contactinfo ){
+            if( contactinfo.hasOwnProperty(field) ){
+                formError = this.validator(field, contactinfo[field]);
+            }
+        }
+        this.setState({
+            formError: formError
+        });
 
+        var hasError = FormValidator.check(formError);
+
+        console.log(hasError);
+
+        if( hasError ){
+            this.setState({
+                processing: false
+            });
+            return ;
+        }
+
+        this.setState({
+            processing: true
+        });
+
+        ///
         var data = {
             id:__globals__.record.id,
-            mailingaddress: this.state.mailingaddress,
-            recipient: this.state.recipient,
-            recipientmobile: this.state.recipientmobile,
-            companyname: this.state.companyname
+            mailingaddress: this.state.contactinfo.mailingaddress,
+            recipient: this.state.contactinfo.recipient,
+            recipientmobile: this.state.contactinfo.recipientmobile,
+            companyname: this.state.contactinfo.companyname
         };
 
+        var me = this;
         //commit
         reqwest({
             url: '/record',
@@ -57,15 +116,19 @@ let ApplyCurtain = React.createClass({
                 //{ true|false }
                 console.log(resp);
 
-                var onHidden = this.props.onHidden;
+                var onHidden = me.props.onHidden;
                 onHidden && onHidden();
+
+                location.href = "#/submitchecksuccess";
             },
             error: function(err){
                 //TODO
             }
         });
 
-        location.href = "#/submitchecksuccess";
+        this.setState({
+            processing: false
+        });
     },
     handleCancel: function(){
         var onHidden = this.props.onHidden;
@@ -74,23 +137,27 @@ let ApplyCurtain = React.createClass({
     },
     handleMailingAddress: function(e){
         e.preventDefault();
-        var val = e.target.value;
-        this.setState({mailingaddress: val});
+        var contactinfo = this.state.contactinfo;
+        contactinfo.mailingaddress = e.target.value;
+        this.setState({contactinfo: contactinfo});
     },
     handleRecipient: function(e){
         e.preventDefault();
-        var val = e.target.value;
-        this.setState({recipient: val});
+        var contactinfo = this.state.contactinfo;
+        contactinfo.recipient = e.target.value;
+        this.setState({contactinfo: contactinfo});
     },
     handleRecipientMobile: function(e){
         e.preventDefault();
-        var val = e.target.value;
-        this.setState({recipientmobile: val});
+        var contactinfo = this.state.contactinfo;
+        contactinfo.recipientmobile = e.target.value;
+        this.setState({contactinfo: contactinfo});
     },
     handleCompanyName: function(e){
         e.preventDefault();
-        var val = e.target.value;
-        this.setState({companyname: val});
+        var contactinfo = this.state.contactinfo;
+        contactinfo.companyname = e.target.value;
+        this.setState({contactinfo: contactinfo});
     },
     handleAgreement: function(e){
 
@@ -111,7 +178,7 @@ let ApplyCurtain = React.createClass({
                             <span>*</span> <label>幕布邮寄地址:</label>
                         </div>
                         <div className="m-applycurtain-item-ctrl">
-                            <input type="text" name="identity" placeholder="详细地址" onChange={this.handleMailingAddress} value={this.state.mailingaddress}/>
+                            <input type="text" name="identity" placeholder="详细地址" onChange={this.handleMailingAddress} value={this.state.contactinfo.mailingaddress}/>
                         </div>
                     </div>
                     <div className="m-applycurtain-item">
@@ -119,7 +186,7 @@ let ApplyCurtain = React.createClass({
                             <span>*</span> <label>收件人姓名:</label>
                         </div>
                         <div className="m-applycurtain-item-ctrl">
-                            <input type="text"  name="identity"  onChange={this.handleRecipient} value={this.state.recipient}/>
+                            <input type="text"  name="identity"  onChange={this.handleRecipient} value={this.state.contactinfo.recipient}/>
                         </div>
                     </div>
                     <div className="m-applycurtain-item">
@@ -127,7 +194,7 @@ let ApplyCurtain = React.createClass({
                             <span>*</span> <label>收件人手机号:</label>
                         </div>
                         <div className="m-applycurtain-item-ctrl">
-                            <input type="text" name="identity" onChange={this.handleRecipientMobile} value={this.state.recipientmobile}/>
+                            <input type="text" name="identity" onChange={this.handleRecipientMobile} value={this.state.contactinfo.recipientmobile}/>
                         </div>
                     </div>
                     <div className="m-applycurtain-item">
@@ -135,7 +202,7 @@ let ApplyCurtain = React.createClass({
                             <label>公司名称:</label>
                         </div>
                         <div className="m-applycurtain-item-ctrl">
-                            <input type="text" name="identity" onChange={this.handleCompanyName} value={this.state.companyname}/>
+                            <input type="text" name="identity" onChange={this.handleCompanyName} value={this.state.contactinfo.companyname}/>
                         </div>
                     </div>
                     <div className="m-applycurtain-item">

@@ -255,6 +255,10 @@ export default{
         {
             path:'/uploadphoto',
             getComponent: (location,cb) => {
+                var a = Global.get('global');
+                if (a.hasOwnProperty('companyinfo') ){
+                    __globals__ = a;
+                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/UploadPhoto.jsx'));
                 });
