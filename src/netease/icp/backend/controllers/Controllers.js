@@ -369,7 +369,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiName getRecords
          * @apiGroup Record
          * @apiPermission admin or self
-         * @apiVersion 0.0.1
+         * @apiVersion 0.0.2
          * @apiDescription 管理员(登录后用户对象里用idadmin字段表示)能获取所有用户申请记录,本用户只能获取他自己的申请记录
          *
          * @apiParam {Number} filter 查询状态过滤条件 0-全部(除草稿) 1-待审核  2-已审核通过 3-审核失败的
