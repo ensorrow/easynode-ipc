@@ -52,10 +52,15 @@ import bodyParse from 'koa-body';
             httpServer.addRoute('post','/upl',Controllers.upload(httpServer));
             httpServer.addRoute('post','/records',Controllers.createRecord(httpServer));
             httpServer.addRoute('post','/savedraft',Controllers.savedraft(httpServer));
-            httpServer.addRoute('get','/records',Controllers.getRecords(httpServer));
             httpServer.addRoute('post','/delrecord',Controllers.deleteRecord(httpServer));
+            httpServer.addRoute('get','/records',Controllers.getRecords(httpServer));
             httpServer.addRoute('get','/record',Controllers.getRecord(httpServer));
             httpServer.addRoute('put','/record',Controllers.putRecord(httpServer));
+
+            //to op(whitelist)
+            httpServer.addRoute('get','/recordsb',Controllers.getRecordsb(httpServer));
+            httpServer.addRoute('get','/recordb',Controllers.getRecordb(httpServer));
+            httpServer.addRoute('put','/recordb',Controllers.putRecordb(httpServer));
         }
 
         getClassName()

@@ -257,6 +257,49 @@ var utils = require('utility');
             }
         }
 
+        getRecordsb(){
+            var me = this;
+            return function *(){
+
+                var conn = null;
+                var filter = parseInt(this.parameter.param('filter'));
+                var page = parseInt(this.parameter.param('page'));
+                var rpp = parseInt(this.parameter.param('rpp'));
+                var ret = { rows:0, pages:0, page:0, rpp:0, data:[] };
+
+                console.log( this.parameter );
+                console.log( this.body );
+                console.log( this.query );
+
+                console.log("filter", filter);
+                console.log("page", page);
+                console.log("rpp", rpp);
+
+                try{
+                    var model = new Record().merge( { } );
+
+                    conn = yield  me.app.ds.getConnection();
+
+                    const FILTER_CONDITION_ALL = 0;
+                    const FILTER_CONDITION_WAITED = 1;
+                    const FILTER_CONDITION_PASSED = 2;
+                    const FILTER_CONDITION_NOPASS = 3;
+                    if( filter ==  FILTER_CONDITION_ALL )
+                        return yield conn.list(model,{ status: { exp:'<>',value:0 } },{ page: page,rpp: rpp });
+                    if( filter ==  FILTER_CONDITION_WAITED )
+                        return yield conn.list(model,{ status: { exp:'in',value:[1,4,7] } },{ page: page,rpp: rpp });
+                    if( filter ==  FILTER_CONDITION_PASSED )
+                        return yield conn.list(model,{ status: { exp:'in',value:[3,6,9] } },{ page: page,rpp: rpp });
+                    if( filter ==  FILTER_CONDITION_NOPASS )
+                        return yield conn.list(model,{ status: { exp:'in',value:[2,5,8] } },{ page: page,rpp: rpp });
+                } catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
+                    return ret;
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
 
         getRecord(){
             var me = this;
@@ -311,6 +354,8 @@ var utils = require('utility');
                 }
             }
         }
+
+
 
         putRecord(){
             var me = this;
