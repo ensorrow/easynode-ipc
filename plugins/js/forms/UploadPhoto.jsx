@@ -33,6 +33,7 @@ let UploadPhoto = React.createClass({
     },
     onChange: function(ee){
         var file = ee.target.files[0];
+        console.log(ee);
         upload({
             url: '/upl',
             name: file.name||'temp123',
