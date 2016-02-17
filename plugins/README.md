@@ -373,3 +373,8 @@ reqwest({
     method: 'delete',
     data: {id:this.props.record.id},
     type:'json'
+
+59. validator , 对长度,内容,失焦和提交时做校验, validator.js前端,后端用koa-validate
+
+60. whitelist
+

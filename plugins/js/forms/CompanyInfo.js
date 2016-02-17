@@ -21,6 +21,8 @@ import FormValidator from '../utils/FormValidator';
 
 import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
+import validator from 'validator';
+
 
 const FT = {
     "IDTYPE": 0,
@@ -29,7 +31,8 @@ const FT = {
     "COMMADDRESS":3,
     "OWNER":4,
     "OFFICEPHONENUMBER":5,
-    "MOBILE":6
+    "MOBILE":6,
+    "EMAIL": 7
 };
 
 let CompanyInfo = React.createClass({
@@ -43,18 +46,38 @@ let CompanyInfo = React.createClass({
                 area: {isBlank: false,checked:true},
                 nature: {isBlank: false},
                 idtype: {isBlank: false,focus: false},
-                idnumber: {isBlank: false},
-                name: {isBlank: false,focus: false},
-                liveaddress:  {isBlank: false,focus: false},
-                commaddress: {isBlank: false,focus: false},
-                owner: {isBlank: false,focus: false},
-                managername: {isBlank: false},
+                idnumber: {isBlank: false,regularFail: false, match: function(str){
+                    return true;
+                }},
+                name: {isBlank: false,focus: false,regularFail: false, match: function(str){
+                       return /^[\u4e00-\u9fa5]$/.test(str);
+                }},
+                liveaddress:  {isBlank: false,focus: false,regularFail: false, match: function(str){
+                    return true;
+                }},
+                commaddress: {isBlank: false,focus: false,regularFail: false, match: function(str){
+                    return true;
+                }},
+                owner: {isBlank: false,focus: false,regularFail: false, match: function(str){
+                    return true;
+                }},
+                managername: {isBlank: false,regularFail: false, match: function(str){
+                    return true;
+                }},
                 manageridtype:  {isBlank: false},
-                manageridnumber: {isBlank: false},
+                manageridnumber: {isBlank: false,regularFail: false, match: function(str){
+                    return true;
+                }},
                 officephoneregion: {isBlank: false,checked:true},
-                officephonenumber: {isBlank: false,focus: false},
-                mobile: {isBlank: false,focus: false},
-                email: {isBlank: false},
+                officephonenumber: {isBlank: false,focus: false,regularFail: false, match: function(str){
+                    return /\d{8}|\d{7}/.test(str);
+                }},
+                mobile: {isBlank: false,focus: false,regularFail: false, match: function(str){
+                    return validator.isMobilePhone(str,"zh-CN");
+                }},
+                email: {isBlank: false,regularFail: false, match: function(str){
+                    return validator.isEmail(str);
+                }},
                 recordnumber: {isBlank: false}
             },
             companyInfo: {
@@ -88,14 +111,31 @@ let CompanyInfo = React.createClass({
     addressFocus: function(id,focus){
         this.resetFocus();
         var formError = this.state.formError;
+        var companyInfo = this.state.companyInfo;
         var ctrl = id == FT.IDTYPE ? formError.idtype :
                    id == FT.NAME ? formError.name :
                    id == FT.LIVEADDRESS ? formError.liveaddress :
                    id == FT.COMMADDRESS ? formError.commaddress :
                    id == FT.OWNER ? formError.owner :
                    id == FT.OFFICEPHONENUMBER ? formError.officephonenumber :
-                   id == FT.MOBILE ? formError.mobile : formError.mobile;
+                   id == FT.MOBILE ? formError.mobile :
+                   id == FT.EMAIL ? formError.email : formError.email;
+        var val =  id == FT.IDTYPE ? companyInfo.idtype :
+                   id == FT.NAME ? companyInfo.name :
+                   id == FT.LIVEADDRESS ? companyInfo.liveaddress :
+                   id == FT.COMMADDRESS ? companyInfo.commaddress :
+                   id == FT.OWNER ? companyInfo.owner :
+                   id == FT.OFFICEPHONENUMBER ? companyInfo.officephonenumber :
+                   id == FT.MOBILE ? companyInfo.mobile :
+                   id == FT.EMAIL ? companyInfo.email : companyInfo.email;
+
         ctrl.focus = focus;
+        if( ctrl.hasOwnProperty("regularFail") && val.length > 0 ){
+            ctrl.regularFail = FormValidator.regular(val, ctrl.match);
+            if( ctrl.focus == true ){
+                ctrl.regularFail = false;
+            }
+        }
         this.setState({
             formError: formError
         });
@@ -111,6 +151,9 @@ let CompanyInfo = React.createClass({
     validator: function(fieldName,value){
         var formError = this.state.formError;
         formError[fieldName].isBlank = FormValidator.isEmpty(value);
+        formError[fieldName].regularFail = FormValidator.regular(value, formError[fieldName].match);
+        console.log("fieldName",fieldName);
+        console.log("regularFail",formError[fieldName].regularFail);
         if( fieldName == 'id' ){
             formError[fieldName].isBlank = false;
         }
@@ -134,12 +177,7 @@ let CompanyInfo = React.createClass({
             this.state.formError.recordnumber.checked = true;
         }
     },
-    handleSubmit: function(e){
-        e.preventDefault();
-        if( this.state.processing ){
-            return;
-        }
-        console.log(this.state);
+    checkForm: function(){
         var companyInfo = this.state.companyInfo;
         var formError;
         for( var field in companyInfo ){
@@ -151,7 +189,15 @@ let CompanyInfo = React.createClass({
             formError: formError
         });
 
-        var hasError = FormValidator.check(formError);
+        return FormValidator.check(formError);
+    },
+    handleSubmit: function(e){
+        e.preventDefault();
+        if( this.state.processing ){
+            return;
+        }
+
+        var hasError = this.checkForm();
 
         console.log(hasError);
 
@@ -414,6 +460,7 @@ let CompanyInfo = React.createClass({
                                     <input type="text" name="name" onChange={this.handleName} value={this.state.companyInfo.name} onFocus={me.handleFocus.bind(me,FT.NAME)} onBlur={me.handleBlur.bind(me,FT.NAME)}/>
                                     <span className={this.state.formError.name.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位名称</span>
                                     <span className={this.state.formError.name.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、必须输入与主体单位证件上一致的名称 </p><p>2、个人用户请填写个人姓名</p></span>
+                                    <span className={this.state.formError.name.regularFail ? "u-popover" : "u-popover hidden" }>请正确输入单位名称</span>
                                 </div>
                             </div>
                             <div className="m-companyinfo-item">
@@ -490,6 +537,7 @@ let CompanyInfo = React.createClass({
                                     <input type="text" name="officerphone" onChange={this.handleOfficePhoneNumber} value={this.state.companyInfo.officephonenumber} onFocus={me.handleFocus.bind(me,FT.OFFICEPHONENUMBER)} onBlur={me.handleBlur.bind(me,FT.OFFICEPHONENUMBER)}/>
                                     <span className={this.state.formError.officephonenumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入办公室电话</span>
                                     <span className={this.state.formError.officephonenumber.focus ? "u-popover2" : "u-popover2 hidden" }>1、请确保电话畅通能联系到本人</span>
+                                    <span className={this.state.formError.officephonenumber.regularFail ? "u-popover" : "u-popover hidden" }>请输入正确的办公室电话</span>
                                 </div>
                             </div>
                             <div className="m-companyinfo-item">
@@ -500,6 +548,7 @@ let CompanyInfo = React.createClass({
                                     <input type="text" name="mobilephone"onChange={this.handleMobile} value={this.state.companyInfo.mobile} onFocus={me.handleFocus.bind(me,FT.MOBILE)} onBlur={me.handleBlur.bind(me,FT.MOBILE)}/>
                                     <span className={this.state.formError.mobile.isBlank ? "u-popover" : "u-popover hidden" }>请输入手机号码</span>
                                     <span className={this.state.formError.mobile.focus ? "u-popover2" : "u-popover2 hidden" }>1、请确保电话畅通能联系到本人</span>
+                                    <span className={this.state.formError.mobile.regularFail ? "u-popover" : "u-popover hidden" }>请输入正确的手机号码</span>
                                 </div>
                             </div>
                             <div className="m-companyinfo-item">
@@ -507,8 +556,9 @@ let CompanyInfo = React.createClass({
                                     <span className="red f-fl">*</span><label>电子邮箱:</label>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="email" onChange={this.handleEmail} value={this.state.companyInfo.email}/>
+                                    <input type="text" name="email" onChange={this.handleEmail} value={this.state.companyInfo.email} onFocus={me.handleFocus.bind(me,FT.EMAIL)} onBlur={me.handleBlur.bind(me,FT.EMAIL)}/>
                                     <span className={this.state.formError.email.isBlank > 0 ? "u-popover" : "u-popover hidden" }>请输入电子邮箱</span>
+                                    <span className={this.state.formError.email.regularFail > 0 ? "u-popover" : "u-popover hidden" }>请输入正确电子邮箱</span>
                                 </div>
                             </div>
                         </fieldset>

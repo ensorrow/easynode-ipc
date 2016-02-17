@@ -6,6 +6,9 @@ module.exports ={
             return value > 0 ? false :  true;
         }
     },
+    regular: function(val,regular){
+          return typeof regular != 'function' ? false: !regular(val);
+    },
     check: function(o){
         var hasError = false;
         var err = 0;

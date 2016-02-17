@@ -57,7 +57,8 @@
     "underscore": "~1.8.3",
     "utility": "^1.6.0",
     "watch-xdelta": "^1.8.1",
-    "reqwest": "^2.0.5"
+    "reqwest": "^2.0.5",
+    "validator": "4.8.0"
   },
   "author": "allen.hu",
   "license": "ISC",
