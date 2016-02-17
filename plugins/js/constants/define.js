@@ -14,7 +14,10 @@ export const RecordCheckStatus = {
     "RS_PHOTO_PASS":6,
     "RS_COUNCIL_CHECKING":7,
     "RS_COUNCIL_NOPASS":8,
-    "RS_COUNCIL_PASS":9
+    "RS_COUNCIL_PASS":9,
+    "RS_CURTAIN_CHECKING":10,
+    "RS_CURTAIN_NOPASS":11,
+    "RS_CURTAIN_PASS":12
 }
 
 module.exports = {

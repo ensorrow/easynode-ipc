@@ -90,7 +90,7 @@ $m-applycurtain_ctrl__onethird_width = 120px;
 				height: 32px;
 				margin-bottom: 10px;
 			}
-    	    > input[type="text"]{
+    	    > input[type="text"],input[type="number"]{
     	        margin-left: 5px;
     	        width: 375px;
     	        height: 30px;

@@ -142,7 +142,7 @@ let CompanyInfo = React.createClass({
     },
     resetFocus: function(){
         var formError = this.state.formError;
-      for( var prop in formError ){
+        for( var prop in formError ){
             if( formError[prop].hasOwnProperty('focus') ){
                 formError[prop].focus = false;
             }
@@ -152,8 +152,6 @@ let CompanyInfo = React.createClass({
         var formError = this.state.formError;
         formError[fieldName].isBlank = FormValidator.isEmpty(value);
         formError[fieldName].regularFail = FormValidator.regular(value, formError[fieldName].match);
-        console.log("fieldName",fieldName);
-        console.log("regularFail",formError[fieldName].regularFail);
         if( fieldName == 'id' ){
             formError[fieldName].isBlank = false;
         }
@@ -448,7 +446,7 @@ let CompanyInfo = React.createClass({
                                     <span className="red f-fl">*</span><label>主体单位证件号码:</label>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="identity"  onChange={this.handleIdNumber} value={this.state.companyInfo.idnumber}/>
+                                    <input type="text" name="identity"  onChange={this.handleIdNumber} value={this.state.companyInfo.idnumber} maxLength="30"/>
                                     <span className={this.state.formError.idnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位号码</span>
                                 </div>
                             </div>
@@ -457,7 +455,7 @@ let CompanyInfo = React.createClass({
                                     <span className="red f-fl">*</span><label>主体单位名称:</label>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="name" onChange={this.handleName} value={this.state.companyInfo.name} onFocus={me.handleFocus.bind(me,FT.NAME)} onBlur={me.handleBlur.bind(me,FT.NAME)}/>
+                                    <input type="text" name="name" onChange={this.handleName} value={this.state.companyInfo.name} onFocus={me.handleFocus.bind(me,FT.NAME)} onBlur={me.handleBlur.bind(me,FT.NAME)} maxLength="50"/>
                                     <span className={this.state.formError.name.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位名称</span>
                                     <span className={this.state.formError.name.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、必须输入与主体单位证件上一致的名称 </p><p>2、个人用户请填写个人姓名</p></span>
                                     <span className={this.state.formError.name.regularFail ? "u-popover" : "u-popover hidden" }>请正确输入单位名称</span>
@@ -468,7 +466,7 @@ let CompanyInfo = React.createClass({
                                     <span className="red f-fl">*</span><label>主体单位证件住所:</label>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="address" onChange={this.handleLiveAddress} value={this.state.companyInfo.liveaddress} onFocus={me.handleFocus.bind(me,FT.LIVEADDRESS)} onBlur={me.handleBlur.bind(me,FT.LIVEADDRESS)}/>
+                                    <input type="text" name="address" onChange={this.handleLiveAddress} value={this.state.companyInfo.liveaddress} onFocus={me.handleFocus.bind(me,FT.LIVEADDRESS)} onBlur={me.handleBlur.bind(me,FT.LIVEADDRESS)} maxLength="50"/>
                                     <span className={this.state.formError.liveaddress.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位信所地址</span>
                                     <span className={this.state.formError.liveaddress.focus ? "u-popover2" : "u-popover2 hidden" }>1、必须输入与主体单位证件上一致的地址 </span>
                                 </div>
@@ -478,7 +476,7 @@ let CompanyInfo = React.createClass({
                                     <span className="red f-fl">*</span><label>主体单位通讯地址:</label>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="commaddress" onChange={this.handleCommAddress} value={this.state.companyInfo.commaddress} onFocus={me.handleFocus.bind(me,FT.COMMADDRESS)} onBlur={me.handleBlur.bind(me,FT.COMMADDRESS)}/>
+                                    <input type="text" name="commaddress" onChange={this.handleCommAddress} value={this.state.companyInfo.commaddress} onFocus={me.handleFocus.bind(me,FT.COMMADDRESS)} onBlur={me.handleBlur.bind(me,FT.COMMADDRESS)} maxLength="50"/>
                                     <span className={this.state.formError.commaddress.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位通讯地址</span>
                                     <span className={this.state.formError.commaddress.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、必须输入真实准确的地址，精确到房间号</p><p>2、通信地址不能包含任何符号</p><p>3、通信地址选择的省市区必须与主体单位所属区</p></span>
                                 </div>
@@ -488,7 +486,7 @@ let CompanyInfo = React.createClass({
                                     <span className="red f-fl">*</span><label>投资人或主管单位名称:</label>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="investorname" onChange={this.handleOwner} value={this.state.companyInfo.owner} onFocus={me.handleFocus.bind(me,FT.OWNER)} onBlur={me.handleBlur.bind(me,FT.OWNER)}/>
+                                    <input type="text" name="investorname" onChange={this.handleOwner} value={this.state.companyInfo.owner} onFocus={me.handleFocus.bind(me,FT.OWNER)} onBlur={me.handleBlur.bind(me,FT.OWNER)} maxLength="30"/>
                                     <span className={this.state.formError.owner.isBlank ? "u-popover" : "u-popover hidden" }>请输入投资人或主管单位名称</span>
                                     <span className={this.state.formError.owner.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、单位用户建议填写法人姓名或主办单位全称</p><p>2、个人用户请填写个人姓名</p></span>
                                 </div>
@@ -501,7 +499,7 @@ let CompanyInfo = React.createClass({
                                     <span className="red f-fl">*</span><label>法人姓名:</label>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="lpname" onChange={this.handleManagerName} value={this.state.companyInfo.managername}/>
+                                    <input type="text" name="lpname" onChange={this.handleManagerName} value={this.state.companyInfo.managername} maxLength="30"/>
                                     <span className={this.state.formError.managername.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位负责人信息</span>
                                 </div>
                             </div>
@@ -525,7 +523,7 @@ let CompanyInfo = React.createClass({
                                     <span className="red f-fl">*</span><label>法人证件号码:</label>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="npidentity" onChange={this.handleManagerIdNumber} value={this.state.companyInfo.manageridnumber}/>
+                                    <input type="text" name="npidentity" onChange={this.handleManagerIdNumber} value={this.state.companyInfo.manageridnumber} maxLength="20"/>
                                     <span className={this.state.formError.manageridnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入法人证件号码</span>
                                 </div>
                             </div>
@@ -534,7 +532,7 @@ let CompanyInfo = React.createClass({
                                     <span className="red f-fl">*</span><label>办公室电话:</label>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="officerphone" onChange={this.handleOfficePhoneNumber} value={this.state.companyInfo.officephonenumber} onFocus={me.handleFocus.bind(me,FT.OFFICEPHONENUMBER)} onBlur={me.handleBlur.bind(me,FT.OFFICEPHONENUMBER)}/>
+                                    <input type="number" name="officerphone" min="1" max="10" onChange={this.handleOfficePhoneNumber} value={this.state.companyInfo.officephonenumber} onFocus={me.handleFocus.bind(me,FT.OFFICEPHONENUMBER)} onBlur={me.handleBlur.bind(me,FT.OFFICEPHONENUMBER)} maxLength="12"/>
                                     <span className={this.state.formError.officephonenumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入办公室电话</span>
                                     <span className={this.state.formError.officephonenumber.focus ? "u-popover2" : "u-popover2 hidden" }>1、请确保电话畅通能联系到本人</span>
                                     <span className={this.state.formError.officephonenumber.regularFail ? "u-popover" : "u-popover hidden" }>请输入正确的办公室电话</span>
@@ -545,7 +543,7 @@ let CompanyInfo = React.createClass({
                                     <span className="red f-fl">*</span><label>手机号码:</label>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="mobilephone"onChange={this.handleMobile} value={this.state.companyInfo.mobile} onFocus={me.handleFocus.bind(me,FT.MOBILE)} onBlur={me.handleBlur.bind(me,FT.MOBILE)}/>
+                                    <input type="number" name="mobilephone" min="1" max="10" onChange={this.handleMobile} value={this.state.companyInfo.mobile} onFocus={me.handleFocus.bind(me,FT.MOBILE)} onBlur={me.handleBlur.bind(me,FT.MOBILE)} maxLength="11"/>
                                     <span className={this.state.formError.mobile.isBlank ? "u-popover" : "u-popover hidden" }>请输入手机号码</span>
                                     <span className={this.state.formError.mobile.focus ? "u-popover2" : "u-popover2 hidden" }>1、请确保电话畅通能联系到本人</span>
                                     <span className={this.state.formError.mobile.regularFail ? "u-popover" : "u-popover hidden" }>请输入正确的手机号码</span>
@@ -556,7 +554,7 @@ let CompanyInfo = React.createClass({
                                     <span className="red f-fl">*</span><label>电子邮箱:</label>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="email" onChange={this.handleEmail} value={this.state.companyInfo.email} onFocus={me.handleFocus.bind(me,FT.EMAIL)} onBlur={me.handleBlur.bind(me,FT.EMAIL)}/>
+                                    <input type="text" name="email" onChange={this.handleEmail} value={this.state.companyInfo.email} onFocus={me.handleFocus.bind(me,FT.EMAIL)} onBlur={me.handleBlur.bind(me,FT.EMAIL)} maxLength="30"/>
                                     <span className={this.state.formError.email.isBlank > 0 ? "u-popover" : "u-popover hidden" }>请输入电子邮箱</span>
                                     <span className={this.state.formError.email.regularFail > 0 ? "u-popover" : "u-popover hidden" }>请输入正确电子邮箱</span>
                                 </div>

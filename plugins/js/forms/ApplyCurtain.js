@@ -22,6 +22,15 @@ import DataService from '../services/DataService.js';
 import reqwest from 'reqwest';
 import FormValidator from '../utils/FormValidator';
 
+import validator from 'validator';
+
+const FT = {
+    "MAILINGADDRESS": 0,
+    "RECIPIENT": 1,
+    "RECIPIENTMOBILE": 2,
+    "COMPANYNAME":3
+};
+
 
 let ApplyCurtain = React.createClass({
 
@@ -39,9 +48,15 @@ let ApplyCurtain = React.createClass({
                 companyname: ''
             },
             formError: {
-                mailingaddress: {isBlank: false},
-                recipient: {isBlank: false},
-                recipientmobile: {isBlank: false},
+                mailingaddress: {isBlank: false,regularFail: false, match: function(str){
+                    return true;
+                }},
+                recipient: {isBlank: false,regularFail: false, match: function(str){
+                    return true;
+                }},
+                recipientmobile: {isBlank: false,regularFail: false, match: function(str){
+                    return true;
+                }},
                 companyname: {isBlank: false,checked:true}
             }
         };
@@ -194,7 +209,7 @@ let ApplyCurtain = React.createClass({
                             <span>*</span> <label>收件人手机号:</label>
                         </div>
                         <div className="m-applycurtain-item-ctrl">
-                            <input type="text" name="identity" onChange={this.handleRecipientMobile} value={this.state.contactinfo.recipientmobile}/>
+                            <input type="number" name="identity" onChange={this.handleRecipientMobile} value={this.state.contactinfo.recipientmobile} maxLength="11"/>
                         </div>
                     </div>
                     <div className="m-applycurtain-item">

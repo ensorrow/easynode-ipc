@@ -22,7 +22,7 @@ import FormValidator from '../utils/FormValidator';
 
 import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
-
+import validator from 'validator';
 
 var LANG_CHINESE = 1;
 var LANG_CHINESETRADITIONAL = 2 ;
@@ -42,8 +42,11 @@ var AM_OTHER = 4;
 const FT = {
     "NAME": 0,
     "DOMAIN": 1,
-    "LIVEADDRESS": 2,
-    "HOMEURL":3
+    "HOMEURL":2,
+    "OFFICEPHONENUMBER":3,
+    "MOBILE":4,
+    "EMAIL":5,
+    "QQ":6
 };
 
 let SiteInfo = React.createClass({
@@ -57,12 +60,16 @@ let SiteInfo = React.createClass({
             formError: {
                 id: {isBlank: false, checked: true},
                 name: {isBlank: false,focus: false},
-                domain: {isBlank: false,focus: false},
+                domain: {isBlank: false,focus: false,regularFail: false, match: function(str){
+                    return validator.isURL(str,{require_protocol:false});
+                }},
                 domain1: {isBlank: false,checked:true},
                 domain2: {isBlank: false,checked:true},
                 domain3: {isBlank: false,checked:true},
                 domain4: {isBlank: false,checked:true},
-                homeurl: {isBlank: false,focus: false},
+                homeurl: {isBlank: false,focus: false,regularFail: false, match: function(str){
+                    return validator.isURL(str,{require_protocol:false});
+                }},
                 servicecontent: {isBlank: false,checked:true},
                 languages: {
                     chinese: true,
@@ -83,7 +90,11 @@ let SiteInfo = React.createClass({
                     ip2: false,
                     ip3: false,
                     ip4: false,
-                    checked: true
+                    checked: true,
+                    regularFail: false,
+                    match: function(str){
+                        return true;
+                    }
                 },
                 accessmethod: {
                     specialline: false,
@@ -93,15 +104,24 @@ let SiteInfo = React.createClass({
                     checked:true
                 },
                 serverregion: {isBlank: false},
-
                 managername: {isBlank: false},
                 manageridtype: {isBlank: false},
                 manageridnumber: {isBlank: false},
-                officephoneregion: {isBlank: false},
-                officephonenumber: {isBlank: false},
-                mobile: {isBlank: false},
-                email: {isBlank: false},
-                qq: {isBlank: false}
+                officephoneregion: {isBlank: false,regularFail: false, match: function(str){
+                    return /\d{3,4}/.test(str);
+                }},
+                officephonenumber: {isBlank: false, regularFail: false, match: function(str){
+                    return /\d{8}|\d{7}/.test(str);
+                }},
+                mobile: {isBlank: false, regularFail: false, match: function(str){
+                    return validator.isMobilePhone(str,"zh-CN");
+                }},
+                email: {isBlank: false, regularFail: false, match: function(str){
+                    return validator.isEmail(str);
+                }},
+                qq: {isBlank: false, regularFail: false, match: function(str){
+                    return validator.isInt(str);
+                }}
             },
             siteInfo:{
                 name:'',domain:'',domain1:'',domain2:'',domain3:'',domain4:'',homeurl:'',servicecontent:"1",languages:{
@@ -141,10 +161,29 @@ let SiteInfo = React.createClass({
     addressFocus: function(id,focus){
         this.resetFocus();
         var formError = this.state.formError;
+        var siteInfo = this.state.siteInfo;
         var ctrl = id == FT.NAME ? formError.name :
                    id == FT.DOMAIN ? formError.domain :
-                   id == FT.HOMEURL ? formError.homeurl : formError.homeurl;
+                   id == FT.HOMEURL ? formError.homeurl :
+                   id == FT.OFFICEPHONENUMBER ? formError.officephonenumber :
+                   id == FT.MOBILE ? formError.mobile :
+                   id == FT.EMAIL ? formError.email :
+                   id == FT.QQ ? formError.qq : formError.qq;
+                ;
+        var val = id == FT.NAME ? siteInfo.name :
+                  id == FT.DOMAIN ? siteInfo.domain :
+                  id == FT.HOMEURL ? siteInfo.homeurl :
+                  id == FT.OFFICEPHONENUMBER ? siteInfo.officephonenumber :
+                  id == FT.MOBILE ? siteInfo.mobile :
+                  id == FT.EMAIL ? siteInfo.email :
+                  id == FT.QQ ? siteInfo.qq : siteInfo.qq;
         ctrl.focus = focus;
+        if( ctrl.hasOwnProperty("regularFail") && val.length > 0 ){
+            ctrl.regularFail = FormValidator.regular(val, ctrl.match);
+            if( ctrl.focus == true ){
+                ctrl.regularFail = false;
+            }
+        }
         this.setState({
             formError: formError
         });
@@ -160,19 +199,13 @@ let SiteInfo = React.createClass({
     validator: function(fieldName,value){
         var formError = this.state.formError;
         formError[fieldName].isBlank = FormValidator.isEmpty(value);
+        formError[fieldName].regularFail = FormValidator.regular(value, formError[fieldName].match);
         return formError;
     },
     onReturn: function(){
         location.href = "#/fillcompanyinfo";
     },
-    handleSubmit: function(e){
-        e.preventDefault();
-        this.setState({
-            inited: false,
-        });
-        if( this.state.processing ){
-            return;
-        }
+    checkForm: function(){
         var siteInfo = this.state.siteInfo;
         var formError;
         for( var field in siteInfo ){
@@ -183,8 +216,18 @@ let SiteInfo = React.createClass({
         this.setState({
             formError: formError
         });
-        var hasError = FormValidator.check(formError);
+        return FormValidator.check(formError);
+    },
+    handleSubmit: function(e){
+        e.preventDefault();
+        this.setState({
+            inited: false,
+        });
+        if( this.state.processing ){
+            return;
+        }
 
+        var hasError = this.checkForm();
 
         if( hasError ){
             this.setState({
@@ -501,11 +544,11 @@ let SiteInfo = React.createClass({
         var siteInfo = this.state.siteInfo;
         if( siteInfo.languages.customize ){
             return (
-                <input type="text" name="identity"  className="item-ctrl-language-customize"  onChange={this.handleLanguagesCustomiz} value={this.state.siteInfo.customizeLang}/>
+                <input type="text" name="identity"  className="item-ctrl-language-customize"  onChange={this.handleLanguagesCustomiz} value={this.state.siteInfo.customizeLang} maxLength="20"/>
             );
         }else {
             return (
-                <input type="text" name="identity"  className="item-ctrl-language-customize" disabled  onChange={this.handleLanguagesCustomiz} value={this.state.siteInfo.customizeLang}/>
+                <input type="text" name="identity"  className="item-ctrl-language-customize" disabled  onChange={this.handleLanguagesCustomiz} value={this.state.siteInfo.customizeLang} maxLength="20"/>
             );
         }
     },
@@ -525,7 +568,7 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="identity" onChange={this.handleName} value={this.state.siteInfo.name} onFocus={me.handleFocus.bind(me,FT.NAME)} onBlur={me.handleBlur.bind(me,FT.NAME)}/>
+                                    <input type="text" name="identity" onChange={this.handleName} value={this.state.siteInfo.name} onFocus={me.handleFocus.bind(me,FT.NAME)} onBlur={me.handleBlur.bind(me,FT.NAME)} maxLength="30"/>
                                     <span className={this.state.formError.name.isBlank  ? "u-popover" : "u-popover hidden" }>请输入网站名称</span>
                                     <span className={this.state.formError.name.focus  ? "u-popover2" : "u-popover2 hidden" }>
                                             <p>1、不能以纯数字或纯英文命名，不能包含域名、特殊符号、敏感词语（反腐、赌博、廉政、色情等）</p>
@@ -542,9 +585,10 @@ let SiteInfo = React.createClass({
                                 </div>
                                 <div className="item-ctrl">
                                     <div className="item-ctrl item-ctrl-in">
-                                        <label className="siteurl">www</label><input type="text" name="identity" className="siteurl-input" onChange={this.handleDomain} value={this.state.siteInfo.domain} onFocus={me.handleFocus.bind(me,FT.DOMAIN)} onBlur={me.handleBlur.bind(me,FT.DOMAIN)}/>
+                                        <label className="siteurl">www</label><input type="text" name="identity" className="siteurl-input" onChange={this.handleDomain} value={this.state.siteInfo.domain} onFocus={me.handleFocus.bind(me,FT.DOMAIN)} onBlur={me.handleBlur.bind(me,FT.DOMAIN)} maxLength="100"/>
                                         <span className={this.state.formError.domain.isBlank  ? "u-popover" : "u-popover hidden" }>请输入网站域名</span>
                                         <span className={this.state.formError.domain.focus  ? "u-popover2" : "u-popover2 hidden" }><p>1、域名不要加www，格式如163.com</p></span>
+                                        <span className={this.state.formError.domain.regularFail  ? "u-popover" : "u-popover hidden" }>请输入正确网站域名</span>
                                     </div>
                                     { this.renderDomains() }
                                 </div>
@@ -556,9 +600,10 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <label className="siteurl">http://</label><input type="text" name="identity" className="siteurl-input" onChange={this.handleHomeUrl} value={this.state.siteInfo.homeurl} onFocus={me.handleFocus.bind(me,FT.HOMEURL)} onBlur={me.handleBlur.bind(me,FT.HOMEURL)}/>
+                                    <label className="siteurl">http://</label><input type="text" name="identity" className="siteurl-input" onChange={this.handleHomeUrl} value={this.state.siteInfo.homeurl} onFocus={me.handleFocus.bind(me,FT.HOMEURL)} onBlur={me.handleBlur.bind(me,FT.HOMEURL)} maxLength="100"/>
                                     <span className={this.state.formError.homeurl.isBlank  ? "u-popover" : "u-popover hidden" }>请输入网站首页URL</span>
                                     <span className={this.state.formError.homeurl.focus  ? "u-popover2" : "u-popover2 hidden" }><p>1、首页URL应该包含填写的域名列表中的任意一个</p><p>2、首页URL不要加http://</p></span>
+                                    <span className={this.state.formError.homeurl.regularFail  ? "u-popover" : "u-popover hidden" }>请输入正确网站首页URL</span>
                                 </div>
                             </div>
                                 <div className="m-siteinfo-item">
@@ -602,7 +647,7 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="lpname" onChange={this.handleManagerName} value={this.state.siteInfo.managername}/>
+                                    <input type="text" name="lpname" onChange={this.handleManagerName} value={this.state.siteInfo.managername} maxLength="30"/>
                                     <span className={this.state.formError.managername.isBlank  ? "u-popover" : "u-popover hidden" }>请输入网站负责人姓名</span>
                                 </div>
                             </div>
@@ -628,7 +673,7 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="npidentity" onChange={this.handleManagerIdNumber} value={this.state.siteInfo.manageridnumber}/>
+                                    <input type="text" name="npidentity" onChange={this.handleManagerIdNumber} value={this.state.siteInfo.manageridnumber} maxLength="30"/>
                                     <span className={this.state.formError.manageridnumber.isBlank  ? "u-popover" : "u-popover hidden" }>请输入有效证件号码</span>
                                 </div>
                             </div>
@@ -638,9 +683,10 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="officerphone" className="item-ctrl-office-onefourth" onChange={this.handleOfficePhoneRegion} value={this.state.siteInfo.officephoneregion}/>
-                                    <input type="text" name="officerphone" className="item-ctrl-office-threefourth" onChange={this.handleOfficePhoneNumber} value={this.state.siteInfo.officephonenumber}/>
+                                    <input type="number" min="1" max="9999" name="officerphone" className="item-ctrl-office-onefourth" onChange={this.handleOfficePhoneRegion} value={this.state.siteInfo.officephoneregion} maxLength="4"/>
+                                    <input type="number" max="999999999999" name="officerphone" className="item-ctrl-office-threefourth" onChange={this.handleOfficePhoneNumber} value={this.state.siteInfo.officephonenumber} onFocus={me.handleFocus.bind(me,FT.OFFICEPHONENUMBER)} onBlur={me.handleBlur.bind(me,FT.OFFICEPHONENUMBER)} maxLength="11"/>
                                     <span className={this.state.formError.officephonenumber.isBlank  ? "u-popover" : "u-popover hidden" }>请输入办公室电话</span>
+                                    <span className={this.state.formError.officephonenumber.regularFail  ? "u-popover" : "u-popover hidden" }>请输入正确的办公室电话</span>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">
@@ -649,8 +695,9 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="mobilephone" onChange={this.handleMobile} value={this.state.siteInfo.mobile}/>
+                                    <input type="number" name="mobilephone" min="1" max="10" onChange={this.handleMobile} value={this.state.siteInfo.mobile} onFocus={me.handleFocus.bind(me,FT.MOBILE)} onBlur={me.handleBlur.bind(me,FT.MOBILE)} maxLength="11"/>
                                     <span className={this.state.formError.mobile.isBlank  ? "u-popover" : "u-popover hidden" }>请输入手机号码</span>
+                                    <span className={this.state.formError.mobile.regularFail  ? "u-popover" : "u-popover hidden" }>请输入正确的手机号码</span>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">
@@ -659,8 +706,9 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="email" onChange={this.handleEmail} value={this.state.siteInfo.email}/>
+                                    <input type="text" name="email" onChange={this.handleEmail} value={this.state.siteInfo.email} onFocus={me.handleFocus.bind(me,FT.EMAIL)} onBlur={me.handleBlur.bind(me,FT.EMAIL)} maxLength="30"/>
                                     <span className={this.state.formError.email.isBlank  ? "u-popover" : "u-popover hidden" }>请输入电子邮箱</span>
+                                    <span className={this.state.formError.email.regularFail  ? "u-popover" : "u-popover hidden" }>请输入正确的电子邮箱</span>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">
@@ -669,8 +717,9 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="email" onChange={this.handleQq} value={this.state.siteInfo.qq}/>
+                                    <input type="number" name="email" onChange={this.handleQq} value={this.state.siteInfo.qq} maxLength="20" onFocus={me.handleFocus.bind(me,FT.QQ)} onBlur={me.handleBlur.bind(me,FT.QQ)} maxLength="20"/>
                                     <span className={this.state.formError.qq.isBlank  ? "u-popover" : "u-popover hidden" }>请输入QQ账号</span>
+                                    <span className={this.state.formError.qq.regularFail  ? "u-popover" : "u-popover hidden" }>请输入正确的QQ账号</span>
                                 </div>
                             </div>
                         </fieldset>
@@ -692,10 +741,10 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="npidentity" className="item-ctrl-ip" onChange={this.handleIp1} value={this.state.siteInfo.ip.ip1}/>
-                                    <input type="text" name="npidentity" className="item-ctrl-ip" onChange={this.handleIp2} value={this.state.siteInfo.ip.ip2}/>
-                                    <input type="text" name="npidentity" className="item-ctrl-ip" onChange={this.handleIp3} value={this.state.siteInfo.ip.ip3}/>
-                                    <input type="text" name="npidentity" className="item-ctrl-ip" onChange={this.handleIp4} value={this.state.siteInfo.ip.ip4}/>
+                                    <input type="number" min="1" max="255" name="npidentity" className="item-ctrl-ip" onChange={this.handleIp1} value={this.state.siteInfo.ip.ip1}/>
+                                    <input type="number" min="1" max="255"  name="npidentity" className="item-ctrl-ip" onChange={this.handleIp2} value={this.state.siteInfo.ip.ip2}/>
+                                    <input type="number" min="1" max="255"  name="npidentity" className="item-ctrl-ip" onChange={this.handleIp3} value={this.state.siteInfo.ip.ip3}/>
+                                    <input type="number" min="1" max="255"  name="npidentity" className="item-ctrl-ip" onChange={this.handleIp4} value={this.state.siteInfo.ip.ip4}/>
                                     <span className={this.enableIpTips()  ? "u-popover" : "u-popover hidden" }>请输入IP地址</span>
                                 </div>
                             </div>

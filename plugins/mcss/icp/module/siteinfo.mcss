@@ -106,7 +106,7 @@ $m-siteinfo_item_addsite_button_margin_left = $m-siteinfo_label_width + $m-sitei
 			margin-left: 10px;
 		}
 
-		> input[type="text"]{
+		> input[type="text"],input[type="number"]{
 			font-size:16px;
 		}
 	}
@@ -116,7 +116,7 @@ $m-siteinfo_item_addsite_button_margin_left = $m-siteinfo_label_width + $m-sitei
 		width: $m-siteinfo_item_ctrl_width;
 		position: relative;
 
-		> input[type="text"] {
+		> input[type="text"],input[type="number"] {
 			width: 100%;
 			height: $m-siteinfo_item_height;
 
