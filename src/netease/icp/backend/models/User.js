@@ -41,6 +41,11 @@ var Model = using('easynode.framework.mvc.Model');
                 .defineField('email', 'string')
                 .defineField('username', 'string')
                 .defineField('recordnumber', 'int')
+                .defineField('mailingaddress', 'string')
+                .defineField('recipient', 'string')
+                .defineField('recipientmobile', 'string')
+                .defineField('companyname', 'string')
+                .defineField('applycurtainstatus', 'int')
                 .defineField('lastlogintime', 'int')
                 .defineField('createtime', 'int')
             ;

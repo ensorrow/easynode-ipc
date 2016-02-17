@@ -62,12 +62,12 @@ let ApplyCurtain = React.createClass({
         };
     },
     componentDidMount: function(){
-        if( __globals__.record != undefined ) {
+        if( __globals__.user != undefined ) {
             var contactinfo = {};
-            contactinfo.mailingaddress = __globals__.record.mailingaddress;
-            contactinfo.recipient = __globals__.record.recipient;
-            contactinfo.recipientmobile = __globals__.record.recipientmobile;
-            contactinfo.companyname = __globals__.record.companyname;
+            contactinfo.mailingaddress = __globals__.user.mailingaddress;
+            contactinfo.recipient = __globals__.user.recipient;
+            contactinfo.recipientmobile = __globals__.user.recipientmobile;
+            contactinfo.companyname = __globals__.user.companyname;
             this.setState( { contactinfo: contactinfo } );
         }
     },
@@ -112,7 +112,6 @@ let ApplyCurtain = React.createClass({
 
         ///
         var data = {
-            id:__globals__.record.id,
             mailingaddress: this.state.contactinfo.mailingaddress,
             recipient: this.state.contactinfo.recipient,
             recipientmobile: this.state.contactinfo.recipientmobile,
@@ -122,7 +121,7 @@ let ApplyCurtain = React.createClass({
         var me = this;
         //commit
         reqwest({
-            url: '/record',
+            url: '/user',
             method: 'put',
             data: JSON.stringify( data ),
             type:'json',
@@ -131,6 +130,7 @@ let ApplyCurtain = React.createClass({
                 //{ true|false }
                 console.log(resp);
 
+                Object.assign(__globals__.user,data);
                 var onHidden = me.props.onHidden;
                 onHidden && onHidden();
 

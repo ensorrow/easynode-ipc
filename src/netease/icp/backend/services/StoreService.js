@@ -70,6 +70,27 @@ var utils = require('utility');
             }
         }
 
+        getUserAddress(tenantId) {
+            var me = this;
+            return function* ()
+            {
+                var sql = '';
+                sql = `SELECT mailingaddress,recipient,recipientmobile,companyname,applycurtainstatus FROM user WHERE tenantid = #tenantid#`;
+                var args = {tenantid: tenantId};
+                var arr = [];
+                var conn = null;
+                try{
+                    conn = yield  me.app.ds.getConnection();
+                    arr = yield conn.execQuery(sql, args);
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                    return {};
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                    return arr[0];
+                }
+            }
+        }
 
         getRecordNumber(tenantId) {
             var me = this;
@@ -267,14 +288,6 @@ var utils = require('utility');
                 var rpp = parseInt(this.parameter.param('rpp'));
                 var ret = { rows:0, pages:0, page:0, rpp:0, data:[] };
 
-                console.log( this.parameter );
-                console.log( this.body );
-                console.log( this.query );
-
-                console.log("filter", filter);
-                console.log("page", page);
-                console.log("rpp", rpp);
-
                 try{
                     var model = new Record().merge( { } );
 
@@ -292,6 +305,39 @@ var utils = require('utility');
                         return yield conn.list(model,{ status: { exp:'in',value:[3,6,9] } },{ page: page,rpp: rpp });
                     if( filter ==  FILTER_CONDITION_NOPASS )
                         return yield conn.list(model,{ status: { exp:'in',value:[2,5,8] } },{ page: page,rpp: rpp });
+                } catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
+                    return ret;
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
+        getCurtainsb(){
+            var me = this;
+            return function *(){
+
+                var conn = null;
+                var filter = parseInt(this.parameter.param('filter'));
+                var page = parseInt(this.parameter.param('page'));
+                var rpp = parseInt(this.parameter.param('rpp'));
+                var ret = { rows:0, pages:0, page:0, rpp:0, data:[] };
+
+                try{
+                    var model = new User().merge( { } );
+
+                    conn = yield  me.app.ds.getConnection();
+
+                    const FILTER_CONDITION_ALL = 3;
+                    const FILTER_CONDITION_CHECKING = 1;
+                    const FILTER_CONDITION_PASSED = 2;
+                    if( filter ==  FILTER_CONDITION_ALL )
+                        return yield conn.list(model,{ applycurtainstatus: { exp:'<>',value:0 } },{ page: page,rpp: rpp });
+                    if( filter ==  FILTER_CONDITION_CHECKING )
+                        return yield conn.list(model,{ applycurtainstatus: { exp:'in',value:[FILTER_CONDITION_CHECKING] } },{ page: page,rpp: rpp });
+                    if( filter ==  FILTER_CONDITION_PASSED )
+                        return yield conn.list(model,{ applycurtainstatus: { exp:'in',value:[FILTER_CONDITION_PASSED] } },{ page: page,rpp: rpp });
                 } catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
                     return ret;
@@ -320,7 +366,7 @@ var utils = require('utility');
                     var id = this.parameter.param('id') || 0;
                     conn = yield  me.app.ds.getConnection();
 
-                    sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons,mailingaddress,recipient,recipientmobile,companyname FROM record WHERE id = #id#`;
+                    sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons FROM record WHERE id = #id#`;
                     arr =  yield conn.execQuery(sql,{ id:id });
                     if( arr.length <= 0 )
                         return ret;
@@ -368,10 +414,6 @@ var utils = require('utility');
                 var reasons = form.reasons;
                 var id = form.id;
                 var curtainurl = form.curtainurl;
-                var mailingaddress = form.mailingaddress;
-                var recipient = form.recipient;
-                var recipientmobile = form.recipientmobile;
-                var companyname = form.companyname;
 
                 try{
                     conn = yield me.app.ds.getConnection();
@@ -385,6 +427,60 @@ var utils = require('utility');
                     if( curtainurl ){
                         model.merge( Object.assign({}, { curtainurl: curtainurl } ));
                     }
+
+                    r = yield conn.update(model);
+                    return true;
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                    return false;
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
+        putCurtainb(){
+            var me = this;
+            return function *(){
+                var r = null;
+                var conn = null;
+                var model = new User();
+                var form = this.request.body;
+                var id = form.id;
+
+                try{
+                    conn = yield me.app.ds.getConnection();
+                    model.merge( Object.assign({}, { id: id, applycurtainstatus:2 } ));
+                    r = yield conn.update(model);
+                    return true;
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                    return false;
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
+        putUser(){
+            var me = this;
+            return function *(){
+                var r = null;
+                var conn = null;
+                var model = new User();
+                var form = this.request.body;
+
+                console.log(form);
+                console.log(this.session.user);
+                var id = this.session.user.id;
+                var mailingaddress = form.mailingaddress;
+                var recipient = form.recipient;
+                var recipientmobile = form.recipientmobile;
+                var companyname = form.companyname;
+
+                try{
+                    conn = yield me.app.ds.getConnection();
+                    model.merge( Object.assign({}, { id: id } ));
                     if( mailingaddress ){
                         model.merge( Object.assign({}, { mailingaddress: mailingaddress } ));
                     }
@@ -408,6 +504,7 @@ var utils = require('utility');
                 }
             }
         }
+
 
         deleteRecord(){
             var me = this;

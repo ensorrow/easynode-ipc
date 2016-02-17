@@ -101,7 +101,7 @@ let UploadPhoto = React.createClass({
     render: function () {
         var curtain = '';
         var applyAddr = '';
-        var address = __globals__.record.mailingaddress || '';
+        var address = __globals__.user.mailingaddress || '';
         if( this.state.showApplyCurt ){
             curtain = <ApplyCurtain onHidden={this.onHidden}/>
         }
@@ -116,7 +116,7 @@ let UploadPhoto = React.createClass({
                     <label>收件信息:</label>
                 </div>
                 <div className="m-recipientinfo-item">
-                    <span> {__globals__.record.mailingaddress} {__globals__.record.companyname} {__globals__.record.recipient} {__globals__.record.recipientmobile}</span> <input type="button" value="修改" onClick={this.handleModify}></input>
+                    <span> {__globals__.user.mailingaddress} {__globals__.user.companyname} {__globals__.user.recipient} {__globals__.user.recipientmobile}</span> <input type="button" value="修改" onClick={this.handleModify}></input>
                 </div>
             </div>
         ;

@@ -244,10 +244,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {Number} record.status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-未知状态\n
          * @apiSuccess {String} record.tenantid 租户ID
          * @apiSuccess {String} record.curtainurl 帘布照片URL
-         * @apiSuccess {String} record.mailingaddress 幕布邮寄地址
-         * @apiSuccess {String} record.recipient 收件人
-         * @apiSuccess {String} record.recipientmobile 收件人手机号
-         * @apiSuccess {String} record.companyname 公司名称
          * @apiSuccess {Number} record.updatetime 记录更新时间
          * @apiSuccess {Number} record.createtime 记录创建时间
          *
@@ -359,10 +355,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {Number} record.status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-未知状态\n
          * @apiSuccess {String} record.tenantid 租户ID
          * @apiSuccess {String} record.curtainurl 帘布照片URL
-         * @apiSuccess {String} record.mailingaddress 幕布邮寄地址
-         * @apiSuccess {String} record.recipient 收件人
-         * @apiSuccess {String} record.recipientmobile 收件人手机号
-         * @apiSuccess {String} record.companyname 公司名称
          * @apiSuccess {Number} record.updatetime 记录更新时间
          * @apiSuccess {Number} record.createtime 记录创建时间
          *
@@ -459,10 +451,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiParam {Number} status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-未知状态\n
          * @apiParam {String} reasons 通过则为备注,拒绝则为理由(多条用p标签分隔)
          * @apiParam {String} [curtainurl] 帘布照片URL
-         * @apiParam {String} [mailingaddress] 幕布邮寄地址
-         * @apiParam {String} [recipient] 收件人
-         * @apiParam {String} [recipientmobile] 收件人手机号
-         * @apiParam {String} [companyname] 公司名称
          *
          * @apiSuccess {Number} ret true:成功,false:失败
          */
@@ -474,6 +462,37 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
                 var storeService = new StoreService(app)
                 ret = yield storeService.putRecord();
+
+                this.type = 'json';
+                this.body = {ret: ret};
+            }
+        }
+
+        /**
+         * @api {put} /user
+         * @apiName putUser
+         * @apiGroup User
+         * @apiPermission admin or self
+         * @apiVersion 0.0.2
+         * @apiDescription 修改用户幕布申请地址
+         *
+         * @apiSampleRequest http://icp.hzspeed.cn/user/
+         *
+         * @apiParam {String} mailingaddress 幕布邮寄地址
+         * @apiParam {String} recipient 收件人
+         * @apiParam {String} recipientmobile 收件人手机号
+         * @apiParam {String} [companyname] 公司名称
+         *
+         * @apiSuccess {Number} ret true:成功,false:失败
+         */
+        static putUser(app){
+            var me = this;
+            return function *(){
+                var session = this.session;
+                var ret = {};
+
+                var storeService = new StoreService(app)
+                ret = yield storeService.putUser();
 
                 this.type = 'json';
                 this.body = {ret: ret};
@@ -494,10 +513,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiParam {Number} status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-未知状态\n
          * @apiParam {String} reasons 通过则为备注,拒绝则为理由(多条用p标签分隔)
          * @apiParam {String} [curtainurl] 帘布照片URL
-         * @apiParam {String} [mailingaddress] 幕布邮寄地址
-         * @apiParam {String} [recipient] 收件人
-         * @apiParam {String} [recipientmobile] 收件人手机号
-         * @apiParam {String} [companyname] 公司名称
          *
          * @apiSuccess {Number} ret true:成功,false:失败
          */
@@ -508,6 +523,33 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
                 var storeService = new StoreService(app)
                 ret = yield storeService.putRecord();
+
+                this.type = 'json';
+                this.body = {ret: ret};
+            }
+        }
+
+        /**
+         * @api {put} /curtainb 寄送幕布
+         * @apiName putCurtainb
+         * @apiGroup Ops
+         * @apiPermission whitelist
+         * @apiVersion 0.0.2
+         * @apiDescription 通过白名单管理权限
+         *
+         * @apiSampleRequest http://icp.hzspeed.cn/curtainb/
+         *
+         * @apiParam {Number} id 用户ID
+         *
+         * @apiSuccess {Number} ret true:成功,false:失败
+         */
+        static putCurtainb(app){
+            var me = this;
+            return function *(){
+                var ret = {};
+
+                var storeService = new StoreService(app)
+                ret = yield storeService.putCurtainb();
 
                 this.type = 'json';
                 this.body = {ret: ret};
@@ -607,6 +649,49 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
                 var storeService = new StoreService(app)
                 ret = yield storeService.getRecordsb();
+
+                this.type = 'json';
+                this.body = ret;
+            }
+        }
+
+        /**
+         * @api {get} /curtainsb 获取幕布寄送任务
+         * @apiName getCurtainsb
+         * @apiGroup Ops
+         * @apiPermission whitelist
+         * @apiVersion 0.0.2
+         * @apiDescription 权限通过白名单管理
+         *
+         * @apiParam {Number} filter 查询状态过滤条件 1-正在申请幕布状态 2-已寄送幕布  3-正在申请+已寄送幕布用户
+         * @apiParam {Number} page 页号.
+         * @apiParam {Number} rpp  每页记录数.
+         *
+         * @apiSampleRequest http://icp.hzspeed.cn/curtains
+         *
+         * @apiSuccess {Object[]} data 记录列表
+         * @apiSuccess {Number} data.id 用户ID
+         * @apiSuccess {Number} data.tenantid 租户ID
+         * @apiSuccess {String} data.email 租户Email
+         * @apiSuccess {String} data.username 租户名称
+         * @apiSuccess {String} data.mailingaddress 幕布邮寄地址
+         * @apiSuccess {String} data.recipient  幕布接收人
+         * @apiSuccess {String} data.recipientmobile 幕布接收人电话
+         * @apiSuccess {String} [data.companyname] 幕布接收人公司
+         * @apiSuccess {Number} page 页号
+         * @apiSuccess {Number} pages 总页数
+         * @apiSuccess {Number} rows 总记录数
+         * @apiSuccess {Number} rpp 每页显示数
+         *
+         * @apiUse  EmptyRecord
+         */
+        static getCurtainsb(app){
+            var me = this;
+            return function *(){
+                var ret = {};
+
+                var storeService = new StoreService(app)
+                ret = yield storeService.getCurtainsb();
 
                 this.type = 'json';
                 this.body = ret;
