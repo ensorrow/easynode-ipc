@@ -19,6 +19,6 @@ module.exports ={
         var s = str || '';
         var reg = /<p>(.*?)<\/p>/gim;
 
-        return s.match(reg);
+        return s.match(reg) || [];
     }
 }

@@ -615,6 +615,7 @@ var utils = require('utility');
                         formData.baseinfo,
                         {sitemanagerurl:'',checklisturl:'',protocolurl1:'',protocolurl2:'',securityurl1:'',securityurl2:'',reasons:''},
                         {tenantid:formData.user.tenantid,companyid:0,websiteid:0,status: 0},
+                        {curtainurl:''},
                         {createtime:Date.now(),updatetime:Date.now()}
                     ));
 

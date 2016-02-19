@@ -18,7 +18,7 @@ module.exports ={
                     if( typeof o[i] == 'object'){
                         hasError = _check(o[i]);
                         err = hasError ? err+1: err;
-                    }else if(o[i] == true){
+                    }else if(o[i] == true && i != "focus"){
                         if( o['checked'] == true ){
                             hasError = false;
                         }
