@@ -50,7 +50,7 @@ let CompanyInfo = React.createClass({
                     return true;
                 }},
                 name: {isBlank: false,focus: false,regularFail: false, match: function(str){
-                       return /^[\u4e00-\u9fa5]$/.test(str);
+                       return true;///^[\u4e00-\u9fa5]$/.test(str);
                 }},
                 liveaddress:  {isBlank: false,focus: false,regularFail: false, match: function(str){
                     return true;

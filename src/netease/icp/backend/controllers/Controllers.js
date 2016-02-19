@@ -667,7 +667,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiParam {Number} page 页号.
          * @apiParam {Number} rpp  每页记录数.
          *
-         * @apiSampleRequest http://icp.hzspeed.cn/curtains
+         * @apiSampleRequest http://icp.hzspeed.cn/curtainsb
          *
          * @apiSuccess {Object[]} data 记录列表
          * @apiSuccess {Number} data.id 用户ID

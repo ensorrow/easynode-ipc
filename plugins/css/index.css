@@ -150,7 +150,7 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-companyinfo-item{margin-top:20px;*zoom:1;}
 .m-companyinfo-item .item-label{width:172px;text-align:right;line-height:30px;margin-right:40px;}
 .m-companyinfo-item .item-ctrl{width:350px;height:30px;position:relative;}
-.m-companyinfo-item .item-ctrl >select,.m-companyinfo-item .item-ctrl input[type="text"]{width:100%;height:30px;}
+.m-companyinfo-item .item-ctrl >select,.m-companyinfo-item .item-ctrl input[type="text"],.m-companyinfo-item .item-ctrl input[type="number"]{width:100%;height:30px;}
 .m-companyinfo-item select.item-ctrl-three{width:106.666667px;height:30px;}
 .m-companyinfo-item select.item-ctrl-three +.item-ctrl-three{margin-left:15px;}
 .m-companyinfo-item:before,.m-companyinfo-item:after{display:table;content:"";line-height:0;}

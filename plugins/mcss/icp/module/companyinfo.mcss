@@ -79,7 +79,7 @@ $m-companyinfo_item_ctrl_onethird_width = (350px - 15*2) / 3;
 		width: $m-companyinfo_item_ctrl_width;
 		height: $m-companyinfo_item_height;
 		position: relative;
-		> select,input[type="text"] {
+		> select,input[type="text"],input[type="number"] {
 			width: 100%;
 			height: $m-companyinfo_item_height;
 		}
