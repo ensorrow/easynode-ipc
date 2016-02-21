@@ -205,6 +205,9 @@ let UploadMaterial = React.createClass({
     },
     componentWillUnmount: function(){
     },
+    handleDoubleClick: function(){
+        console.log("onDoubleClick");
+    },
     render: function () {
         return (
             <div>
@@ -220,7 +223,7 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={this.state.materials.sitemanagerurl.length > 0 ? this.state.materials.sitemanagerurl : "../assets/view.png"} alt=""/>
+                                        <img src={this.state.materials.sitemanagerurl.length > 0 ? this.state.materials.sitemanagerurl : "../assets/view.png"} alt="" onDoubleClick={this.handleDoubleClick}/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
