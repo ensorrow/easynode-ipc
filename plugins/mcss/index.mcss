@@ -42,6 +42,7 @@ $reset-nec();
 @import "./icp/module/checkcouncilnopass.mcss";
 @import "./icp/module/checkcouncilpass.mcss";
 @import "./icp/module/toast.mcss";
+@import "./icp/module/viewphoto.mcss";
 
 @import "./icp/unit/goback.mcss";
 @import "./icp/unit/popover.mcss";

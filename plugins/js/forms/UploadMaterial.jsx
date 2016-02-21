@@ -23,11 +23,15 @@ import FormValidator from '../utils/FormValidator';
 import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 
+import ViewPhoto from './ViewPhoto.js';
+
 let UploadMaterial = React.createClass({
 
     getInitialState: function(){
       return {
+          showViewPhoto:false,
           processing:  false,
+          url:'',
           formError:{
               sitemanagerurl: {isBlank: false},
               checklisturl: {isBlank: false},
@@ -205,10 +209,23 @@ let UploadMaterial = React.createClass({
     },
     componentWillUnmount: function(){
     },
-    handleDoubleClick: function(){
-        console.log("onDoubleClick");
+    handleDoubleClick: function(url){
+        console.log("onDoubleClick",url);
+        this.setState({url: url});
+        this.setState({showViewPhoto:true});
+    },
+    onHidden: function(){
+        this.setState({showViewPhoto:false});
+        console.log("onHidden");
     },
     render: function () {
+        var me = this;
+
+        var viewphoto = '';
+        if( this.state.showViewPhoto ){
+            viewphoto = <ViewPhoto onHidden={this.onHidden} url={this.state.url}/>
+        }
+
         return (
             <div>
                 <ReturnWidget/>
@@ -223,7 +240,7 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={this.state.materials.sitemanagerurl.length > 0 ? this.state.materials.sitemanagerurl : "../assets/view.png"} alt="" onDoubleClick={this.handleDoubleClick}/>
+                                        <img src={this.state.materials.sitemanagerurl.length > 0 ? this.state.materials.sitemanagerurl : "../assets/view.png"} alt="" onDoubleClick={me.handleDoubleClick.bind(me,me.state.materials.sitemanagerurl)}/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -241,7 +258,7 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={this.state.materials.checklisturl.length > 0 ? this.state.materials.checklisturl : "../assets/view.png"} alt=""/>
+                                        <img src={this.state.materials.checklisturl.length > 0 ? this.state.materials.checklisturl : "../assets/view.png"} alt="" onDoubleClick={me.handleDoubleClick.bind(me,me.state.materials.checklisturl)}/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -261,7 +278,7 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={this.state.materials.protocolurl1.length > 0 ? this.state.materials.protocolurl1 : "../assets/view.png"} alt=""/>
+                                        <img src={this.state.materials.protocolurl1.length > 0 ? this.state.materials.protocolurl1 : "../assets/view.png"} alt="" onDoubleClick={me.handleDoubleClick.bind(me,me.state.materials.protocolurl1)}/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -280,7 +297,7 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={this.state.materials.protocolurl2.length > 0 ? this.state.materials.protocolurl2 : "../assets/view.png"} alt=""/>
+                                        <img src={this.state.materials.protocolurl2.length > 0 ? this.state.materials.protocolurl2 : "../assets/view.png"} alt="" onDoubleClick={me.handleDoubleClick.bind(me,me.state.materials.protocolurl2)}/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -297,7 +314,7 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={this.state.materials.securityurl1.length > 0 ? this.state.materials.securityurl1 : "../assets/view.png"} alt=""/>
+                                        <img src={this.state.materials.securityurl1.length > 0 ? this.state.materials.securityurl1 : "../assets/view.png"} alt="" onDoubleClick={me.handleDoubleClick.bind(me,me.state.materials.securityurl1)}/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -316,7 +333,7 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={this.state.materials.securityurl2.length > 0 ? this.state.materials.securityurl2 : "../assets/view.png"} alt=""/>
+                                        <img src={this.state.materials.securityurl2.length > 0 ? this.state.materials.securityurl2 : "../assets/view.png"} alt="" onDoubleClick={me.handleDoubleClick.bind(me,me.state.materials.securityurl2)}/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -336,6 +353,7 @@ let UploadMaterial = React.createClass({
                     <button className="u-main" type="button" onClick={this.handleSubmit}> 提交初审 </button>
                     <button className="u-draft" type="button" onClick={this.onSave}>保存草稿</button>
                 </div>
+                {viewphoto}
             </div>
         );
     }
