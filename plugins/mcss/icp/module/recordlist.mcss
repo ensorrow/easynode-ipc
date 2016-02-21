@@ -42,22 +42,25 @@ $m-recordlist_recordapply_btn_background =  #69A9CC;
 		background: $m-recordlist_recordapply_btn_background;
 	}
 
-	> button {
-		margin-bottom: 10px;
-		background: #69A9CC;
+	> button,input[type="button"] {
+	    background: transparent;
+	    height: 24px;
+	    border: none;
+	    color: #69a9cc;
+	    margin: 2px 2px;
+	    font-size: 16px;
 	}
-
 }
 
 table.gridtable {
-	width: 990px;
+	width: 1050px;
 	font-family:MicrosoftYaHei;
-	font-size:11px;
+	font-size:14px;
 	border-width: 1px;
 	border-color: #666666;
 	border-collapse: collapse;
     color:#888888;;
-    line-height:14px;
+    line-height:20px;
 }
 
 table.gridtable th {
@@ -71,7 +74,7 @@ table.gridtable th {
 table.gridtable td {
 
 	border-width: 1px;
-	padding: 8px;
+	padding: 4px;
 	border-style: solid;
 	border-color: #666666;
 	background-color: #ffffff;
@@ -84,6 +87,10 @@ table.gridtable td {
 	}
 
 
+}
+
+.rct-button{
+	margin-bottom: 15px;
 }
 
 .draft{
