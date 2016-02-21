@@ -25,6 +25,15 @@ import Toast from '../widgets/Toast.jsx';
 
 import ViewPhoto from './ViewPhoto.js';
 
+const FT = {
+    "SITEMANAGERURL": 0,
+    "CHECKLISTURL": 1,
+    "PROTOCOLURL1": 2,
+    "PROTOCOLURL2": 3,
+    "SECURITYURL1": 4,
+    "SECURITYURL2": 5
+};
+
 let UploadMaterial = React.createClass({
 
     getInitialState: function(){
@@ -47,6 +56,14 @@ let UploadMaterial = React.createClass({
               protocolurl2: '',
               securityurl1: '',
               securityurl2: ''
+          },
+          sample:{
+              sitemanagerurl: 'http://apollodev.nos.netease.com/1455896948285',
+              checklisturl: 'http://apollodev.nos.netease.com/1455896948285',
+              protocolurl1: 'http://apollodev.nos.netease.com/1455896948285',
+              protocolurl2: 'http://apollodev.nos.netease.com/1455896948285',
+              securityurl1: 'http://apollodev.nos.netease.com/1455896948285',
+              securityurl2: 'http://apollodev.nos.netease.com/1455896948285'
           }
       }
     },
@@ -218,6 +235,27 @@ let UploadMaterial = React.createClass({
         this.setState({showViewPhoto:false});
         console.log("onHidden");
     },
+    getDeleteCtrl: function(id){
+        var url =   id == FT.SITEMANAGERURL ? this.state.materials.sitemanagerurl :
+                    id == FT.CHECKLISTURL ? this.state.materials.checklisturl :
+                    id == FT.PROTOCOLURL1 ? this.state.materials.protocolurl1 :
+                    id == FT.PROTOCOLURL2 ? this.state.materials.protocolurl2 :
+                    id == FT.SECURITYURL1 ? this.state.materials.securityurl1 :
+                    id == FT.SECURITYURL2 ? this.state.materials.securityurl2 : '';
+        return url.length > 0 ? <img className="m-uploadmaterial-delete" src="../assets/close.png" onClick={this.handleDelete.bind(this,id)}></img>
+            : ''
+    },
+    handleDelete: function(id){
+        var materials = this.state.materials;
+        id == FT.SITEMANAGERURL ? materials.sitemanagerurl = '' :
+        id == FT.CHECKLISTURL ? materials.checklisturl = '' :
+        id == FT.PROTOCOLURL1 ? materials.protocolurl1  = '':
+        id == FT.PROTOCOLURL2 ? materials.protocolurl2 = '' :
+        id == FT.SECURITYURL1 ? materials.securityurl1 = '' : materials.securityurl2 = '';
+        this.setState({
+            materials: materials
+        });
+    },
     render: function () {
         var me = this;
 
@@ -226,6 +264,12 @@ let UploadMaterial = React.createClass({
             viewphoto = <ViewPhoto onHidden={this.onHidden} url={this.state.url}/>
         }
 
+        var sitemanagerurl =  this.state.materials.sitemanagerurl.length > 0 ? this.state.materials.sitemanagerurl : this.state.sample.sitemanagerurl;
+        var checklisturl =  this.state.materials.checklisturl.length > 0 ? this.state.materials.checklisturl : this.state.sample.checklisturl;
+        var protocolurl1 = this.state.materials.protocolurl1.length > 0 ? this.state.materials.protocolurl1 : this.state.sample.protocolurl1;
+        var protocolurl2 = this.state.materials.protocolurl2.length > 0 ? this.state.materials.protocolurl2 : this.state.sample.protocolurl2;
+        var securityurl1 =  this.state.materials.securityurl1.length > 0 ? this.state.materials.securityurl1 : this.state.sample.securityurl1;
+        var securityurl2 = this.state.materials.securityurl2.length > 0 ? this.state.materials.securityurl2 : this.state.sample.securityurl2;
         return (
             <div>
                 <ReturnWidget/>
@@ -238,9 +282,10 @@ let UploadMaterial = React.createClass({
                                 <div className="m-uploadmaterial-label">
                                     <span className="red">*</span><label>主体单位负责人证件图片:</label>
                                 </div>
+                                {this.getDeleteCtrl(FT.SITEMANAGERURL)}
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={this.state.materials.sitemanagerurl.length > 0 ? this.state.materials.sitemanagerurl : "../assets/view.png"} alt="" onDoubleClick={me.handleDoubleClick.bind(me,me.state.materials.sitemanagerurl)}/>
+                                        <img src={sitemanagerurl} alt="" onDoubleClick={me.handleDoubleClick.bind(me,sitemanagerurl)}/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -256,9 +301,10 @@ let UploadMaterial = React.createClass({
                                 <div className="m-uploadmaterial-label">
                                     <span className="red">*</span><label>核验单图片:</label>
                                 </div>
+                                {this.getDeleteCtrl(FT.CHECKLISTURL)}
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={this.state.materials.checklisturl.length > 0 ? this.state.materials.checklisturl : "../assets/view.png"} alt="" onDoubleClick={me.handleDoubleClick.bind(me,me.state.materials.checklisturl)}/>
+                                        <img src={checklisturl} alt="" onDoubleClick={me.handleDoubleClick.bind(me,checklisturl)}/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -276,9 +322,10 @@ let UploadMaterial = React.createClass({
                                 <div className="m-uploadmaterial-label">
                                     <span className="red">*</span><label>云平台服务协议第一页图片:</label>
                                 </div>
+                                {this.getDeleteCtrl(FT.PROTOCOLURL1)}
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={this.state.materials.protocolurl1.length > 0 ? this.state.materials.protocolurl1 : "../assets/view.png"} alt="" onDoubleClick={me.handleDoubleClick.bind(me,me.state.materials.protocolurl1)}/>
+                                        <img src={protocolurl1} alt="" onDoubleClick={me.handleDoubleClick.bind(me,protocolurl1)}/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -295,9 +342,10 @@ let UploadMaterial = React.createClass({
                                 <div className="m-uploadmaterial-label">
                                     <span className="red">*</span><label>云平台服务协议第二页图片:</label>
                                 </div>
+                                {this.getDeleteCtrl(FT.PROTOCOLURL2)}
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={this.state.materials.protocolurl2.length > 0 ? this.state.materials.protocolurl2 : "../assets/view.png"} alt="" onDoubleClick={me.handleDoubleClick.bind(me,me.state.materials.protocolurl2)}/>
+                                        <img src={protocolurl2} alt="" onDoubleClick={me.handleDoubleClick.bind(me,protocolurl2)}/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -312,9 +360,10 @@ let UploadMaterial = React.createClass({
                                 <div className="m-uploadmaterial-label">
                                     <span className="red">*</span><label>信息安全管理责任书第一页图片:</label>
                                 </div>
+                                {this.getDeleteCtrl(FT.SECURITYURL1)}
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={this.state.materials.securityurl1.length > 0 ? this.state.materials.securityurl1 : "../assets/view.png"} alt="" onDoubleClick={me.handleDoubleClick.bind(me,me.state.materials.securityurl1)}/>
+                                        <img src={securityurl1} alt="" onDoubleClick={me.handleDoubleClick.bind(me,securityurl1)}/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -331,9 +380,10 @@ let UploadMaterial = React.createClass({
                                 <div className="m-uploadmaterial-label">
                                     <span className="red">*</span><label>信息安全管理责任书第二页图片:</label>
                                 </div>
+                                {this.getDeleteCtrl(FT.SECURITYURL2)}
                                 <div className="m-uploadmaterial-ctrl">
                                     <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={this.state.materials.securityurl2.length > 0 ? this.state.materials.securityurl2 : "../assets/view.png"} alt="" onDoubleClick={me.handleDoubleClick.bind(me,me.state.materials.securityurl2)}/>
+                                        <img src={securityurl2} alt="" onDoubleClick={me.handleDoubleClick.bind(me,securityurl2)}/>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>

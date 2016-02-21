@@ -87,6 +87,13 @@ $m-uploadmaterial_item_desc_width = 546px;
 	@extend .f-fl;
 }
 
+.m-uploadmaterial-delete{
+    position: absolute;
+    margin-left: 130px;
+    margin-top: -8px;
+    z-index: 1;
+}
+
 .m-uploadmaterial-ctrl{
 	width: $m-uploadmaterial_item_ctrl_width;
 	position: relative;
@@ -103,8 +110,8 @@ $m-uploadmaterial_item_desc_width = 546px;
 		> img {
 
 	    }
-	}
 
+	}
 
 	.m-uploadmaterial-ctrl-button{
         width: 140px;
