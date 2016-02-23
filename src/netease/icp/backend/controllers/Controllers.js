@@ -429,8 +429,11 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             return function *(){
                 var ret = {};
 
-                var storeService = new StoreService(app)
-                ret = yield storeService.getRecord();
+                var pass = Controllers.passWhitelist(this.request.ip,app);
+                if( pass ) {
+                    var storeService = new StoreService(app)
+                    ret = yield storeService.getRecord();
+                }
 
                 this.type = 'json';
                 this.body = ret;
@@ -521,8 +524,11 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             return function *(){
                 var ret = {};
 
-                var storeService = new StoreService(app)
-                ret = yield storeService.putRecord();
+                var pass = Controllers.passWhitelist(this.request.ip,app);
+                if( pass ) {
+                    var storeService = new StoreService(app)
+                    ret = yield storeService.putRecord();
+                }
 
                 this.type = 'json';
                 this.body = {ret: ret};
@@ -548,8 +554,11 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             return function *(){
                 var ret = {};
 
-                var storeService = new StoreService(app)
-                ret = yield storeService.putCurtainb();
+                var pass = Controllers.passWhitelist(this.request.ip,app);
+                if( pass ){
+                    var storeService = new StoreService(app)
+                    ret = yield storeService.putCurtainb();
+                }
 
                 this.type = 'json';
                 this.body = {ret: ret};
@@ -597,6 +606,15 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             return function *(){
                 var session = this.session;
                 var ret = {};
+
+                //测试环境：10.241.20.112   10.160.252.98    10.180.2.58
+                //线上环境：10.166.3.39
+                console.log("******ip:",this.request.ip);
+                console.log("******ips:",this.request.ips);
+                console.log("******host:",this.request.host);
+
+                var pass = Controllers.passWhitelist(this.request.ip,app);
+                console.log("pass:", pass );
 
                 var storeService = new StoreService(app)
                 ret = yield storeService.getRecords();
@@ -647,8 +665,11 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             return function *(){
                 var ret = {};
 
-                var storeService = new StoreService(app)
-                ret = yield storeService.getRecordsb();
+                var pass = Controllers.passWhitelist(this.request.ip,app);
+                if( pass ) {
+                    var storeService = new StoreService(app)
+                    ret = yield storeService.getRecordsb();
+                }
 
                 this.type = 'json';
                 this.body = ret;
@@ -690,8 +711,11 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             return function *(){
                 var ret = {};
 
-                var storeService = new StoreService(app)
-                ret = yield storeService.getCurtainsb();
+                var pass = Controllers.passWhitelist(this.request.ip,app);
+                if( pass ) {
+                    var storeService = new StoreService(app)
+                    ret = yield storeService.getCurtainsb();
+                }
 
                 this.type = 'json';
                 this.body = ret;
@@ -768,6 +792,18 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 }
                 this.redirect('/');
             }
+        }
+
+        static passWhitelist( ip,app ){
+            console.log(app.config);
+            const ips = app.config.whiteips;
+            var pass = false;
+            ips.forEach(function(v,index){
+                if( ip.includes(v) ){
+                    pass = true;
+                }
+            })
+            return pass;
         }
 
         getClassName()
