@@ -303,6 +303,7 @@ table.gridtable{width:1050px;font-family:MicrosoftYaHei;font-size:14px;border-wi
 table.gridtable th{border-width:1px;padding:8px;border-style:solid;border-color:#666;background-color:#dedede;}
 table.gridtable td{border-width:1px;padding:4px;border-style:solid;border-color:#666;background-color:#fff;}
 table.gridtable td >a{font-family:MicrosoftYaHei;font-size:10.6px;color:#38abd0;line-height:14px;}
+.code{color:#69a9cc;}
 .rct-button{margin-bottom:15px;}
 .draft{color:#808080;}
 .nopass{color:#d92b3a;}

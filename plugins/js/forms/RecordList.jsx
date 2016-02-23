@@ -89,7 +89,6 @@ let Operation = React.createClass({
         let type = this.props.record.type;
         let prg = this.props.record.status;
 
-        "#/returntobase"
         var me = this;
         if( prg == 0 ) {
             return (
@@ -152,7 +151,27 @@ let Records = React.createClass({
     },
     format: function(m){
         var d = new Date(m);
-        return d.getFullYear() + "年" + d.getMonth()+1 + "月" + d.getDate() + "日" + " " + d.getHours() + "时" + d.getMinutes() + "分" +  d.getSeconds() + "秒";
+        return d.getFullYear() + "年" + (d.getMonth()+1) + "月" + d.getDate() + "日" + " " + d.getHours() + "时" + d.getMinutes() + "分" +  d.getSeconds() + "秒";
+    },
+    handleResult: function(id,to){
+        DataService.getRecord(id,
+            function(){
+                Global.set('global',__globals__);
+                location.href = to;
+            },
+            function(err){
+                console.log("getRecord err")
+                console.log(err);
+            }
+        );
+    },
+    getCode: function(prg,id,code){
+        var cs = prg == 0 ? '' : 'code';
+        if( prg == 0 ){
+            return <td className={cs}> {code} </td>
+        }else{
+            return <td className={cs} onClick={ this.handleResult.bind(this,id,"#/reviewrecorddetail") }> {code} </td>
+        }
     },
     render: function(){
         var records = this.props.data.map((record)=>{
@@ -188,7 +207,7 @@ let Records = React.createClass({
 
            return  (
                    <tr className="" key={record.id}>
-                       <td> {record.code} </td>
+                       {this.getCode(record.status,record.id,record.code)}
                        <td> {typeStr}</td>
                        <td> {record.serverregion == "1" ? "HZ1":"HZ1"} </td>
                        <td className={status}> {prgStr} </td>
@@ -248,6 +267,8 @@ let RecordList = React.createClass({
         __globals__.siteinfo = {};
         __globals__.record = {};
         __globals__.domains = [];
+
+        Global.set('global',__globals__);
 
         location.href = "#/returntobase";
     },

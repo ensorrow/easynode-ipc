@@ -259,15 +259,15 @@ var utils = require('utility');
                         const FILTER_CONDITION_PASSED = 2;
                         const FILTER_CONDITION_NOPASS = 3;
                         if( filter ==  FILTER_CONDITION_ALL )
-                            return yield conn.list(model,{ status: { exp:'<>',value:0 } },{ page: page,rpp: rpp });
+                            return yield conn.list(model,{ status: { exp:'<>',value:0 } },{ page: page,rpp: rpp },['updatetime ASC]']);
                         if( filter ==  FILTER_CONDITION_WAITED )
-                            return yield conn.list(model,{ status: { exp:'in',value:[1,4,7] } },{ page: page,rpp: rpp });
+                            return yield conn.list(model,{ status: { exp:'in',value:[1,4,7] } },{ page: page,rpp: rpp },['updatetime DESC']);
                         if( filter ==  FILTER_CONDITION_PASSED )
-                            return yield conn.list(model,{ status: { exp:'in',value:[3,6,9] } },{ page: page,rpp: rpp });
+                            return yield conn.list(model,{ status: { exp:'in',value:[3,6,9] } },{ page: page,rpp: rpp },['updatetime DESC']);
                         if( filter ==  FILTER_CONDITION_NOPASS )
-                            return yield conn.list(model,{ status: { exp:'in',value:[2,5,8] } },{ page: page,rpp: rpp });
+                            return yield conn.list(model,{ status: { exp:'in',value:[2,5,8] } },{ page: page,rpp: rpp },['updatetime DESC']);
                     }else{
-                        return yield conn.list(model,{ tenantid: { exp:'=',value: tenantid } },{ page: page,rpp: rpp });
+                        return yield conn.list(model,{ tenantid: { exp:'=',value: tenantid } },{ page: page,rpp: rpp },['updatetime DESC']);
                     }
                 } catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
@@ -298,13 +298,13 @@ var utils = require('utility');
                     const FILTER_CONDITION_PASSED = 2;
                     const FILTER_CONDITION_NOPASS = 3;
                     if( filter ==  FILTER_CONDITION_ALL )
-                        return yield conn.list(model,{ status: { exp:'<>',value:0 } },{ page: page,rpp: rpp });
+                        return yield conn.list(model,{ status: { exp:'<>',value:0 } },{ page: page,rpp: rpp },['updatetime DESC']);
                     if( filter ==  FILTER_CONDITION_WAITED )
-                        return yield conn.list(model,{ status: { exp:'in',value:[1,4,7] } },{ page: page,rpp: rpp });
+                        return yield conn.list(model,{ status: { exp:'in',value:[1,4,7] } },{ page: page,rpp: rpp },['updatetime DESC']);
                     if( filter ==  FILTER_CONDITION_PASSED )
-                        return yield conn.list(model,{ status: { exp:'in',value:[3,6,9] } },{ page: page,rpp: rpp });
+                        return yield conn.list(model,{ status: { exp:'in',value:[3,6,9] } },{ page: page,rpp: rpp },['updatetime DESC']);
                     if( filter ==  FILTER_CONDITION_NOPASS )
-                        return yield conn.list(model,{ status: { exp:'in',value:[2,5,8] } },{ page: page,rpp: rpp });
+                        return yield conn.list(model,{ status: { exp:'in',value:[2,5,8] } },{ page: page,rpp: rpp },['updatetime DESC']);
                 } catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
                     return ret;
@@ -333,11 +333,11 @@ var utils = require('utility');
                     const FILTER_CONDITION_CHECKING = 1;
                     const FILTER_CONDITION_PASSED = 2;
                     if( filter ==  FILTER_CONDITION_ALL )
-                        return yield conn.list(model,{ applycurtainstatus: { exp:'<>',value:0 } },{ page: page,rpp: rpp });
+                        return yield conn.list(model,{ applycurtainstatus: { exp:'<>',value:0 } },{ page: page,rpp: rpp },['updatetime DESC']);
                     if( filter ==  FILTER_CONDITION_CHECKING )
-                        return yield conn.list(model,{ applycurtainstatus: { exp:'in',value:[FILTER_CONDITION_CHECKING] } },{ page: page,rpp: rpp });
+                        return yield conn.list(model,{ applycurtainstatus: { exp:'in',value:[FILTER_CONDITION_CHECKING] } },{ page: page,rpp: rpp },['updatetime DESC']);
                     if( filter ==  FILTER_CONDITION_PASSED )
-                        return yield conn.list(model,{ applycurtainstatus: { exp:'in',value:[FILTER_CONDITION_PASSED] } },{ page: page,rpp: rpp });
+                        return yield conn.list(model,{ applycurtainstatus: { exp:'in',value:[FILTER_CONDITION_PASSED] } },{ page: page,rpp: rpp },['updatetime DESC']);
                 } catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
                     return ret;

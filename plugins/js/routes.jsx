@@ -179,6 +179,10 @@ export default{
         {
             path:'/fillcompanyinfo',
                 getComponent: (location,cb) => {
+                    var a = Global.get('global');
+                    if (a.hasOwnProperty('companyinfo') ){
+                        __globals__ = a;
+                    }
                     require.ensure([],(require) => {
                         cb(null,require('./forms/CompanyInfo'));
                 });
@@ -203,6 +207,10 @@ export default{
         {
             path:'/fillsiteinfo',
             getComponent: (location,cb) => {
+                var a = Global.get('global');
+                if (a.hasOwnProperty('companyinfo') ){
+                    __globals__ = a;
+                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/SiteInfo'));
                 });
