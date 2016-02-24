@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute } from 'react-router';
 
 
-require('../../es5-shim.min.js')
+import '../../es5-shim.min.js';
 
 import DataService from '../../services/DataService.js';
 import Global from '../../utils/globals';

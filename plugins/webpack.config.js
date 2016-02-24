@@ -10,6 +10,11 @@ var devFlagPlugin = new webpack.DefinePlugin({
 
 var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
+var query = {
+    presets: ['es2015', 'react'],
+    plugins: [ 'transform-es3-member-expression-literals', 'transform-es3-property-literals']
+};
+
 module.exports = {
     entry: [
         //'webpack/hot/dev-server',
@@ -26,10 +31,8 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                loader: 'babel',
-                query: {
-                    presets: ['es2015', 'react']
-                },
+                        // es3ify required for IE8
+                loaders: ['es3ify', `babel?${JSON.stringify(query)}`],
                 include: path.join(__dirname,'.')
             }
         ]

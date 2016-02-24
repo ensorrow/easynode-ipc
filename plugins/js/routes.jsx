@@ -5,7 +5,7 @@ import App from './App.jsx';
 
 import BaseInfo from './forms/BaseInfo';
 import CompanyInfo from './forms/CompanyInfo';
-import SiteInfo from './forms/SiteInfo';
+import SiteInfo from './forms/SiteInfo.jsx';
 import UploadMaterial from './forms/UploadMaterial.jsx';
 import SubmitTrialSuccess from './forms/SubmitTrialSuccess'
 import RecordList from './forms/RecordList.jsx';
@@ -212,7 +212,7 @@ export default{
                     __globals__ = a;
                 }
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/SiteInfo'));
+                    cb(null,require('./forms/SiteInfo.jsx'));
                 });
             }
         },

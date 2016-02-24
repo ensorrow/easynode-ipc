@@ -5,7 +5,7 @@ import { Router, Route, Link, IndexRoute } from 'react-router';
 
 import { getRequest } from '../utils/Utility';
 
-require('../es5-shim.min.js');
+import '../es5-shim.min.js';
 var ReactUI = require('../ReactUI');
 var Form = ReactUI.Form;
 var FormControl = ReactUI.FormControl;

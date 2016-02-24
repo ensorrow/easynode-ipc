@@ -23,7 +23,6 @@ import FormValidator from '../utils/FormValidator';
 import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 import validator from 'validator';
-import Global from '../utils/globals';
 
 var LANG_CHINESE = 1;
 var LANG_CHINESETRADITIONAL = 2 ;
@@ -269,8 +268,6 @@ let SiteInfo = React.createClass({
                 if( resp.ret.drafttype == 3 ){
                     __globals__.siteinfo.id = resp.ret.id;
                     Toast.show("保存草稿成功");
-
-                    Global.set('global',__globals__);
                 }
             },
             error: function(err){
@@ -686,7 +683,7 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="number" min="1" max="9999" name="officerphone" className="item-ctrl-office-onefourth" onChange={this.handleOfficePhoneRegion} value={this.state.siteInfo.officephoneregion} maxLength="4"/>
+                                    <input type="number" min="1" max="9999" name="officerrigion" className="item-ctrl-office-onefourth" onChange={this.handleOfficePhoneRegion} value={this.state.siteInfo.officephoneregion} maxLength="4"/>
                                     <input type="number" max="999999999999" name="officerphone" className="item-ctrl-office-threefourth" onChange={this.handleOfficePhoneNumber} value={this.state.siteInfo.officephonenumber} onFocus={me.handleFocus.bind(me,FT.OFFICEPHONENUMBER)} onBlur={me.handleBlur.bind(me,FT.OFFICEPHONENUMBER)} maxLength="11"/>
                                     <span className={this.state.formError.officephonenumber.isBlank  ? "u-popover" : "u-popover hidden" }>请输入办公室电话</span>
                                     <span className={this.state.formError.officephonenumber.regularFail  ? "u-popover" : "u-popover hidden" }>请输入正确的办公室电话</span>
@@ -720,7 +717,7 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="number" name="email" onChange={this.handleQq} value={this.state.siteInfo.qq} maxLength="20" onFocus={me.handleFocus.bind(me,FT.QQ)} onBlur={me.handleBlur.bind(me,FT.QQ)} maxLength="20"/>
+                                    <input type="number" name="qq" onChange={this.handleQq} value={this.state.siteInfo.qq}  onFocus={me.handleFocus.bind(me,FT.QQ)} onBlur={me.handleBlur.bind(me,FT.QQ)} maxLength="20"/>
                                     <span className={this.state.formError.qq.isBlank  ? "u-popover" : "u-popover hidden" }>请输入QQ账号</span>
                                     <span className={this.state.formError.qq.regularFail  ? "u-popover" : "u-popover hidden" }>请输入正确的QQ账号</span>
                                 </div>

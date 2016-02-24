@@ -2,18 +2,7 @@ import  '../../css/index.css';
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute } from 'react-router';
-
-
-require('../es5-shim.min.js');
-var ReactUI = require('../ReactUI');
-var Form = ReactUI.Form;
-var FormControl = ReactUI.FormControl;
-var Icon = ReactUI.Icon;
-var Input = ReactUI.Input;
-var Button = ReactUI.Button;
-var FormSubmit = ReactUI.FormSubmit;
-var CheckboxGroup = ReactUI.CheckboxGroup;
-
+import es5 from '../es5-shim.min.js';
 import ProgressBar from './ProgressBar.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 
@@ -45,16 +34,6 @@ let RecordInfo = React.createClass({
     },
     getIdNumber: function(){
         return  __globals__.companyinfo.idnumber;
-    },
-    getIdNumber: function(){
-        return  __globals__.companyinfo.idnumber;
-    },
-    getManagerIdType: function(){
-        return  __globals__.companyinfo.manageridtype == 1 ? "军队" :
-                __globals__.companyinfo.manageridtype == 2 ? "" :
-                __globals__.companyinfo.manageridtype == 3 ? "政府机关" :
-                __globals__.companyinfo.manageridtype == 4 ? "事业单位" :
-                __globals__.companyinfo.manageridtype == 5 ? "企业" : "个人";
     },
     getDomain: function(){
         var domain = '';
