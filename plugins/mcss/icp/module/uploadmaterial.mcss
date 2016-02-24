@@ -99,6 +99,13 @@ $m-uploadmaterial_item_desc_width = 546px;
 	position: relative;
 	overflow: hidden;
 
+	.m-uploadmaterial-ctrl-picture-table{
+		display: table;
+		width: 140px;
+		height: 140px;
+		table-layout: fixed;
+	}
+
 	.m-uploadmaterial-ctrl-picture{
 		width: 140px;
 		height: 140px;
@@ -108,7 +115,8 @@ $m-uploadmaterial_item_desc_width = 546px;
         vertical-align: middle;
         text-align: center;
 		> img {
-
+            max-height: 100%;
+            max-width: 100%;
 	    }
 
 	}

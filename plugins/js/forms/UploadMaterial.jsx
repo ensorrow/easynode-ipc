@@ -59,12 +59,12 @@ let UploadMaterial = React.createClass({
               securityurl2: ''
           },
           sample:{
-              sitemanagerurl: 'http://apollodev.nos.netease.com/1455896948285',
-              checklisturl: 'http://apollodev.nos.netease.com/1455896948285',
-              protocolurl1: 'http://apollodev.nos.netease.com/1455896948285',
-              protocolurl2: 'http://apollodev.nos.netease.com/1455896948285',
-              securityurl1: 'http://apollodev.nos.netease.com/1455896948285',
-              securityurl2: 'http://apollodev.nos.netease.com/1455896948285'
+              sitemanagerurl: 'http://apollodev.nos.netease.com/1456282622803',
+              checklisturl: 'http://apollodev.nos.netease.com/1456282666775',
+              protocolurl1: 'http://apollodev.nos.netease.com/1456282709452',
+              protocolurl2: 'http://apollodev.nos.netease.com/1456282714862',
+              securityurl1: 'http://apollodev.nos.netease.com/1456282720423',
+              securityurl2: 'http://apollodev.nos.netease.com/1456282725557'
           }
       }
     },
@@ -287,8 +287,10 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 {this.getDeleteCtrl(FT.SITEMANAGERURL)}
                                 <div className="m-uploadmaterial-ctrl">
-                                    <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={sitemanagerurl} alt="" onDoubleClick={me.handleDoubleClick.bind(me,sitemanagerurl)}/>
+                                    <div className="m-uploadmaterial-ctrl-picture-table">
+                                        <div className="m-uploadmaterial-ctrl-picture">
+                                            <img src={sitemanagerurl} alt="" onDoubleClick={me.handleDoubleClick.bind(me,sitemanagerurl)}/>
+                                        </div>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -306,8 +308,10 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 {this.getDeleteCtrl(FT.CHECKLISTURL)}
                                 <div className="m-uploadmaterial-ctrl">
-                                    <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={checklisturl} alt="" onDoubleClick={me.handleDoubleClick.bind(me,checklisturl)}/>
+                                    <div className="m-uploadmaterial-ctrl-picture-table">
+                                        <div className="m-uploadmaterial-ctrl-picture">
+                                            <img src={checklisturl} alt="" onDoubleClick={me.handleDoubleClick.bind(me,checklisturl)}/>
+                                        </div>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -327,8 +331,10 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 {this.getDeleteCtrl(FT.PROTOCOLURL1)}
                                 <div className="m-uploadmaterial-ctrl">
-                                    <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={protocolurl1} alt="" onDoubleClick={me.handleDoubleClick.bind(me,protocolurl1)}/>
+                                    <div className="m-uploadmaterial-ctrl-picture-table">
+                                        <div className="m-uploadmaterial-ctrl-picture">
+                                            <img src={protocolurl1} alt="" onDoubleClick={me.handleDoubleClick.bind(me,protocolurl1)}/>
+                                        </div>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -347,8 +353,10 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 {this.getDeleteCtrl(FT.PROTOCOLURL2)}
                                 <div className="m-uploadmaterial-ctrl">
-                                    <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={protocolurl2} alt="" onDoubleClick={me.handleDoubleClick.bind(me,protocolurl2)}/>
+                                    <div className="m-uploadmaterial-ctrl-picture-table">
+                                        <div className="m-uploadmaterial-ctrl-picture">
+                                            <img src={protocolurl2} alt="" onDoubleClick={me.handleDoubleClick.bind(me,protocolurl2)}/>
+                                        </div>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -365,8 +373,10 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 {this.getDeleteCtrl(FT.SECURITYURL1)}
                                 <div className="m-uploadmaterial-ctrl">
-                                    <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={securityurl1} alt="" onDoubleClick={me.handleDoubleClick.bind(me,securityurl1)}/>
+                                    <div className="m-uploadmaterial-ctrl-picture-table">
+                                        <div className="m-uploadmaterial-ctrl-picture">
+                                            <img src={securityurl1} alt="" onDoubleClick={me.handleDoubleClick.bind(me,securityurl1)}/>
+                                        </div>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
@@ -385,8 +395,10 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 {this.getDeleteCtrl(FT.SECURITYURL2)}
                                 <div className="m-uploadmaterial-ctrl">
-                                    <div className="m-uploadmaterial-ctrl-picture">
-                                        <img src={securityurl2} alt="" onDoubleClick={me.handleDoubleClick.bind(me,securityurl2)}/>
+                                    <div className="m-uploadmaterial-ctrl-picture-table">
+                                        <div className="m-uploadmaterial-ctrl-picture">
+                                            <img src={securityurl2} alt="" onDoubleClick={me.handleDoubleClick.bind(me,securityurl2)}/>
+                                        </div>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
                                         <input type="button" value="上传图片"/>
