@@ -381,3 +381,5 @@ reqwest({
 61. test: react: 0.14.7 , ee.target 会null ,回退出0.14.6,重新webpack 则ok
 onChange: function(ee){
     var file = ee.target.files[0];
+
+62. Mac  webpack 0.12.12 suppprt width character, but linux 0.12.11 and 0.12.14 can't support width character

@@ -12,9 +12,9 @@ var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
 var query = {
     presets: ['es2015', 'react'],
-    plugins: [ 'transform-es3-member-expression-literals', 'transform-es3-property-literals']
+    plugins: ['transform-es3-member-expression-literals', 'transform-es3-property-literals']
 };
-
+var filter = 'babel?' + JSON.stringify(query);
 module.exports = {
     entry: [
         //'webpack/hot/dev-server',
@@ -32,7 +32,7 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                         // es3ify required for IE8
-                loaders: ['es3ify', `babel?${JSON.stringify(query)}`],
+                loaders: ['es3ify', filter],
                 include: path.join(__dirname,'.')
             }
         ]
