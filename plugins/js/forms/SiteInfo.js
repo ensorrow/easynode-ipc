@@ -23,6 +23,7 @@ import FormValidator from '../utils/FormValidator';
 import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 import validator from 'validator';
+import Global from '../utils/globals';
 
 var LANG_CHINESE = 1;
 var LANG_CHINESETRADITIONAL = 2 ;
@@ -268,6 +269,8 @@ let SiteInfo = React.createClass({
                 if( resp.ret.drafttype == 3 ){
                     __globals__.siteinfo.id = resp.ret.id;
                     Toast.show("保存草稿成功");
+
+                    Global.set('global',__globals__);
                 }
             },
             error: function(err){

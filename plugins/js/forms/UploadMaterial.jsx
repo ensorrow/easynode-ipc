@@ -24,6 +24,7 @@ import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 
 import ViewPhoto from './ViewPhoto.js';
+import Global from '../utils/globals';
 
 const FT = {
     "SITEMANAGERURL": 0,
@@ -115,6 +116,8 @@ let UploadMaterial = React.createClass({
                 __globals__.record = resp.ret;
                 location.href = "#/submittrialsuccess";
                 Toast.show("保存草稿成功");
+
+                Global.set('global',__globals__);
             },
             error: function(err){
                 //TODO

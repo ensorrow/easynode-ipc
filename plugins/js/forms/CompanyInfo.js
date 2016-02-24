@@ -23,6 +23,7 @@ import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 import validator from 'validator';
 
+import Global from '../utils/globals';
 
 const FT = {
     "IDTYPE": 0,
@@ -237,6 +238,8 @@ let CompanyInfo = React.createClass({
                 if( resp.ret.drafttype == 2 ){
                     __globals__.companyinfo.id = resp.ret.id;
                     Toast.show("保存草稿成功");
+
+                    Global.set('global',__globals__);
                 }
             },
             error: function(err){

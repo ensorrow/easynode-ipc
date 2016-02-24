@@ -22,6 +22,8 @@ import ProgressBar from './ProgressBar.jsx';
 import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 
+import Global from '../utils/globals';
+
 let BaseInfo = React.createClass({
 
     getInitialState: function() {
@@ -48,6 +50,8 @@ let BaseInfo = React.createClass({
                 if( resp.ret.drafttype == 1 ){
                     __globals__.baseinfo.id = resp.ret.id;
                     Toast.show("保存草稿成功");
+
+                    Global.set('global',__globals__);
                 }
             },
             error: function(err){
