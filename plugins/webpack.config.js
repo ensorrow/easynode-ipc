@@ -12,7 +12,7 @@ var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
 var query = {
     presets: ['es2015', 'react'],
-    plugins: [ 'transform-es3-member-expression-literals', 'transform-es3-property-literals']
+    plugins: ['transform-es3-member-expression-literals', 'transform-es3-property-literals']
 };
 var filter = 'babel?' + JSON.stringify(query);
 module.exports = {
