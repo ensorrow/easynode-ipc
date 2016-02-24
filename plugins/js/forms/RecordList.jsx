@@ -178,8 +178,8 @@ let Records = React.createClass({
             let type = record.type;
             var typeStr =
                         type == 0  ? '首次备案' :
-                        type == 1 ? '新增接入' :
-                        type == 2 ? '新增网站' : '未知类型';
+                        type == 1 ? '新增网站' :
+                        type == 2 ? '新增接入' : '未知类型';
 
             let prg = record.status;
             var prgStr =
