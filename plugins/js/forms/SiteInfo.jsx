@@ -33,8 +33,7 @@ const FT = {
     "OFFICEPHONENUMBER":3,
     "MOBILE":4,
     "EMAIL":5,
-    "QQ":6,
-    "RECORDNUMBER":7
+    "QQ":6
 };
 
 let SiteInfo = React.createClass({
@@ -109,8 +108,7 @@ let SiteInfo = React.createClass({
                 }},
                 qq: {isBlank: false, regularFail: false, match: function(str){
                     return validator.isInt(str);
-                }},
-                recordnumber: {isBlank: false}
+                }}
             },
             siteInfo:{
                 name:'',domain:'',domain1:'',domain2:'',domain3:'',domain4:'',homeurl:'',servicecontent:"1",languages:{
@@ -137,8 +135,7 @@ let SiteInfo = React.createClass({
                     virtualhost: true,
                     other: false
                 },serverregion:'1',managername:'',manageridtype:0,manageridnumber:'',officephoneregion:'',officephonenumber:'',mobile:'',
-                email:'', qq:'',
-                recordnumber: ''
+                email:'', qq:''
             }
         };
     },
@@ -158,16 +155,14 @@ let SiteInfo = React.createClass({
                    id == FT.OFFICEPHONENUMBER ? formError.officephonenumber :
                    id == FT.MOBILE ? formError.mobile :
                    id == FT.EMAIL ? formError.email :
-                   id == FT.QQ ? formError.qq :
-                   id == FT.RECORDNUMBER ? formError.recordnumber : formError.recordnumber;
+                   id == FT.QQ ? formError.qq : formError.qq;
         var val = id == FT.NAME ? siteInfo.name :
                   id == FT.DOMAIN ? siteInfo.domain :
                   id == FT.HOMEURL ? siteInfo.homeurl :
                   id == FT.OFFICEPHONENUMBER ? siteInfo.officephonenumber :
                   id == FT.MOBILE ? siteInfo.mobile :
                   id == FT.EMAIL ? siteInfo.email :
-                  id == FT.QQ ? siteInfo.qq :
-                  id == FT.RECORDNUMBER ? siteInfo.recordnumber : siteInfo.recordnumber;
+                  id == FT.QQ ? siteInfo.qq : siteInfo.qq;
         ctrl.focus = focus;
         if( ctrl.hasOwnProperty("regularFail") && val.length > 0 ){
             ctrl.regularFail = FormValidator.regular(val, ctrl.match);
@@ -292,32 +287,6 @@ let SiteInfo = React.createClass({
         clearInterval(this.interval);
     },
 
-    getRecordNumber: function(){
-        if( __globals__.baseinfo && __globals__.baseinfo.type == 22  ){
-            this.state.formError.recordnumber.checked = false;
-            return (
-                <div className="m-siteinfo-item">
-                    <div className="item-label">
-                        <label>网站备案号:</label>
-                        <span class="red f-fr">*</span>
-                    </div>
-                    <div className="item-ctrl">
-                        <input type="text" name="identity" class="item-ctrl" onChange={this.handleRecordNumber} value={this.state.siteInfo.recordnumber} onFocus={this.handleFocus}/>
-                        <span className={this.state.formError.recordnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入网站备案号</span>
-                    </div>
-                </div>
-            );
-        }else {
-            this.state.formError.recordnumber.checked = true;
-        }
-    },
-    handleRecordNumber: function(e){
-        e.preventDefault();
-        var siteInfo = this.state.siteInfo;
-        siteInfo.recordnumber = e.target.value;
-        this.setState({siteInfo: siteInfo});
-
-    },
     handleName: function(e){
         e.preventDefault();
         var siteInfo = this.state.siteInfo;

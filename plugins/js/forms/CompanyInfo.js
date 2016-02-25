@@ -159,7 +159,7 @@ let CompanyInfo = React.createClass({
                         <span className="red f-fl">*</span><label>主体备案号:</label>
                     </div>
                     <div className="item-ctrl">
-                        <input type="text" name="identity"  onChange={this.handleRecordNumber} value={this.state.companyInfo.recordnumber} onFocus={this.handleFocus.bind(this,FT.RECORDNUMBER)}/>
+                        <input type="text" name="recordnumber"  onChange={this.handleRecordNumber} value={this.state.companyInfo.recordnumber} onFocus={this.handleFocus.bind(this,FT.RECORDNUMBER)}/>
                         <span className={this.state.formError.recordnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体备案</span>
                     </div>
                 </div>
@@ -447,7 +447,7 @@ let CompanyInfo = React.createClass({
                                     <span className="red f-fl">*</span><label>主体单位证件号码:</label>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="identity"  onChange={this.handleIdNumber} value={this.state.companyInfo.idnumber} maxLength="30"/>
+                                    <input type="text" name="idnumber"  onChange={this.handleIdNumber} value={this.state.companyInfo.idnumber} maxLength="30"/>
                                     <span className={this.state.formError.idnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位号码</span>
                                 </div>
                             </div>
