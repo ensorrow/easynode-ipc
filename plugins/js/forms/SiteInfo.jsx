@@ -554,7 +554,6 @@ let SiteInfo = React.createClass({
                     <form className="">
                         <fieldset>
                             <div className="m-siteinfo-legend"><span>网站基本信息</span></div>
-                            {this.getRecordNumber()}
                             <div className="m-siteinfo-item">
                                 <div className="item-label">
                                     <label>网站名称:</label>
