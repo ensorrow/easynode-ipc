@@ -114,6 +114,25 @@ let RecordInfo = React.createClass({
                 __globals__.siteinfo.manageridtype == 3 ? "军官证" :
                 __globals__.siteinfo.manageridtype == 4 ? "台胞证" : "台胞证";
     },
+    getSiteRecordNumber: function(){
+        return __globals__.companyinfo.recordnumber;
+    },
+    getRecordNumber: function(){
+        if( __globals__.baseinfo && __globals__.baseinfo.type > 0  ){
+            return (
+                <div className="m-recordinfo-item">
+                    <div className="m-recordinfo-item-label">
+                       <label>主体备案号:</label>
+                    </div>
+                    <div className="m-recordinfo-item-ctrl">
+                        <label>{this.getSiteRecordNumber()}</label>
+                    </div>
+                </div>
+        );
+        }else {
+
+        }
+    },
     render: function () {
         var uppic;
         if( __globals__.baseinfo.status != 1
@@ -158,6 +177,7 @@ let RecordInfo = React.createClass({
                         </fieldset>
                         <fieldset>
                             <div className="m-recordinfo-legend"><span>主体信息</span></div>
+                            {this.getRecordNumber()}
                             <div className="m-recordinfo-item">
                                 <div className="m-recordinfo-item-label">
                                     <label>主体单位所属区域:</label>
