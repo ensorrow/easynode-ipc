@@ -231,6 +231,10 @@ export default{
         {
             path:'/submitchecksuccess',
             getComponent: (location,cb) => {
+                var a = Global.get('global');
+                if (a.hasOwnProperty('companyinfo') ){
+                    __globals__ = a;
+                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/SubmitCheckSuccess'));
                 });

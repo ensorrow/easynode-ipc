@@ -207,7 +207,7 @@ let SiteInfo = React.createClass({
     handleSubmit: function(e){
         e.preventDefault();
         this.setState({
-            inited: false,
+            inited: false
         });
         if( this.state.processing ){
             return;
@@ -226,14 +226,16 @@ let SiteInfo = React.createClass({
             processing: true
         });
 
+        var me = this;
         this.onSave(function(){
             location.href = "#/uploadmaterial";
-            this.setState({
+            me.setState({
                 processing: false
             });
         },function(){
-            "use strict";
-
+            me.setState({
+                processing: false
+            });
         });
 
     },
@@ -253,14 +255,16 @@ let SiteInfo = React.createClass({
             data: JSON.stringify(__globals__),
             type:'json',
             contentType: 'application/json',
+            headers: {
+                'If-Modified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT'
+            },
             success: function(resp){
                 //{drafttype: formData.drafttype, id: r.insertId};
                 if( resp.ret.drafttype == 3 ){
                     __globals__.siteinfo.id = resp.ret.id;
                     Toast.show("保存草稿成功");
-
-                    if( typeof(succ) == 'function' ) succ();
                 }
+                if( typeof(succ) == 'function' ) succ();
             },
             error: function(err){
                 Toast.show("保存草稿失败");
@@ -678,7 +682,7 @@ let SiteInfo = React.createClass({
                                     <input type="text" min="1" max="9999" name="officerrigion" className="item-ctrl-office-onefourth" onChange={this.handleOfficePhoneRegion} value={this.state.siteInfo.officephoneregion} maxLength="4"/>
                                     <input type="text" max="999999999999" name="officerphone" className="item-ctrl-office-threefourth" onChange={this.handleOfficePhoneNumber} value={this.state.siteInfo.officephonenumber} onFocus={me.handleFocus.bind(me,FT.OFFICEPHONENUMBER)} onBlur={me.handleBlur.bind(me,FT.OFFICEPHONENUMBER)} maxLength="11"/>
                                     <span className={this.state.formError.officephonenumber.isBlank  ? "u-popover" : "u-popover hidden" }>请输入办公室电话</span>
-                                    <span className={this.state.formError.officephonenumber.regularFail  ? "u-popover" : "u-popover hidden" }>请输入正确的办公室电话</span>
+                                    <span className={this.state.formError.officephonenumber.regularFail || this.state.formError.officephoneregion.regularFail ? "u-popover" : "u-popover hidden" }>请输入正确的办公室电话</span>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">

@@ -49,6 +49,9 @@ let Operation = React.createClass({
                         data: JSON.stringify({id:this.props.record.id}),
                         type:'json',
                         contentType: 'application/json',
+                        headers: {
+                            'If-Modified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT'
+                        },
                         success: function(resp){
                             //{ret:{id:96,ret:false}}
                             //me.setState({data: resp.ret.data});
@@ -74,7 +77,7 @@ let Operation = React.createClass({
                 location.href = to;
             },
             function(err){
-                console.log("getRecord err")
+                console.log("getRecord err");
                 console.log(err);
             }
         );
@@ -154,7 +157,7 @@ let Records = React.createClass({
                 location.href = to;
             },
             function(err){
-                console.log("getRecord err")
+                console.log("getRecord err");
                 console.log(err);
             }
         );
@@ -238,6 +241,9 @@ let RecordList = React.createClass({
             data: reqData,
             type:'json',
             contentType: 'application/json',
+            headers: {
+                'If-Modified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT'
+            },
             success: function(resp){
                 me.setState({data: resp.data});
                 console.log(resp);

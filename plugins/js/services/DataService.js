@@ -5,12 +5,16 @@ var assign = assigner.getPolyfill();
 module.exports = {
 
     getRecord: function(id,succ,err) {
+        debugger;
         reqwest({
             url: '/record',
             method: 'get',
             data: {id: id},
             type: 'json',
             contentType: 'application/json',
+            headers: {
+                'If-Modified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT'
+            },
             success: function (resp) {
                 console.log("111");
                 console.log(resp);

@@ -78,12 +78,12 @@ $m-submittrialsuccess_tip_width = $m-submittrialsuccess_height - $m-submittrials
 		}
 
 		.tip-footer{
+			clear: both;
 			font-family:MicrosoftYaHei;
 	        font-size:12px;
 	        color:#666666;;
 	        line-height:14px;
 	        margin: 15px 15px 15px 15px;
-	        @extend .f-fl;
 		}
 		@extend .f-fl;
 	}
