@@ -592,7 +592,7 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <label className="siteurl">http://</label><input type="text" name="identity" className="siteurl-input" onChange={this.handleHomeUrl} value={this.state.siteInfo.homeurl} onFocus={me.handleFocus.bind(me,FT.HOMEURL)} onBlur={me.handleBlur.bind(me,FT.HOMEURL)} maxLength="100"/>
+                                    <label className="siteurl">http://</label><input type="text" name="homeurl" className="siteurl-input" onChange={this.handleHomeUrl} value={this.state.siteInfo.homeurl} onFocus={me.handleFocus.bind(me,FT.HOMEURL)} onBlur={me.handleBlur.bind(me,FT.HOMEURL)} maxLength="100"/>
                                     <span className={this.state.formError.homeurl.isBlank  ? "u-popover" : "u-popover hidden" }>请输入网站首页URL</span>
                                     <span className={this.state.formError.homeurl.focus  ? "u-popover2" : "u-popover2 hidden" }><p>1、首页URL应该包含填写的域名列表中的任意一个</p><p>2、首页URL不要加http://</p></span>
                                     <span className={this.state.formError.homeurl.regularFail  ? "u-popover" : "u-popover hidden" }>请输入正确网站首页URL</span>
