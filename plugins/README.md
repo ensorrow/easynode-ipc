@@ -394,3 +394,5 @@ Is it enough to include es5-shim.min.js and es6-shim.min.js or should I also inc
 
 64. babel-node Utilities.js
 
+65. IE10中ajax的responseText内容不正确，因IE10的缓存304导致 ie8,11 OK, 唯独IE10
+

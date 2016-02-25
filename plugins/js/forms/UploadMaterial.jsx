@@ -96,6 +96,9 @@ let UploadMaterial = React.createClass({
             data: JSON.stringify(__globals__),
             type:'json',
             contentType: 'application/json',
+            headers: {
+                'If-Modified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT'
+            },
             success: function(resp){
                 //{ code: code, id: id }
                 __globals__.record = resp.ret;
@@ -133,6 +136,9 @@ let UploadMaterial = React.createClass({
             data: JSON.stringify(__globals__),
             type:'json',
             contentType: 'application/json',
+            headers: {
+                'If-Modified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT'
+            },
             success: function(resp){
                 console.log(resp)
                 console.log(resp.ret.id);

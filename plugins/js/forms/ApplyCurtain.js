@@ -114,6 +114,9 @@ let ApplyCurtain = React.createClass({
             data: JSON.stringify( data ),
             type:'json',
             contentType: 'application/json',
+            headers: {
+                'If-Modified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT'
+            },
             success: function(resp){
                 //{ true|false }
                 console.log(resp);

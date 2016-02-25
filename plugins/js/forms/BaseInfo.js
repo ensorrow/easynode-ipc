@@ -30,6 +30,9 @@ let BaseInfo = React.createClass({
             data: JSON.stringify(__globals__),
             type:'json',
             contentType: 'application/json',
+            headers: {
+                'If-Modified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT'
+            },
             success: function(resp){
                 //{drafttype: formData.drafttype, id: r.insertId};
                 if( resp.ret.drafttype == 1 ){

@@ -37,8 +37,11 @@ let MySelect = React.createClass({
             value = this.props.area;
         }
         this.index = index;//must
+        var name = this.index == 1 ?  "p" :
+                this.index == 2 ?  "c" :
+                this.index == 3 ?  "a" : "p";
         return (
-            <select data-order={index} onChange={this._handleChange} className="item-ctrl-three" value={value}>
+            <select data-order={index} name={name} onChange={this._handleChange} className="item-ctrl-three" value={value}>
                 {
                     items.map((name,i)=> {
                         return (<option key={i} value={name}>{name}</option>);
