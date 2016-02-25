@@ -99,8 +99,10 @@ let UploadMaterial = React.createClass({
             success: function(resp){
                 //{ code: code, id: id }
                 __globals__.record = resp.ret;
-                location.href = "#/submittrialsuccess";
+
                 Toast.show("保存草稿成功");
+
+                location.href = "#/submittrialsuccess";
 
                 Global.set('global',__globals__);
             },
@@ -119,7 +121,7 @@ let UploadMaterial = React.createClass({
             __globals__.material = {};
         __globals__.material = this.state.materials;
     },
-    onSave: function(){
+    onSave: function(succ,err){
 
         this.save();
 
@@ -137,6 +139,7 @@ let UploadMaterial = React.createClass({
                 if( resp.ret.drafttype == 4 ){
                     __globals__.baseinfo.id = resp.ret.id;
                 }
+                if( typeof(succ) == 'function' ) succ();
             },
             error: function(err){
                 //TODO

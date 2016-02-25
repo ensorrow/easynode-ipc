@@ -14,7 +14,7 @@ let BaseInfo = React.createClass({
     getInitialState: function() {
         return {type:0,serverregion:"1"};
     },
-    onSave: function(){
+    onSave: function( succ,err ){
         if( __globals__.baseinfo == undefined )
             __globals__.baseinfo = {};
         __globals__.baseinfo.type = this.state.type;
@@ -37,6 +37,7 @@ let BaseInfo = React.createClass({
                     Toast.show("保存草稿成功");
 
                     Global.set('global',__globals__);
+                    if( typeof(succ) == 'function' ) succ();
                 }
             },
             error: function(err){
@@ -58,8 +59,11 @@ let BaseInfo = React.createClass({
         this.setState({type:type,serverregion: region});
     },
     handleSubmit: function(){
-        this.onSave();
-        location.href = "#/fillcompanyinfo";
+        this.onSave(function(){
+            location.href = "#/fillcompanyinfo";
+        },function(){
+        });
+
     },
     render: function () {
         return (
