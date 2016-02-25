@@ -3,11 +3,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute } from 'react-router';
 import upload from '../utils/upload';
-
 import ProgressBar from './ProgressBar.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 import ApplyCurtain from './ApplyCurtain.js';
-
 import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 

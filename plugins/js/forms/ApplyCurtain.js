@@ -4,7 +4,6 @@ import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute } from 'react-router';
 import ProgressBar from './ProgressBar.jsx';
 import CascadeSelect from '../widgets/CascadeSelect2.jsx';
-
 import Global from '../utils/globals';
 import DataService from '../services/DataService.js';
 import reqwest from 'reqwest';

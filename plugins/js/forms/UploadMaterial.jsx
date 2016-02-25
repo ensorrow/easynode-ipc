@@ -4,12 +4,10 @@ import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute } from 'react-router';
 import ProgressBar from './ProgressBar.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
-
 import upload from '../utils/upload';
 import FormValidator from '../utils/FormValidator';
 import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
-
 import ViewPhoto from './ViewPhoto.js';
 import Global from '../utils/globals';
 
