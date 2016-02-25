@@ -467,7 +467,7 @@ let CompanyInfo = React.createClass({
                                     <span className="red f-fl">*</span><label>主体单位证件住所:</label>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="address" onChange={this.handleLiveAddress} value={this.state.companyInfo.liveaddress} onFocus={me.handleFocus.bind(me,FT.LIVEADDRESS)} onBlur={me.handleBlur.bind(me,FT.LIVEADDRESS)} maxLength="50"/>
+                                    <input type="text" name="address" onChange={this.handleLiveAddress} value={this.state.companyInfo.liveaddress} onFocus={me.handleFocus.bind(me,FT.LIVEADDRESS)} onBlur={me.handleBlur.bind(me,FT.LIVEADDRESS)} maxLength="200"/>
                                     <span className={this.state.formError.liveaddress.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位信所地址</span>
                                     <span className={this.state.formError.liveaddress.focus ? "u-popover2" : "u-popover2 hidden" }>1、必须输入与主体单位证件上一致的地址 </span>
                                 </div>
@@ -477,7 +477,7 @@ let CompanyInfo = React.createClass({
                                     <span className="red f-fl">*</span><label>主体单位通讯地址:</label>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="commaddress" onChange={this.handleCommAddress} value={this.state.companyInfo.commaddress} onFocus={me.handleFocus.bind(me,FT.COMMADDRESS)} onBlur={me.handleBlur.bind(me,FT.COMMADDRESS)} maxLength="50"/>
+                                    <input type="text" name="commaddress" onChange={this.handleCommAddress} value={this.state.companyInfo.commaddress} onFocus={me.handleFocus.bind(me,FT.COMMADDRESS)} onBlur={me.handleBlur.bind(me,FT.COMMADDRESS)} maxLength="200"/>
                                     <span className={this.state.formError.commaddress.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位通讯地址</span>
                                     <span className={this.state.formError.commaddress.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、必须输入真实准确的地址，精确到房间号</p><p>2、通信地址不能包含任何符号</p><p>3、通信地址选择的省市区必须与主体单位所属区</p></span>
                                 </div>
@@ -555,7 +555,7 @@ let CompanyInfo = React.createClass({
                                     <span className="red f-fl">*</span><label>电子邮箱:</label>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="email" onChange={this.handleEmail} value={this.state.companyInfo.email} onFocus={me.handleFocus.bind(me,FT.EMAIL)} onBlur={me.handleBlur.bind(me,FT.EMAIL)} maxLength="30"/>
+                                    <input type="text" name="email" onChange={this.handleEmail} value={this.state.companyInfo.email} onFocus={me.handleFocus.bind(me,FT.EMAIL)} onBlur={me.handleBlur.bind(me,FT.EMAIL)} maxLength="50"/>
                                     <span className={this.state.formError.email.isBlank > 0 ? "u-popover" : "u-popover hidden" }>请输入电子邮箱</span>
                                     <span className={this.state.formError.email.regularFail > 0 ? "u-popover" : "u-popover hidden" }>请输入正确电子邮箱</span>
                                 </div>

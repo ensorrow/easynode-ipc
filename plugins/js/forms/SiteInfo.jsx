@@ -561,7 +561,7 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="identity" onChange={this.handleName} value={this.state.siteInfo.name} onFocus={me.handleFocus.bind(me,FT.NAME)} onBlur={me.handleBlur.bind(me,FT.NAME)} maxLength="30"/>
+                                    <input type="text" name="sitename" onChange={this.handleName} value={this.state.siteInfo.name} onFocus={me.handleFocus.bind(me,FT.NAME)} onBlur={me.handleBlur.bind(me,FT.NAME)} maxLength="30"/>
                                     <span className={this.state.formError.name.isBlank  ? "u-popover" : "u-popover hidden" }>请输入网站名称</span>
                                     <span className={this.state.formError.name.focus  ? "u-popover2" : "u-popover2 hidden" }>
                                             <p>1、不能以纯数字或纯英文命名，不能包含域名、特殊符号、敏感词语（反腐、赌博、廉政、色情等）</p>
@@ -699,7 +699,7 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" name="email" onChange={this.handleEmail} value={this.state.siteInfo.email} onFocus={me.handleFocus.bind(me,FT.EMAIL)} onBlur={me.handleBlur.bind(me,FT.EMAIL)} maxLength="30"/>
+                                    <input type="text" name="email" onChange={this.handleEmail} value={this.state.siteInfo.email} onFocus={me.handleFocus.bind(me,FT.EMAIL)} onBlur={me.handleBlur.bind(me,FT.EMAIL)} maxLength="50"/>
                                     <span className={this.state.formError.email.isBlank  ? "u-popover" : "u-popover hidden" }>请输入电子邮箱</span>
                                     <span className={this.state.formError.email.regularFail  ? "u-popover" : "u-popover hidden" }>请输入正确的电子邮箱</span>
                                 </div>
