@@ -1,4 +1,6 @@
 import reqwest from 'reqwest';
+import assigner from 'object.assign';
+var assign = assigner.getPolyfill();
 
 module.exports = {
 
@@ -29,10 +31,10 @@ module.exports = {
                 __globals__.baseinfo.status = record.status;
 
                 if (company) {
-                    Object.assign(__globals__.companyinfo, company);
+                    assign(__globals__.companyinfo, company);
                 }
                 if (siteinfo) {
-                    Object.assign(__globals__.siteinfo, siteinfo);
+                    assign(__globals__.siteinfo, siteinfo);
                     console.log(siteinfo);
                     var domains = [];
                     if (siteinfo.domain1 && siteinfo.domain1.length > 0) {

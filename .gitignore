@@ -49,5 +49,5 @@ plugins/5..
 plugins/6..
 plugins/7..
 plugins/8..
-
+bin/nohup.out
 config.json
