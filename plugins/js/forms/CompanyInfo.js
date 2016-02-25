@@ -151,7 +151,7 @@ let CompanyInfo = React.createClass({
         return formError;
     },
     getRecordNumber: function(){
-        if( __globals__.baseinfo && __globals__.baseinfo.type == 1  ){
+        if( __globals__.baseinfo && __globals__.baseinfo.type > 0  ){
             this.state.formError.recordnumber.checked = false;
             return (
                 <div className="m-companyinfo-item">
@@ -382,7 +382,7 @@ let CompanyInfo = React.createClass({
         var me = this;
         if( this.state.companyInfo.nature > 0 ){
             return (
-                <select  onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
+                <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
                     <option value ="0">请选择主体单位证件类型</option>
                     <option value ="1">工商执照</option>
                     <option value="2">组织机构代码</option>
@@ -391,7 +391,7 @@ let CompanyInfo = React.createClass({
         }
         else {
             return (
-                <select onChange={this.handleIdType} value={this.state.companyInfo.idtype} disabled="false" className="gray" onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
+                <select name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} disabled="false" className="gray" onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
                     <option value ="0">请选择主体单位证件类型</option>
                     <option value ="1">工商执照</option>
                     <option value="2">组织机构代码</option>
@@ -422,7 +422,7 @@ let CompanyInfo = React.createClass({
                                     <span className="red f-fl">*</span><label>主体单位性质:</label>
                                 </div>
                                 <div className="item-ctrl">
-                                    <select onChange={this.handleNature} value={this.state.companyInfo.nature}>
+                                    <select name="nature" onChange={this.handleNature} value={this.state.companyInfo.nature}>
                                         <option value ="0">请选择主体单位的性质</option>
                                         <option value ="1">军队</option>
                                         <option value ="2">政府机关</option>
