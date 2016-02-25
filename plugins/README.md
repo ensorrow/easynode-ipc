@@ -383,3 +383,11 @@ onChange: function(ee){
     var file = ee.target.files[0];
 
 62. Mac  webpack 0.12.12 suppprt width character, but linux 0.12.11 and 0.12.14 can't support width character
+
+63.
+down vote
+favorite
+3
+What is the difference between a shim an a sham?
+
+Is it enough to include es5-shim.min.js and es6-shim.min.js or should I also include es5-sham.min.js and es6-sham.min.js?

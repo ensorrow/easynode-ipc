@@ -535,7 +535,7 @@ let CompanyInfo = React.createClass({
                                     <span className="red f-fl">*</span><label>办公室电话:</label>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="number" name="officerphone" min="1" max="10" onChange={this.handleOfficePhoneNumber} value={this.state.companyInfo.officephonenumber} onFocus={me.handleFocus.bind(me,FT.OFFICEPHONENUMBER)} onBlur={me.handleBlur.bind(me,FT.OFFICEPHONENUMBER)} maxLength="12"/>
+                                    <input type="text" name="officerphone" min="1" max="10" onChange={this.handleOfficePhoneNumber} value={this.state.companyInfo.officephonenumber} onFocus={me.handleFocus.bind(me,FT.OFFICEPHONENUMBER)} onBlur={me.handleBlur.bind(me,FT.OFFICEPHONENUMBER)} maxLength="12"/>
                                     <span className={this.state.formError.officephonenumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入办公室电话</span>
                                     <span className={this.state.formError.officephonenumber.focus ? "u-popover2" : "u-popover2 hidden" }>1、请确保电话畅通能联系到本人</span>
                                     <span className={this.state.formError.officephonenumber.regularFail ? "u-popover" : "u-popover hidden" }>请输入正确的办公室电话</span>
@@ -546,7 +546,7 @@ let CompanyInfo = React.createClass({
                                     <span className="red f-fl">*</span><label>手机号码:</label>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="number" name="mobilephone" min="1" max="10" onChange={this.handleMobile} value={this.state.companyInfo.mobile} onFocus={me.handleFocus.bind(me,FT.MOBILE)} onBlur={me.handleBlur.bind(me,FT.MOBILE)} maxLength="11"/>
+                                    <input type="text" name="mobilephone" min="1" max="10" onChange={this.handleMobile} value={this.state.companyInfo.mobile} onFocus={me.handleFocus.bind(me,FT.MOBILE)} onBlur={me.handleBlur.bind(me,FT.MOBILE)} maxLength="11"/>
                                     <span className={this.state.formError.mobile.isBlank ? "u-popover" : "u-popover hidden" }>请输入手机号码</span>
                                     <span className={this.state.formError.mobile.focus ? "u-popover2" : "u-popover2 hidden" }>1、请确保电话畅通能联系到本人</span>
                                     <span className={this.state.formError.mobile.regularFail ? "u-popover" : "u-popover hidden" }>请输入正确的手机号码</span>

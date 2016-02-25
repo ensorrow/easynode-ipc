@@ -683,8 +683,8 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="number" min="1" max="9999" name="officerrigion" className="item-ctrl-office-onefourth" onChange={this.handleOfficePhoneRegion} value={this.state.siteInfo.officephoneregion} maxLength="4"/>
-                                    <input type="number" max="999999999999" name="officerphone" className="item-ctrl-office-threefourth" onChange={this.handleOfficePhoneNumber} value={this.state.siteInfo.officephonenumber} onFocus={me.handleFocus.bind(me,FT.OFFICEPHONENUMBER)} onBlur={me.handleBlur.bind(me,FT.OFFICEPHONENUMBER)} maxLength="11"/>
+                                    <input type="text" min="1" max="9999" name="officerrigion" className="item-ctrl-office-onefourth" onChange={this.handleOfficePhoneRegion} value={this.state.siteInfo.officephoneregion} maxLength="4"/>
+                                    <input type="text" max="999999999999" name="officerphone" className="item-ctrl-office-threefourth" onChange={this.handleOfficePhoneNumber} value={this.state.siteInfo.officephonenumber} onFocus={me.handleFocus.bind(me,FT.OFFICEPHONENUMBER)} onBlur={me.handleBlur.bind(me,FT.OFFICEPHONENUMBER)} maxLength="11"/>
                                     <span className={this.state.formError.officephonenumber.isBlank  ? "u-popover" : "u-popover hidden" }>请输入办公室电话</span>
                                     <span className={this.state.formError.officephonenumber.regularFail  ? "u-popover" : "u-popover hidden" }>请输入正确的办公室电话</span>
                                 </div>
@@ -695,7 +695,7 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="number" name="mobilephone" min="1" max="10" onChange={this.handleMobile} value={this.state.siteInfo.mobile} onFocus={me.handleFocus.bind(me,FT.MOBILE)} onBlur={me.handleBlur.bind(me,FT.MOBILE)} maxLength="11"/>
+                                    <input type="text" name="mobilephone" min="1" max="10" onChange={this.handleMobile} value={this.state.siteInfo.mobile} onFocus={me.handleFocus.bind(me,FT.MOBILE)} onBlur={me.handleBlur.bind(me,FT.MOBILE)} maxLength="11"/>
                                     <span className={this.state.formError.mobile.isBlank  ? "u-popover" : "u-popover hidden" }>请输入手机号码</span>
                                     <span className={this.state.formError.mobile.regularFail  ? "u-popover" : "u-popover hidden" }>请输入正确的手机号码</span>
                                 </div>
@@ -717,7 +717,7 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="number" name="qq" onChange={this.handleQq} value={this.state.siteInfo.qq}  onFocus={me.handleFocus.bind(me,FT.QQ)} onBlur={me.handleBlur.bind(me,FT.QQ)} maxLength="20"/>
+                                    <input type="text" name="qq" onChange={this.handleQq} value={this.state.siteInfo.qq}  onFocus={me.handleFocus.bind(me,FT.QQ)} onBlur={me.handleBlur.bind(me,FT.QQ)} maxLength="20"/>
                                     <span className={this.state.formError.qq.isBlank  ? "u-popover" : "u-popover hidden" }>请输入QQ账号</span>
                                     <span className={this.state.formError.qq.regularFail  ? "u-popover" : "u-popover hidden" }>请输入正确的QQ账号</span>
                                 </div>
@@ -741,10 +741,10 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="number" min="1" max="255" name="npidentity" className="item-ctrl-ip" onChange={this.handleIp1} value={this.state.siteInfo.ip.ip1}/>
-                                    <input type="number" min="1" max="255"  name="npidentity" className="item-ctrl-ip" onChange={this.handleIp2} value={this.state.siteInfo.ip.ip2}/>
-                                    <input type="number" min="1" max="255"  name="npidentity" className="item-ctrl-ip" onChange={this.handleIp3} value={this.state.siteInfo.ip.ip3}/>
-                                    <input type="number" min="1" max="255"  name="npidentity" className="item-ctrl-ip" onChange={this.handleIp4} value={this.state.siteInfo.ip.ip4}/>
+                                    <input type="text" min="1" max="255" name="npidentity" className="item-ctrl-ip" onChange={this.handleIp1} value={this.state.siteInfo.ip.ip1}/>
+                                    <input type="text" min="1" max="255"  name="npidentity" className="item-ctrl-ip" onChange={this.handleIp2} value={this.state.siteInfo.ip.ip2}/>
+                                    <input type="text" min="1" max="255"  name="npidentity" className="item-ctrl-ip" onChange={this.handleIp3} value={this.state.siteInfo.ip.ip3}/>
+                                    <input type="text" min="1" max="255"  name="npidentity" className="item-ctrl-ip" onChange={this.handleIp4} value={this.state.siteInfo.ip.ip4}/>
                                     <span className={this.enableIpTips()  ? "u-popover" : "u-popover hidden" }>请输入IP地址</span>
                                 </div>
                             </div>

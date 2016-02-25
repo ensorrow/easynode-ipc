@@ -209,7 +209,7 @@ let ApplyCurtain = React.createClass({
                             <span>*</span> <label>收件人手机号:</label>
                         </div>
                         <div className="m-applycurtain-item-ctrl">
-                            <input type="number" name="identity" onChange={this.handleRecipientMobile} value={this.state.contactinfo.recipientmobile} maxLength="11"/>
+                            <input type="text" name="identity" onChange={this.handleRecipientMobile} value={this.state.contactinfo.recipientmobile} maxLength="11"/>
                         </div>
                     </div>
                     <div className="m-applycurtain-item">
