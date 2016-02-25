@@ -3,7 +3,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute } from 'react-router';
 
-
 let DeleteRecord = React.createClass({
     render: function () {
         return (

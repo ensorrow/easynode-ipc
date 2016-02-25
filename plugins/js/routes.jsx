@@ -11,8 +11,6 @@ import RecordInfo from './forms/RecordInfo';
 import ApplyCurtain from './forms/ApplyCurtain';
 import SubmitCheckSuccess from './forms/SubmitCheckSuccess';
 import UploadPhoto from './forms/UploadPhoto.jsx';
-
-
 window.onbeforeunload = function(){
     console.log("onbeforeunload");
     Global.set('global',__globals__);

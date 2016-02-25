@@ -2,8 +2,6 @@ import  '../../css/index.css';
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute } from 'react-router';
-import es5 from '../es5-shim.min.js';
-import es6 from '../es6-shim.min.js';
 import ProgressBar from './ProgressBar.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 

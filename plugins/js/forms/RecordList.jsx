@@ -2,10 +2,14 @@ import  '../../css/index.css';
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute } from 'react-router';
+import records from '../mocks/records';
+import ReturnWidget from '../widgets/ReturnWidget.jsx';
+import Global from '../utils/globals';
+import DataService from '../services/DataService.js';
+import reqwest from 'reqwest';
 
-
-import '../es5-shim.min.js';
 var ReactUI = require('../ReactUI');
+/*
 var Form = ReactUI.Form;
 var FormControl = ReactUI.FormControl;
 var Icon = ReactUI.Icon;
@@ -15,17 +19,8 @@ var FormSubmit = ReactUI.FormSubmit;
 var Table = ReactUI.Table;
 var Filter = ReactUI.Filter;
 var Pagination = ReactUI.Pagination;
+*/
 var Modal = ReactUI.Modal;
-
-
-
-import records from '../mocks/records';
-import ReturnWidget from '../widgets/ReturnWidget.jsx';
-
-
-import Global from '../utils/globals';
-import DataService from '../services/DataService.js';
-import reqwest from 'reqwest';
 
 let Operation = React.createClass({
     propTypes:{

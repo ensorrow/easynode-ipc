@@ -7,11 +7,9 @@ import ProgressBar from './ProgressBar.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 import CascadeSelect from '../widgets/CascadeSelect.jsx';
 import FormValidator from '../utils/FormValidator';
-
 import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 import validator from 'validator';
-
 import Global from '../utils/globals';
 
 const FT = {
