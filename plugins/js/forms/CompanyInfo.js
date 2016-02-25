@@ -22,7 +22,8 @@ const FT = {
     "OWNER":4,
     "OFFICEPHONENUMBER":5,
     "MOBILE":6,
-    "EMAIL": 7
+    "EMAIL": 7,
+    "RECORDNUMBER": 8
 };
 
 let CompanyInfo = React.createClass({
@@ -109,7 +110,8 @@ let CompanyInfo = React.createClass({
                    id == FT.OWNER ? formError.owner :
                    id == FT.OFFICEPHONENUMBER ? formError.officephonenumber :
                    id == FT.MOBILE ? formError.mobile :
-                   id == FT.EMAIL ? formError.email : formError.email;
+                   id == FT.EMAIL ? formError.email :
+                   id == FT.RECORDNUMBER ? formError.recordnumber : formError.recordnumber;
         var val =  id == FT.IDTYPE ? companyInfo.idtype :
                    id == FT.NAME ? companyInfo.name :
                    id == FT.LIVEADDRESS ? companyInfo.liveaddress :
@@ -117,7 +119,8 @@ let CompanyInfo = React.createClass({
                    id == FT.OWNER ? companyInfo.owner :
                    id == FT.OFFICEPHONENUMBER ? companyInfo.officephonenumber :
                    id == FT.MOBILE ? companyInfo.mobile :
-                   id == FT.EMAIL ? companyInfo.email : companyInfo.email;
+                   id == FT.EMAIL ? companyInfo.email :
+                   id == FT.RECORDNUMBER ? companyInfo.recordnumber : companyInfo.recordnumber;
 
         ctrl.focus = focus;
         if( ctrl.hasOwnProperty("regularFail") && val.length > 0 ){
@@ -148,7 +151,7 @@ let CompanyInfo = React.createClass({
         return formError;
     },
     getRecordNumber: function(){
-        if( __globals__.baseinfo && __globals__.baseinfo.type > 0 ){
+        if( __globals__.baseinfo && __globals__.baseinfo.type == 1  ){
             this.state.formError.recordnumber.checked = false;
             return (
                 <div className="m-companyinfo-item">
@@ -156,7 +159,7 @@ let CompanyInfo = React.createClass({
                         <span className="red f-fl">*</span><label>主体备案号:</label>
                     </div>
                     <div className="item-ctrl">
-                        <input type="text" name="identity"  onChange={this.handleRecordNumber} value={this.state.companyInfo.recordnumber} onFocus={this.handleFocus}/>
+                        <input type="text" name="identity"  onChange={this.handleRecordNumber} value={this.state.companyInfo.recordnumber} onFocus={this.handleFocus.bind(this,FT.RECORDNUMBER)}/>
                         <span className={this.state.formError.recordnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体备案</span>
                     </div>
                 </div>
