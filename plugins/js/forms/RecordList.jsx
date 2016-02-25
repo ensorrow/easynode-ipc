@@ -66,7 +66,6 @@ let Operation = React.createClass({
                 }
             }
         });
-
     },
     handleResult: function(to){
         DataService.getRecord(this.props.record.id,
