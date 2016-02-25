@@ -4,15 +4,6 @@ import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute } from 'react-router';
 
 
-import '../es5-shim.min.js';
-var ReactUI = require('../ReactUI');
-var Form = ReactUI.Form;
-var FormControl = ReactUI.FormControl;
-var Icon = ReactUI.Icon;
-var Input = ReactUI.Input;
-var Button = ReactUI.Button;
-var FormSubmit = ReactUI.FormSubmit;
-
 var data = [
     {id:0, src: '../assets/first.png',title: '首次备案',describe: '域名未备案,备案主体证件无备案号,需要备案'},
     {id:1, src: '../assets/addsite.png',title: '新增网站',describe: '主体已经备过案,需要再给其它网站备案.'},

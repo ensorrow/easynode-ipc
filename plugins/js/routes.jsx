@@ -1,8 +1,6 @@
 import auth from './utils/auth';
 import Global from './utils/globals';
-
 import App from './App.jsx';
-
 import BaseInfo from './forms/BaseInfo';
 import CompanyInfo from './forms/CompanyInfo';
 import SiteInfo from './forms/SiteInfo.jsx';
