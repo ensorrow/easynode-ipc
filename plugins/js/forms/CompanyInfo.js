@@ -200,14 +200,19 @@ let CompanyInfo = React.createClass({
             processing: true
         });
 
-        this.onSave();
-        location.href = "#/fillsiteinfo";
-
-        this.setState({
-            processing: false
+        var me = this;
+        this.onSave(function(){
+            location.href = "#/fillsiteinfo";
+            me.setState({
+                processing: false
+            });
+        },function(){
+            me.setState({
+                processing: false
+            });
         });
-    },
-    onSave: function(){
+     },
+    onSave: function(succ,err){
         if( __globals__.companyinfo == undefined )
             __globals__.companyinfo = {};
 
@@ -229,6 +234,7 @@ let CompanyInfo = React.createClass({
                     Toast.show("保存草稿成功");
 
                     Global.set('global',__globals__);
+                    if( typeof(succ) == 'function' ) succ();
                 }
             },
             error: function(err){

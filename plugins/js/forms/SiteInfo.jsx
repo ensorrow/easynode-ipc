@@ -227,14 +227,19 @@ let SiteInfo = React.createClass({
             processing: true
         });
 
-        this.onSave();
-        location.href = "#/uploadmaterial";
-
-        this.setState({
-            processing: false
+        this.onSave(function(){
+            location.href = "#/uploadmaterial";
+            this.setState({
+                processing: false
+            });
+        },function(){
+            this.setState({
+                processing: false
+            });
         });
+
     },
-    onSave: function(){
+    onSave: function(succ,err){
         if( __globals__.siteinfo == undefined ) {
             __globals__.siteinfo = {};
             __globals__.domains = [];
@@ -255,6 +260,8 @@ let SiteInfo = React.createClass({
                 if( resp.ret.drafttype == 3 ){
                     __globals__.siteinfo.id = resp.ret.id;
                     Toast.show("保存草稿成功");
+
+                    if( typeof(succ) == 'function' ) succ();
                 }
             },
             error: function(err){
