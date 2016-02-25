@@ -11,6 +11,8 @@ import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 import validator from 'validator';
 import Global from '../utils/globals';
+import assigner from 'object.assign';
+var assign = assigner.getPolyfill();
 
 const FT = {
     "IDTYPE": 0,
@@ -360,7 +362,7 @@ let CompanyInfo = React.createClass({
     componentDidMount: function(){
         this.interval = setInterval(this.tick, 30*1000);
         if( __globals__.companyinfo != undefined ) {
-            this.setState( {companyInfo: Object.assign( {},this.state.companyInfo,__globals__.companyinfo) } );
+            this.setState( {companyInfo: assign( {},this.state.companyInfo,__globals__.companyinfo) } );
         }
     },
 

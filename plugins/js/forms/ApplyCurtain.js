@@ -8,8 +8,9 @@ import Global from '../utils/globals';
 import DataService from '../services/DataService.js';
 import reqwest from 'reqwest';
 import FormValidator from '../utils/FormValidator';
-
 import validator from 'validator';
+import assigner from 'object.assign';
+var assign = assigner.getPolyfill();
 
 const FT = {
     "MAILINGADDRESS": 0,
@@ -117,7 +118,7 @@ let ApplyCurtain = React.createClass({
                 //{ true|false }
                 console.log(resp);
 
-                Object.assign(__globals__.user,data);
+                assign(__globals__.user,data);
                 var onHidden = me.props.onHidden;
                 onHidden && onHidden();
 

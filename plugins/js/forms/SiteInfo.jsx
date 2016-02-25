@@ -8,6 +8,8 @@ import FormValidator from '../utils/FormValidator';
 import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 import validator from 'validator';
+import assigner from 'object.assign';
+var assign = assigner.getPolyfill();
 
 var LANG_CHINESE = 1;
 var LANG_CHINESETRADITIONAL = 2 ;
@@ -271,7 +273,7 @@ let SiteInfo = React.createClass({
         //console.log("url",location.hash);
 
         if( __globals__.siteinfo != undefined && __globals__.siteinfo.hasOwnProperty('name') ) {
-            this.setState( {siteInfo: Object.assign( {},this.state.siteinfo,__globals__.siteinfo ) } );
+            this.setState( {siteInfo: assign( {},this.state.siteinfo,__globals__.siteinfo ) } );
             this.setState( {domains: __globals__.domains} );
         }
     },
