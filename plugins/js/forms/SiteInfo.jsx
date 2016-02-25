@@ -156,7 +156,6 @@ let SiteInfo = React.createClass({
                    id == FT.MOBILE ? formError.mobile :
                    id == FT.EMAIL ? formError.email :
                    id == FT.QQ ? formError.qq : formError.qq;
-                ;
         var val = id == FT.NAME ? siteInfo.name :
                   id == FT.DOMAIN ? siteInfo.domain :
                   id == FT.HOMEURL ? siteInfo.homeurl :
@@ -233,9 +232,8 @@ let SiteInfo = React.createClass({
                 processing: false
             });
         },function(){
-            this.setState({
-                processing: false
-            });
+            "use strict";
+
         });
 
     },
@@ -556,6 +554,7 @@ let SiteInfo = React.createClass({
                     <form className="">
                         <fieldset>
                             <div className="m-siteinfo-legend"><span>网站基本信息</span></div>
+                            {this.getRecordNumber()}
                             <div className="m-siteinfo-item">
                                 <div className="item-label">
                                     <label>网站名称:</label>
