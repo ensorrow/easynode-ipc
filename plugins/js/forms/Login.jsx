@@ -3,18 +3,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute } from 'react-router';
 
-
-import '../es5-shim.min.js';
-var ReactUI = require('../ReactUI');
-var Form = ReactUI.Form;
-var FormControl = ReactUI.FormControl;
-var Icon = ReactUI.Icon;
-var Input = ReactUI.Input;
-var Button = ReactUI.Button;
-var FormSubmit = ReactUI.FormSubmit;
-var CheckboxGroup = ReactUI.CheckboxGroup;
-var Upload = ReactUI.Upload;
-
 var LOGINTYPE_CLOUND = '0';
 var LOGINTYPE_URL = '1';
 
@@ -36,7 +24,7 @@ let Login = React.createClass({
 
         //验证输入
         if( !accountName || !password ){
-            return;
+            return false;
         }
         //TODO: send request to the server
         //this.setState({accountName:'',password:''});
@@ -69,9 +57,9 @@ let Login = React.createClass({
                         </ul>
 
                         <input type="text" name="userName" placeholder={this.state.loginType == LOGINTYPE_CLOUND? "账号/手机/邮箱":"邮箱"} value={this.state.accountName} onChange={this.handleAccountnameChange}/>
-                        {accouttip};
+                        {accouttip}
                         <input type="password" name="password" placeholder="密码" value={this.state.password} onChange={this.handlePasswordChange}/>
-                        {passwordtip};
+                        {passwordtip}
                         <input type="submit" className="u-commit" value="登陆"/>
                     </div>
                 </form>
