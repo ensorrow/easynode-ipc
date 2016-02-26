@@ -17,6 +17,11 @@ let UploadPhoto = React.createClass({
     getInitialState: function(){
         return {showApplyCurt:false,curtainurl:'',processing:  false};
     },
+    componentDidMount: function(){
+
+    },
+    componentWillUnmount: function(){
+    },
     onChange: function(ee){
         var file = ee.target.files[0];
         console.log(ee);

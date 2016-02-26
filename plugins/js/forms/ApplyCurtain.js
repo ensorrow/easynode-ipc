@@ -111,13 +111,14 @@ let ApplyCurtain = React.createClass({
         DataService.httpRequest('/user','put',reqData,'json','application/json',{},
             function(resp){
                 //{ true|false }
-                console.log(resp);
 
                 assign(__globals__.user,data);
+                Global.set('global',__globals__);
+
                 var onHidden = me.props.onHidden;
                 onHidden && onHidden();
 
-                location.href = "#/submitchecksuccess";
+                location.href = "#/uploadphoto";
             },
             function(err){
             }

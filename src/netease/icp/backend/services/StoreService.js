@@ -481,7 +481,7 @@ var utils = require('utility');
 
                 try{
                     conn = yield me.app.ds.getConnection();
-                    model.merge( Object.assign({}, { id: id } ));
+                    model.merge( Object.assign({}, { id: id, applycurtainstatus: 1 } ));
                     if( mailingaddress ){
                         model.merge( Object.assign({}, { mailingaddress: mailingaddress } ));
                     }
