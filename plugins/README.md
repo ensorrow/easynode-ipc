@@ -349,8 +349,8 @@ var reqData = {page:1,tenantId:tid};
 	WORKDIR /usr/src/app/bin
 
 	CMD ["./start.sh"]
- * docker build -t hujb2000/icp@0.0.1 .
- * docker run -ti --name bbb --env CONFIG_URL='http://218.205.113.98:6006/configicp.json' hujb2000/icp@0.0.1
+ * docker build -t hujb2000/icp@0.0.2 .
+ * docker run -ti --name bbb --env CONFIG_URL='http://218.205.113.98:6006/configicp_prod.json' hujb2000/icp@0.0.2
  * docker run -ti --name ddd --net=host --env CONFIG_URL='http://218.205.113.98:6006/configicp.json' hujb2000/icp@0.0.1
 
  55. deploy to c.163.com
@@ -395,4 +395,25 @@ Is it enough to include es5-shim.min.js and es6-shim.min.js or should I also inc
 64. babel-node Utilities.js
 
 65. IE10中ajax的responseText内容不正确，因IE10的缓存304导致 ie8,11 OK, 唯独IE10
+
+66. starting  service [icp],  HTTP port: [80]
+    module.js:341
+        throw err;
+        ^
+
+    Error: Cannot find module 'core-js/library/fn/get-iterator'
+        at Function.Module._resolveFilename (module.js:339:15)
+        at Function.Module._load (module.js:290:25)
+        at Module.require (module.js:367:17)
+        at require (internal/module.js:16:19)
+        at Object.<anonymous> (/usr/src/app/node_modules/babel-runtime/core-js/get-iterator.js:1:93)
+        at Module._compile (module.js:413:34)
+        at Module._extensions..js (module.js:422:10)
+        at Object.require.extensions.(anonymous function) [as .js] (/usr/local/lib/node_modules/babel-cli/node_modules/babel-register/lib/node.js:136:7)
+        at Module.load (module.js:357:32)
+        at Function.Module._load (module.js:314:12)
+
+node_modules/babel-runtime, npm 网络问题,一般,2~3分钟,时间长有问题?
+
+
 
