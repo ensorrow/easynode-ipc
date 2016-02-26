@@ -804,7 +804,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                     pass = true;
                 }
             })
-            return pass;
+            return true;
         }
 
         getClassName()
