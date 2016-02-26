@@ -54,7 +54,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             return function * (){
 
                 if (query.code == LOGIN_SUCCESS.resCode) {
-                   //var user = _.pick(query,['tenantId','status','loginType','regIn','email','userName']);
                     var user = {};
                     user.tenantid = query.tenantId;
                     user.status = query.status;
@@ -67,6 +66,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                     var storeService = new StoreService(me.app);
 
                     var id = yield  storeService.isFirst(user.tenantid);
+                    console.log("iiiiiiiii",id);
 
                     var recordnumber = yield storeService.getRecordNumber(user.tenantid);
                     user.recordnumber = recordnumber;

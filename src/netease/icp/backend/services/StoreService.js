@@ -88,7 +88,7 @@ var utils = require('utility');
                     return empty;
                 }finally{
                     yield me.app.ds.releaseConnection(conn);
-                    return arr.lenght > 0 ?  arr[0] : empty;
+                    return arr.length > 0 ?  arr[0] : empty;
                 }
             }
         }
