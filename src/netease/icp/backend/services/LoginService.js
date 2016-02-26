@@ -72,6 +72,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                     user.recordnumber = recordnumber;
                     user.id = id;
                     var useraddress = yield storeService.getUserAddress(user.tenantid);
+                    console.log("useraddress", useraddress);
                     user = Object.assign({},user,useraddress);
                     var res = Object.assign({},{user:user},LOGIN_SUCCESS);
 

@@ -59,7 +59,7 @@ var utils = require('utility');
                 try{
                     conn = yield  me.app.ds.getConnection();
                     arr = yield conn.execQuery(sql, args);
-                    id = arr[0].id;
+                    id = arr.length > 0 ? arr[0].id : id;
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
                     return id;
@@ -77,6 +77,7 @@ var utils = require('utility');
                 var sql = '';
                 sql = `SELECT mailingaddress,recipient,recipientmobile,companyname,applycurtainstatus FROM user WHERE tenantid = #tenantid#`;
                 var args = {tenantid: tenantId};
+                var empty = {mailingaddress:'',recipient:'',recipientmobile:'',companyname:'',applycurtainstatus:0};
                 var arr = [];
                 var conn = null;
                 try{
@@ -84,10 +85,10 @@ var utils = require('utility');
                     arr = yield conn.execQuery(sql, args);
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
-                    return {};
+                    return empty;
                 }finally{
                     yield me.app.ds.releaseConnection(conn);
-                    return arr[0];
+                    return arr.lenght > 0 ?  arr[0] : empty;
                 }
             }
         }
