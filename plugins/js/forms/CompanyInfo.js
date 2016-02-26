@@ -13,6 +13,7 @@ import validator from 'validator';
 import Global from '../utils/globals';
 import assigner from 'object.assign';
 var assign = assigner.getPolyfill();
+import DataService from '../services/DataService.js';
 
 const FT = {
     "IDTYPE": 0,
@@ -224,16 +225,9 @@ let CompanyInfo = React.createClass({
         __globals__.drafttype = 2;
 
         //savedraft
-        reqwest({
-            url: '/savedraft',
-            method: 'post',
-            data: JSON.stringify(__globals__),
-            type:'json',
-            contentType: 'application/json',
-            headers: {
-                'If-Modified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT'
-            },
-            success: function(resp){
+        var reqData = JSON.stringify(__globals__);
+        DataService.httpRequest('/savedraft','post',reqData,'json','application/json',{},
+            function(resp){
                 //{drafttype: formData.drafttype, id: r.insertId};
                 if( resp.ret.drafttype == 2 ){
                     __globals__.companyinfo.id = resp.ret.id;
@@ -243,11 +237,10 @@ let CompanyInfo = React.createClass({
                     if( typeof(succ) == 'function' ) succ();
                 }
             },
-            error: function(err){
+            function(err){
                 Toast.show("保存草稿失败");
             }
-        });
-
+        );
     },
     onReturn: function(){
         location.href = "#/returntobase";

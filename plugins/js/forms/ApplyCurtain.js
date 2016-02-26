@@ -107,17 +107,9 @@ let ApplyCurtain = React.createClass({
         };
 
         var me = this;
-        //commit
-        reqwest({
-            url: '/user',
-            method: 'put',
-            data: JSON.stringify( data ),
-            type:'json',
-            contentType: 'application/json',
-            headers: {
-                'If-Modified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT'
-            },
-            success: function(resp){
+        var reqData = JSON.stringify( data );
+        DataService.httpRequest('/user','put',reqData,'json','application/json',{},
+            function(resp){
                 //{ true|false }
                 console.log(resp);
 
@@ -127,10 +119,9 @@ let ApplyCurtain = React.createClass({
 
                 location.href = "#/submitchecksuccess";
             },
-            error: function(err){
-                //TODO
+            function(err){
             }
-        });
+        );
 
         this.setState({
             processing: false

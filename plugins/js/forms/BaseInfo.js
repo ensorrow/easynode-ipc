@@ -8,6 +8,7 @@ import ProgressBar from './ProgressBar.jsx';
 import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 import Global from '../utils/globals';
+import DataService from '../services/DataService.js';
 
 let BaseInfo = React.createClass({
 

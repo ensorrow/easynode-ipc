@@ -4,8 +4,20 @@ var assign = assigner.getPolyfill();
 
 module.exports = {
 
+    httpRequest: function( url, method, data, type, contentType, headers, succ, err){
+      reqwest({
+          url: url,
+          method: method,
+          data: data,
+          type: type,
+          contentType: contentType,
+          headers: assign( headers, {
+              'If-Modified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT'
+          })
+      },succ,err);
+    },
+
     getRecord: function(id,succ,err) {
-        debugger;
         reqwest({
             url: '/record',
             method: 'get',

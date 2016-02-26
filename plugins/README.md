@@ -415,5 +415,6 @@ Is it enough to include es5-shim.min.js and es6-shim.min.js or should I also inc
 
 node_modules/babel-runtime, npm 网络问题,一般,2~3分钟,时间长有问题?
 
+67.  减小压缩文件webpack --config webpack.prod.config.js  -w
 
 

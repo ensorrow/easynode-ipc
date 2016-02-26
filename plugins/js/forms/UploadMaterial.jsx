@@ -6,6 +6,7 @@ import ProgressBar from './ProgressBar.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 import upload from '../utils/upload';
 import FormValidator from '../utils/FormValidator';
+import DataService from '../services/DataService.js';
 import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 import ViewPhoto from './ViewPhoto.js';
@@ -90,16 +91,9 @@ let UploadMaterial = React.createClass({
         this.save();
 
         //commit
-        reqwest({
-            url: '/records',
-            method: 'post',
-            data: JSON.stringify(__globals__),
-            type:'json',
-            contentType: 'application/json',
-            headers: {
-                'If-Modified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT'
-            },
-            success: function(resp){
+        var reqData = JSON.stringify(__globals__);
+        DataService.httpRequest('/records','post',reqData,'json','application/json',{},
+            function(resp){
                 //{ code: code, id: id }
                 __globals__.record = resp.ret;
 
@@ -109,11 +103,10 @@ let UploadMaterial = React.createClass({
 
                 Global.set('global',__globals__);
             },
-            error: function(err){
-                //TODO
+            function(err){
                 Toast.show("保存草稿失败");
             }
-        });
+        );
 
         this.setState({
             processing: false
@@ -130,16 +123,9 @@ let UploadMaterial = React.createClass({
 
         __globals__.drafttype = 4;
         //savedraft
-        reqwest({
-            url: '/savedraft',
-            method: 'post',
-            data: JSON.stringify(__globals__),
-            type:'json',
-            contentType: 'application/json',
-            headers: {
-                'If-Modified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT'
-            },
-            success: function(resp){
+        var reqData = JSON.stringify(__globals__);
+        DataService.httpRequest('/savedraft','post',reqData,'json','application/json',{},
+            function(resp){
                 console.log(resp)
                 console.log(resp.ret.id);
                 if( resp.ret.drafttype == 4 ){
@@ -147,11 +133,11 @@ let UploadMaterial = React.createClass({
                 }
                 if( typeof(succ) == 'function' ) succ();
             },
-            error: function(err){
-                //TODO
+            function(err){
                 console.log(err);
             }
-        });
+        );
+
     },
     assignUrl: function(id,url){
         var materials = this.state.materials;

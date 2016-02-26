@@ -8,6 +8,7 @@ import ReturnWidget from '../widgets/ReturnWidget.jsx';
 import ApplyCurtain from './ApplyCurtain.js';
 import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
+import DataService from '../services/DataService.js';
 
 let UploadPhoto = React.createClass({
     handleApplyCurtain: function(){
@@ -58,24 +59,17 @@ let UploadPhoto = React.createClass({
         });
 
         //commit
-        reqwest({
-            url: '/record',
-            method: 'put',
-            data: JSON.stringify({id:__globals__.record.id,status:4,curtainurl: this.state.curtainurl}),
-            type:'json',
-            contentType: 'application/json',
-            headers: {
-                'If-Modified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT'
-            },
-            success: function(resp){
+        var reqData = JSON.stringify({id:__globals__.record.id,status:4,curtainurl: this.state.curtainurl});
+        DataService.httpRequest('/record','put',reqData,'json','application/json',{},
+            function(resp){
                 //{ true|false }
                 console.log(resp);
                 location.href = "#/submitchecksuccess";
             },
-            error: function(err){
-                //TODO
+            function(err){
+                console.log(err);
             }
-        });
+        );
 
         this.setState({
             processing: false

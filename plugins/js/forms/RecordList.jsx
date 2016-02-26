@@ -8,7 +8,7 @@ import Global from '../utils/globals';
 import DataService from '../services/DataService.js';
 import reqwest from 'reqwest';
 
-var ReactUI = require('../ReactUI');
+//var ReactUI = require('../ReactUI');
 /*
 var Form = ReactUI.Form;
 var FormControl = ReactUI.FormControl;
@@ -20,7 +20,7 @@ var Table = ReactUI.Table;
 var Filter = ReactUI.Filter;
 var Pagination = ReactUI.Pagination;
 */
-var Modal = ReactUI.Modal;
+//var Modal = ReactUI.Modal;
 
 let Operation = React.createClass({
     propTypes:{
@@ -30,7 +30,7 @@ let Operation = React.createClass({
         var tenantId = __globals__.user == undefined ? '111111' : __globals__.user.tenantId;
 
         var me = this;
-        Modal.open({
+       /* Modal.open({
             header: '确认删除?',
             content: (
                 <div>
@@ -68,7 +68,7 @@ let Operation = React.createClass({
                     return true;
                 }
             }
-        });
+        });*/
     },
     handleResult: function(to){
         DataService.getRecord(this.props.record.id,
@@ -235,23 +235,13 @@ let RecordList = React.createClass({
     loadRecords: function(){
         var me = this;
         var reqData = { page:1, rpp: 100 };
-        reqwest({
-            url: '/records',
-            method: 'get',
-            data: reqData,
-            type:'json',
-            contentType: 'application/json',
-            headers: {
-                'If-Modified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT'
-            },
-            success: function(resp){
+        DataService.httpRequest('/records','get',reqData,'json','application/json',{},
+            function(resp){
                 me.setState({data: resp.data});
-                console.log(resp);
             },
-            error: function(err){
-                //TODO
+            function(err){
             }
-        });
+        );
     },
     getInitialState: function(){
         return {data:[]};
