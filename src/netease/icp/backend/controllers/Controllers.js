@@ -797,6 +797,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         static passWhitelist( ip,app ){
             console.log(app.config);
             const ips = app.config.whiteips;
+            console.log("ip:",ip);
             var pass = false;
             ips.forEach(function(v,index){
                 if( ip.includes(v) ){

@@ -7,68 +7,20 @@ import ReturnWidget from '../widgets/ReturnWidget.jsx';
 import Global from '../utils/globals';
 import DataService from '../services/DataService.js';
 import reqwest from 'reqwest';
-
-//var ReactUI = require('../ReactUI');
-/*
-var Form = ReactUI.Form;
-var FormControl = ReactUI.FormControl;
-var Icon = ReactUI.Icon;
-var Input = ReactUI.Input;
-var Button = ReactUI.Button;
-var FormSubmit = ReactUI.FormSubmit;
-var Table = ReactUI.Table;
-var Filter = ReactUI.Filter;
-var Pagination = ReactUI.Pagination;
-*/
-//var Modal = ReactUI.Modal;
+import DeleteRecord from './DeleteRecord.jsx';
 
 let Operation = React.createClass({
     propTypes:{
         record: React.PropTypes.object.isRequired
     },
+    getInitialState: function(){
+        return {showDeleteRecord:false};
+    },
     handleDelete: function(e){
-        var tenantId = __globals__.user == undefined ? '111111' : __globals__.user.tenantId;
-
-        var me = this;
-       /* Modal.open({
-            header: '确认删除?',
-            content: (
-                <div>
-                    <p>备案信息将被删除删除 {this.props.record.code}</p>
-                    <p>您确定要删除备案信息？</p>
-                </div>
-            ),
-            width: 400,
-            buttons: {
-                '取消': true,
-                '确定': () => {
-
-                    reqwest({
-                        url: '/delrecord',
-                        method: 'post',
-                        data: JSON.stringify({id:this.props.record.id}),
-                        type:'json',
-                        contentType: 'application/json',
-                        headers: {
-                            'If-Modified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT'
-                        },
-                        success: function(resp){
-                            //{ret:{id:96,ret:false}}
-                            //me.setState({data: resp.ret.data});
-                            if( resp.ret.ret ){
-                                var onDelete = me.props.onDelete;
-                                onDelete && onDelete(resp.ret.id);
-                            }
-                        },
-                        error: function(err){
-                            //TODO
-                        }
-                    });
-
-                    return true;
-                }
-            }
-        });*/
+        this.setState({showDeleteRecord:true});
+    },
+    onHidden: function(){
+        this.setState({showDeleteRecord:false});
     },
     handleResult: function(to){
         DataService.getRecord(this.props.record.id,
@@ -83,60 +35,25 @@ let Operation = React.createClass({
         );
     },
     render(){
+
+        var drw = '';
+        if( this.state.showDeleteRecord ){
+            drw = <DeleteRecord onHidden={this.onHidden} onDelete={this.props.onDelete} record={this.props.record}/>
+        }
+
         let type = this.props.record.type;
         let prg = this.props.record.status;
 
         var me = this;
         if( prg == 0 ) {
-            return (
+             (
+                 <div>
                 <td><input type="button" onClick={ me.handleResult.bind(me,"#/returntobase") } value="修改"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
+                {drw}
+                     </div>
             );
         }
-        else if( prg == 1){
-            return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
-            );
-        }
-        else if( prg == 2){
-            return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresulttrialnopass") } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/returntobase") } value="修改"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
-            );
-        }
-        else if( prg == 3){
-            return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button"  onClick={ me.handleResult.bind(me,"#/checkresulttrialpass") } value="审核结果"></input> <input type="button"  onClick={ me.handleResult.bind(me,"#/uploadphoto") } value="上传照片"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
-            );
-        }
-        else if( prg == 4){
-            return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
-            );
-        }
-        else if( prg == 5){
-            return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresultphotonopass") } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/uploadphoto") } value="上传照片"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
-            );
-        }
-        else if( prg == 6){
-            return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresultphotopass") } value="审核结果"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
-            );
-        }
-        else if( prg == 7){
-            return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
-            );
-        }
-        else if( prg == 8){
-            return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresultcouncilnopass") } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/returntobase") } value="修改"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
-            );
-        }
-        else {
-            return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresultcouncilpass") } value="审核结果"></input>  <input type="button" onClick={this.handleDelete} value="删除"></input></td>
-            );
-        }
+
     }
 });
 

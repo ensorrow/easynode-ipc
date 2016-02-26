@@ -1,0 +1,101 @@
+// Name:            删除记录
+// Description:     DeleteRecord
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+@import "../../core/module/deleterecord.mcss";
+
+// Varibles:
+// ========================================================================
+
+$m-deleterecord_header_height = 30px;
+$m-deleterecord_item_ctrl_gap = 5px;
+$m-deleterecord_item_label_width = 112px;
+$m-deleterecord_ctrl_width = $m-deleterecord_width - $m-deleterecord_item_label_width;
+$m-deleterecord_ctrl__onethird_width = 120px;
+
+// Component:       `m-deleterecord`
+// ========================================================================
+
+
+.m-deleterecord {
+	outline: #F8F8F8 solid 1px;
+
+	position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index:1;
+    transform: translateX(-50%) translateY(-50%);
+
+    .m-deleterecord-header{
+    	height: $m-deleterecord_header_height;
+    	background:#f5f5f5;
+
+    	line-height: $m-deleterecord_header_height;
+
+    	padding: 1px 10px 1px 10px;
+
+    	> label {
+    		font-family:MicrosoftYaHei;
+            font-size:14px;
+            color:#666666;;
+            line-height:14px;
+            @extend .f-fl;
+       }
+       > img {
+            @extend .f-fr;
+       }
+    }
+
+    .m-deleterecord-bd{
+    	padding: 50px 40px;
+
+    	.m-deleterecord-item-icon{
+
+    		> img{
+    			margin-left: 20px;
+
+    			@extend .f-fl;
+    		}
+    	}
+
+    	.m-deleterecord-tip{
+
+    		margin-left: 80px;
+
+    		margin-top: -40px;
+
+    		> p {
+    			font-family:MicrosoftYaHei;
+                font-size:18px;
+                color:#666666;;
+                line-height:30px;
+    		}
+
+    		@extend .f-fl;
+    	}
+
+
+    	.m-deleterecord-actions{
+    	        margin-top: 100px;
+                margin-left: 150px;
+
+            	.u-commit{
+            	    width: 80px;
+            	    height: 30px;
+            	    margin-left: 15px;
+                    font-size:18px;
+                    background: #38abd0;
+                }
+
+                .u-cancel{
+                    width: 80px;
+                    height: 30px;
+                    margin-left: 15px;
+                    font-size:18px;
+                }
+            }
+    }
+}
+
+
