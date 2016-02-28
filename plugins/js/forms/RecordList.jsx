@@ -8,19 +8,19 @@ import Global from '../utils/globals';
 import DataService from '../services/DataService.js';
 import reqwest from 'reqwest';
 import DeleteRecord from './DeleteRecord.jsx';
+import ApplyCurtain from './ApplyCurtain.js';
+
 
 let Operation = React.createClass({
     propTypes:{
         record: React.PropTypes.object.isRequired
     },
     getInitialState: function(){
-        return {showDeleteRecord:false};
+        return {};
     },
     handleDelete: function(e){
-        this.setState({showDeleteRecord:true});
-    },
-    onHidden: function(){
-        this.setState({showDeleteRecord:false});
+        var onShow =  this.props.onShow;
+        onShow && onShow(this.props.record);
     },
     handleResult: function(to){
         DataService.getRecord(this.props.record.id,
@@ -36,28 +36,23 @@ let Operation = React.createClass({
     },
     render(){
 
-        var drw = '';
-        if( this.state.showDeleteRecord ){
-            drw = <DeleteRecord onHidden={this.onHidden} onDelete={this.props.onDelete} record={this.props.record}/>
-        }
-
         let type = this.props.record.type;
         let prg = this.props.record.status;
 
         var me = this;
         if( prg == 0 ) {
             return  (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/returntobase") } value="修改"></input> <input type="button" onClick={this.handleDelete} value="删除"></input>{drw}</td>
+                <td><input type="button" onClick={ me.handleResult.bind(me,"#/returntobase") } value="修改"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
             );
         }
         else if( prg == 1){
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={this.handleDelete} value="删除"></input>{drw}</td>
+                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
             );
         }
         else if( prg == 2){
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresulttrialnopass") } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/returntobase") } value="修改"></input> <input type="button" onClick={this.handleDelete} value="删除"></input>{drw}</td>
+                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresulttrialnopass") } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/returntobase") } value="修改"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
             );
         }
         else if( prg == 3){
@@ -120,6 +115,10 @@ let Records = React.createClass({
             }
         );
     },
+    onShow: function(record){
+        var onShow =  this.props.onShow;
+        onShow && onShow(record);
+    },
     getCode: function(prg,id,code){
         var cs = prg == 0 ? '' : 'code';
         if( prg == 0 ){
@@ -167,7 +166,7 @@ let Records = React.createClass({
                        <td> {record.serverregion == "1" ? "HZ1":"HZ1"} </td>
                        <td className={status}> {prgStr} </td>
                        <td> { this.format(record.updatetime) } </td>
-                       <Operation key={record.id} record={record} onDelete={this.onDelete}/>
+                       <Operation key={record.id} record={record} onDelete={this.onDelete} onShow={this.onShow}/>
                    </tr>
            );
         });
@@ -188,7 +187,7 @@ let RecordList = React.createClass({
                 return;
             }
         });
-        this.setState({ data:data} );
+        this.setState({ data:data,showDeleteRecord:false } );
     },
     loadRecords: function(){
         var me = this;
@@ -202,10 +201,16 @@ let RecordList = React.createClass({
         );
     },
     getInitialState: function(){
-        return {data:[]};
+        return {data:[],showDeleteRecord:false,deleterecord:{}};
     },
     componentDidMount: function(){
         this.loadRecords();
+    },
+    onShow: function(dr){
+        this.setState({showDeleteRecord:true,deleterecord:dr});
+    },
+    onHidden: function(){
+        this.setState({showDeleteRecord:false});
     },
     handleClick: function(){
 
@@ -221,11 +226,14 @@ let RecordList = React.createClass({
         location.href = "#/returntobase";
     },
     render: function () {
+        var deleterecord = '';
+        if( this.state.showDeleteRecord ){
+            deleterecord = <DeleteRecord onDelete={this.onDelete} onHidden={this.onHidden} record={this.state.deleterecord}/>
+        }
         return (
             <div>
                 <div className="m-recordlist">
                     <input type="button" onClick={this.handleClick} value="备案申请"></input>
-
                     <div>
                     </div>
                     <table className="gridtable">
@@ -239,9 +247,10 @@ let RecordList = React.createClass({
                             <th>操作</th>
                             </tr>
                         </thead>
-                        <Records data={this.state.data} onDelete={this.onDelete}/>
+                        <Records data={this.state.data} onDelete={this.onDelete} onShow={this.onShow}/>
                     </table>
                 </div>
+                {deleterecord}
             </div>
         );
     }

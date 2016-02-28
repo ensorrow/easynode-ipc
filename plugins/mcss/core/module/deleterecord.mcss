@@ -7,7 +7,7 @@
 // ========================================================================
 
 $m-deleterecord_height = 320px;
-$m-deleterecord_width = 500px;
+$m-deleterecord_width = 570px;
 $m-deleterecord_background = #FFF;
 
 

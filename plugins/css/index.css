@@ -270,10 +270,11 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-applycurtain-bd .m-applycurtain-item:before,.m-applycurtain-bd .m-applycurtain-item:after{display:table;content:"";line-height:0;}
 .m-applycurtain-bd .m-applycurtain-item:after{clear:both;}
 .m-applycurtain-ft{width:auato;}
-.m-deleterecord{background:#fff;width:500px;height:320px;}
+.m-deleterecord{background:#fff;width:570px;height:320px;}
 .m-deleterecord{outline:#f8f8f8 solid 1px;position:fixed;top:50%;left:50%;z-index:1;transform:translateX(-50%) translateY(-50%);}
 .m-deleterecord .m-deleterecord-header{height:30px;background:#f5f5f5;line-height:30px;padding:1px 10px 1px 10px;}
-.m-deleterecord .m-deleterecord-header >label{font-family:MicrosoftYaHei;font-size:14px;color:#666;line-height:14px;}
+.m-deleterecord .m-deleterecord-header >label{margin-top:10px;font-family:MicrosoftYaHei;font-size:14px;color:#666;line-height:14px;}
+.m-deleterecord .m-deleterecord-header >img{margin-top:10px;}
 .m-deleterecord .m-deleterecord-bd{padding:50px 40px;}
 .m-deleterecord .m-deleterecord-bd .m-deleterecord-item-icon >img{margin-left:20px;}
 .m-deleterecord .m-deleterecord-bd .m-deleterecord-tip{margin-left:80px;margin-top:-40px;}

@@ -35,7 +35,9 @@ $m-deleterecord_ctrl__onethird_width = 120px;
 
     	padding: 1px 10px 1px 10px;
 
+
     	> label {
+			margin-top: 10px;
     		font-family:MicrosoftYaHei;
             font-size:14px;
             color:#666666;;
@@ -43,6 +45,7 @@ $m-deleterecord_ctrl__onethird_width = 120px;
             @extend .f-fl;
        }
        > img {
+	       margin-top: 10px;
             @extend .f-fr;
        }
     }
