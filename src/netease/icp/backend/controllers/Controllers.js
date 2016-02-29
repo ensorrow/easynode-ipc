@@ -328,7 +328,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         }
 
         /**
-         * @api {get} /record/admin 获取记录详情
+         * @api {get} /admin/record 获取记录详情
          * @apiName getRecordb
          * @apiGroup Ops
          * @apiPermission whitelist
@@ -337,7 +337,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiParam {Number} id 记录id.
          *
-         * @apiSampleRequest http://icp.hzspeed.cn/record/admin/?id
+         * @apiSampleRequest http://icp.hzspeed.cn/admin/record/?id
          *
          * @apiSuccess {Object} record 记录
          * @apiSuccess {Number} record.id 记录id
@@ -503,14 +503,14 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         }
 
         /**
-         * @api {put} /record/admin 审核
+         * @api {put} /admin/record 审核
          * @apiName putRecordb
          * @apiGroup Ops
          * @apiPermission whitelist
          * @apiVersion 0.0.2
          * @apiDescription 通过白名单管理权限
          *
-         * @apiSampleRequest http://icp.hzspeed.cn/record/admin
+         * @apiSampleRequest http://icp.hzspeed.cn/admin/record
          *
          * @apiParam {Number} id 记录ID
          * @apiParam {Number} status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-未知状态\n
@@ -536,14 +536,14 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         }
 
         /**
-         * @api {put} /curtain/admin 寄送幕布
+         * @api {put} /admin/curtain 寄送幕布
          * @apiName putCurtainb
          * @apiGroup Ops
          * @apiPermission whitelist
          * @apiVersion 0.0.2
          * @apiDescription 通过白名单管理权限
          *
-         * @apiSampleRequest http://icp.hzspeed.cn/curtain/admin
+         * @apiSampleRequest http://icp.hzspeed.cn/admin/curtain
          *
          * @apiParam {Number} id 用户ID
          *
@@ -619,7 +619,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         }
 
         /**
-         * @api {get} /records/admin 获取记录列表
+         * @api {get} /admin/records 获取记录列表
          * @apiName getRecordsb
          * @apiGroup Ops
          * @apiPermission whitelist
@@ -630,7 +630,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiParam {Number} page 页号.
          * @apiParam {Number} rpp  每页记录数.
          *
-         * @apiSampleRequest http://icp.hzspeed.cn/records/admin
+         * @apiSampleRequest http://icp.hzspeed.cn/admin/records
          *
          * @apiSuccess {Object[]} data 记录列表
          * @apiSuccess {Number} data.id 记录id
@@ -671,7 +671,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         }
 
         /**
-         * @api {get} /curtains/admin 获取幕布寄送任务
+         * @api {get} /admin/curtains 获取幕布寄送任务
          * @apiName getCurtainsb
          * @apiGroup Ops
          * @apiPermission whitelist
@@ -682,7 +682,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiParam {Number} page 页号.
          * @apiParam {Number} rpp  每页记录数.
          *
-         * @apiSampleRequest http://icp.hzspeed.cn/curtains/admin
+         * @apiSampleRequest http://icp.hzspeed.cn/admin/curtains
          *
          * @apiSuccess {Object[]} data 记录列表
          * @apiSuccess {Number} data.id 用户ID
