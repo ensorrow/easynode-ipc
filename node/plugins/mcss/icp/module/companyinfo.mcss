@@ -1,0 +1,98 @@
+// Name:            主体类型
+// Description:     CompanyInfo
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+@import "../../core/module/companyinfo.mcss";
+
+// Varibles:
+// ========================================================================
+
+$m-companyinfo_height = 340px;
+$m-companyinfo_width =  992px;
+$m-companyinfo_background = #FFFFFF;
+$m-companyinfo_border_color_selected = #8fc31f;
+$m-companyinfo_border_color = #dddddd;
+$m-companyinfo_type_margin_left = 52px;
+$m-companyinfo_type_margin_top = 74px;
+$m-companyinfo_items_margin_top = 40px;
+$m-companyinfo_label_width = 130px;
+$m-companyinfo_label_type_height = 230px;
+$m-companyinfo_label_area_height = 100px;
+$m-companyinfo_item_fillcolor_noselect = #F6F6F6;
+$m-companyinfo_item_fillcolor_selected = #FFFFFF;
+$m-companyinfo_item_margin = 59px;
+$m-companyinfo_item_height = 30px;
+$m-companyinfo_legend_background_color = #F7F7F7;
+$m-companyinfo_legend_width = 910px;
+$m-companyinfo_item_ctrl_width = 350px;
+$m-companyinfo_item_ctrl_gap = 15px;
+$m-companyinfo_item_ctrl_onethird_width = (350px - 15*2) / 3;
+
+// Component:       `m-progress`
+// ========================================================================
+
+.m-companyinfo {
+    background: $m-companyinfo_background;
+	outline: #m-companyinfo_border_color solid 1px;
+
+	min-height: $m-companyinfo_height;
+	width: $m-companyinfo_width;
+	margin: 10px auto;
+
+	padding: 20px 40px;
+
+
+	.red{
+		color: red;
+	}
+
+	.gray{
+        background: $m-companyinfo_border_color;
+    }
+}
+
+.m-companyinfo-legend{
+	background: $m-companyinfo_legend_background_color;
+
+	width: 100%;
+	height: $m-companyinfo_item_height;
+	margin-top: 10px;
+
+	> span {
+		text-align: left;
+		line-height: $m-companyinfo_item_height;
+		margin-left: 20px;
+	}
+}
+
+.m-companyinfo-item{
+	margin-top: 20px;
+	.item-label{
+		width: 172px;
+		text-align: right;
+		line-height: $m-companyinfo_item_height;
+		margin-right: 40px;
+		@extend .f-fl;
+	}
+	.item-ctrl{
+		width: $m-companyinfo_item_ctrl_width;
+		height: $m-companyinfo_item_height;
+		position: relative;
+		> select,input[type="text"],input[type="number"] {
+			width: 100%;
+			height: $m-companyinfo_item_height;
+		}
+		@extend .f-fl;
+	}
+	select.item-ctrl-three{
+		width: $m-companyinfo_item_ctrl_onethird_width;
+		height: $m-companyinfo_item_height;
+	    +.item-ctrl-three{
+            margin-left: $m-companyinfo_item_ctrl_gap;
+        }
+		@extend .f-fl;
+	}
+	$clearfix();
+}
+

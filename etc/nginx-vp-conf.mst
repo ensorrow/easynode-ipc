@@ -1,4 +1,0 @@
-location /{{{virtualPathName}}}/ {
-        root {{{virtualPathRoot}}};
-        index  index.html index.htm;
-}

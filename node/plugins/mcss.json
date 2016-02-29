@@ -1,0 +1,6 @@
+{
+  "input": "./index.mcss",
+  "format": 3,
+  "watch": true,
+  "exclude": "(\/|\\\\)_|^_|include"
+}

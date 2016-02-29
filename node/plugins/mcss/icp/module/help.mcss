@@ -1,0 +1,25 @@
+// Name:            帮助页面
+// Description:     Help
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+@import "../../core/module/help.mcss";
+
+// Varibles:
+// ========================================================================
+
+$m-help_height = auto;
+$m-help_width = 992px;
+$m-help_background = #FFF;
+
+
+// Component:       `m-help`
+// ========================================================================
+
+.m-help {
+    width: $m-help_width;
+    height: auto;
+    margin: 10px auto;
+
+    padding: 20px 40px;
+}

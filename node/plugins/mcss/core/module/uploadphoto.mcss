@@ -1,0 +1,20 @@
+// Name:            上传照片
+// Description:     UploadPhoto
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+// Varibles:
+// ========================================================================
+
+$m-uploadphoto_height = 340px;
+$m-uploadphoto_background = #FFF;
+
+
+// Component:       `m-uploaphoto`
+// ========================================================================
+
+.m-uploadphoto {
+    background: $m-uploadphoto_background;
+
+
+}

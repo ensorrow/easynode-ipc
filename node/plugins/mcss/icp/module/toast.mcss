@@ -1,0 +1,34 @@
+// Name:            Toast
+// Description:     Toast
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+@import "../../core/module/uploadphoto.mcss";
+
+// Varibles:
+// ========================================================================
+
+
+$m-uploadphoto_height = 490px;
+$m-uploadphoto_width =  992px;
+$m-uploadphoto_background = #FFFFFF;
+$m-uploadphoto_border_color_selected = #8fc31f;
+$m-uploadphoto_border_color = #dddddd;
+$m-uploadphoto_legend_background_color = #F7F7F7;
+$m-uploadphoto_legend_width = 910px;
+$m-uploadphoto_legend_height = 36px;
+$m-uploadphoto_item_height = 200px;
+$m-uploadphoto_item_label_width = 80px;
+$m-uploadphoto_item_ctrl_width = 140px;
+$m-uploadphoto_item_desc_width = 546px;
+
+// Component:       `m-uploadphoto`
+// ========================================================================
+
+.m-toast {
+	position: fixed;
+	left: 46%;
+	top: 66px;
+	text-align: center;
+	display: block;
+}

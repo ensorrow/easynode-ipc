@@ -1,0 +1,23 @@
+// Name:            查看备案详情
+// Description:     RecordInfo
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+// Varibles:
+// ========================================================================
+
+$m-recordinfo_height = 1880px;
+$m-recordinfo_width = 990px;
+$m-recordinfo_background = #FFF;
+
+
+// Component:       `m-recordinfo`
+// ========================================================================
+
+.m-recordinfo {
+    background: $m-recordinfo_background;
+	width: 	$m-recordinfo_width;
+	height: $m-recordinfo_height;
+
+
+}
