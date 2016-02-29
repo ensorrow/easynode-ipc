@@ -1,1 +1,0 @@
-define({  "name": "蜂巢ICP备案系统",  "version": "0.0.1",  "description": "",  "title": "蜂巢ICP备案系统",  "url": "http://icp.hzspeed.cn/api",  "sampleUrl": false,  "apidoc": "0.2.0",  "generator": {    "name": "apidoc",    "time": "2016-02-17T14:29:55.058Z",    "url": "http://apidocjs.com",    "version": "0.13.1"  }});

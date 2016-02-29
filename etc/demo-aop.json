@@ -1,9 +1,0 @@
-[
-        {
-                "target" : "easynode.framework.util.SqlUtil",
-                "interceptor" : "easynode.tests.SqlUtilInterceptor",
-                "method" : "replaceMysqlArgs",
-                "mode" : "sync",
-                "when" : "before"
-        }
-]

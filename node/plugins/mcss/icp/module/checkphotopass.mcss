@@ -1,0 +1,92 @@
+// Name:            照片审核通过
+// Description:     CheckPhotoPass
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+@import "../../core/module/checkphotopass.mcss";
+
+// Varibles:
+// ========================================================================
+
+$m-checkphotopass_width =  992px;
+$m-checkphotopass_height = 260px;
+$m-checkphotopass_border_color = #DDD;
+
+$m-checkphotopass_tip_label_width =  298px;
+$m-checkphotopass_tip_icon_margin_left = 234px;
+$m-checkphotopass_tip_icon_margin_top = 64px;
+
+$m-checkphotopass_tip_width = $m-checkphotopass_height - $m-checkphotopass_tip_label_width;
+
+
+
+
+
+
+// Component:       `m-checkphotopass`
+// ========================================================================
+
+.m-checkphotopass {
+
+	outline: $m-checkphotopass_border_color solid 1px;
+
+	min-height: $m-checkphotopass_height;
+	width: $m-checkphotopass_width;
+
+	margin: 40px auto;
+
+	.tip-label{
+		width: $m-checkphotopass_tip_label_width;
+		height: $m-checkphotopass_height;
+
+		.tip-icon{
+			margin-left: $m-checkphotopass_tip_icon_margin_left;
+			margin-top:  $m-checkphotopass_tip_icon_margin_top;
+			@extend .f-fr;
+		}
+		@extend .f-fl;
+	}
+	.tip{
+        width: $m-submittrialsuccess_tip_width;
+        height: $m-submittrialsuccess_height;
+        padding: 60px 0 0 20px;
+
+        .tip-header{
+            font-family:MicrosoftYaHei;
+            font-size:16px;
+            color:#333333;;
+            line-height:18px;
+            margin: 10px 10px 10px 10px;
+        }
+
+        .tip-bd{
+            font-family:MicrosoftYaHei;
+            font-size:14px;
+            color:#666666;;
+            line-height:14px;
+            margin: 15px 15px 15px 15px;
+            @extend .f-fl;
+        }
+
+        .tip-button-detail{
+            border: none;
+            background: transparent;
+            font-size:16px;
+            color:#38ABD0;
+            margin: 15px 15px 15px 15px;
+            @extend .f-fl;
+        }
+
+        .tip-footer{
+            font-family:MicrosoftYaHei;
+            font-size:12px;
+            color:#666666;;
+            line-height:14px;
+            margin: 15px 15px 15px 15px;
+            @extend .f-fl;
+        }
+        @extend .f-fl;
+    }
+
+	$clearfix();
+}

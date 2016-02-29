@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+ <profiles>
+    <profile>
+      <id>nexus</id>
+      <repositories>
+    <repository>
+          <snapshots>
+            <enabled>true</enabled>
+            <!--<updatePolicy>always</updatePolicy>-->
+          </snapshots>
+          <id>hz_repo</id>
+          <name>hz_repo</name>
+          <url>http://mvn.hz.netease.com/artifactory/repo</url>
+       </repository>
+       <repository>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>wyb_repo</id>
+            <name>wyb_repo</name>
+            <url>http://223.252.220.134:8081/nexus/content/groups/public/</url>
+        </repository>
+
+      </repositories>
+
+    <pluginRepositories>
+    <pluginRepository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>hz_repo</id>
+          <name>hz_repo</name>
+          <url>http://mvn.hz.netease.com/artifactory/repo</url>
+        </pluginRepository>
+      </pluginRepositories>
+
+    </profile>
+  </profiles>
+
+  <activeProfiles>
+    <activeProfile>nexus</activeProfile>
+  </activeProfiles>
+
+    <servers>
+        <server>
+            <id>hz_repo</id>
+            <username>admin</username>
+            <password>password</password>
+        <configuration>
+      <httpConfiguration>
+        <all>
+          <connectionTimeout>5000</connectionTimeout>
+          <readTimeout>5000</readTimeout>
+        </all>
+      </httpConfiguration>
+    </configuration>
+        </server>
+  <server>
+            <id>wyb_repo</id>
+            <username>admin</username>
+            <password>password</password>
+        <configuration>
+      <httpConfiguration>
+        <all>
+          <connectionTimeout>5000</connectionTimeout>
+          <readTimeout>5000</readTimeout>
+        </all>
+      </httpConfiguration>
+     </configuration>
+        </server>
+   </servers>
+</settings>
