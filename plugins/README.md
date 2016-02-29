@@ -344,7 +344,7 @@ var reqData = {page:1,tenantId:tid};
 	RUN cnpm install
 
 	WORKDIR /usr/src/app/plugins
-	RUN webpack
+	RUN webpack --config webpack.prod.config.js
 
 	WORKDIR /usr/src/app/bin
 
