@@ -1,0 +1,20 @@
+// Name:            提交初审成功信息
+// Description:     SubmitTrialSuccess
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+// Varibles:
+// ========================================================================
+
+$m-submittrialsuccess_height = 340px;
+$m-submittrialsuccess_background = #FFF;
+
+
+// Component:       `m-submittrialsuccess`
+// ========================================================================
+
+.m-submittrialsuccess {
+    background: $m-submittrialsuccess_background;
+
+
+}

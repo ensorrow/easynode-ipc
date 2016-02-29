@@ -1,0 +1,21 @@
+// Name:            删除记录
+// Description:     DeleteRecord
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+// Varibles:
+// ========================================================================
+
+$m-deleterecord_height = 320px;
+$m-deleterecord_width = 570px;
+$m-deleterecord_background = #FFF;
+
+
+// Component:       `m-deleterecord`
+// ========================================================================
+
+.m-deleterecord {
+    background: $m-deleterecord_background;
+	width: 	$m-deleterecord_width;
+	height: $m-deleterecord_height;
+}

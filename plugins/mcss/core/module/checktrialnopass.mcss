@@ -1,0 +1,20 @@
+// Name:            备案信息初审未通过
+// Description:     CheckTrialNoPass
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+// Varibles:
+// ========================================================================
+
+$m-checktrialnopass_height = 340px;
+$m-checktrialnopass_background = #FFF;
+
+
+// Component:       `m-checktrialnopass`
+// ========================================================================
+
+.m-checktrialnopass {
+    background: $m-checktrialnopass_background;
+
+
+}

@@ -1,0 +1,22 @@
+// Name:            登录
+// Description:     Login
+// Author:          allen.hu(jiabao_hu@corp.netease.com)
+// ========================================================================
+
+// Varibles:
+// ========================================================================
+
+$m-login_height = 360px;
+$m-login_width = 420px;
+$m-login_background = #FFFFFF;
+
+
+// Component:       `m-login`
+// ========================================================================
+
+.m-login {
+    background: $m-login_background;
+	width: 	$m-login_width;
+	height: $m-login_height;
+}
+

@@ -1,0 +1,26 @@
+// Name:            Footer
+// Description:     脚部
+// Author:          sensen(rainforest92@126.com)
+// ========================================================================
+
+@import "../../core/module/footer.mcss";
+
+// Component:       `m-footer`
+// ========================================================================
+
+// Name:            Footer
+// Description:     脚部
+// Author:          sensen(rainforest92@126.com)
+// ========================================================================
+
+
+
+// Component:       `m-footer`
+// ========================================================================
+$m-footer_background = #EDEDED;
+$m-footer_height = 60px;
+
+.m-footer {
+	line-height: $m-footer_height;
+	text-align: center;
+}

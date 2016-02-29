@@ -1,0 +1,13 @@
+<script>
+
+    var __globals__ = {
+        };
+
+    <% if (user) { %>
+        __globals__.user = <%- JSON.stringify(user) %>
+    <% } %>
+
+    <% if (loginCallback) { %>
+        __globals__.loginCallback =  <%- JSON.stringify(loginCallback) %>
+    <% } %>
+</script>
