@@ -359,6 +359,9 @@ var reqData = {page:1,tenantId:tid};
  * docker push hub.c.163.com/hujb2000/icp@0.0.1
  * start container server, map the host and container port, and start lb, inject the CONFIG_URL env.
 
+CONFIG_URL: http://218.205.113.98:6006/configicp_prod.json
+PORT: 80 || 8899
+
  56. 数据库所有设置为小字字段暂时作为一个原则,因为easynode's bug
 
 57. fc's container access fc's rds fail, but can't look log, site bug,  It's ok to access fc's rds by local hos

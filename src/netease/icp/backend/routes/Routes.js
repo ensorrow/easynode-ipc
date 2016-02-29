@@ -59,11 +59,11 @@ import bodyParse from 'koa-body';
             httpServer.addRoute('put','/user',Controllers.putUser(httpServer));
 
             //to op(whitelist)
-            httpServer.addRoute('put','/curtainb',Controllers.putCurtainb(httpServer));
-            httpServer.addRoute('get','/curtainsb',Controllers.getCurtainsb(httpServer));
-            httpServer.addRoute('get','/recordsb',Controllers.getRecordsb(httpServer));
-            httpServer.addRoute('get','/recordb',Controllers.getRecordb(httpServer));
-            httpServer.addRoute('put','/recordb',Controllers.putRecordb(httpServer));
+            httpServer.addRoute('put','/curtain/admin',Controllers.putCurtainb(httpServer));
+            httpServer.addRoute('get','/curtains/admin',Controllers.getCurtainsb(httpServer));
+            httpServer.addRoute('get','/records/admin',Controllers.getRecordsb(httpServer));
+            httpServer.addRoute('get','/record/admin',Controllers.getRecordb(httpServer));
+            httpServer.addRoute('put','/record/admin',Controllers.putRecordb(httpServer));
         }
 
         getClassName()
