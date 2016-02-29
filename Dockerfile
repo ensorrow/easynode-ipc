@@ -13,7 +13,7 @@ RUN cnpm install
 COPY . /usr/src/app
 
 WORKDIR /usr/src/app/plugins
-RUN webpack
+RUN webpack --config webpack.prod.config.js
 
 
 WORKDIR /usr/src/app/bin

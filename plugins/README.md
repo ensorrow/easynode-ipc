@@ -420,4 +420,8 @@ node_modules/babel-runtime, npm 网络问题,一般,2~3分钟,时间长有问题
 
 67.  减小压缩文件webpack --config webpack.prod.config.js  -w
 
+68. http://**/views/docs/#api-Ops-getRecordb
+
+69. 私有网部署
+http://cloud.netease.com/vpn  获取VPN密码,每次登陆重新获取一次
 
