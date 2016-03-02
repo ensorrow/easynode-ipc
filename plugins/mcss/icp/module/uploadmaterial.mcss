@@ -89,7 +89,7 @@ $m-uploadmaterial_item_desc_width = 546px;
 
 .m-uploadmaterial-delete{
     position: absolute;
-    margin-left: 130px;
+    margin-left: 133px;
     margin-top: -8px;
     z-index: 1;
 }
@@ -97,7 +97,6 @@ $m-uploadmaterial_item_desc_width = 546px;
 .m-uploadmaterial-ctrl{
 	width: $m-uploadmaterial_item_ctrl_width;
 	position: relative;
-	overflow: hidden;
 
 	.m-uploadmaterial-ctrl-picture-table{
 		display: table;

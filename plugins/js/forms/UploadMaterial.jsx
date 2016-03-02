@@ -265,8 +265,8 @@ let UploadMaterial = React.createClass({
                                 <div className="m-uploadmaterial-label">
                                     <span className="red">*</span><label>主体单位负责人证件图片:</label>
                                 </div>
-                                {this.getDeleteCtrl(FT.SITEMANAGERURL)}
                                 <div className="m-uploadmaterial-ctrl">
+                                    {this.getDeleteCtrl(FT.SITEMANAGERURL)}
                                     <div className="m-uploadmaterial-ctrl-picture-table">
                                         <div className="m-uploadmaterial-ctrl-picture">
                                             <img src={sitemanagerurl} alt="" onDoubleClick={me.handleDoubleClick.bind(me,sitemanagerurl)}/>
@@ -286,8 +286,8 @@ let UploadMaterial = React.createClass({
                                 <div className="m-uploadmaterial-label">
                                     <span className="red">*</span><label>核验单图片:</label>
                                 </div>
-                                {this.getDeleteCtrl(FT.CHECKLISTURL)}
                                 <div className="m-uploadmaterial-ctrl">
+                                    {this.getDeleteCtrl(FT.CHECKLISTURL)}
                                     <div className="m-uploadmaterial-ctrl-picture-table">
                                         <div className="m-uploadmaterial-ctrl-picture">
                                             <img src={checklisturl} alt="" onDoubleClick={me.handleDoubleClick.bind(me,checklisturl)}/>
@@ -309,8 +309,8 @@ let UploadMaterial = React.createClass({
                                 <div className="m-uploadmaterial-label">
                                     <span className="red">*</span><label>云平台服务协议第一页图片:</label>
                                 </div>
-                                {this.getDeleteCtrl(FT.PROTOCOLURL1)}
                                 <div className="m-uploadmaterial-ctrl">
+                                    {this.getDeleteCtrl(FT.PROTOCOLURL1)}
                                     <div className="m-uploadmaterial-ctrl-picture-table">
                                         <div className="m-uploadmaterial-ctrl-picture">
                                             <img src={protocolurl1} alt="" onDoubleClick={me.handleDoubleClick.bind(me,protocolurl1)}/>
@@ -331,8 +331,8 @@ let UploadMaterial = React.createClass({
                                 <div className="m-uploadmaterial-label">
                                     <span className="red">*</span><label>云平台服务协议第二页图片:</label>
                                 </div>
-                                {this.getDeleteCtrl(FT.PROTOCOLURL2)}
                                 <div className="m-uploadmaterial-ctrl">
+                                    {this.getDeleteCtrl(FT.PROTOCOLURL2)}
                                     <div className="m-uploadmaterial-ctrl-picture-table">
                                         <div className="m-uploadmaterial-ctrl-picture">
                                             <img src={protocolurl2} alt="" onDoubleClick={me.handleDoubleClick.bind(me,protocolurl2)}/>
@@ -351,8 +351,8 @@ let UploadMaterial = React.createClass({
                                 <div className="m-uploadmaterial-label">
                                     <span className="red">*</span><label>信息安全管理责任书第一页图片:</label>
                                 </div>
-                                {this.getDeleteCtrl(FT.SECURITYURL1)}
                                 <div className="m-uploadmaterial-ctrl">
+                                    {this.getDeleteCtrl(FT.SECURITYURL1)}
                                     <div className="m-uploadmaterial-ctrl-picture-table">
                                         <div className="m-uploadmaterial-ctrl-picture">
                                             <img src={securityurl1} alt="" onDoubleClick={me.handleDoubleClick.bind(me,securityurl1)}/>
@@ -373,8 +373,8 @@ let UploadMaterial = React.createClass({
                                 <div className="m-uploadmaterial-label">
                                     <span className="red">*</span><label>信息安全管理责任书第二页图片:</label>
                                 </div>
-                                {this.getDeleteCtrl(FT.SECURITYURL2)}
                                 <div className="m-uploadmaterial-ctrl">
+                                    {this.getDeleteCtrl(FT.SECURITYURL2)}
                                     <div className="m-uploadmaterial-ctrl-picture-table">
                                         <div className="m-uploadmaterial-ctrl-picture">
                                             <img src={securityurl2} alt="" onDoubleClick={me.handleDoubleClick.bind(me,securityurl2)}/>
