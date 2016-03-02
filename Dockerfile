@@ -1,4 +1,4 @@
-FROM hujb2000/easynode@5.5.0
+FROM hujb2000/easynode:5.5.0
 
 MAINTAINER hujb
 
@@ -18,5 +18,5 @@ RUN webpack --config webpack.prod.config.js
 
 WORKDIR /usr/src/app/bin
 
-CMD ["./start_prod_servers.sh"]
+CMD ["./start.sh"]
 

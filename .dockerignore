@@ -15,3 +15,18 @@ LICENSE
 JS_FIlE_TEMPLATE.webstorm10
 
 plugins/bower_components
+.babelrc
+.git
+docs
+init_project.sh
+config.json
+bin/npm-debug.log
+bin/dev_start.sh
+bin/prod_start.sh
+bin/test_start.sh
+bin/resolved-namespaces.js
+bin/start_dev_servers.sh
+bin/start_prod_servers.sh
+bin/start_test_servers.sh
+bin/stop_servers.sh
+
