@@ -1,0 +1,20 @@
+{
+ "mysql":{  
+  "host": "106.2.101.186",
+  "port": 3306,
+  "user": "icp",
+  "password": "icp2000",
+  "database": "icp",
+  "acquireTimeout": "10000",
+  "waitForConnections" : true,
+  "connectionLimit" :  10,
+  "queueLimit" : 10000
+ },
+ "loginCallback":{
+  "success":"http://icp.hzspeed.cn/login/callback?result=200",
+  "error":"http://icp.hzspeed.cn/login/callback?result=201"
+ },
+ "whiteips":[
+   "10.166.3.39"
+ ]
+}
