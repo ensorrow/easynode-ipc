@@ -8,7 +8,7 @@ let data = [
 	{step:2,describe:'填写主体信息'},
 	{step:3,describe:'填写网站信息'},
 	{step:4,describe:'上传资料'},
-	{step:5,describe:'提交初审'},
+	{step:5,describe:'提交审核'},
 ];
 
 let ProgressBar = React.createClass({

@@ -329,6 +329,7 @@ var reqData = {page:1,tenantId:tid};
  * docker run -t -i --name node  node@5.5.0-wheezy /bin/bash
  * npm install -g cnpm --registry=https://r.cnpmjs.org
  * npm install -g babel-cli
+ * npm install -g webpack
  * docker commit -m "cnpm,babel,webpack" -a "hujiabao" 6b075ceaa41d  hujb2000/easynode@5.5.0
  * edit Dockerfile
  ```
@@ -424,4 +425,8 @@ node_modules/babel-runtime, npm 网络问题,一般,2~3分钟,时间长有问题
 
 69. 私有网部署
 http://cloud.netease.com/vpn  获取VPN密码,每次登陆重新获取一次
+
+70. .babelrc can't add to .dockerignore文件中
+
+
 

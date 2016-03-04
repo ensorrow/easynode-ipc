@@ -395,7 +395,7 @@ let UploadMaterial = React.createClass({
 
                 <div className="w-btn">
                     <button className="u-return" type="button"  onClick={this.onReturn}> 返回修改 </button>
-                    <button className="u-main" type="button" onClick={this.handleSubmit}> 提交初审 </button>
+                    <button className="u-main" type="button" onClick={this.handleSubmit}> 提交审核 </button>
                     <button className="u-draft" type="button" onClick={this.onSave}>保存草稿</button>
                 </div>
                 {viewphoto}
