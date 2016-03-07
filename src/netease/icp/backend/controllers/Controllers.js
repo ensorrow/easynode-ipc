@@ -432,7 +432,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 var pass = Controllers.passWhitelist(this.remoteAddress,app);
                 if( pass ) {
                     var storeService = new StoreService(app)
-                    ret = yield storeService.getRecord();
+                    ret = yield storeService.getRecordb();
                 }
 
                 this.type = 'json';
@@ -527,7 +527,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 var pass = Controllers.passWhitelist(this.remoteAddress,app);
                 if( pass ) {
                     var storeService = new StoreService(app)
-                    ret = yield storeService.putRecord();
+                    ret = yield storeService.putRecordb();
                 }
 
                 this.type = 'json';

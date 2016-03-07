@@ -404,6 +404,59 @@ var utils = require('utility');
         }
 
 
+        getRecordb(){
+            var me = this;
+            return function *(){
+
+                var ret = {};
+                var conn = null;
+                var record = null;
+                var arr = [];
+                var company = null;
+                var website = null;
+
+                //1. record
+                //2. company
+                //3. website
+                try{
+                    var sql = '';
+                    var id = this.parameter.param('id') || 0;
+                    conn = yield  me.app.ds.getConnection();
+
+                    sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons FROM record WHERE id = #id#`;
+                    arr =  yield conn.execQuery(sql,{ id:id } );
+                    if( arr.length <= 0 )
+                        return ret;
+                    record = arr[0];
+
+                    if( record.companyid > 0 ){
+                        sql = `SELECT id,province,city,area,nature,idtype,idnumber,name,liveaddress,commaddress,owner,managername,manageridtype,manageridnumber,officephoneregion,officephonenumber,mobile,email,recordnumber FROM company WHERE id = #id#`;
+                        arr =  yield conn.execQuery(sql,{id:record.companyid});
+                        company = arr[0];
+                    }
+                    if( record.websiteid > 0 ){
+                        sql = `SELECT id,name,domain,domain1,domain1,domain2,domain3,domain4,homeurl,servicecontent,languages,ispname,ip,accessmethod,serverregion,managername,manageridtype,manageridnumber,officephoneregion,officephonenumber,mobile,email,qq FROM website WHERE id = #id#`;
+                        arr =  yield conn.execQuery(sql,{id:record.websiteid});
+                        website = arr[0];
+                    }
+                    if( website ){
+                        website.ip = JSON.parse(website.ip);
+                        ret.website = website;
+                    }
+                    if( company ){
+                        ret.company = company;
+                    }
+
+                    ret.record = record;
+                    return ret;
+                } catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
+                    return ret;
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
 
         putRecord(){
             var me = this;
@@ -427,6 +480,44 @@ var utils = require('utility');
                     arr =  yield conn.execQuery(sql,{ id:id,tenantid:tenantid });
                     if( arr.length <= 0 )
                         return false;
+
+                    model.merge( Object.assign({}, { id: id } ));
+                    if( status ){
+                        model.merge( Object.assign({}, { status: status } ));
+                    }
+                    if( reasons ){
+                        model.merge( Object.assign({}, { reasons: reasons } ));
+                    }
+                    if( curtainurl ){
+                        model.merge( Object.assign({}, { curtainurl: curtainurl } ));
+                    }
+
+                    r = yield conn.update(model);
+                    return true;
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                    return false;
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
+        putRecordb(){
+            var me = this;
+            return function *(){
+                var r = null;
+                var conn = null;
+                var model = new Record();
+                var form = this.request.body;
+                var status = form.status;
+                var reasons = form.reasons;
+                var id = form.id;
+                var curtainurl = form.curtainurl;
+
+                try{
+                    conn = yield me.app.ds.getConnection();
+
 
                     model.merge( Object.assign({}, { id: id } ));
                     if( status ){
