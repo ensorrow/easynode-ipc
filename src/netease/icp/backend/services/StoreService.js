@@ -352,6 +352,7 @@ var utils = require('utility');
             var me = this;
             return function *(){
 
+                var tenantid = this.session.user.tenantid;
                 var ret = {};
                 var conn = null;
                 var record = null;
@@ -367,8 +368,8 @@ var utils = require('utility');
                     var id = this.parameter.param('id') || 0;
                     conn = yield  me.app.ds.getConnection();
 
-                    sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons FROM record WHERE id = #id#`;
-                    arr =  yield conn.execQuery(sql,{ id:id });
+                    sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons FROM record WHERE id = #id# and tenantid = #tenantid#`;
+                    arr =  yield conn.execQuery(sql,{ id:id,tenantid:tenantid });
                     if( arr.length <= 0 )
                         return ret;
                     record = arr[0];
@@ -415,9 +416,18 @@ var utils = require('utility');
                 var reasons = form.reasons;
                 var id = form.id;
                 var curtainurl = form.curtainurl;
+                var tenantid = this.session.user.tenantid;
+                var arr = [];
+                var sql = ``;
 
                 try{
                     conn = yield me.app.ds.getConnection();
+
+                    sql = `SELECT id,tenantid FROM record WHERE id = #id# and tenantid = #tenantid#`;
+                    arr =  yield conn.execQuery(sql,{ id:id,tenantid:tenantid });
+                    if( arr.length <= 0 )
+                        return false;
+
                     model.merge( Object.assign({}, { id: id } ));
                     if( status ){
                         model.merge( Object.assign({}, { status: status } ));
@@ -512,10 +522,19 @@ var utils = require('utility');
             return function *(){
                 var conn = null;
                 var formData = this.request.body;
+                var id = formData.id;
+                var arr = [];
+                var sql = ``;
+                var tenantid = this.session.user.tenantid;
 
                 try{
                     var model = new Record();
                     conn = yield  me.app.ds.getConnection();
+
+                    sql = `SELECT id,tenantid FROM record WHERE id = #id# and tenantid = #tenantid#`;
+                    arr =  yield conn.execQuery(sql,{ id:id,tenantid:tenantid });
+                    if( arr.length <= 0 )
+                        return {id: formData.id,ret:false};
 
                     yield conn.del( model,[formData.id]);
                 } catch(e){
