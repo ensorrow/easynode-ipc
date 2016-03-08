@@ -2,7 +2,7 @@ import auth from './utils/auth';
 import Global from './utils/globals';
 import App from './App.jsx';
 import BaseInfo from './forms/BaseInfo';
-import CompanyInfo from './forms/CompanyInfo';
+import CompanyInfo from './forms/CompanyInfo.jsx';
 import SiteInfo from './forms/SiteInfo.jsx';
 import UploadMaterial from './forms/UploadMaterial.jsx';
 import SubmitTrialSuccess from './forms/SubmitTrialSuccess'
@@ -86,7 +86,7 @@ export default{
             path:'/detail',
             getComponent: (location,cb) => {
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/CompanyInfo'));
+                    cb(null,require('./forms/CompanyInfo.jsx'));
                 });
             }
         },
@@ -168,7 +168,7 @@ export default{
 
                 require.ensure([],(require) => {
                     //ToDo ,execute delete operation
-                    //cb(null,require('./forms/CompanyInfo'));
+                    //cb(null,require('./forms/CompanyInfo.jsx'));
                 });
             }
         },
@@ -176,11 +176,11 @@ export default{
             path:'/fillcompanyinfo',
                 getComponent: (location,cb) => {
                     var a = Global.get('global');
-                    if (a.hasOwnProperty('companyinfo') ){
+                    if (a.hasOwnProperty('companyinfo.jsx') ){
                         __globals__ = a;
                     }
                     require.ensure([],(require) => {
-                        cb(null,require('./forms/CompanyInfo'));
+                        cb(null,require('./forms/CompanyInfo.jsx'));
                 });
             }
         },
@@ -188,7 +188,7 @@ export default{
             path:'/savetodraft',
             getComponent: (location,cb) => {
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/CompanyInfo'));
+                    cb(null,require('./forms/CompanyInfo.jsx'));
                 });
             }
         },
@@ -204,7 +204,7 @@ export default{
             path:'/fillsiteinfo',
             getComponent: (location,cb) => {
                 var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
+                if (a.hasOwnProperty('companyinfo.jsx') ){
                     __globals__ = a;
                 }
                 require.ensure([],(require) => {

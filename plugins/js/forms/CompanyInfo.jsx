@@ -24,7 +24,8 @@ const FT = {
     "OFFICEPHONENUMBER":5,
     "MOBILE":6,
     "EMAIL": 7,
-    "RECORDNUMBER": 8
+    "RECORDNUMBER": 8,
+    "RECORDPASSWORD": 9
 };
 
 let CompanyInfo = React.createClass({
@@ -70,7 +71,8 @@ let CompanyInfo = React.createClass({
                 email: {isBlank: false,regularFail: false, match: function(str){
                     return validator.isEmail(str);
                 }},
-                recordnumber: {isBlank: false}
+                recordnumber: {isBlank: false},
+                recordpassword: {isBlank: false}
             },
             companyInfo: {
                 province: '浙江省',
@@ -90,7 +92,8 @@ let CompanyInfo = React.createClass({
                 officephonenumber: '',
                 mobile: '',
                 email: '',
-                recordnumber: ''
+                recordnumber: '',
+                recordpassword: ''
             }
         };
     },
@@ -112,7 +115,8 @@ let CompanyInfo = React.createClass({
                    id == FT.OFFICEPHONENUMBER ? formError.officephonenumber :
                    id == FT.MOBILE ? formError.mobile :
                    id == FT.EMAIL ? formError.email :
-                   id == FT.RECORDNUMBER ? formError.recordnumber : formError.recordnumber;
+                   id == FT.RECORDNUMBER ? formError.recordnumber :
+                   id == FT.RECORDPASSWORD ? forError.recordpassword : formError.recordpassword;
         var val =  id == FT.IDTYPE ? companyInfo.idtype :
                    id == FT.NAME ? companyInfo.name :
                    id == FT.LIVEADDRESS ? companyInfo.liveaddress :
@@ -121,7 +125,8 @@ let CompanyInfo = React.createClass({
                    id == FT.OFFICEPHONENUMBER ? companyInfo.officephonenumber :
                    id == FT.MOBILE ? companyInfo.mobile :
                    id == FT.EMAIL ? companyInfo.email :
-                   id == FT.RECORDNUMBER ? companyInfo.recordnumber : companyInfo.recordnumber;
+                   id == FT.RECORDNUMBER ? companyInfo.recordnumber :
+                   id == FT.RECORDPASSWORD ? comapnyInfo.recordpassword : companyInfo.recordpassword;
 
         ctrl.focus = focus;
         if( ctrl.hasOwnProperty("regularFail") && val.length > 0 ){
@@ -164,9 +169,29 @@ let CompanyInfo = React.createClass({
                         <span className={this.state.formError.recordnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体备案</span>
                     </div>
                 </div>
-            );
+
+            )
         }else {
             this.state.formError.recordnumber.checked = true;
+        }
+    },
+    getRecordPassword: function(){
+        if( __globals__.baseinfo && __globals__.baseinfo.type > 0  ){
+            this.state.formError.recordpassword.checked = false;
+            return (
+                <div className="m-companyinfo-item">
+                    <div className="item-label">
+                        <span className="red f-fl">*</span><label>备案密码:</label>
+                    </div>
+                    <div className="item-ctrl">
+                        <input type="text" name="recordpassword"  onChange={this.handleRecordPassword} value={this.state.companyInfo.recordpassword} onFocus={this.handleFocus.bind(this,FT.RECORDPASSWORD)}/>
+                        <span className={this.state.formError.recordpassword.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、请输入备案密码</p></span>
+                        <span className={this.state.formError.recordpassword.isBlank ? "u-popover" : "u-popover hidden" }>登陆<a href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action">工业和信息化部门网站</a>，点击找回密码</span>
+                    </div>
+                </div>
+            )
+        }else {
+            this.state.formError.recordpassword.checked = true;
         }
     },
     checkForm: function(){
@@ -279,6 +304,13 @@ let CompanyInfo = React.createClass({
         e.preventDefault();
         var companyInfo = this.state.companyInfo;
         companyInfo.recordnumber = e.target.value;
+        this.setState({companyInfo: companyInfo});
+
+    },
+    handleRecordPassword: function(e){
+        e.preventDefault();
+        var companyInfo = this.state.companyInfo;
+        companyInfo.recordpassword = e.target.value;
         this.setState({companyInfo: companyInfo});
 
     },
@@ -434,13 +466,22 @@ let CompanyInfo = React.createClass({
             return (
                 <select name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} disabled="false" className="gray" onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
                     <option value ="0">请选择主体单位证件类型</option>
+                    <option value ="1">社团法人证书</option>
+                    <option value ="2">组织机构代码证书</option>
                 </select>
             );
         }
     },
     getIdTypeTips:function(nature){
         var me = this;
-        if( nature == 1 ){
+        if( nature == 0 ){
+            return  (
+                <div className="item-ctrl">
+                    {this.getIdType()}
+                </div>
+            )
+        }
+        else if( nature == 1 ){
             return  (
                 <div className="item-ctrl">
                 {this.getIdType()}
@@ -502,6 +543,7 @@ let CompanyInfo = React.createClass({
                         <fieldset>
                             <div className="m-companyinfo-legend"><span>主体单位信息</span></div>
                             {this.getRecordNumber()}
+                            {this.getRecordPassword()}
                             <div className="m-companyinfo-item">
                                 <div className="item-label">
                                     <span className="red f-fl">*</span><label>主体单位所属区域:</label>
