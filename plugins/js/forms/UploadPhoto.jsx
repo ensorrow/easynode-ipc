@@ -132,8 +132,10 @@ let UploadPhoto = React.createClass({
                                     <label>图片:</label>
                                 </div>
                                 <div className="m-uploadphoto-ctrl">
-                                    <div className="m-uploadphoto-ctrl-picture">
-                                        <img src={this.state.curtainurl.length > 0 ? this.state.curtainurl : "../assets/view.png"} alt=""/>
+                                    <div className="m-uploadphoto-ctrl-picture-table">
+                                        <div className="m-uploadphoto-ctrl-picture">
+                                            <img src={this.state.curtainurl.length > 0 ? this.state.curtainurl : "../assets/view.png"} alt=""/>
+                                        </div>
                                     </div>
                                     <div className="m-uploadphoto-ctrl-button">
                                         <input type="button" value="上传图片"/>

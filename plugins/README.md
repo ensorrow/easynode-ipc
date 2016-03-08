@@ -428,5 +428,29 @@ http://cloud.netease.com/vpn  获取VPN密码,每次登陆重新获取一次
 
 70. .babelrc can't add to .dockerignore文件中
 
+71. 测试环境,检查下c.163.com RDS白名单设置: docker run -d --name icp93 -p 8899:8899 -e CONFIG_URL="http://static.hzspeed.cn/configicpfc.json" -e PORT=8899 hub.c.163.com/hujb2000/icp:0.0.9
 
+72. 类似List控制, 图片预览要定义成一个组件,而不是到模块里面
 
+外面是:display:table,里面是:display:table-cell
+.m-uploadmaterial-ctrl-picture-table{
+		display: table;
+		width: 140px;
+		height: 140px;
+		table-layout: fixed;
+	}
+
+	.m-uploadmaterial-ctrl-picture{
+		width: 140px;
+		height: 140px;
+		background: #f5f5f5;
+		border: 1px solid #DDD;
+		display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+		> img {
+            max-height: 100%;
+            max-width: 100%;
+	    }
+
+	}

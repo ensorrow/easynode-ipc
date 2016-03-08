@@ -240,7 +240,9 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-uploadphoto-label{width:80px;margin-top:30px;margin-right:30px;}
 .m-uploadphoto-label >label{font-family:MicrosoftYaHei;font-size:12px;color:#aaa;line-height:14px;}
 .m-uploadphoto-ctrl{position:relative;overflow:hidden;}
+.m-uploadphoto-ctrl .m-uploadphoto-ctrl-picture-table{display:table;width:140px;height:140px;table-layout:fixed;}
 .m-uploadphoto-ctrl .m-uploadphoto-ctrl-picture{width:140px;height:140px;background:#f5f5f5;border:1px solid #ddd;display:table-cell;vertical-align:middle;text-align:center;}
+.m-uploadphoto-ctrl .m-uploadphoto-ctrl-picture >img{max-height:100%;max-width:100%;}
 .m-uploadphoto-ctrl .m-uploadphoto-ctrl-button{height:46px;}
 .m-uploadphoto-ctrl .m-uploadphoto-ctrl-button >input[type="button"]{background:#339bbf;width:140px;height:36px;margin-top:10px;color:#fff;}
 .m-uploadphoto-ctrl .m-uploadphoto-ctrl-button >input[type="file"]{position:absolute;bottom:0;opacity:0;font-size:200px;left:0;}

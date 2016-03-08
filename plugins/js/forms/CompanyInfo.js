@@ -374,27 +374,122 @@ let CompanyInfo = React.createClass({
     componentWillUnmount: function(){
         clearInterval(this.interval);
     },
+    getOptions: function(nature){
+        var me = this;
+        if( nature == 1 ){
+            return  (
+                <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
+                <option value ="1">军队代码</option>
+                </select>
+            )
+        }
+        else if( nature == 2 ){
+            return  (
+                <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
+                <option value ="1">组织机构代码证书</option>
+                </select>
+            )
+        }
+        else if( nature == 3 ){
+            return  (
+                <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
+                <option value ="1">级组机构代码证书</option>
+                <option value ="2">事业法人证书</option>
+                </select>
+            )
+        }
+        else if( nature == 4 ){
+            return  (
+                <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
+                <option value ="1">工商营业执照</option>
+                <option value ="2">组织机构代码证书</option>
+                </select>
+            )
+        }
+        else if( nature == 5 ){
+            return  (
+                <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
+                <option value ="1">身份证</option>
+                <option value ="2">护照</option>
+                <option value ="3">军官证</option>
+                <option value ="4">台胞证</option>
+                </select>
+            )
+        }
+        else if( nature == 6 ){
+            return  (
+                <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
+                <option value ="1">社团法人证书</option>
+                <option value ="2">组织机构代码证书</option>
+                </select>
+            )
+        }
+    },
     getIdType: function(){
         var me = this;
         if( this.state.companyInfo.nature > 0 ){
-            return (
-                <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
-                    <option value ="0">请选择主体单位证件类型</option>
-                    <option value ="1">工商执照</option>
-                    <option value="2">组织机构代码</option>
-                </select>
-            );
+            return this.getOptions(this.state.companyInfo.nature);
         }
         else {
             return (
                 <select name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} disabled="false" className="gray" onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
                     <option value ="0">请选择主体单位证件类型</option>
-                    <option value ="1">工商执照</option>
-                    <option value="2">组织机构代码</option>
                 </select>
             );
         }
     },
+    getIdTypeTips:function(nature){
+        var me = this;
+        if( nature == 1 ){
+            return  (
+                <div className="item-ctrl">
+                {this.getIdType()}
+                <span className={this.state.formError.idtype.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、军队代码</p></span>
+                </div>
+            )
+        }
+        else if( nature == 2 ){
+            return  (
+                <div className="item-ctrl">
+                {this.getIdType()}
+                <span className={this.state.formError.idtype.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、组织机构代码证书</p></span>
+                </div>
+            )
+        }
+        else if( nature == 3 ){
+            return  (
+                <div className="item-ctrl">
+                    {this.getIdType()}
+                    <span className={this.state.formError.idtype.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、级组机构代码证书</p><p>2、事业法人证书</p></span>
+                </div>
+            )
+        }
+        else if( nature == 4 ){
+            return  (
+                <div className="item-ctrl">
+                    {this.getIdType()}
+                    <span className={this.state.formError.idtype.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、工商营业执照</p><p>2、组织机构代码证书</p></span>
+                </div>
+            )
+        }
+        else if( nature == 5 ){
+            return  (
+                <div className="item-ctrl">
+                    {this.getIdType()}
+                    <span className={this.state.formError.idtype.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、身份证</p><p>2、护照</p><p>3、军官证</p><p>4、台胞证</p></span>
+                </div>
+            )
+        }
+        else if( nature == 6 ){
+            return  (
+                <div className="item-ctrl">
+                    {this.getIdType()}
+                    <span className={this.state.formError.idtype.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、社团法人证书</p><p>2、组织机构代码证书</p></span>
+                </div>
+            )
+        }
+    },
+
     render: function () {
 
         var me = this;
@@ -425,6 +520,7 @@ let CompanyInfo = React.createClass({
                                         <option value="3">企事业单位</option>
                                         <option value="4">企业</option>
                                         <option value="5">个人</option>
+                                        <option value="6">社会团体</option>
                                     </select>
                                     <span className={this.state.formError.nature.isBlank  ? "u-popover" : "u-popover hidden" }>请选择主体单位性质</span>
                                 </div>
@@ -433,10 +529,7 @@ let CompanyInfo = React.createClass({
                                 <div className="item-label">
                                     <span className="red f-fl">*</span><label>主体单位证件类型:</label>
                                 </div>
-                                <div className="item-ctrl">
-                                    {this.getIdType()}
-                                    <span className={this.state.formError.idtype.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、企业建议选择工商执照</p><p>2、民办企业建议选择组织机构代码</p></span>
-                                </div>
+                                {this.getIdTypeTips(this.state.companyInfo.nature)}
                             </div>
                             <div className="m-companyinfo-item">
                                 <div className="item-label">
