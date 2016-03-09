@@ -62,7 +62,6 @@ var utils = require('utility');
                     id = arr.length > 0 ? arr[0].id : id;
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
-                    return id;
                 }finally{
                     yield me.app.ds.releaseConnection(conn);
                     return id;
@@ -85,7 +84,6 @@ var utils = require('utility');
                     arr = yield conn.execQuery(sql, args);
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
-                    return empty;
                 }finally{
                     yield me.app.ds.releaseConnection(conn);
                     return arr.length > 0 ?  arr[0] : empty;
@@ -108,7 +106,6 @@ var utils = require('utility');
                     arr = yield conn.execQuery(sql, args);
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
-                    return 0;
                 }finally{
                     yield me.app.ds.releaseConnection(conn);
                     return arr.length;
@@ -231,7 +228,6 @@ var utils = require('utility');
                     yield * conn.rollback()();
                 }finally {
                     yield me.app.ds.releaseConnection(conn);
-
                     return { code: code, id: id };
                 }
             }
@@ -260,21 +256,21 @@ var utils = require('utility');
                         const FILTER_CONDITION_PASSED = 2;
                         const FILTER_CONDITION_NOPASS = 3;
                         if( filter ==  FILTER_CONDITION_ALL )
-                            return yield conn.list(model,{ status: { exp:'<>',value:0 } },{ page: page,rpp: rpp },['updatetime ASC]']);
+                            ret = yield conn.list(model,{ status: { exp:'<>',value:0 } },{ page: page,rpp: rpp },['updatetime ASC]']);
                         if( filter ==  FILTER_CONDITION_WAITED )
-                            return yield conn.list(model,{ status: { exp:'in',value:[1,4,7] } },{ page: page,rpp: rpp },['updatetime DESC']);
+                            ret = yield conn.list(model,{ status: { exp:'in',value:[1,4,7] } },{ page: page,rpp: rpp },['updatetime DESC']);
                         if( filter ==  FILTER_CONDITION_PASSED )
-                            return yield conn.list(model,{ status: { exp:'in',value:[3,6,9] } },{ page: page,rpp: rpp },['updatetime DESC']);
+                            ret = yield conn.list(model,{ status: { exp:'in',value:[3,6,9] } },{ page: page,rpp: rpp },['updatetime DESC']);
                         if( filter ==  FILTER_CONDITION_NOPASS )
-                            return yield conn.list(model,{ status: { exp:'in',value:[2,5,8] } },{ page: page,rpp: rpp },['updatetime DESC']);
+                            ret = yield conn.list(model,{ status: { exp:'in',value:[2,5,8] } },{ page: page,rpp: rpp },['updatetime DESC']);
                     }else{
-                        return yield conn.list(model,{ tenantid: { exp:'=',value: tenantid } },{ page: page,rpp: rpp },['updatetime DESC']);
+                        ret = yield conn.list(model,{ tenantid: { exp:'=',value: tenantid } },{ page: page,rpp: rpp },['updatetime DESC']);
                     }
                 } catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
-                    return ret;
                 }finally{
                     yield me.app.ds.releaseConnection(conn);
+                    return ret;
                 }
             }
         }
@@ -299,18 +295,18 @@ var utils = require('utility');
                     const FILTER_CONDITION_PASSED = 2;
                     const FILTER_CONDITION_NOPASS = 3;
                     if( filter ==  FILTER_CONDITION_ALL )
-                        return yield conn.list(model,{ status: { exp:'<>',value:0 } },{ page: page,rpp: rpp },['updatetime DESC']);
+                        ret =  yield conn.list(model,{ status: { exp:'<>',value:0 } },{ page: page,rpp: rpp },['updatetime DESC']);
                     if( filter ==  FILTER_CONDITION_WAITED )
-                        return yield conn.list(model,{ status: { exp:'in',value:[1,4,7] } },{ page: page,rpp: rpp },['updatetime DESC']);
+                        ret =  yield conn.list(model,{ status: { exp:'in',value:[1,4,7] } },{ page: page,rpp: rpp },['updatetime DESC']);
                     if( filter ==  FILTER_CONDITION_PASSED )
-                        return yield conn.list(model,{ status: { exp:'in',value:[3,6,9] } },{ page: page,rpp: rpp },['updatetime DESC']);
+                        ret =  yield conn.list(model,{ status: { exp:'in',value:[3,6,9] } },{ page: page,rpp: rpp },['updatetime DESC']);
                     if( filter ==  FILTER_CONDITION_NOPASS )
-                        return yield conn.list(model,{ status: { exp:'in',value:[2,5,8] } },{ page: page,rpp: rpp },['updatetime DESC']);
+                        ret =  yield conn.list(model,{ status: { exp:'in',value:[2,5,8] } },{ page: page,rpp: rpp },['updatetime DESC']);
                 } catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
-                    return ret;
                 }finally{
                     yield me.app.ds.releaseConnection(conn);
+                    return ret;
                 }
             }
         }
@@ -334,16 +330,16 @@ var utils = require('utility');
                     const FILTER_CONDITION_CHECKING = 1;
                     const FILTER_CONDITION_PASSED = 2;
                     if( filter ==  FILTER_CONDITION_ALL )
-                        return yield conn.list(model,{ applycurtainstatus: { exp:'<>',value:0 } },{ page: page,rpp: rpp },['updatetime DESC']);
+                        ret = yield conn.list(model,{ applycurtainstatus: { exp:'<>',value:0 } },{ page: page,rpp: rpp },['updatetime DESC']);
                     if( filter ==  FILTER_CONDITION_CHECKING )
-                        return yield conn.list(model,{ applycurtainstatus: { exp:'in',value:[FILTER_CONDITION_CHECKING] } },{ page: page,rpp: rpp },['updatetime DESC']);
+                        ret = yield conn.list(model,{ applycurtainstatus: { exp:'in',value:[FILTER_CONDITION_CHECKING] } },{ page: page,rpp: rpp },['updatetime DESC']);
                     if( filter ==  FILTER_CONDITION_PASSED )
-                        return yield conn.list(model,{ applycurtainstatus: { exp:'in',value:[FILTER_CONDITION_PASSED] } },{ page: page,rpp: rpp },['updatetime DESC']);
+                        ret = yield conn.list(model,{ applycurtainstatus: { exp:'in',value:[FILTER_CONDITION_PASSED] } },{ page: page,rpp: rpp },['updatetime DESC']);
                 } catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
-                    return ret;
                 }finally{
                     yield me.app.ds.releaseConnection(conn);
+                    return ret;
                 }
             }
         }
@@ -380,7 +376,7 @@ var utils = require('utility');
                         company = arr[0];
                     }
                     if( record.websiteid > 0 ){
-                        sql = `SELECT id,name,domain,domain1,domain1,domain2,domain3,domain4,homeurl,servicecontent,languages,ispname,ip,accessmethod,serverregion,managername,manageridtype,manageridnumber,officephoneregion,officephonenumber,mobile,email,qq FROM website WHERE id = #id#`;
+                        sql = `SELECT id,name,domain,domain1,domain1,domain2,domain3,domain4,homeurl,servicecontent,languages,ispname,ip,accessmethod,serverregion,managername,manageridtype,manageridnumber,officephoneregion,officephonenumber,mobile,email,qq,prechecktype,checknumber,checkfileurl,remark FROM website WHERE id = #id#`;
                         arr =  yield conn.execQuery(sql,{id:record.websiteid});
                         website = arr[0];
                     }
@@ -393,12 +389,12 @@ var utils = require('utility');
                     }
 
                     ret.record = record;
-                    return ret;
+
                 } catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
-                    return ret;
                 }finally{
                     yield me.app.ds.releaseConnection(conn);
+                    return ret;
                 }
             }
         }
@@ -448,12 +444,12 @@ var utils = require('utility');
                     }
 
                     ret.record = record;
-                    return ret;
+
                 } catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
-                    return ret;
                 }finally{
                     yield me.app.ds.releaseConnection(conn);
+                    return ret;
                 }
             }
         }
@@ -687,11 +683,11 @@ var utils = require('utility');
         }
 
 
-        savedraft(formData) {
+        savedraft() {
             var me = this;
             return function *(){
 
-
+                var formData = this.request.body;
                 var model = null;
                 var r = null;
                 if( formData.drafttype  == 1){
@@ -709,51 +705,37 @@ var utils = require('utility');
             }
         }
 
-        //1.
+        /*
+        formData.id optional
+        formData.type 备案类型
+        * */
         saveBaseInfo( formData ){
             var me = this;
             return function*() {
                 var r = null;
                 var id = 0;
                 var conn = null;
-                var model = new Record();
                 var code = '';
+                var sql = '';
+                var args = {};
 
                 try{
                     conn = yield me.app.ds.getConnection();
 
-                    model.merge( Object.assign({},
-                        formData.baseinfo,
-                        {sitemanagerurl:'',checklisturl:'',protocolurl1:'',protocolurl2:'',securityurl1:'',securityurl2:'',reasons:''},
-                        {tenantid:formData.user.tenantid,companyid:0,websiteid:0,status: 0},
-                        {curtainurl:''},
-                        {createtime:Date.now(),updatetime:Date.now()}
-                    ));
-
-                    if( formData.companyinfo && formData.companyinfo.hasOwnProperty('id') ){
-                        model.merge({companyid:formData.companyinfo.id});
-                    }
-                    if( formData.siteinfo && formData.siteinfo.hasOwnProperty('id') ){
-                        model.merge({websiteid:formData.siteinfo.id});
-                    }
-
-
                     if( formData.baseinfo.hasOwnProperty("id") ){
-                        model.merge( Object.assign({},
-                            {updatetime:Date.now()}
-                        ));
+                        sql = 'UPDATE record set type = #type#,updatetime = #updatetime# where id = #id#';
+                        args = {  id: formData.baseinfo.id, type: formData.baseinfo.type, updatetime: Date.now() };
 
-                        r = yield conn.update(model);
+                        var ret = yield conn.execQuery(sql, args);
+
                         id = formData.baseinfo.id;
                     }else{
                         code = utils.randomString(32, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-                        model.merge( Object.assign({},
-                            {code:code},
-                            {createtime:Date.now(),updatetime:Date.now()}
-                        ));
+                        sql = 'INSERT record set type = #type#, createtime = #createtime#';
+                        args = { type: formData.baseinfo.type,createtime: Date.now() };
 
-                        r = yield conn.create(model);
-                        id = r.insertId;
+                        var ret = yield conn.execUpdate(sql, args);
+                        id = ret.insertId;
                     }
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
@@ -771,6 +753,7 @@ var utils = require('utility');
                 var r = null;
                 var id = 0;
                 var conn = null;
+                var tenantid = this.session.user.tenantid;
 
                 try {
                     conn = yield me.app.ds.getConnection();
@@ -778,18 +761,19 @@ var utils = require('utility');
                     var model = new Company();
                     model.merge(Object.assign({},
                         formData.companyinfo,
-                        {tenantid: formData.user.tenantid},
-                        {createtime: Date.now(), updatetime: Date.now()}
+                        {tenantid: tenantid},
+                        {updatetime: Date.now()}
                     ));
 
                     if (formData.companyinfo.hasOwnProperty("id")) {
                         r = yield conn.update(model);
                         id = formData.companyinfo.id;
                     } else {
+                        model.merge( { createtime: Date.now() } );
                         r = yield conn.create(model);
                         id = r.insertId;
+                        yield  me.updateRecordCompanyid(formData.baseinfo.id,id);
                     }
-                    yield  me.updateRecordCompanyid(formData.baseinfo.id,id);
                 }catch(e){
                         EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
                 }finally {
@@ -807,14 +791,15 @@ var utils = require('utility');
                 var id = 0;
                 var model = new Website();
                 var conn = null;
+                var tenantid = this.session.user.tenantid;
 
                 try {
                     conn = yield me.app.ds.getConnection();
 
                     var data = Object.assign({},
                         formData.siteinfo,
-                        {tenantid: formData.user.tenantid},
-                        {createtime: Date.now(), updatetime: Date.now()}
+                        {tenantid: tenantid},
+                        {updatetime: Date.now()}
                     );
                     data.manageridtype = parseInt(data.manageridtype);
                     data.accessmethod = JSON.stringify(data.accessmethod);
@@ -827,10 +812,11 @@ var utils = require('utility');
                         r = yield conn.update(model);
                         id = formData.siteinfo.id;
                     } else {
+                        model.merge({createtime: Date.now()});
                         r = yield conn.create(model);
                         id = r.insertId;
+                        yield me.updateRecordWebsiteid(formData.baseinfo.id,id);
                     }
-                    yield me.updateRecordWebsiteid(formData.baseinfo.id,id);
                 }catch(e){
                         EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
                 }finally {
@@ -848,6 +834,7 @@ var utils = require('utility');
                 var id = 0;
                 var model = new Record();
                 var conn = null;
+                var tenantid = this.session.user.tenantid;
 
                 try {
                     conn = yield me.app.ds.getConnection();
@@ -856,12 +843,12 @@ var utils = require('utility');
                         formData.baseinfo,
                         formData.material,
                         {
-                            tenantid: formData.user.tenantid,
+                            tenantid: tenantid,
                             companyid: formData.companyinfo.id,
                             websiteid: formData.siteinfo.id,
                             status: 0
                         },
-                        {createtime: Date.now(), updatetime: Date.now()}
+                        {updatetime: Date.now()}
                     ));
 
                     if (formData.baseinfo.hasOwnProperty("id")) {
@@ -873,6 +860,7 @@ var utils = require('utility');
                     } else {
                         //var code = utils.randomString(32, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
                         //model.merge(Object.assign({},{code: code}));
+                        model.merge({createtime: Date.now()});
                         r = yield conn.create(model);
                         id = r.insertId;
                     }

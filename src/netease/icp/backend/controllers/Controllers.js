@@ -51,11 +51,53 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
         static home(app){
             return function *(){
-                var user = this.session.user !== undefined ? this.session.user : undefined;
+                var user = this.session.user || undefined;
                 yield this.render('index',{user:user,loginCallback:app.config.loginCallback});
             }
         }
 
+        /**
+         * @api {get} /login/callback 登录回调函数
+         * @apiName loginCallback
+         * @apiGroup Login
+         * @apiPermission  logined
+         * @apiVersion 0.0.2
+         * @apiDescription 登录回调处理
+         *
+         * @apiParam {Object} query 登录用户信息
+         * @apiParam {String} query.tenantId 租户ID
+         * @apiParam {String} query.status 登录状态，详见张荣超登录文档
+         * @apiParam {Number} query.loginType 登录类型:手机号登录,URS登录
+         * @apiParam {String} query.regIn 注册域
+         * @paiParam {String} query.email 登录用户EMAIL
+         * @apiParam {String} query.userName 登录用户名
+         *
+         * @apiSuccess  store session, and forward to '/'
+         */
+        static loginCallback(app){
+            return function *(){
+                var loginService = new LoginService(app);
+                var result = yield loginService.login(this.query);
+
+                if( result.hasOwnProperty('user') ) {
+                    this.session.user = result.user;
+                }else{
+                    this.session.user = result;
+                }
+                this.redirect('/');
+            }
+        }
+
+        /**
+         * @api {get} /logout/ 退出登录
+         * @apiName logout
+         * @apiGroup Login
+         * @apiPermission  logined
+         * @apiVersion 0.0.2
+         * @apiDescription 退出登录处理
+         *
+         * @apiSuccess  clean session, and forward to '/'
+         */
         static logout(app){
             return function *(){
                 this.session.user = null;
@@ -64,6 +106,15 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             }
         }
 
+        /**
+         * @api {get} /comment/ 测试
+         * @apiName comment
+         * @apiGroup
+         * @apiPermission
+         * @apiVersion 0.0.2
+         * @apiDescription 测试
+         *
+         */
         static comment(app){
             return function *(){
 
@@ -84,6 +135,59 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             }
         }
 
+        /**
+         * @api {post} /savedraft 保存草稿
+         * @apiName savedraft
+         * @apiGroup Record
+         * @apiPermission admin or self
+         * @apiVersion 0.0.1
+         * @apiDescription 用户登录后,创建申请记录草稿
+         *
+         *
+         * @apiSampleRequest http://icp.hzspeed.cn/savedraft/
+         *
+         * @apiParam {Object} formData 保存草稿记录数据
+         * @apiParam {Number} formData.drafttype 草稿类型:1-基本信息,2-公司信息,3-站点信息,4-申请材料信息
+         * @apiParam {Object} baseinfo optional  drafttype=1时有效,记录baseinfo部分
+         * @apiParam {Number} baseinfo.id  optional 记录id,没有表示创建记录
+         * @apiParam {Number} baseinfo.type 备案类型：\n0-首次备案\n1-新增网站\n2-新增接入
+         *
+         * @apiParam {Object} companyinfo optional  drafttype=2时有效,记录companyinfo部分
+         * @apiParam {Number} companyinfo.id  optional 记录id,没有表示创建记录
+         * @apiParam {Number} companyinfo.*
+         *
+         * @apiParam {Object} siteinfo optional  drafttype=3时有效,记录siteinfo部分
+         * @apiParam {Number} siteinfo.id  optional 记录id,没有表示创建记录
+         * @apiParam {Number} siteinfo.*
+         *
+         * @apiParam {Object} material 记录material部分
+         * @apiParam {Number} material.sitemanagerurl 主体单位负责人图片URL
+         * @apiParam {String} material.checklisturl 核验单图片URL
+         * @apiParam {String} material.protocolurl1 云平台服务协议第一页l图片URL
+         * @apiParam {String} material.protocolurl2 云平台服务协议第二页图片URL
+         * @apiParam {String} material.securityurl1 信息安全管理责任书第一页图片URL
+         * @apiParam {String} material.securityurl2 信息安全管理责任书第二页图片URL
+         *
+         * return {drafttype: formData.drafttype, id: id};
+         *
+         * @apiSuccess {Object} ret 返回结果
+         * @apiSuccess {Number} ret.drafttype 草稿类型
+         * @apiSuccess {Number} ret.id 记录ID
+         */
+        static savedraft(app){
+            var me = this;
+            return function *(){
+                var session = this.session;
+
+                var ret = {};
+
+                var storeService = new StoreService(app)
+                ret = yield storeService.savedraft();
+
+                this.type = 'json';
+                this.body = {ret: ret};
+            }
+        }
 
 
         /**
@@ -93,8 +197,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiPermission admin or self
          * @apiVersion 0.0.1
          * @apiDescription 用户登录后,创建申请记录
-         *
-         * @apiParam {Number} id 记录id.
          *
          * @apiSampleRequest http://icp.hzspeed.cn/records/
          *
@@ -199,29 +301,13 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         }
 
 
-        static savedraft(app){
-            var me = this;
-            return function *(){
-                var session = this.session;
-
-                var ret = {};
-
-                var storeService = new StoreService(app)
-                ret = yield storeService.savedraft(this.request.body);
-
-                this.type = 'json';
-                this.body = {ret: ret};
-            }
-        }
-
-
 
         /**
          * @api {get} /record 获取记录详情
          * @apiName getRecord
          * @apiGroup Record
          * @apiPermission admin or self
-         * @apiVersion 0.0.2
+         * @apiVersion 0.0.3
          * @apiDescription 管理员(登录后用户对象里用idadmin字段表示)能获取所有用户申请记录详情,本用户只能获取他自己的申请记录详情
          *
          * @apiParam {Number} id 记录id.
@@ -310,6 +396,11 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} website.mobile 手机号码
          * @apiSuccess {String} website.email 电子邮箱
          * @apiSuccess {String} website.qq qq号码
+         * @apiSuccess {Number} website.prechecktype 前置审批类型 0-暂无 1-新闻 2-出版 3-教育 4-医疗保健 5-药品和医疗器械 6-电子公告服务 7-文化 8-广播电视节目
+         * @apiSuccess {String} website.checknumber optional 前置审批号
+         * @apiSuccess {String} website.checkfileurl optional 前置审批文件
+         * @apiSuccess {String} website.remark optional 备注
+
          *
          * @apiUse EmptyRecord
          */
@@ -421,6 +512,10 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} website.mobile 手机号码
          * @apiSuccess {String} website.email 电子邮箱
          * @apiSuccess {String} website.qq qq号码
+         * @apiSuccess {Number} website.prechecktype 前置审批类型 0-暂无 1-新闻 2-出版 3-教育 4-医疗保健 5-药品和医疗器械 6-电子公告服务 7-文化 8-广播电视节目
+         * @apiSuccess {String} website.checknumber optional 前置审批号
+         * @apiSuccess {String} website.checkfileurl optional 前置审批文件
+         * @apiSuccess {String} website.remark optional 备注
          *
          * @apiUse EmptyRecord
          */
@@ -774,19 +869,41 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             }
         }
 
-        static loginCallback(app){
-            return function *(){
-                var loginService = new LoginService(app);
-                var result = yield loginService.login(this.query);
+        /*
+        * 没有文件类型限制*/
+        static upload2(app){
 
-                if( result.hasOwnProperty('user') ) {
-                    this.session.user = result.user;
-                }else{
-                    this.session.user = result;
+            return function *(){
+                console.dir(this.cookies.get('koa.sid'));
+                var session = this.session;
+                //if( session.hasOwnProperty('firms') ){
+                //    delete session.firms;
+                //}
+                this.state.upload=0;
+                if (this.method.toLocaleLowerCase() == 'post') {
+                    var hasError = false;
+                    var filename = '';
+                    var url = '';
+                    var parts = yield* multipart(this);
+                    for(let file  of parts.files) {
+                          var storeService = new StoreService(app);
+                            url = yield storeService.uploadNos(Date.now(),file.path);
+                            filename = file.filename;
+                    };
+                    parts.dispose();
+
+
+                    this.type = 'json';
+                    this.body = {url:url};
                 }
-                this.redirect('/');
+                else {
+                    EasyNode.DEBUG  && logger.debug('multipart must post');
+                }
             }
         }
+
+
+
 
         static passWhitelist( ip,app ){
             var pass = false;

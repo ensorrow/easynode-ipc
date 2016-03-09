@@ -13,6 +13,7 @@ module.exports ={
         var hasError = false;
         var err = 0;
         (function _check(o){
+            console.log(o);
             for(var i in o){
                 if(o.hasOwnProperty(i)){
                     if( typeof o[i] == 'object'){
@@ -23,6 +24,7 @@ module.exports ={
                             hasError = false;
                         }
                         else{
+                            console.log("property",i,o);
                             hasError = true;
                         }
                         err = hasError ? err+1: err;

@@ -7,7 +7,7 @@ import SiteInfo from './forms/SiteInfo.jsx';
 import UploadMaterial from './forms/UploadMaterial.jsx';
 import SubmitTrialSuccess from './forms/SubmitTrialSuccess'
 import RecordList from './forms/RecordList.jsx';
-import RecordInfo from './forms/RecordInfo';
+import RecordInfo from './forms/RecordInfo.jsx';
 import ApplyCurtain from './forms/ApplyCurtain';
 import SubmitCheckSuccess from './forms/SubmitCheckSuccess';
 import UploadPhoto from './forms/UploadPhoto.jsx';
@@ -248,7 +248,7 @@ export default{
                     __globals__ = a;
                 }
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/RecordInfo'));
+                    cb(null,require('./forms/RecordInfo.jsx'));
                 });
             }
         },

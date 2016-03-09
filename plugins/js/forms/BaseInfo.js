@@ -22,13 +22,22 @@ let BaseInfo = React.createClass({
         __globals__.baseinfo.serverregion = this.state.serverregion;
 
 
+        var formData = {};
+        formData.drafttype = 1;
+        formData.baseinfo = {};
+
+        if( __globals__.hasOwnProperty("baseinfo") && __globals__.baseinfo.hasOwnProperty("id") ){
+            formData.baseinfo.id = __globals__.baseinfo.id;
+        }
+        formData.baseinfo.type = __globals__.baseinfo.type;
+
         __globals__.drafttype = 1;
 
         //savedraft
         reqwest({
             url: '/savedraft',
             method: 'post',
-            data: JSON.stringify(__globals__),
+            data: JSON.stringify(formData),
             type:'json',
             contentType: 'application/json',
             headers: {

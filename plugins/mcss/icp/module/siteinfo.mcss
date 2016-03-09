@@ -112,6 +112,8 @@ $m-siteinfo_item_addsite_button_margin_left = $m-siteinfo_label_width + $m-sitei
 	}
 
 
+
+
 	.item-ctrl{
 		width: $m-siteinfo_item_ctrl_width;
 		position: relative;
@@ -142,6 +144,17 @@ $m-siteinfo_item_addsite_button_margin_left = $m-siteinfo_label_width + $m-sitei
             }
 		}
 
+		> textarea {
+            font-size: 14px;
+            word-wrap: break-word;
+            line-height: 18px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            outline: none;
+            width: 100%;
+            height: 80px;
+        }
+
 		> select {
 			width: 100%;
 			height: $m-siteinfo_item_height;
@@ -152,6 +165,24 @@ $m-siteinfo_item_addsite_button_margin_left = $m-siteinfo_label_width + $m-sitei
 			position: relative;
 			margin-top: 5px;
 		}
+
+		 > input[type="button"], button{
+		    margin-top:5px;
+            background:gray;
+            width:140px;
+            height:36px;
+            font-size:14px;
+            color:white;
+
+        }
+
+         > input[type="file"]{
+            position: absolute;
+            bottom: 0;
+            opacity:0;
+            font-size: 40px;
+            left: 0;
+        }
 
 		@extend .f-fl;
 	}

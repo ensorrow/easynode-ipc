@@ -1,0 +1,14 @@
+{
+  "name": "ICP API参考文档",
+  "description": "ICP API文档",
+  "version": "ICP - 0.0.1",
+  "url":"http://icp.hzspeed.cn/views/yuidocs",
+  "options": {
+    "linkNatives": "true",
+    "attributesEmit": "true",
+    "paths": [
+      "../src"
+    ],
+    "outdir": "../yuidocs"
+  }
+}

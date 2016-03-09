@@ -1,0 +1,2030 @@
+{
+    "project": {},
+    "files": {
+        "../../src/netease/icp/backend/controllers/Controllers.js": {
+            "name": "../../src/netease/icp/backend/controllers/Controllers.js",
+            "modules": {},
+            "classes": {
+                "netease.icp.Controllers": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "../../src/netease/icp/backend/models/Company.js": {
+            "name": "../../src/netease/icp/backend/models/Company.js",
+            "modules": {},
+            "classes": {
+                "netease.icp.backend.models.Company": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "../../src/netease/icp/backend/models/Record.js": {
+            "name": "../../src/netease/icp/backend/models/Record.js",
+            "modules": {},
+            "classes": {
+                "netease.icp.backend.models.Record": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "../../src/netease/icp/backend/models/User.js": {
+            "name": "../../src/netease/icp/backend/models/User.js",
+            "modules": {},
+            "classes": {
+                "netease.icp.backend.models.User": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "../../src/netease/icp/backend/models/Website.js": {
+            "name": "../../src/netease/icp/backend/models/Website.js",
+            "modules": {},
+            "classes": {
+                "netease.icp.backend.models.Website": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "../../src/netease/icp/backend/routes/Routes.js": {
+            "name": "../../src/netease/icp/backend/routes/Routes.js",
+            "modules": {},
+            "classes": {
+                "netease.icp.routes.Routes": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "../../src/netease/icp/backend/services/LoginService.js": {
+            "name": "../../src/netease/icp/backend/services/LoginService.js",
+            "modules": {},
+            "classes": {
+                "netease.icp.backend.services.LoginService": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "../../src/netease/icp/backend/services/StoreService.js": {
+            "name": "../../src/netease/icp/backend/services/StoreService.js",
+            "modules": {},
+            "classes": {
+                "netease.icp.backend.services.StoreService": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "../../src/netease/icp/backend/Main.js": {
+            "name": "../../src/netease/icp/backend/Main.js",
+            "modules": {},
+            "classes": {
+                "netease.icp.backend.Main": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "netease.icp.Controllers": {
+            "name": "netease.icp.Controllers",
+            "shortname": "netease.icp.Controllers",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "../../src/netease/icp/backend/controllers/Controllers.js",
+            "line": 19,
+            "description": "Class Controllers",
+            "extends": "easynode.GenericObject",
+            "since": "0.1.0",
+            "author": "allen.hu"
+        },
+        "netease.icp.backend.models.Company": {
+            "name": "netease.icp.backend.models.Company",
+            "shortname": "netease.icp.backend.models.Company",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "../../src/netease/icp/backend/models/Company.js",
+            "line": 7,
+            "description": "Class Company",
+            "extends": "easynode.GenericObject",
+            "since": "0.1.0",
+            "author": "allen.hu"
+        },
+        "netease.icp.backend.models.Record": {
+            "name": "netease.icp.backend.models.Record",
+            "shortname": "netease.icp.backend.models.Record",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "../../src/netease/icp/backend/models/Record.js",
+            "line": 7,
+            "description": "Class Record",
+            "extends": "easynode.GenericObject",
+            "since": "0.1.0",
+            "author": "allen.hu"
+        },
+        "netease.icp.backend.models.User": {
+            "name": "netease.icp.backend.models.User",
+            "shortname": "netease.icp.backend.models.User",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "../../src/netease/icp/backend/models/User.js",
+            "line": 7,
+            "description": "Class User",
+            "extends": "easynode.GenericObject",
+            "since": "0.1.0",
+            "author": "allen.hu"
+        },
+        "netease.icp.backend.models.Website": {
+            "name": "netease.icp.backend.models.Website",
+            "shortname": "netease.icp.backend.models.Website",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "../../src/netease/icp/backend/models/Website.js",
+            "line": 7,
+            "description": "Class Website",
+            "extends": "easynode.GenericObject",
+            "since": "0.1.0",
+            "author": "allen.hu"
+        },
+        "netease.icp.routes.Routes": {
+            "name": "netease.icp.routes.Routes",
+            "shortname": "netease.icp.routes.Routes",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "../../src/netease/icp/backend/routes/Routes.js",
+            "line": 14,
+            "description": "Class Routes",
+            "extends": "easynode.GenericObject",
+            "since": "0.1.0",
+            "author": "allen.hu"
+        },
+        "netease.icp.backend.services.LoginService": {
+            "name": "netease.icp.backend.services.LoginService",
+            "shortname": "netease.icp.backend.services.LoginService",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "../../src/netease/icp/backend/services/LoginService.js",
+            "line": 29,
+            "description": "Class LoginService",
+            "extends": "easynode.GenericObject",
+            "since": "0.1.0",
+            "author": "allen.hu"
+        },
+        "netease.icp.backend.services.StoreService": {
+            "name": "netease.icp.backend.services.StoreService",
+            "shortname": "netease.icp.backend.services.StoreService",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "../../src/netease/icp/backend/services/StoreService.js",
+            "line": 25,
+            "description": "Class StoreService",
+            "extends": "easynode.GenericObject",
+            "since": "0.1.0",
+            "author": "allen.hu"
+        },
+        "netease.icp.backend.Main": {
+            "name": "netease.icp.backend.Main",
+            "shortname": "netease.icp.backend.Main",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "../../src/netease/icp/backend/Main.js",
+            "line": 11,
+            "description": "Class Main",
+            "extends": "easynode.GenericObject",
+            "since": "0.1.0",
+            "author": "allen.hu"
+        }
+    },
+    "classitems": [
+        {
+            "file": "../../src/netease/icp/backend/controllers/Controllers.js",
+            "line": 29,
+            "description": "构造函数。",
+            "itemtype": "method",
+            "name": "构造函数",
+            "since": "0.1.0",
+            "author": "allen.hu",
+            "class": "netease.icp.Controllers"
+        },
+        {
+            "file": "../../src/netease/icp/backend/controllers/Controllers.js",
+            "line": 42,
+            "apidefine": "EmptyRecord",
+            "apierror": "EmptyRecord Please login again or register an aacount, maybe the session is expired",
+            "apierrorexample": "Empty-Response:\n\n         { rows:0, pages:0, page:0, rpp:0, data:[] };",
+            "class": "netease.icp.Controllers"
+        },
+        {
+            "file": "../../src/netease/icp/backend/controllers/Controllers.js",
+            "line": 89,
+            "api": "{post} /records 创建申请记录",
+            "apiname": "createRecord",
+            "apigroup": "Record",
+            "apipermission": "admin or self",
+            "apiversion": "0.0.1",
+            "apidescription": "用户登录后,创建申请记录",
+            "apiparam": "{String} material.securityurl2 信息安全管理责任书第二页图片URL",
+            "apisamplerequest": "http://icp.hzspeed.cn/records/",
+            "apisuccess": "{String} website.qq qq号码",
+            "apiuse": "EmptyRecord",
+            "class": "netease.icp.Controllers"
+        },
+        {
+            "file": "../../src/netease/icp/backend/controllers/Controllers.js",
+            "line": 219,
+            "api": "{get} /record 获取记录详情",
+            "apiname": "getRecord",
+            "apigroup": "Record",
+            "apipermission": "admin or self",
+            "apiversion": "0.0.2",
+            "apidescription": "管理员(登录后用户对象里用idadmin字段表示)能获取所有用户申请记录详情,本用户只能获取他自己的申请记录详情",
+            "apiparam": "{Number} id 记录id.",
+            "apisamplerequest": "http://icp.hzspeed.cn/record/?id",
+            "apisuccess": "{String} website.qq qq号码",
+            "apiuse": "EmptyRecord",
+            "class": "netease.icp.Controllers"
+        },
+        {
+            "file": "../../src/netease/icp/backend/controllers/Controllers.js",
+            "line": 330,
+            "api": "{get} /admin/record 获取记录详情",
+            "apiname": "getRecordb",
+            "apigroup": "Ops",
+            "apipermission": "whitelist",
+            "apiversion": "0.0.2",
+            "apidescription": "通过白名单管理权限",
+            "apiparam": "{Number} id 记录id.",
+            "apisamplerequest": "http://icp.hzspeed.cn/admin/record/?id",
+            "apisuccess": "{String} website.qq qq号码",
+            "apiuse": "EmptyRecord",
+            "class": "netease.icp.Controllers"
+        },
+        {
+            "file": "../../src/netease/icp/backend/controllers/Controllers.js",
+            "line": 443,
+            "api": "{put} /record 审核",
+            "apiname": "putRecord",
+            "apigroup": "Record",
+            "apipermission": "admin or self",
+            "apiversion": "0.0.2",
+            "apidescription": "管理员(登录后用户对象里用idadmin字段表示)审核记录",
+            "apisamplerequest": "http://icp.hzspeed.cn/record/",
+            "apiparam": "{String} [curtainurl] 帘布照片URL",
+            "apisuccess": "{Number} ret true:成功,false:失败",
+            "class": "netease.icp.Controllers"
+        },
+        {
+            "file": "../../src/netease/icp/backend/controllers/Controllers.js",
+            "line": 474,
+            "api": "{put} /user",
+            "apiname": "putUser",
+            "apigroup": "User",
+            "apipermission": "admin or self",
+            "apiversion": "0.0.2",
+            "apidescription": "修改用户幕布申请地址",
+            "apisamplerequest": "http://icp.hzspeed.cn/user/",
+            "apiparam": "{String} [companyname] 公司名称",
+            "apisuccess": "{Number} ret true:成功,false:失败",
+            "class": "netease.icp.Controllers"
+        },
+        {
+            "file": "../../src/netease/icp/backend/controllers/Controllers.js",
+            "line": 505,
+            "api": "{put} /admin/record 审核",
+            "apiname": "putRecordb",
+            "apigroup": "Ops",
+            "apipermission": "whitelist",
+            "apiversion": "0.0.2",
+            "apidescription": "通过白名单管理权限",
+            "apisamplerequest": "http://icp.hzspeed.cn/admin/record",
+            "apiparam": "{String} [curtainurl] 帘布照片URL",
+            "apisuccess": "{Number} ret true:成功,false:失败",
+            "class": "netease.icp.Controllers"
+        },
+        {
+            "file": "../../src/netease/icp/backend/controllers/Controllers.js",
+            "line": 538,
+            "api": "{put} /admin/curtain 寄送幕布",
+            "apiname": "putCurtainb",
+            "apigroup": "Ops",
+            "apipermission": "whitelist",
+            "apiversion": "0.0.2",
+            "apidescription": "通过白名单管理权限",
+            "apisamplerequest": "http://icp.hzspeed.cn/admin/curtain",
+            "apiparam": "{Number} id 用户ID",
+            "apisuccess": "{Number} ret true:成功,false:失败",
+            "class": "netease.icp.Controllers"
+        },
+        {
+            "file": "../../src/netease/icp/backend/controllers/Controllers.js",
+            "line": 568,
+            "api": "{get} /records 获取记录列表",
+            "apiname": "getRecords",
+            "apigroup": "Record",
+            "apipermission": "admin or self",
+            "apiversion": "0.0.2",
+            "apidescription": "管理员(登录后用户对象里用idadmin字段表示)能获取所有用户申请记录,本用户只能获取他自己的申请记录",
+            "apiparam": "{Number} rpp  每页记录数.",
+            "apisamplerequest": "http://icp.hzspeed.cn/records",
+            "apisuccess": "{Number} rpp 每页显示数",
+            "apiuse": "EmptyRecord",
+            "class": "netease.icp.Controllers"
+        },
+        {
+            "file": "../../src/netease/icp/backend/controllers/Controllers.js",
+            "line": 621,
+            "api": "{get} /admin/records 获取记录列表",
+            "apiname": "getRecordsb",
+            "apigroup": "Ops",
+            "apipermission": "whitelist",
+            "apiversion": "0.0.2",
+            "apidescription": "权限通过白名单管理",
+            "apiparam": "{Number} rpp  每页记录数.",
+            "apisamplerequest": "http://icp.hzspeed.cn/admin/records",
+            "apisuccess": "{Number} rpp 每页显示数",
+            "apiuse": "EmptyRecord",
+            "class": "netease.icp.Controllers"
+        },
+        {
+            "file": "../../src/netease/icp/backend/controllers/Controllers.js",
+            "line": 673,
+            "api": "{get} /admin/curtains 获取幕布寄送任务",
+            "apiname": "getCurtainsb",
+            "apigroup": "Ops",
+            "apipermission": "whitelist",
+            "apiversion": "0.0.2",
+            "apidescription": "权限通过白名单管理",
+            "apiparam": "{Number} rpp  每页记录数.",
+            "apisamplerequest": "http://icp.hzspeed.cn/admin/curtains",
+            "apisuccess": "{Number} rpp 每页显示数",
+            "apiuse": "EmptyRecord",
+            "class": "netease.icp.Controllers"
+        },
+        {
+            "file": "../../src/netease/icp/backend/models/Company.js",
+            "line": 16,
+            "description": "构造函数。",
+            "itemtype": "method",
+            "name": "构造函数",
+            "since": "0.1.0",
+            "author": "allen.hu",
+            "class": "netease.icp.backend.models.Company"
+        },
+        {
+            "file": "../../src/netease/icp/backend/models/Company.js",
+            "line": 28,
+            "description": "定义模型字段",
+            "itemtype": "method",
+            "name": "defineFields",
+            "since": "0.1.0",
+            "author": "allen.hu",
+            "class": "netease.icp.backend.models.Company"
+        },
+        {
+            "file": "../../src/netease/icp/backend/models/Record.js",
+            "line": 16,
+            "description": "构造函数。",
+            "itemtype": "method",
+            "name": "构造函数",
+            "since": "0.1.0",
+            "author": "allen.hu",
+            "class": "netease.icp.backend.models.Record"
+        },
+        {
+            "file": "../../src/netease/icp/backend/models/Record.js",
+            "line": 28,
+            "description": "定义模型字段",
+            "itemtype": "method",
+            "name": "defineFields",
+            "since": "0.1.0",
+            "author": "allen.hu",
+            "class": "netease.icp.backend.models.Record"
+        },
+        {
+            "file": "../../src/netease/icp/backend/models/User.js",
+            "line": 16,
+            "description": "构造函数。",
+            "itemtype": "method",
+            "name": "构造函数",
+            "since": "0.1.0",
+            "author": "allen.hu",
+            "class": "netease.icp.backend.models.User"
+        },
+        {
+            "file": "../../src/netease/icp/backend/models/User.js",
+            "line": 28,
+            "description": "定义模型字段",
+            "itemtype": "method",
+            "name": "defineFields",
+            "since": "0.1.0",
+            "author": "allen.hu",
+            "class": "netease.icp.backend.models.User"
+        },
+        {
+            "file": "../../src/netease/icp/backend/models/Website.js",
+            "line": 16,
+            "description": "构造函数。",
+            "itemtype": "method",
+            "name": "构造函数",
+            "since": "0.1.0",
+            "author": "allen.hu",
+            "class": "netease.icp.backend.models.Website"
+        },
+        {
+            "file": "../../src/netease/icp/backend/models/Website.js",
+            "line": 28,
+            "description": "定义模型字段",
+            "itemtype": "method",
+            "name": "defineFields",
+            "since": "0.1.0",
+            "author": "allen.hu",
+            "class": "netease.icp.backend.models.Website"
+        },
+        {
+            "file": "../../src/netease/icp/backend/routes/Routes.js",
+            "line": 24,
+            "description": "构造函数。",
+            "itemtype": "method",
+            "name": "构造函数",
+            "since": "0.1.0",
+            "author": "allen.hu",
+            "class": "netease.icp.routes.Routes"
+        },
+        {
+            "file": "../../src/netease/icp/backend/services/LoginService.js",
+            "line": 38,
+            "description": "构造函数。",
+            "itemtype": "method",
+            "name": "构造函数",
+            "since": "0.1.0",
+            "author": "allen.hu",
+            "class": "netease.icp.backend.services.LoginService"
+        },
+        {
+            "file": "../../src/netease/icp/backend/services/LoginService.js",
+            "line": 52,
+            "apiname": "getRecords",
+            "apigroup": "Record",
+            "apipermission": "admin or self",
+            "apiversion": "0.0.2",
+            "apidescription": "管理员(登录后用户对象里用idadmin字段表示)能获取所有用户申请记录,本用户只能获取他自己的申请记录",
+            "apiparam": "{Number} rpp  每页记录数.",
+            "apisamplerequest": "http://icp.hzspeed.cn/records",
+            "apisuccess": "{Number} rpp 每页显示数",
+            "apiuse": "EmptyRecord",
+            "class": "netease.icp.backend.services.LoginService"
+        },
+        {
+            "file": "../../src/netease/icp/backend/services/StoreService.js",
+            "line": 35,
+            "description": "构造函数。",
+            "itemtype": "method",
+            "name": "构造函数",
+            "since": "0.1.0",
+            "author": "allen.hu",
+            "class": "netease.icp.backend.services.StoreService"
+        },
+        {
+            "file": "../../src/netease/icp/backend/Main.js",
+            "line": 21,
+            "description": "构造函数。",
+            "itemtype": "method",
+            "name": "构造函数",
+            "since": "0.1.0",
+            "author": "allen.hu",
+            "class": "netease.icp.backend.Main"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "unknown tag: apidefine",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:42"
+        },
+        {
+            "message": "unknown tag: apierror",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:42"
+        },
+        {
+            "message": "unknown tag: apierrorexample",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:42"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apiname",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apigroup",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apipermission",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apiversion",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apidescription",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisamplerequest",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: apiuse",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apiname",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apigroup",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apipermission",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apiversion",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apidescription",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisamplerequest",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: apiuse",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apiname",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apigroup",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apipermission",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apiversion",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apidescription",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisamplerequest",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: apiuse",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:443"
+        },
+        {
+            "message": "unknown tag: apiname",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:443"
+        },
+        {
+            "message": "unknown tag: apigroup",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:443"
+        },
+        {
+            "message": "unknown tag: apipermission",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:443"
+        },
+        {
+            "message": "unknown tag: apiversion",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:443"
+        },
+        {
+            "message": "unknown tag: apidescription",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:443"
+        },
+        {
+            "message": "unknown tag: apisamplerequest",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:443"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:443"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:443"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:443"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:443"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:443"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:474"
+        },
+        {
+            "message": "unknown tag: apiname",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:474"
+        },
+        {
+            "message": "unknown tag: apigroup",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:474"
+        },
+        {
+            "message": "unknown tag: apipermission",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:474"
+        },
+        {
+            "message": "unknown tag: apiversion",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:474"
+        },
+        {
+            "message": "unknown tag: apidescription",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:474"
+        },
+        {
+            "message": "unknown tag: apisamplerequest",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:474"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:474"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:474"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:474"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:474"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:474"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:505"
+        },
+        {
+            "message": "unknown tag: apiname",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:505"
+        },
+        {
+            "message": "unknown tag: apigroup",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:505"
+        },
+        {
+            "message": "unknown tag: apipermission",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:505"
+        },
+        {
+            "message": "unknown tag: apiversion",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:505"
+        },
+        {
+            "message": "unknown tag: apidescription",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:505"
+        },
+        {
+            "message": "unknown tag: apisamplerequest",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:505"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:505"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:505"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:505"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:505"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:505"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:538"
+        },
+        {
+            "message": "unknown tag: apiname",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:538"
+        },
+        {
+            "message": "unknown tag: apigroup",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:538"
+        },
+        {
+            "message": "unknown tag: apipermission",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:538"
+        },
+        {
+            "message": "unknown tag: apiversion",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:538"
+        },
+        {
+            "message": "unknown tag: apidescription",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:538"
+        },
+        {
+            "message": "unknown tag: apisamplerequest",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:538"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:538"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:538"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apiname",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apigroup",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apipermission",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apiversion",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apidescription",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisamplerequest",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: apiuse",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apiname",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apigroup",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apipermission",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apiversion",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apidescription",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisamplerequest",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: apiuse",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apiname",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apigroup",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apipermission",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apiversion",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apidescription",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apisamplerequest",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apiuse",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "unknown tag: apiname",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apigroup",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apipermission",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apiversion",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apidescription",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apiparam",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisamplerequest",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apisuccess",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "unknown tag: apiuse",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        },
+        {
+            "message": "Missing item type",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:42"
+        },
+        {
+            "message": "Missing item type",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:89"
+        },
+        {
+            "message": "Missing item type",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:219"
+        },
+        {
+            "message": "Missing item type",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:330"
+        },
+        {
+            "message": "Missing item type",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:443"
+        },
+        {
+            "message": "Missing item type",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:474"
+        },
+        {
+            "message": "Missing item type",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:505"
+        },
+        {
+            "message": "Missing item type",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:538"
+        },
+        {
+            "message": "Missing item type",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:568"
+        },
+        {
+            "message": "Missing item type",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:621"
+        },
+        {
+            "message": "Missing item type",
+            "line": " ../../src/netease/icp/backend/controllers/Controllers.js:673"
+        },
+        {
+            "message": "Missing item type",
+            "line": " ../../src/netease/icp/backend/services/LoginService.js:52"
+        }
+    ]
+}

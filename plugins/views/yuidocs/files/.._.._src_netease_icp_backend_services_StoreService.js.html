@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>../../src/netease/icp/backend/services/StoreService.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/netease.icp.backend.Main.html">netease.icp.backend.Main</a></li>
+                                <li><a href="../classes/netease.icp.backend.models.Company.html">netease.icp.backend.models.Company</a></li>
+                                <li><a href="../classes/netease.icp.backend.models.Record.html">netease.icp.backend.models.Record</a></li>
+                                <li><a href="../classes/netease.icp.backend.models.User.html">netease.icp.backend.models.User</a></li>
+                                <li><a href="../classes/netease.icp.backend.models.Website.html">netease.icp.backend.models.Website</a></li>
+                                <li><a href="../classes/netease.icp.backend.services.LoginService.html">netease.icp.backend.services.LoginService</a></li>
+                                <li><a href="../classes/netease.icp.backend.services.StoreService.html">netease.icp.backend.services.StoreService</a></li>
+                                <li><a href="../classes/netease.icp.Controllers.html">netease.icp.Controllers</a></li>
+                                <li><a href="../classes/netease.icp.routes.Routes.html">netease.icp.routes.Routes</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: ../../src/netease/icp/backend/services/StoreService.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+var assert = require(&#x27;assert&#x27;);
+var logger = using(&#x27;easynode.framework.Logger&#x27;).forFile(__filename);
+var GenericObject = using(&#x27;easynode.GenericObject&#x27;);
+var md5 =  require(&#x27;md5&#x27;);
+var fs = require(&#x27;co-fs&#x27;);
+var f =  require(&#x27;fs&#x27;);
+var bfs = require(&#x27;babel-fs&#x27;);
+var Nos = require(&#x27;nenos&#x27;);
+var archiver = require(&#x27;archiver&#x27;);
+var _ = require(&#x27;lodash&#x27;);
+var User = using(&#x27;netease.icp.backend.models.User&#x27;);
+var Company = using(&#x27;netease.icp.backend.models.Company&#x27;);
+var Website = using(&#x27;netease.icp.backend.models.Website&#x27;);
+var Record = using(&#x27;netease.icp.backend.models.Record&#x27;);
+var Nos = require(&#x27;nenos&#x27;);
+var utils = require(&#x27;utility&#x27;);
+
+(function () {
+
+    const FILTER_CONDITION_ALL = 0;
+    const FILTER_CONDITION_WAITED = 1;
+    const FILTER_CONDITION_PASSED = 2;
+    const FILTER_CONDITION_NOPASS = 3;
+
+    /**
+     * Class StoreService
+     *
+     * @class netease.icp.backend.services.StoreService
+     * @extends easynode.GenericObject
+     * @since 0.1.0
+     * @author allen.hu
+     * @description
+     * */
+    class StoreService extends GenericObject {
+        /**
+         * 构造函数。
+         *
+         * @method 构造函数
+         * @since 0.1.0
+         * @author allen.hu
+         * */
+        constructor(app) {
+            super();
+            //调用super()后再定义子类成员。
+            this.app = app;
+        }
+
+
+        isFirst(tenantId) {
+            var me = this;
+            return function* ()
+            {
+                var sql = &#x27;&#x27;;
+                sql = &#x60;SELECT id FROM user WHERE tenantid = #tenantid#&#x60;;
+                var args = {tenantid: tenantId};
+                var arr = [];
+                var conn = null;
+                var id = 0;
+                try{
+                    conn = yield  me.app.ds.getConnection();
+                    arr = yield conn.execQuery(sql, args);
+                    id = arr.length &gt; 0 ? arr[0].id : id;
+                }catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e},${e.stack}&#x60;);
+                    return id;
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                    return id;
+                }
+            }
+        }
+
+        getUserAddress(tenantId) {
+            var me = this;
+            return function* ()
+            {
+                var sql = &#x27;&#x27;;
+                sql = &#x60;SELECT mailingaddress,recipient,recipientmobile,companyname,applycurtainstatus FROM user WHERE tenantid = #tenantid#&#x60;;
+                var args = {tenantid: tenantId};
+                var empty = {mailingaddress:&#x27;&#x27;,recipient:&#x27;&#x27;,recipientmobile:&#x27;&#x27;,companyname:&#x27;&#x27;,applycurtainstatus:0};
+                var arr = [];
+                var conn = null;
+                try{
+                    conn = yield  me.app.ds.getConnection();
+                    arr = yield conn.execQuery(sql, args);
+                }catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e},${e.stack}&#x60;);
+                    return empty;
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                    return arr.length &gt; 0 ?  arr[0] : empty;
+                }
+            }
+        }
+
+        getRecordNumber(tenantId) {
+            var me = this;
+            return function* ()
+            {
+                var sql = &#x27;&#x27;;
+                sql = &#x60;SELECT id FROM record WHERE tenantid = #tenantid#&#x60;;
+                var args = {tenantid: tenantId};
+                var arr = [];
+                var conn = null;
+                var id = 0;
+                try{
+                    conn = yield  me.app.ds.getConnection();
+                    arr = yield conn.execQuery(sql, args);
+                }catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e},${e.stack}&#x60;);
+                    return 0;
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                    return arr.length;
+                }
+            }
+        }
+
+        addUser(user) {
+            var me = this;
+            return function *(){
+                var conn = null;
+                var model = new User();
+                model.merge( Object.assign({},user) );
+                model.merge( {lastlogintime: Date.now(),createtime:Date.now()} );
+                var id = 0;
+
+                try {
+                    conn = yield  me.app.ds.getConnection();
+                    var r = yield conn.create(model);
+                    id = r.insertId;
+                }catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e},${e.stack}&#x60;);
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                    return {insertId:id};
+                }
+            }
+        }
+
+
+        updateUser(user) {
+            var me = this;
+            return function *(){
+                var conn = null;
+                var model = new User();
+
+                model.merge( Object.assign({},user) );
+                model.merge( {lastlogintime: Date.now()} );
+                var id = 0;
+
+                try {
+                    conn = yield  me.app.ds.getConnection();
+                    var r = yield conn.update(model);
+                }catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e},${e.stack}&#x60;);
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                    return {insertId:id};//useless
+                }
+            }
+        }
+
+        createRecord() {
+            var me = this;
+            return function *(){
+
+                var id = 0;
+                var model = null
+                var companyid = 0;
+                var websiteid = 0;
+                var r = null;
+                var conn = null;
+                var code = &#x27;&#x27;;
+                var tenantid = this.session.user.tenantid;
+                var formData = this.request.body;
+
+                try{
+                    conn = yield  me.app.ds.getConnection();
+                    yield * conn.beginTransaction()();
+
+                    //1. insert companyinfo
+                    model = new Company();
+                    model.merge( Object.assign({},formData.companyinfo,{tenantid:tenantid},{createtime:Date.now(),updatetime:Date.now()} ));
+
+                    if( formData.companyinfo.hasOwnProperty(&quot;id&quot;) ){
+                        r = yield conn.update(model);
+                        id = formData.companyinfo.id;
+                    }else{
+                        r = yield conn.create(model);
+                        id = r.insertId;
+                    }
+                    companyid =  id;
+
+                    //2. insert siteinfo
+                    model = null;
+                    model = new  Website();
+                    var data  = Object.assign({},formData.siteinfo,{tenantid:tenantid},{createtime:Date.now(),updatetime:Date.now()} );
+                    data.manageridtype = parseInt(data.manageridtype);
+                    data.accessmethod = JSON.stringify(data.accessmethod);
+                    data.ip = JSON.stringify(data.ip);
+                    data.languages = JSON.stringify(data.languages);
+                    model.merge( data );
+
+                    if( formData.siteinfo.hasOwnProperty(&quot;id&quot;) ){
+                        r = yield conn.update(model);
+                        id = formData.siteinfo.id;
+                    }else{
+                        r = yield conn.create(model);
+                        id = r.insertId;
+                    }
+                    websiteid = id;
+
+                    //3. insert appliyrecord
+                    model = null;
+                    model = new Record();
+                    code = utils.randomString(32, &#x27;1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#x27;);
+                    model.merge( Object.assign({},formData.baseinfo,formData.material,{tenantid:tenantid,companyid:companyid,websiteid:websiteid,status: 1,code:code},{createtime:Date.now(),updatetime:Date.now()} ));
+
+                    if( formData.baseinfo.hasOwnProperty(&quot;id&quot;) ){
+                        r = yield conn.update(model);
+                        id = formData.baseinfo.id;
+                    }else{
+                        r = yield conn.create(model);
+                        id = r.insertId;
+                    }
+
+                    yield * conn.commit()();
+                }catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e},${e.stack}&#x60;);
+                    yield * conn.rollback()();
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+
+                    return { code: code, id: id };
+                }
+            }
+        }
+
+
+        getRecords(){
+            var me = this;
+            return function *(){
+
+                var conn = null;
+                var tenantid = this.session.user.tenantid;
+                var isadmin = this.session.user.isadmin || false;
+                var filter = parseInt(this.parameter.param(&#x27;filter&#x27;));
+                var page = parseInt(this.parameter.param(&#x27;page&#x27;));
+                var rpp = parseInt(this.parameter.param(&#x27;rpp&#x27;));
+                var ret = { rows:0, pages:0, page:0, rpp:0, data:[] };
+
+                try{
+                    var model = new Record().merge( { tenantid:tenantid } );
+
+                    conn = yield  me.app.ds.getConnection();
+                    if( isadmin ){
+                        const FILTER_CONDITION_ALL = 0;
+                        const FILTER_CONDITION_WAITED = 1;
+                        const FILTER_CONDITION_PASSED = 2;
+                        const FILTER_CONDITION_NOPASS = 3;
+                        if( filter ==  FILTER_CONDITION_ALL )
+                            return yield conn.list(model,{ status: { exp:&#x27;&lt;&gt;&#x27;,value:0 } },{ page: page,rpp: rpp },[&#x27;updatetime ASC]&#x27;]);
+                        if( filter ==  FILTER_CONDITION_WAITED )
+                            return yield conn.list(model,{ status: { exp:&#x27;in&#x27;,value:[1,4,7] } },{ page: page,rpp: rpp },[&#x27;updatetime DESC&#x27;]);
+                        if( filter ==  FILTER_CONDITION_PASSED )
+                            return yield conn.list(model,{ status: { exp:&#x27;in&#x27;,value:[3,6,9] } },{ page: page,rpp: rpp },[&#x27;updatetime DESC&#x27;]);
+                        if( filter ==  FILTER_CONDITION_NOPASS )
+                            return yield conn.list(model,{ status: { exp:&#x27;in&#x27;,value:[2,5,8] } },{ page: page,rpp: rpp },[&#x27;updatetime DESC&#x27;]);
+                    }else{
+                        return yield conn.list(model,{ tenantid: { exp:&#x27;=&#x27;,value: tenantid } },{ page: page,rpp: rpp },[&#x27;updatetime DESC&#x27;]);
+                    }
+                } catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e} ${e.stack}&#x60;);
+                    return ret;
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
+        getRecordsb(){
+            var me = this;
+            return function *(){
+
+                var conn = null;
+                var filter = parseInt(this.parameter.param(&#x27;filter&#x27;));
+                var page = parseInt(this.parameter.param(&#x27;page&#x27;));
+                var rpp = parseInt(this.parameter.param(&#x27;rpp&#x27;));
+                var ret = { rows:0, pages:0, page:0, rpp:0, data:[] };
+
+                try{
+                    var model = new Record().merge( { } );
+
+                    conn = yield  me.app.ds.getConnection();
+
+                    const FILTER_CONDITION_ALL = 0;
+                    const FILTER_CONDITION_WAITED = 1;
+                    const FILTER_CONDITION_PASSED = 2;
+                    const FILTER_CONDITION_NOPASS = 3;
+                    if( filter ==  FILTER_CONDITION_ALL )
+                        return yield conn.list(model,{ status: { exp:&#x27;&lt;&gt;&#x27;,value:0 } },{ page: page,rpp: rpp },[&#x27;updatetime DESC&#x27;]);
+                    if( filter ==  FILTER_CONDITION_WAITED )
+                        return yield conn.list(model,{ status: { exp:&#x27;in&#x27;,value:[1,4,7] } },{ page: page,rpp: rpp },[&#x27;updatetime DESC&#x27;]);
+                    if( filter ==  FILTER_CONDITION_PASSED )
+                        return yield conn.list(model,{ status: { exp:&#x27;in&#x27;,value:[3,6,9] } },{ page: page,rpp: rpp },[&#x27;updatetime DESC&#x27;]);
+                    if( filter ==  FILTER_CONDITION_NOPASS )
+                        return yield conn.list(model,{ status: { exp:&#x27;in&#x27;,value:[2,5,8] } },{ page: page,rpp: rpp },[&#x27;updatetime DESC&#x27;]);
+                } catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e} ${e.stack}&#x60;);
+                    return ret;
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
+        getCurtainsb(){
+            var me = this;
+            return function *(){
+
+                var conn = null;
+                var filter = parseInt(this.parameter.param(&#x27;filter&#x27;));
+                var page = parseInt(this.parameter.param(&#x27;page&#x27;));
+                var rpp = parseInt(this.parameter.param(&#x27;rpp&#x27;));
+                var ret = { rows:0, pages:0, page:0, rpp:0, data:[] };
+
+                try{
+                    var model = new User().merge( { } );
+
+                    conn = yield  me.app.ds.getConnection();
+
+                    const FILTER_CONDITION_ALL = 3;
+                    const FILTER_CONDITION_CHECKING = 1;
+                    const FILTER_CONDITION_PASSED = 2;
+                    if( filter ==  FILTER_CONDITION_ALL )
+                        return yield conn.list(model,{ applycurtainstatus: { exp:&#x27;&lt;&gt;&#x27;,value:0 } },{ page: page,rpp: rpp },[&#x27;updatetime DESC&#x27;]);
+                    if( filter ==  FILTER_CONDITION_CHECKING )
+                        return yield conn.list(model,{ applycurtainstatus: { exp:&#x27;in&#x27;,value:[FILTER_CONDITION_CHECKING] } },{ page: page,rpp: rpp },[&#x27;updatetime DESC&#x27;]);
+                    if( filter ==  FILTER_CONDITION_PASSED )
+                        return yield conn.list(model,{ applycurtainstatus: { exp:&#x27;in&#x27;,value:[FILTER_CONDITION_PASSED] } },{ page: page,rpp: rpp },[&#x27;updatetime DESC&#x27;]);
+                } catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e} ${e.stack}&#x60;);
+                    return ret;
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
+        getRecord(){
+            var me = this;
+            return function *(){
+
+                var tenantid = this.session.user.tenantid;
+                var ret = {};
+                var conn = null;
+                var record = null;
+                var arr = [];
+                var company = null;
+                var website = null;
+
+                //1. record
+                //2. company
+                //3. website
+                try{
+                    var sql = &#x27;&#x27;;
+                    var id = this.parameter.param(&#x27;id&#x27;) || 0;
+                    conn = yield  me.app.ds.getConnection();
+
+                    sql = &#x60;SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons FROM record WHERE id = #id# and tenantid = #tenantid#&#x60;;
+                    arr =  yield conn.execQuery(sql,{ id:id,tenantid:tenantid });
+                    if( arr.length &lt;= 0 )
+                        return ret;
+                    record = arr[0];
+
+                    if( record.companyid &gt; 0 ){
+                        sql = &#x60;SELECT id,province,city,area,nature,idtype,idnumber,name,liveaddress,commaddress,owner,managername,manageridtype,manageridnumber,officephoneregion,officephonenumber,mobile,email,recordnumber,recordpassword FROM company WHERE id = #id#&#x60;;
+                        arr =  yield conn.execQuery(sql,{id:record.companyid});
+                        company = arr[0];
+                    }
+                    if( record.websiteid &gt; 0 ){
+                        sql = &#x60;SELECT id,name,domain,domain1,domain1,domain2,domain3,domain4,homeurl,servicecontent,languages,ispname,ip,accessmethod,serverregion,managername,manageridtype,manageridnumber,officephoneregion,officephonenumber,mobile,email,qq FROM website WHERE id = #id#&#x60;;
+                        arr =  yield conn.execQuery(sql,{id:record.websiteid});
+                        website = arr[0];
+                    }
+                    if( website ){
+                        website.ip = JSON.parse(website.ip);
+                        ret.website = website;
+                    }
+                    if( company ){
+                        ret.company = company;
+                    }
+
+                    ret.record = record;
+                    return ret;
+                } catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e} ${e.stack}&#x60;);
+                    return ret;
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
+
+        getRecordb(){
+            var me = this;
+            return function *(){
+
+                var ret = {};
+                var conn = null;
+                var record = null;
+                var arr = [];
+                var company = null;
+                var website = null;
+
+                //1. record
+                //2. company
+                //3. website
+                try{
+                    var sql = &#x27;&#x27;;
+                    var id = this.parameter.param(&#x27;id&#x27;) || 0;
+                    conn = yield  me.app.ds.getConnection();
+
+                    sql = &#x60;SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons FROM record WHERE id = #id#&#x60;;
+                    arr =  yield conn.execQuery(sql,{ id:id } );
+                    if( arr.length &lt;= 0 )
+                        return ret;
+                    record = arr[0];
+
+                    if( record.companyid &gt; 0 ){
+                        sql = &#x60;SELECT id,province,city,area,nature,idtype,idnumber,name,liveaddress,commaddress,owner,managername,manageridtype,manageridnumber,officephoneregion,officephonenumber,mobile,email,recordnumber,recordpassword FROM company WHERE id = #id#&#x60;;
+                        arr =  yield conn.execQuery(sql,{id:record.companyid});
+                        company = arr[0];
+                    }
+                    if( record.websiteid &gt; 0 ){
+                        sql = &#x60;SELECT id,name,domain,domain1,domain1,domain2,domain3,domain4,homeurl,servicecontent,languages,ispname,ip,accessmethod,serverregion,managername,manageridtype,manageridnumber,officephoneregion,officephonenumber,mobile,email,qq FROM website WHERE id = #id#&#x60;;
+                        arr =  yield conn.execQuery(sql,{id:record.websiteid});
+                        website = arr[0];
+                    }
+                    if( website ){
+                        website.ip = JSON.parse(website.ip);
+                        ret.website = website;
+                    }
+                    if( company ){
+                        ret.company = company;
+                    }
+
+                    ret.record = record;
+                    return ret;
+                } catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e} ${e.stack}&#x60;);
+                    return ret;
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
+        putRecord(){
+            var me = this;
+            return function *(){
+                var r = null;
+                var conn = null;
+                var model = new Record();
+                var form = this.request.body;
+                var status = form.status;
+                var reasons = form.reasons;
+                var id = form.id;
+                var curtainurl = form.curtainurl;
+                var tenantid = this.session.user.tenantid;
+                var arr = [];
+                var sql = &#x60;&#x60;;
+
+                try{
+                    conn = yield me.app.ds.getConnection();
+
+                    sql = &#x60;SELECT id,tenantid FROM record WHERE id = #id# and tenantid = #tenantid#&#x60;;
+                    arr =  yield conn.execQuery(sql,{ id:id,tenantid:tenantid });
+                    if( arr.length &lt;= 0 )
+                        return false;
+
+                    model.merge( Object.assign({}, { id: id } ));
+                    if( status ){
+                        model.merge( Object.assign({}, { status: status } ));
+                    }
+                    if( reasons ){
+                        model.merge( Object.assign({}, { reasons: reasons } ));
+                    }
+                    if( curtainurl ){
+                        model.merge( Object.assign({}, { curtainurl: curtainurl } ));
+                    }
+
+                    r = yield conn.update(model);
+                    return true;
+                }catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e},${e.stack}&#x60;);
+                    return false;
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
+        putRecordb(){
+            var me = this;
+            return function *(){
+                var r = null;
+                var conn = null;
+                var model = new Record();
+                var form = this.request.body;
+                var status = form.status;
+                var reasons = form.reasons;
+                var id = form.id;
+                var curtainurl = form.curtainurl;
+
+                try{
+                    conn = yield me.app.ds.getConnection();
+
+
+                    model.merge( Object.assign({}, { id: id } ));
+                    if( status ){
+                        model.merge( Object.assign({}, { status: status } ));
+                    }
+                    if( reasons ){
+                        model.merge( Object.assign({}, { reasons: reasons } ));
+                    }
+                    if( curtainurl ){
+                        model.merge( Object.assign({}, { curtainurl: curtainurl } ));
+                    }
+
+                    r = yield conn.update(model);
+                    return true;
+                }catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e},${e.stack}&#x60;);
+                    return false;
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
+        putCurtainb(){
+            var me = this;
+            return function *(){
+                var r = null;
+                var conn = null;
+                var model = new User();
+                var form = this.request.body;
+                var id = form.id;
+
+                try{
+                    conn = yield me.app.ds.getConnection();
+                    model.merge( Object.assign({}, { id: id, applycurtainstatus:2 } ));
+                    r = yield conn.update(model);
+                    return true;
+                }catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e},${e.stack}&#x60;);
+                    return false;
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
+        putUser(){
+            var me = this;
+            return function *(){
+                var r = null;
+                var conn = null;
+                var model = new User();
+                var form = this.request.body;
+
+                console.log(form);
+                console.log(this.session.user);
+                var id = this.session.user.id;
+                var mailingaddress = form.mailingaddress;
+                var recipient = form.recipient;
+                var recipientmobile = form.recipientmobile;
+                var companyname = form.companyname;
+
+                try{
+                    conn = yield me.app.ds.getConnection();
+                    model.merge( Object.assign({}, { id: id, applycurtainstatus: 1 } ));
+                    if( mailingaddress ){
+                        model.merge( Object.assign({}, { mailingaddress: mailingaddress } ));
+                    }
+                    if( recipient ){
+                        model.merge( Object.assign({}, { recipient: recipient } ));
+                    }
+                    if( recipientmobile ){
+                        model.merge( Object.assign({}, { recipientmobile: recipientmobile } ));
+                    }
+                    if( companyname ){
+                        model.merge( Object.assign({}, { companyname: companyname } ));
+                    }
+
+                    r = yield conn.update(model);
+                    return true;
+                }catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e},${e.stack}&#x60;);
+                    return false;
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
+
+        deleteRecord(){
+            var me = this;
+            return function *(){
+                var conn = null;
+                var formData = this.request.body;
+                var id = formData.id;
+                var arr = [];
+                var sql = &#x60;&#x60;;
+                var tenantid = this.session.user.tenantid;
+
+                try{
+                    var model = new Record();
+                    conn = yield  me.app.ds.getConnection();
+
+                    sql = &#x60;SELECT id,tenantid FROM record WHERE id = #id# and tenantid = #tenantid#&#x60;;
+                    arr =  yield conn.execQuery(sql,{ id:id,tenantid:tenantid });
+                    if( arr.length &lt;= 0 )
+                        return {id: formData.id,ret:false};
+
+                    yield conn.del( model,[formData.id]);
+                } catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e} ${e.stack}&#x60;);
+                    return {id: formData.id,ret:false};
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                    return {id: formData.id,ret:true};
+                }
+            }
+        }
+
+
+        updateRecordCompanyid(id,companyid) {
+            var me = this;
+            return function *(){
+                var r = null;
+                var conn = null;
+                var model = new Record();
+                var code = &#x27;&#x27;;
+
+                try{
+                    conn = yield me.app.ds.getConnection();
+
+                    model.merge( Object.assign({}, {companyid:companyid,id:id} ));
+                    r = yield conn.update(model);
+                    return true;
+                }catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e},${e.stack}&#x60;);
+                    return false;
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
+
+        updateRecordWebsiteid(id,websiteid) {
+            var me = this;
+            return function *(){
+                var r = null;
+                var conn = null;
+                var model = new Record();
+                var code = &#x27;&#x27;;
+
+                try{
+                    conn = yield me.app.ds.getConnection();
+
+                    model.merge( Object.assign({}, {websiteid:websiteid,id:id} ));
+                    r = yield conn.update(model);
+                    return true;
+                }catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e},${e.stack}&#x60;);
+                    return false;
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
+
+        savedraft(formData) {
+            var me = this;
+            return function *(){
+
+
+                var model = null;
+                var r = null;
+                if( formData.drafttype  == 1){
+                    return yield me.saveBaseInfo(formData);
+                }
+                else if( formData.drafttype  == 2){
+                    return yield me.saveCompanyInfo(formData);
+                }
+                else if( formData.drafttype  == 3){
+                    return yield me.saveWebsiteInfo(formData);
+                }
+                else if( formData.drafttype  == 4){
+                    return yield me.saveMaterial(formData);
+                }
+            }
+        }
+
+        //1.
+        saveBaseInfo( formData ){
+            var me = this;
+            return function*() {
+                var r = null;
+                var id = 0;
+                var conn = null;
+                var model = new Record();
+                var code = &#x27;&#x27;;
+
+                try{
+                    conn = yield me.app.ds.getConnection();
+
+                    model.merge( Object.assign({},
+                        formData.baseinfo,
+                        {sitemanagerurl:&#x27;&#x27;,checklisturl:&#x27;&#x27;,protocolurl1:&#x27;&#x27;,protocolurl2:&#x27;&#x27;,securityurl1:&#x27;&#x27;,securityurl2:&#x27;&#x27;,reasons:&#x27;&#x27;},
+                        {tenantid:formData.user.tenantid,companyid:0,websiteid:0,status: 0},
+                        {curtainurl:&#x27;&#x27;},
+                        {createtime:Date.now(),updatetime:Date.now()}
+                    ));
+
+                    if( formData.companyinfo &amp;&amp; formData.companyinfo.hasOwnProperty(&#x27;id&#x27;) ){
+                        model.merge({companyid:formData.companyinfo.id});
+                    }
+                    if( formData.siteinfo &amp;&amp; formData.siteinfo.hasOwnProperty(&#x27;id&#x27;) ){
+                        model.merge({websiteid:formData.siteinfo.id});
+                    }
+
+
+                    if( formData.baseinfo.hasOwnProperty(&quot;id&quot;) ){
+                        model.merge( Object.assign({},
+                            {updatetime:Date.now()}
+                        ));
+
+                        r = yield conn.update(model);
+                        id = formData.baseinfo.id;
+                    }else{
+                        code = utils.randomString(32, &#x27;1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#x27;);
+                        model.merge( Object.assign({},
+                            {code:code},
+                            {createtime:Date.now(),updatetime:Date.now()}
+                        ));
+
+                        r = yield conn.create(model);
+                        id = r.insertId;
+                    }
+                }catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e},${e.stack}&#x60;);
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                    return {drafttype: formData.drafttype, id: id};
+                }
+            }
+        }
+
+        //2.
+        saveCompanyInfo( formData ){
+            var me = this;
+            return function*() {
+                var r = null;
+                var id = 0;
+                var conn = null;
+
+                try {
+                    conn = yield me.app.ds.getConnection();
+
+                    var model = new Company();
+                    model.merge(Object.assign({},
+                        formData.companyinfo,
+                        {tenantid: formData.user.tenantid},
+                        {createtime: Date.now(), updatetime: Date.now()}
+                    ));
+
+                    if (formData.companyinfo.hasOwnProperty(&quot;id&quot;)) {
+                        r = yield conn.update(model);
+                        id = formData.companyinfo.id;
+                    } else {
+                        r = yield conn.create(model);
+                        id = r.insertId;
+                    }
+                    yield  me.updateRecordCompanyid(formData.baseinfo.id,id);
+                }catch(e){
+                        EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e},${e.stack}&#x60;);
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                    return {drafttype: formData.drafttype, id: id};
+                }
+            }
+        }
+
+        //3.
+        saveWebsiteInfo( formData ){
+            var me = this;
+            return function*() {
+                var r = null;
+                var id = 0;
+                var model = new Website();
+                var conn = null;
+
+                try {
+                    conn = yield me.app.ds.getConnection();
+
+                    var data = Object.assign({},
+                        formData.siteinfo,
+                        {tenantid: formData.user.tenantid},
+                        {createtime: Date.now(), updatetime: Date.now()}
+                    );
+                    data.manageridtype = parseInt(data.manageridtype);
+                    data.accessmethod = JSON.stringify(data.accessmethod);
+                    data.ip = JSON.stringify(data.ip);
+                    data.languages = JSON.stringify(data.languages);
+                    model.merge(data);
+
+
+                    if (formData.siteinfo.hasOwnProperty(&quot;id&quot;)) {
+                        r = yield conn.update(model);
+                        id = formData.siteinfo.id;
+                    } else {
+                        r = yield conn.create(model);
+                        id = r.insertId;
+                    }
+                    yield me.updateRecordWebsiteid(formData.baseinfo.id,id);
+                }catch(e){
+                        EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e},${e.stack}&#x60;);
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                    return {drafttype: formData.drafttype, id: id};
+                }
+            }
+        }
+
+        //4. here, where in the draft status, it&#x27;ll not generate the apply code.
+        saveMaterial( formData ){
+            var me = this;
+            return function*() {
+                var r = null;
+                var id = 0;
+                var model = new Record();
+                var conn = null;
+
+                try {
+                    conn = yield me.app.ds.getConnection();
+
+                    model.merge(Object.assign({},
+                        formData.baseinfo,
+                        formData.material,
+                        {
+                            tenantid: formData.user.tenantid,
+                            companyid: formData.companyinfo.id,
+                            websiteid: formData.siteinfo.id,
+                            status: 0
+                        },
+                        {createtime: Date.now(), updatetime: Date.now()}
+                    ));
+
+                    if (formData.baseinfo.hasOwnProperty(&quot;id&quot;)) {
+
+                        model.merge(Object.assign({},{updatetime: Date.now()}));
+
+                        r = yield conn.update(model);
+                        id = formData.baseinfo.id;
+                    } else {
+                        //var code = utils.randomString(32, &#x27;1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#x27;);
+                        //model.merge(Object.assign({},{code: code}));
+                        r = yield conn.create(model);
+                        id = r.insertId;
+                    }
+                }catch(e){
+                    EasyNode.DEBUG &amp;&amp; logger.debug(&#x60; ${e},${e.stack}&#x60;);
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                    return {drafttype: formData.drafttype, id: id};
+                }
+            }
+        }
+
+
+        /*
+        * key:  object key, can be date object
+        * filename: 文件名
+        * */
+        uploadNos(key,filename){
+            return function* (){
+                var url = &#x60;http://apollodev.nos.netease.com/${key}&#x60;;
+                    let nos = new Nos(&#x27;c92f74b0d48f4fb39271a1109da74cc2&#x27;,&#x27;f200fad9c6b541d28f01159de8d9ecea&#x27;,&#x27;apollodev&#x27;);
+                yield nos.upload(key,filename);
+                nos = null;
+                return url;
+            }
+        }
+
+        getClassName() {
+            return EasyNode.namespace(__filename);
+        }
+    }
+
+    module.exports = StoreService;
+})();
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

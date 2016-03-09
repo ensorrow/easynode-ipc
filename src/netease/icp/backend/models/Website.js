@@ -57,6 +57,10 @@ var Model = using('easynode.framework.mvc.Model');
                 .defineField('email', 'string')
                 .defineField('qq', 'string')
                 .defineField('tenantid', 'string')
+                .defineField('prechecktype', 'int')
+                .defineField('checknumber', 'string')
+                .defineField('checkfileurl', 'string')
+                .defineField('remark', 'string')
                 .defineField('updatetime', 'int')
                 .defineField('createtime', 'int')
             ;

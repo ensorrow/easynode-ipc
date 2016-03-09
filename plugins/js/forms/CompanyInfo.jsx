@@ -79,7 +79,7 @@ let CompanyInfo = React.createClass({
                 city: '杭州市',
                 area: '滨江区',
                 nature: 0,
-                idtype: 0,
+                idtype: 1,
                 idnumber: '',
                 name: '',
                 liveaddress: '',
@@ -116,7 +116,7 @@ let CompanyInfo = React.createClass({
                    id == FT.MOBILE ? formError.mobile :
                    id == FT.EMAIL ? formError.email :
                    id == FT.RECORDNUMBER ? formError.recordnumber :
-                   id == FT.RECORDPASSWORD ? forError.recordpassword : formError.recordpassword;
+                   id == FT.RECORDPASSWORD ? formError.recordpassword : formError.recordpassword;
         var val =  id == FT.IDTYPE ? companyInfo.idtype :
                    id == FT.NAME ? companyInfo.name :
                    id == FT.LIVEADDRESS ? companyInfo.liveaddress :
@@ -126,7 +126,7 @@ let CompanyInfo = React.createClass({
                    id == FT.MOBILE ? companyInfo.mobile :
                    id == FT.EMAIL ? companyInfo.email :
                    id == FT.RECORDNUMBER ? companyInfo.recordnumber :
-                   id == FT.RECORDPASSWORD ? comapnyInfo.recordpassword : companyInfo.recordpassword;
+                   id == FT.RECORDPASSWORD ? companyInfo.recordpassword : companyInfo.recordpassword;
 
         ctrl.focus = focus;
         if( ctrl.hasOwnProperty("regularFail") && val.length > 0 ){
@@ -184,7 +184,7 @@ let CompanyInfo = React.createClass({
                         <span className="red f-fl">*</span><label>备案密码:</label>
                     </div>
                     <div className="item-ctrl">
-                        <input type="text" name="recordpassword"  onChange={this.handleRecordPassword} value={this.state.companyInfo.recordpassword} onFocus={this.handleFocus.bind(this,FT.RECORDPASSWORD)}/>
+                        <input type="text" name="recordpassword"  onChange={this.handleRecordPassword} value={this.state.companyInfo.recordpassword} onFocus={this.handleFocus.bind(this,FT.RECORDPASSWORD)} onBlur={this.handleBlur.bind(this,FT.RECORDPASSWORD)}/>
                         <span className={this.state.formError.recordpassword.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、请输入备案密码</p></span>
                         <span className={this.state.formError.recordpassword.isBlank ? "u-popover" : "u-popover hidden" }>登陆<a href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action">工业和信息化部门网站</a>，点击找回密码</span>
                     </div>

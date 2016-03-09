@@ -49,6 +49,38 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         }
 
 
+        /**
+         * @method 登录处理
+         * @since 0.1.0
+
+         * @apiParam {Number} filter 查询状态过滤条件 0-全部(除草稿) 1-待审核  2-已审核通过 3-审核失败的
+         * @apiParam {Number} page 页号.
+         * @apiParam {Number} rpp  每页记录数.
+         *
+         * @apiSampleRequest http://icp.hzspeed.cn/records
+         *
+         * @apiSuccess {Object[]} data 记录列表
+         * @apiSuccess {Number} data.id 记录id
+         * @apiSuccess {String} data.checklisturl 核验单图片URL
+         * @apiSuccess {String} data.protocolurl1 云平台协议第一页图片
+         * @apiSuccess {String} data.protocolurl2 云平台协议第二页图片
+         * @apiSuccess {String} data.securityurl1 信息安全管理责任书第一页图片URL
+         * @apiSuccess {String} data.securityurl2 信息安全管理责任书第二页图片URL
+         * @apiSuccess {Number} data.companyid 公司id
+         * @apiSuccess {Number} data.websiteid 网站id
+         * @apiSuccess {String} data.tenantid 租户id
+         * @apiSuccess {Number} data.type  备案类型: 0-首次备案, 1-新增网站, 2-新增接入
+         * @apiSuccess {Number} data.status 备案状态: 0-草稿,1-初审中,2-初审未通过,3-初审已通过,4-照片审核中,5-照片审核未通过,6-照片审核已通过,7-通管局审核中,8-通管局审核未通过,9-通管局审核已通过,10-未知状态
+         * @apiSuccess {String} data.code 备案编号
+         * @apiSuccess {Number} data.updatetime 记录更新时间
+         * @apiSuccess {Number} data.createtime 记录创建时间
+         * @apiSuccess {Number} page 页号
+         * @apiSuccess {Number} pages 总页数
+         * @apiSuccess {Number} rows 总记录数
+         * @apiSuccess {Number} rpp 每页显示数
+         *
+         * @apiUse  EmptyRecord
+        */
         login(query = {code: LOGIN_PARA_LACK_ERR.resCode}) {
             var me = this;
             return function * (){
@@ -66,7 +98,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                     var storeService = new StoreService(me.app);
 
                     var id = yield  storeService.isFirst(user.tenantid);
-                    console.log("iiiiiiiii",id);
 
                     var recordnumber = yield storeService.getRecordNumber(user.tenantid);
                     user.recordnumber = recordnumber;
@@ -75,7 +106,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                     console.log("useraddress", useraddress);
                     user = Object.assign({},user,useraddress);
                     var res = Object.assign({},{user:user},LOGIN_SUCCESS);
-
 
                     id ? yield  storeService.updateUser(Object.assign({},user,{id:id})) : yield  storeService.addUser(user);
                     return res;

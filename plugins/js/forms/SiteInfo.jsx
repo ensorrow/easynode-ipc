@@ -5,6 +5,7 @@ import { Router, Route, Link, IndexRoute } from 'react-router';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 import ProgressBar from './ProgressBar.jsx';
 import FormValidator from '../utils/FormValidator';
+import upload from '../utils/upload';
 import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 import DataService from '../services/DataService.js';
@@ -109,7 +110,9 @@ let SiteInfo = React.createClass({
                 }},
                 qq: {isBlank: false, regularFail: false, match: function(str){
                     return validator.isInt(str);
-                }}
+                }},
+                checknumber: {isBlank:false},
+                checkfileurl: {isBlank:false}
             },
             siteInfo:{
                 name:'',domain:'',domain1:'',domain2:'',domain3:'',domain4:'',homeurl:'',servicecontent:"1",languages:{
@@ -136,9 +139,53 @@ let SiteInfo = React.createClass({
                     virtualhost: true,
                     other: false
                 },serverregion:'1',managername:'',manageridtype:0,manageridnumber:'',officephoneregion:'',officephonenumber:'',mobile:'',
-                email:'', qq:''
+                email:'', qq:'',
+                prechecktype: 0,
+                checknumber: '',
+                checkfileurl: '',
+                remark: ''
             }
         };
+    },
+    getPrechecknumber: function(){
+        "use strict";
+        var type = this.state.siteInfo.prechecktype;
+        if( type > 0 ){
+            return (
+            <div className="m-siteinfo-item">
+                <div className="item-label">
+                    <label>审批号:</label>
+                    <span className="red f-fr">*</span>
+                </div>
+                <div className="item-ctrl">
+                    <input type="text" name="checknumber" onChange={this.handleChecknumber} value={this.state.siteInfo.checknumber} maxLength="50"/>
+                    <span className={this.state.formError.checknumber.isBlank  ? "u-popover" : "u-popover hidden" }>请输入前置审批号</span>
+                </div>
+            </div>
+            )
+        }
+    },
+    getPrecheckurl: function(){
+        "use strict";
+        var type = this.state.siteInfo.prechecktype;
+        if( type > 0 ) {
+            return (
+                <div className="m-siteinfo-item">
+                  <div className="item-label">
+                    <label>前置审批文件:</label>
+                    <span className="red f-fr">*</span>
+                    </div>
+                    <div className="item-ctrl">
+                        <input type="text" name="checknumberurl" onChange={this.handleCheckfileurl}
+                               value={this.state.siteInfo.checkfileurl} maxLength="50"/>
+                        <span className={this.state.formError.checkfileurl.isBlank  ? "u-popover" : "u-popover hidden" }>请选择前置审批号文件</span>
+                        <input type="button" value="上传审批文件"/>
+                        <input type="file" className="" placeholder="" name="" id="1" accept="*" required
+                               onChange={this.onChange}/>
+                    </div>
+                </div>
+            )
+        }
     },
     handleFocus: function(id){
         this.addressFocus(id,true);
@@ -184,10 +231,16 @@ let SiteInfo = React.createClass({
         }
     },
     validator: function(fieldName,value){
-        var formError = this.state.formError;
-        formError[fieldName].isBlank = FormValidator.isEmpty(value);
-        formError[fieldName].regularFail = FormValidator.regular(value, formError[fieldName].match);
-        return formError;
+        try{
+            var formError = this.state.formError;
+            if( formError.hasOwnProperty("isBlank") ){
+                formError[fieldName].isBlank = FormValidator.isEmpty(value);
+                formError[fieldName].regularFail = FormValidator.regular(value, formError[fieldName].match);
+            }
+            return formError;
+        }catch(e){
+            return {};
+        }
     },
     onReturn: function(){
         location.href = "#/fillcompanyinfo";
@@ -285,10 +338,72 @@ let SiteInfo = React.createClass({
         clearInterval(this.interval);
     },
 
+    onChange: function(ee){
+        var file = ee.target.files[0];
+
+        var siteInfo = this.state.siteInfo;
+        siteInfo.checkfileurl = file.name || '';
+        this.setState({
+            siteInfo: siteInfo
+        });
+
+        upload({
+            url: '/upl2',
+            name: file.name,
+            cors: true,
+            withCredentials: false,
+            file: file,
+            onProgress: (e)=>{
+                console.log(e.loaded/e.total*100 + '%');
+            },
+            onLoad: (e) =>{
+                var resp = JSON.parse(e.currentTarget.responseText);
+                this.assignUrl(ee.target.id,resp.url);
+            },
+            onError: (e)=>{
+                console.log("file upload error");
+            }
+        });
+        //console.log(e);
+        //e.target.files[0];
+        //e.target.files[0].name;
+        //e.target.files.length;
+        //e.target.files.value ;//c:\\塔式\h.png
+        ////e.target.formAction: http://icp.hzspeed.cn/#/uploadmaterial?_k=l5safv
+    },
+    assignUrl: function(id,url){
+        var siteInfo = this.state.siteInfo;
+        switch(id) {
+            case "1":
+                siteInfo.checkfileurl = url;
+                break;
+        }
+        this.setState({
+            siteInfo: siteInfo
+        });
+    },
     handleName: function(e){
         e.preventDefault();
         var siteInfo = this.state.siteInfo;
         siteInfo.name = e.target.value;
+        this.setState({siteInfo: siteInfo});
+    },
+    handleRemark: function(e){
+        e.preventDefault();
+        var siteInfo = this.state.siteInfo;
+        siteInfo.remark = e.target.value;
+        this.setState({siteInfo: siteInfo});
+    },
+    handleChecknumber: function(e){
+        e.preventDefault();
+        var siteInfo = this.state.siteInfo;
+        siteInfo.checknumber = e.target.value;
+        this.setState({siteInfo: siteInfo});
+    },
+    handleCheckfileurl: function(e){
+        e.preventDefault();
+        var siteInfo = this.state.siteInfo;
+        siteInfo.checkfileurl = e.target.value;
         this.setState({siteInfo: siteInfo});
     },
     handleAddSite: function(e){
@@ -488,6 +603,13 @@ let SiteInfo = React.createClass({
         siteInfo.manageridtype = parseInt(e.target.value);
         this.setState({siteInfo: siteInfo});
     },
+    handlePrechecktype: function(e){
+        e.preventDefault();
+
+        var siteInfo = this.state.siteInfo;
+        siteInfo.prechecktype = parseInt(e.target.value);
+        this.setState({siteInfo: siteInfo});
+    },
     handleManagerIdNumber: function(e){
         e.preventDefault();
 
@@ -625,6 +747,35 @@ let SiteInfo = React.createClass({
                                         <label><input type="checkbox" id="9" onChange={this.handleLanguages.bind(this,LANG_CUSTOMIZE)} checked={this.state.siteInfo.languages.customize ? "checked": "" }/> <span>自定义:</span></label>
                                         {this.getLanguageInput()}
                                         <span className={this.enableLanguagesTips()  ? "u-popover" : "u-popover hidden" }>请选择网站语言</span>
+                                    </div>
+                                </div>
+                                <div className="m-siteinfo-item">
+                                    <div className="item-label">
+                                        <label>前置或专项审批类型:</label>
+                                        <span className="red f-fr">*</span>
+                                    </div>
+                                    <div className="item-ctrl">
+                                        <select onChange={this.handlePrechecktype} value={this.state.siteInfo.prechecktype}>
+                                            <option value ="0">--暂无--</option>
+                                            <option value ="1">新闻</option>
+                                            <option value="2">出版</option>
+                                            <option value="3">教育</option>
+                                            <option value="4">医疗保健</option>
+                                            <option value="5">药品和医疗器械</option>
+                                            <option value="6">电子公告服务</option>
+                                            <option value="7">文化</option>
+                                            <option value="8">广播电视节目</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                {this.getPrechecknumber()}
+                                {this.getPrecheckurl()}
+                                <div className="m-siteinfo-item">
+                                    <div className="item-label">
+                                        <label>备注:</label>
+                                    </div>
+                                    <div className="item-ctrl">
+                                        <textarea type="text" name="remark" onChange={this.handleRemark} placeholder="请输入您认为需要告诉我们的事情，可以不填写" value={this.state.siteInfo.remark} maxLength="256"/>
                                     </div>
                                 </div>
                         </fieldset>

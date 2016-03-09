@@ -50,6 +50,7 @@ import bodyParse from 'koa-body';
             httpServer.addRoute('get','/login/callback',Controllers.loginCallback(httpServer));
             httpServer.addRoute('get','/logout',Controllers.logout(httpServer));
             httpServer.addRoute('post','/upl',Controllers.upload(httpServer));
+            httpServer.addRoute('post','/upl2',Controllers.upload2(httpServer));
             httpServer.addRoute('post','/records',Controllers.createRecord(httpServer));
             httpServer.addRoute('post','/savedraft',Controllers.savedraft(httpServer));
             httpServer.addRoute('post','/delrecord',Controllers.deleteRecord(httpServer));
