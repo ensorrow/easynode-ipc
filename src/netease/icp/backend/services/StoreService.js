@@ -330,11 +330,11 @@ var utils = require('utility');
                     const FILTER_CONDITION_CHECKING = 1;
                     const FILTER_CONDITION_PASSED = 2;
                     if( filter ==  FILTER_CONDITION_ALL )
-                        ret = yield conn.list(model,{ applycurtainstatus: { exp:'<>',value:0 } },{ page: page,rpp: rpp },['updatetime DESC']);
+                        ret = yield conn.list(model,{ applycurtainstatus: { exp:'<>',value:0 } },{ page: page,rpp: rpp },['lastlogintime DESC']);
                     if( filter ==  FILTER_CONDITION_CHECKING )
-                        ret = yield conn.list(model,{ applycurtainstatus: { exp:'in',value:[FILTER_CONDITION_CHECKING] } },{ page: page,rpp: rpp },['updatetime DESC']);
+                        ret = yield conn.list(model,{ applycurtainstatus: { exp:'in',value:[FILTER_CONDITION_CHECKING] } },{ page: page,rpp: rpp },['lastlogintime DESC']);
                     if( filter ==  FILTER_CONDITION_PASSED )
-                        ret = yield conn.list(model,{ applycurtainstatus: { exp:'in',value:[FILTER_CONDITION_PASSED] } },{ page: page,rpp: rpp },['updatetime DESC']);
+                        ret = yield conn.list(model,{ applycurtainstatus: { exp:'in',value:[FILTER_CONDITION_PASSED] } },{ page: page,rpp: rpp },['lastlogintime DESC']);
                 } catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
                 }finally{
