@@ -185,8 +185,8 @@ let CompanyInfo = React.createClass({
                     </div>
                     <div className="item-ctrl">
                         <input type="text" name="recordpassword"  onChange={this.handleRecordPassword} value={this.state.companyInfo.recordpassword} onFocus={this.handleFocus.bind(this,FT.RECORDPASSWORD)} onBlur={this.handleBlur.bind(this,FT.RECORDPASSWORD)}/>
-                        <span className={this.state.formError.recordpassword.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、请输入备案密码</p></span>
-                        <span className={this.state.formError.recordpassword.isBlank ? "u-popover" : "u-popover hidden" }>登陆<a href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action">工业和信息化部门网站</a>，点击找回密码</span>
+                        <span className={this.state.formError.recordpassword.focus ? "u-popover2" : "u-popover2 hidden" }>登陆<a href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action" className="item-ctrl-a">工业和信息化部门网站</a>，点击找回密码</span>
+                        <span className={this.state.formError.recordpassword.isBlank ? "u-popover" : "u-popover hidden" }><p>1、请输入备案密码</p></span>
                     </div>
                 </div>
             )

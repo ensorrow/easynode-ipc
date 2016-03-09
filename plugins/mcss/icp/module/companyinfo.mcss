@@ -85,6 +85,9 @@ $m-companyinfo_item_ctrl_onethird_width = (350px - 15*2) / 3;
 		}
 		@extend .f-fl;
 	}
+	.item-ctrl-a {
+		color: red;
+	}
 	select.item-ctrl-three{
 		width: $m-companyinfo_item_ctrl_onethird_width;
 		height: $m-companyinfo_item_height;
