@@ -353,6 +353,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} comapny.mobile 手机号码
          * @apiSuccess {String} comapny.email 电子邮箱
          * @apiSuccess {String} comapny.recordnumber 主体备案号
+         * @apiSuccess {String} comapny.recordpassword 备案密码
          *
          * @apiSuccess {Object} website 网站
          * @apiSuccess {Number} website.id 网站ID
@@ -469,6 +470,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} comapny.mobile 手机号码
          * @apiSuccess {String} comapny.email 电子邮箱
          * @apiSuccess {String} comapny.recordnumber 主体备案号
+         * @apiSuccess {String} comapny.recordpassword 备案密码
          *
          * @apiSuccess {Object} website 网站
          * @apiSuccess {Number} website.id 网站ID
