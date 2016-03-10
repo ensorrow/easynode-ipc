@@ -56,6 +56,6 @@ module.exports = {
             "window.jQuery":"jquery"
         }),*/
         //new webpack.HotModuleReplacementPlugin()
-    ],
-    devtool:"source-map"
+    ]//,
+   // devtool:"source-map"
 }

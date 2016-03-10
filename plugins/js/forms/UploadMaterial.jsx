@@ -247,12 +247,12 @@ let UploadMaterial = React.createClass({
             viewphoto = <ViewPhoto onHidden={this.onHidden} url={this.state.url}/>
         }
 
-        var sitemanagerurl =  this.state.materials.sitemanagerurl.length > 0 ? this.state.materials.sitemanagerurl : this.state.sample.sitemanagerurl;
-        var checklisturl =  this.state.materials.checklisturl.length > 0 ? this.state.materials.checklisturl : this.state.sample.checklisturl;
-        var protocolurl1 = this.state.materials.protocolurl1.length > 0 ? this.state.materials.protocolurl1 : this.state.sample.protocolurl1;
-        var protocolurl2 = this.state.materials.protocolurl2.length > 0 ? this.state.materials.protocolurl2 : this.state.sample.protocolurl2;
-        var securityurl1 =  this.state.materials.securityurl1.length > 0 ? this.state.materials.securityurl1 : this.state.sample.securityurl1;
-        var securityurl2 = this.state.materials.securityurl2.length > 0 ? this.state.materials.securityurl2 : this.state.sample.securityurl2;
+        var sitemanagerurl =  this.state.materials.sitemanagerurl.length > 0 ? this.state.materials.sitemanagerurl : "../assets/view.png";
+        var checklisturl =  this.state.materials.checklisturl.length > 0 ? this.state.materials.checklisturl : "../assets/view.png";
+        var protocolurl1 = this.state.materials.protocolurl1.length > 0 ? this.state.materials.protocolurl1 : "../assets/view.png";
+        var protocolurl2 = this.state.materials.protocolurl2.length > 0 ? this.state.materials.protocolurl2 : "../assets/view.png";
+        var securityurl1 =  this.state.materials.securityurl1.length > 0 ? this.state.materials.securityurl1 : "../assets/view.png";
+        var securityurl2 = this.state.materials.securityurl2.length > 0 ? this.state.materials.securityurl2 : "../assets/view.png";
         return (
             <div>
                 <ReturnWidget/>
@@ -264,6 +264,9 @@ let UploadMaterial = React.createClass({
                             <div className="m-uploadmaterial-item">
                                 <div className="m-uploadmaterial-label">
                                     <span className="red">*</span><label>主体单位负责人证件图片:</label>
+                                    <span>1、需要上传身份证正反面合二为一复印件,需为彩色照片或扫描件,黑</span>
+                                    <span>  白照片无效,支持图片格式:JPEG\PNG\GIF</span>
+                                    <span>2、不能包含公司、组织等企业性质的词语</span>
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     {this.getDeleteCtrl(FT.SITEMANAGERURL)}
@@ -278,13 +281,16 @@ let UploadMaterial = React.createClass({
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
-                                    <span>1、需要上传身份证正反面合二为一复印件,需为彩色照片或扫描件,黑白照片无效,支持图片格式:JPEG\PNG\GIF</span>
-                                    <span>2、不能包含公司、组织等企业性质的词语</span>
+                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me,me.state.sample.sitemanagerurl)}/>
                                 </div>
                             </div>
                             <div className="m-uploadmaterial-item">
                                 <div className="m-uploadmaterial-label">
                                     <span className="red">*</span><label>核验单图片:</label>
+                                    <span>1、请点击下载 <a href="../../views/核验单.doc">《网站备案信息真实性核验单》</a>打印并按样例提示填写，不得涂改</span>
+                                    <span>2、核验单上不要填写日期</span>
+                                    <span>3、上传的核验单图片需清晰完整（不缺少边际线），建议使用扫描件上传。支持图片格式：JPEG\PNG\GIF</span>
+                                    <span>4、请您保存3份签字并盖公章的核验单原件，以备后续环节使用</span>
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     {this.getDeleteCtrl(FT.CHECKLISTURL)}
@@ -299,15 +305,15 @@ let UploadMaterial = React.createClass({
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
-                                    <span>1、请点击下载 <a href="../../views/核验单.doc">《网站备案信息真实性核验单》</a>打印并按样例提示填写，不得涂改</span>
-                                    <span>2、核验单上不要填写日期</span>
-                                    <span>3、上传的核验单图片需清晰完整（不缺少边际线），建议使用扫描件上传。支持图片格式：JPEG\PNG\GIF</span>
-                                    <span>4、请您保存3份签字并盖公章的核验单原件，以备后续环节使用</span>
+                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me,me.state.sample.checklisturl)}/>
                                 </div>
                             </div>
                             <div className="m-uploadmaterial-item">
                                 <div className="m-uploadmaterial-label">
-                                    <span className="red">*</span><label>云平台服务协议第一页图片:</label>
+                                    <span className="red">*</span><label>云平台服务协议图片:</label>
+                                    <span>1、请点击下载 <a href="../../views/网易蜂巢云平台服务协议.doc">《云平台服务协议》</a> 打印并按样例提示填写，不涂改</span>
+                                    <span>2、上传的核验单图片需清晰完整（不缺少边际线），建议使用扫描件上传。支持图片格式：JPEG\PNG\GIF</span>
+                                    <span>3、请您保存2份签字并盖公章的协议原件，以备后续环节使用</span>
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     {this.getDeleteCtrl(FT.PROTOCOLURL1)}
@@ -320,16 +326,6 @@ let UploadMaterial = React.createClass({
                                         <input type="button" value="上传图片"/>
                                         <input type="file" className="" placeholder="" name="" id="3" accept="image/jpeg,image/png,image/gif" required onChange={this.onChange}/>
                                     </div>
-                                </div>
-                                <div className="m-uploadmaterial-desc">
-                                    <span>1、请点击下载 <a href="../../views/网易蜂巢云平台服务协议.doc">《云平台服务协议》</a> 打印并按样例提示填写，不涂改</span>
-                                    <span>2、上传的核验单图片需清晰完整（不缺少边际线），建议使用扫描件上传。支持图片格式：JPEG\PNG\GIF</span>
-                                    <span>3、请您保存2份签字并盖公章的协议原件，以备后续环节使用</span>
-                                </div>
-                            </div>
-                            <div className="m-uploadmaterial-item">
-                                <div className="m-uploadmaterial-label">
-                                    <span className="red">*</span><label>云平台服务协议第二页图片:</label>
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     {this.getDeleteCtrl(FT.PROTOCOLURL2)}
@@ -344,12 +340,15 @@ let UploadMaterial = React.createClass({
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
-                                    <span>1、支持图片格式:JPEG\PNG\GIF</span>
+                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me,me.state.sample.protocolurl1)}/>
                                 </div>
                             </div>
                             <div className="m-uploadmaterial-item">
                                 <div className="m-uploadmaterial-label">
-                                    <span className="red">*</span><label>信息安全管理责任书第一页图片:</label>
+                                    <span className="red">*</span><label>信息安全管理责任书图片:</label>
+                                    <span>1、请点击下载 <a href="../../views/信息安全管理责任书.doc">《信息安全管理责任书》</a>打印并按样例提示填写，不涂改</span>
+                                    <span>2、上传的责任书图片需清晰完整（不缺少边际线），建议使用扫描件上传。支持图片格式：JPEG\PNG\GIF</span>
+                                    <span>3、请您保存2份签字并盖公章的责任书原件，以备后续环节使用</span>
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     {this.getDeleteCtrl(FT.SECURITYURL1)}
@@ -362,16 +361,6 @@ let UploadMaterial = React.createClass({
                                         <input type="button" value="上传图片"/>
                                         <input type="file" className="" placeholder="" name="" id="5" accept="image/jpeg,image/png,image/gif" required onChange={this.onChange}/>
                                     </div>
-                                </div>
-                                <div className="m-uploadmaterial-desc">
-                                    <span>1、请点击下载 <a href="../../views/信息安全管理责任书.doc">《信息安全管理责任书》</a>打印并按样例提示填写，不涂改</span>
-                                    <span>2、上传的责任书图片需清晰完整（不缺少边际线），建议使用扫描件上传。支持图片格式：JPEG\PNG\GIF</span>
-                                    <span>3、请您保存2份签字并盖公章的责任书原件，以备后续环节使用</span>
-                                </div>
-                            </div>
-                            <div className="m-uploadmaterial-item">
-                                <div className="m-uploadmaterial-label">
-                                    <span className="red">*</span><label>信息安全管理责任书第二页图片:</label>
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     {this.getDeleteCtrl(FT.SECURITYURL2)}
@@ -386,7 +375,7 @@ let UploadMaterial = React.createClass({
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
-                                    <span>1、支持图片格式:JPEG\PNG\GIF</span>
+                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me,me.state.sample.securityurl1)}/>
                                 </div>
                             </div>
                         </fieldset>
