@@ -13,6 +13,11 @@ window.onbeforeunload = function(){
 
 window.onload  = function(){
     console.log("onload");
-    __globals__ =  Global.get('global');
+
+    var user = __globals__.user;
+    if( user ){
+        __globals__ =  Global.get('global');
+        __globals__.user = user;
+    }
     render(<Router history={browserHistory} routes={routes}/>, document.getElementById('app'));
 }
