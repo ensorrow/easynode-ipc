@@ -135,9 +135,19 @@ let CompanyInfo = React.createClass({
                 ctrl.regularFail = false;
             }
         }
-        this.setState({
-            formError: formError
-        });
+        if( id == FT.RECORDPASSWORD ){
+                var me = this;
+                setTimeout(function(){
+                    "use strict";
+                    me.setState({
+                        formError: formError
+                    });
+                },50);
+        }else{
+            this.setState({
+                formError: formError
+            });
+        }
     },
     resetFocus: function(){
         var formError = this.state.formError;
@@ -176,7 +186,7 @@ let CompanyInfo = React.createClass({
         }
     },
     getRecordPassword: function(){
-        if( __globals__.baseinfo && __globals__.baseinfo.type > 0  ){
+        if( __globals__.baseinfo && __globals__.baseinfo.type > 1  ){
             this.state.formError.recordpassword.checked = false;
             return (
                 <div className="m-companyinfo-item">
@@ -185,7 +195,7 @@ let CompanyInfo = React.createClass({
                     </div>
                     <div className="item-ctrl">
                         <input type="text" name="recordpassword"  onChange={this.handleRecordPassword} value={this.state.companyInfo.recordpassword} onFocus={this.handleFocus.bind(this,FT.RECORDPASSWORD)} onBlur={this.handleBlur.bind(this,FT.RECORDPASSWORD)}/>
-                        <span className={this.state.formError.recordpassword.focus ? "u-popover2" : "u-popover2 hidden" }>登陆<a href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action" className="item-ctrl-a">工业和信息化部门网站</a>，点击找回密码</span>
+                        <span className={this.state.formError.recordpassword.focus ? "u-popover2" : "u-popover2 hidden" }>登陆<a href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action" target="_blank" className="item-ctrl-a">工业和信息化部门网站</a>，点击找回密码</span>
                         <span className={this.state.formError.recordpassword.isBlank ? "u-popover" : "u-popover hidden" }><p>1、请输入备案密码</p></span>
                     </div>
                 </div>

@@ -52,6 +52,7 @@ $m-recordinfo_ctrl_width = 430px;
 	margin-top: $m-recordinfo_margin_top;
 	font-size: 16px;
 	height: 30px;
+	clear: both;
 	.m-recordinfo-item-label-onetwo{
 		width: $m-recordinfo_onetwo_label_width;
 		text-align: right;

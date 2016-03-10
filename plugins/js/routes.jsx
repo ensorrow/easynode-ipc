@@ -11,15 +11,7 @@ import RecordInfo from './forms/RecordInfo.jsx';
 import ApplyCurtain from './forms/ApplyCurtain';
 import SubmitCheckSuccess from './forms/SubmitCheckSuccess';
 import UploadPhoto from './forms/UploadPhoto.jsx';
-window.onbeforeunload = function(){
-    console.log("onbeforeunload");
-    Global.set('global',__globals__);
-}
 
-window.onload  = function(){
-    console.log("onload");
-    //__globals__ =  Global.get('global');
-}
 
 function redirectToLogin(nextState, replaceState){
     if(!auth.loggedIn()){
@@ -85,6 +77,10 @@ export default{
         {
             path:'/detail',
             getComponent: (location,cb) => {
+                var a = Global.get('global');
+                if (a.hasOwnProperty('companyinfo') ){
+                    __globals__ = a;
+                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/CompanyInfo.jsx'));
                 });
@@ -146,7 +142,7 @@ export default{
                     __globals__ = a;
                 }
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/status/CheckCouncilNoPass.jsx'));
+                    cb(null,require('./forms/status/CheckCouncilPass.jsx'));
                 });
             }
         },
@@ -158,7 +154,7 @@ export default{
                     __globals__ = a;
                 }
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/status/CheckCouncilPass.jsx'));
+                    cb(null,require('./forms/status/CheckCouncilNoPass.jsx'));
                 });
             }
         },
@@ -195,6 +191,10 @@ export default{
         {
             path:'/returntobase',
             getComponent: (location,cb) => {
+                var a = Global.get('global');
+                if (a.hasOwnProperty('companyinfo.jsx') ){
+                    __globals__ = a;
+                }
                 require.ensure([],(require) => {
                     cb(null,require('./forms/BaseInfo'));
                 });

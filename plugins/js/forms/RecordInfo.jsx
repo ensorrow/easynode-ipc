@@ -26,7 +26,7 @@ let RecordInfo = React.createClass({
     },
     getIdType: function(){
         var arr = [["军队代码"],["组织机构代码证书"],["组织机构代码证书","事业法人证书"],["工商营业执照","组织机构代码证书"],["身份证","护照","军官证","台胞证"],["社团法人证书","组织机构代码证书"]];
-        return  arr[__globals__.companyinfo.nature -1 ][__globals__.companyinfo.type - 1];
+        return  arr[__globals__.companyinfo.nature -1 ][__globals__.companyinfo.idtype - 1];
     },
     getPrechecktype: function(){
         var arr = ["暂无","新闻","出版","教育","医疗保健","药品和医疗器械","电子公告服务","文化"];
