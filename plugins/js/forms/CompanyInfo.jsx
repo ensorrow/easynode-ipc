@@ -159,6 +159,7 @@ let CompanyInfo = React.createClass({
     },
     validator: function(fieldName,value){
         var formError = this.state.formError;
+
         formError[fieldName].isBlank = FormValidator.isEmpty(value);
         formError[fieldName].regularFail = FormValidator.regular(value, formError[fieldName].match);
         if( fieldName == 'id' ){
@@ -217,6 +218,98 @@ let CompanyInfo = React.createClass({
         });
 
         return FormValidator.check(formError);
+    },
+    getMasterInfo: function(){
+        var ret = '';
+        var me = this;
+
+        if( this.state.companyInfo.nature != "5" ){
+            this.state.formError.managername.checked = false;
+            this.state.formError.manageridtype.checked = false;
+            this.state.formError.manageridnumber.checked = false;
+            this.state.formError.officephonenumber.checked = false;
+            this.state.formError.mobile.checked = false;
+            this.state.formError.email.checked = false;
+
+            return (
+                <fieldset>
+                    <div className="m-companyinfo-legend"><span>主体单位负责人信息:</span></div>
+                    <div className="m-companyinfo-item">
+                        <div className="item-label">
+                            <span className="red f-fl">*</span><label>法人姓名:</label>
+                        </div>
+                        <div className="item-ctrl">
+                            <input type="text" name="lpname" onChange={this.handleManagerName} value={this.state.companyInfo.managername} maxLength="30"/>
+                            <span className={this.state.formError.managername.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位负责人信息</span>
+                        </div>
+                    </div>
+                    <div className="m-companyinfo-item">
+                        <div className="item-label">
+                            <span className="red f-fl">*</span><label>法人证件类型:</label>
+                        </div>
+                        <div className="item-ctrl">
+                            <select onChange={this.handleManagerIdType} value={this.state.companyInfo.manageridtype}>
+                                <option value ="0">请选择证件类型</option>
+                                <option value ="1">身份证</option>
+                                <option value="2">护照</option>
+                                <option value="3">军官证</option>
+                                <option value="4">台胞证</option>
+                            </select>
+                            <span className={this.state.formError.manageridtype.isBlank ? "u-popover" : "u-popover hidden" }>请选择法人证件类型</span>
+                        </div>
+                    </div>
+                    <div className="m-companyinfo-item">
+                        <div className="item-label">
+                            <span className="red f-fl">*</span><label>法人证件号码:</label>
+                        </div>
+                        <div className="item-ctrl">
+                            <input type="text" name="npidentity" onChange={this.handleManagerIdNumber} value={this.state.companyInfo.manageridnumber} maxLength="20"/>
+                            <span className={this.state.formError.manageridnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入法人证件号码</span>
+                        </div>
+                    </div>
+                    <div className="m-companyinfo-item">
+                        <div className="item-label">
+                            <span className="red f-fl">*</span><label>办公室电话:</label>
+                        </div>
+                        <div className="item-ctrl">
+                            <input type="text" name="officerphone" min="1" max="10" onChange={this.handleOfficePhoneNumber} value={this.state.companyInfo.officephonenumber} onFocus={me.handleFocus.bind(me,FT.OFFICEPHONENUMBER)} onBlur={me.handleBlur.bind(me,FT.OFFICEPHONENUMBER)} maxLength="12"/>
+                            <span className={this.state.formError.officephonenumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入办公室电话</span>
+                            <span className={this.state.formError.officephonenumber.focus ? "u-popover2" : "u-popover2 hidden" }>1、请确保电话畅通能联系到本人</span>
+                            <span className={this.state.formError.officephonenumber.regularFail ? "u-popover" : "u-popover hidden" }>请输入正确的办公室电话</span>
+                        </div>
+                    </div>
+                    <div className="m-companyinfo-item">
+                        <div className="item-label">
+                            <span className="red f-fl">*</span><label>手机号码:</label>
+                        </div>
+                        <div className="item-ctrl">
+                            <input type="text" name="mobilephone" min="1" max="10" onChange={this.handleMobile} value={this.state.companyInfo.mobile} onFocus={me.handleFocus.bind(me,FT.MOBILE)} onBlur={me.handleBlur.bind(me,FT.MOBILE)} maxLength="11"/>
+                            <span className={this.state.formError.mobile.isBlank ? "u-popover" : "u-popover hidden" }>请输入手机号码</span>
+                            <span className={this.state.formError.mobile.focus ? "u-popover2" : "u-popover2 hidden" }>1、请确保电话畅通能联系到本人</span>
+                            <span className={this.state.formError.mobile.regularFail ? "u-popover" : "u-popover hidden" }>请输入正确的手机号码</span>
+                        </div>
+                    </div>
+                    <div className="m-companyinfo-item">
+                        <div className="item-label">
+                            <span className="red f-fl">*</span><label>电子邮箱:</label>
+                        </div>
+                        <div className="item-ctrl">
+                            <input type="text" name="email" onChange={this.handleEmail} value={this.state.companyInfo.email} onFocus={me.handleFocus.bind(me,FT.EMAIL)} onBlur={me.handleBlur.bind(me,FT.EMAIL)} maxLength="50"/>
+                            <span className={this.state.formError.email.isBlank > 0 ? "u-popover" : "u-popover hidden" }>请输入电子邮箱</span>
+                            <span className={this.state.formError.email.regularFail > 0 ? "u-popover" : "u-popover hidden" }>请输入正确电子邮箱</span>
+                        </div>
+                    </div>
+                </fieldset>
+            );
+        }else{
+            this.state.formError.managername.checked = true;
+            this.state.formError.manageridtype.checked = true;
+            this.state.formError.manageridnumber.checked = true;
+            this.state.formError.officephoneregion.checked = true;
+            this.state.formError.officephonenumber.checked = true;
+            this.state.formError.mobile.checked = true;
+            this.state.formError.email.checked = true;
+        }
     },
     handleSubmit: function(e){
         e.preventDefault();
@@ -634,74 +727,7 @@ let CompanyInfo = React.createClass({
                                 </div>
                             </div>
                         </fieldset>
-                        <fieldset>
-                            <div className="m-companyinfo-legend"><span>主体单位负责人信息:</span></div>
-                            <div className="m-companyinfo-item">
-                                <div className="item-label">
-                                    <span className="red f-fl">*</span><label>法人姓名:</label>
-                                </div>
-                                <div className="item-ctrl">
-                                    <input type="text" name="lpname" onChange={this.handleManagerName} value={this.state.companyInfo.managername} maxLength="30"/>
-                                    <span className={this.state.formError.managername.isBlank ? "u-popover" : "u-popover hidden" }>请输入主体单位负责人信息</span>
-                                </div>
-                            </div>
-                            <div className="m-companyinfo-item">
-                                <div className="item-label">
-                                    <span className="red f-fl">*</span><label>法人证件类型:</label>
-                                </div>
-                                <div className="item-ctrl">
-                                    <select onChange={this.handleManagerIdType} value={this.state.companyInfo.manageridtype}>
-                                        <option value ="0">请选择证件类型</option>
-                                        <option value ="1">身份证</option>
-                                        <option value="2">护照</option>
-                                        <option value="3">军官证</option>
-                                        <option value="4">台胞证</option>
-                                    </select>
-                                    <span className={this.state.formError.manageridtype.isBlank ? "u-popover" : "u-popover hidden" }>请选择法人证件类型</span>
-                                </div>
-                            </div>
-                            <div className="m-companyinfo-item">
-                                <div className="item-label">
-                                    <span className="red f-fl">*</span><label>法人证件号码:</label>
-                                </div>
-                                <div className="item-ctrl">
-                                    <input type="text" name="npidentity" onChange={this.handleManagerIdNumber} value={this.state.companyInfo.manageridnumber} maxLength="20"/>
-                                    <span className={this.state.formError.manageridnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入法人证件号码</span>
-                                </div>
-                            </div>
-                            <div className="m-companyinfo-item">
-                                <div className="item-label">
-                                    <span className="red f-fl">*</span><label>办公室电话:</label>
-                                </div>
-                                <div className="item-ctrl">
-                                    <input type="text" name="officerphone" min="1" max="10" onChange={this.handleOfficePhoneNumber} value={this.state.companyInfo.officephonenumber} onFocus={me.handleFocus.bind(me,FT.OFFICEPHONENUMBER)} onBlur={me.handleBlur.bind(me,FT.OFFICEPHONENUMBER)} maxLength="12"/>
-                                    <span className={this.state.formError.officephonenumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入办公室电话</span>
-                                    <span className={this.state.formError.officephonenumber.focus ? "u-popover2" : "u-popover2 hidden" }>1、请确保电话畅通能联系到本人</span>
-                                    <span className={this.state.formError.officephonenumber.regularFail ? "u-popover" : "u-popover hidden" }>请输入正确的办公室电话</span>
-                                </div>
-                            </div>
-                            <div className="m-companyinfo-item">
-                                <div className="item-label">
-                                    <span className="red f-fl">*</span><label>手机号码:</label>
-                                </div>
-                                <div className="item-ctrl">
-                                    <input type="text" name="mobilephone" min="1" max="10" onChange={this.handleMobile} value={this.state.companyInfo.mobile} onFocus={me.handleFocus.bind(me,FT.MOBILE)} onBlur={me.handleBlur.bind(me,FT.MOBILE)} maxLength="11"/>
-                                    <span className={this.state.formError.mobile.isBlank ? "u-popover" : "u-popover hidden" }>请输入手机号码</span>
-                                    <span className={this.state.formError.mobile.focus ? "u-popover2" : "u-popover2 hidden" }>1、请确保电话畅通能联系到本人</span>
-                                    <span className={this.state.formError.mobile.regularFail ? "u-popover" : "u-popover hidden" }>请输入正确的手机号码</span>
-                                </div>
-                            </div>
-                            <div className="m-companyinfo-item">
-                                <div className="item-label">
-                                    <span className="red f-fl">*</span><label>电子邮箱:</label>
-                                </div>
-                                <div className="item-ctrl">
-                                    <input type="text" name="email" onChange={this.handleEmail} value={this.state.companyInfo.email} onFocus={me.handleFocus.bind(me,FT.EMAIL)} onBlur={me.handleBlur.bind(me,FT.EMAIL)} maxLength="50"/>
-                                    <span className={this.state.formError.email.isBlank > 0 ? "u-popover" : "u-popover hidden" }>请输入电子邮箱</span>
-                                    <span className={this.state.formError.email.regularFail > 0 ? "u-popover" : "u-popover hidden" }>请输入正确电子邮箱</span>
-                                </div>
-                            </div>
-                        </fieldset>
+                        {this.getMasterInfo()}
                     </form>
                 </div>
 
