@@ -164,7 +164,21 @@ $m-siteinfo_item_addsite_button_margin_left = $m-siteinfo_label_width + $m-sitei
 			float: none;
 			position: relative;
 			margin-top: 5px;
-		}
+
+			.siteurl-delete{
+                width: 20px;
+                height: 20px;
+                border: none;
+                background: url('../assets/close.png');
+                background-repeat: no-repeat;
+                position: absolute;
+                right: 10px;
+                top: 5px;
+                z-index: 5;
+            }
+}
+
+
 
 		 > input[type="button"], button{
 		    margin-top:5px;
@@ -221,17 +235,6 @@ $m-siteinfo_item_addsite_button_margin_left = $m-siteinfo_label_width + $m-sitei
 	@extend .f-fl;
 }
 
-.siteurl-delete{
-    width: 20px;
-    height: 20px;
-    border: none;
-    background: url('../assets/close.png');
-    background-repeat: no-repeat;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    z-index: 2;
-}
 
 
 .languages{
@@ -248,7 +251,7 @@ $m-siteinfo_item_addsite_button_margin_left = $m-siteinfo_label_width + $m-sitei
 .addsite{
 	border: none;
 	background: transparent;
-	font-size:12px;
+	font-size:14px;
 	color:#38ABD0;;
 	line-height:14px;;
 	margin-left: $m-siteinfo_item_addsite_button_margin_left;
