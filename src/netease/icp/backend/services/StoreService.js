@@ -722,6 +722,7 @@ var utils = require('utility');
                 var code = '';
                 var sql = '';
                 var args = {};
+                var tenantid = this.session.user.tenantid;
 
                 try{
                     conn = yield me.app.ds.getConnection();
@@ -735,8 +736,8 @@ var utils = require('utility');
                         id = formData.baseinfo.id;
                     }else{
                         code = utils.randomString(32, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-                        sql = 'INSERT record set type = #type#, createtime = #createtime#';
-                        args = { type: formData.baseinfo.type,createtime: Date.now() };
+                        sql = 'INSERT record set type = #type#, tenantid = #tenantid#, createtime = #createtime#';
+                        args = { type: formData.baseinfo.type,tenantid: tenantid,createtime: Date.now() };
 
                         var ret = yield conn.execUpdate(sql, args);
                         id = ret.insertId;

@@ -23,7 +23,7 @@ a,a:hover{color:#666;}
 .f-dn{display:none;}
 .f-db{display:block;}
 .f-fl,.m-companyinfo-item .item-label,.m-companyinfo-item .item-ctrl,.m-companyinfo-item select.item-ctrl-three,.m-siteinfo-item .item-label,.m-siteinfo-item .item-ctrl,.m-siteinfo-item .item-ctrl-three,.siteurl,.languages >label,.m-submittrialsuccess .tip-label,.m-submittrialsuccess .tip .tip-bd,.m-submittrialsuccess .tip .tip-button-detail,.m-submittrialsuccess .tip,.m-submitchecksuccess .tip-label,.m-submitchecksuccess .tip .tip-bd,.m-submitchecksuccess .tip .tip-button-detail,.m-submitchecksuccess .tip .tip-footer,.m-submitchecksuccess .tip,.m-uploadmaterial-item .red,.m-uploadmaterial-label .red,.m-uploadmaterial-label >label,.m-uploadmaterial-label >span,.m-uploadmaterial-label,.m-uploadmaterial-ctrl,.m-uploadmaterial-desc,.m-uploadphoto-label,.m-uploadphoto-ctrl,.m-uploadphoto-desc,.m-recipientinfo-label,.m-recipientinfo-item,.m-applycurtain-bd .m-applycurtain-item .m-applycurtain-item-label,.m-applycurtain-bd .m-applycurtain-item .m-applycurtain-item-ctrl,.m-deleterecord .m-deleterecord-header >label,.m-deleterecord .m-deleterecord-bd .m-deleterecord-item-icon >img,.m-deleterecord .m-deleterecord-bd .m-deleterecord-tip,.m-recordinfo-item .m-recordinfo-item-label-onetwo,.m-recordinfo-item .m-recordinfo-item-ctrl-onetwo,.m-recordinfo-item .m-recordinfo-item-label,.m-recordinfo-item .m-recordinfo-item-ctrl,.m-recordinfo-item2 .m-recordinfo-item-icon,.m-recordinfo-item2,.m-checktrialnopass .tip-label,.m-checktrialnopass .tip,.m-checktrialpass .tip-label,.m-checktrialpass .tip .tip-bd,.m-checktrialpass .tip .tip-button-detail,.m-checktrialpass .tip,.m-checkphotonopass .tip-label,.m-checkphotonopass .tip,.m-checkphotopass .tip-label,.m-checkphotopass .tip .tip-bd,.m-checkphotopass .tip .tip-button-detail,.m-checkphotopass .tip .tip-footer,.m-checkphotopass .tip,.m-checkcouncilnopass .tip-label,.m-checkcouncilnopass .tip,.m-checkcouncilpass .tip-label,.m-checkcouncilpass .tip .tip-bd,.m-checkcouncilpass .tip .tip-button-detail,.m-checkcouncilpass .tip,.m-viewphoto .m-viewphoto-close,.m-viewphoto .m-viewphoto-view{float:left;}
-.f-fr,.m-siteinfo-item .item-label >label,.m-submittrialsuccess .tip-label .tip-icon,.m-submitchecksuccess .tip-label .tip-icon,.m-uploadphoto-label >label,.m-applycurtain-header >img,.m-deleterecord .m-deleterecord-header >img,.m-login .m-login-hd >img,.m-checktrialnopass .tip-label .tip-icon,.m-checktrialpass .tip-label .tip-icon,.m-checkphotonopass .tip-label .tip-icon,.m-checkphotopass .tip-label .tip-icon,.m-checkcouncilnopass .tip-label .tip-icon,.m-checkcouncilpass .tip-label .tip-icon{float:right;}
+.f-fr,.m-siteinfo-item .item-label >label,.m-submittrialsuccess .tip-label .tip-icon,.m-submitchecksuccess .tip-label .tip-icon,.m-uploadphoto-label >label,.m-applycurtain-header >img,.m-deleterecord .m-deleterecord-header >img,.m-checktrialnopass .tip-label .tip-icon,.m-checktrialpass .tip-label .tip-icon,.m-checkphotonopass .tip-label .tip-icon,.m-checkphotopass .tip-label .tip-icon,.m-checkcouncilnopass .tip-label .tip-icon,.m-checkcouncilpass .tip-label .tip-icon{float:right;}
 .f-pr{position:relative;}
 .f-prz{position:relative;zoom:1;}
 .f-oh{overflow:hidden;}
@@ -54,7 +54,7 @@ a,a:hover{color:#666;}
 .f-csh{cursor:help;}
 .f-csm{cursor:move;}
 html{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}
-body{font:14px/1.6 "Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;background:#fff;color:#333;}
+body{font:14px/1.6 "Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;background:#3f5573;color:#333;}
 a{text-decoration:none;cursor:pointer;background:transparent;}
 a:hover{text-decoration:underline;}
 a:hover,a:focus{outline:0;}
@@ -84,7 +84,7 @@ iframe{border:none;}
 audio:not([controls]){display:none;}
 progress{vertical-align:baseline;}
 select{border:1px solid #ddd;}
-body{background:#f7f7f7;}
+body{background:#3f5573;}
 h1,h2,h3,h4,h5,h6{margin:25px 0 15px;}
 h1 small,h2 small,h3 small,h4 small,h5 small,h6 small{color:#777;}
 h1{font-size:36px;line-height:42px;}
@@ -301,18 +301,17 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-recordinfo-item2{width:140px;margin-left:80px;}
 .m-recordinfo-item2 .m-recordinfo-item-icon{margin-top:21px;width:140px;height:140px;background:#f5f5f5;border:1px solid #ddd;line-height:140px;text-align:center;}
 .m-recordinfo-item2 .m-recordinfo-item-icon-title{display:block;width:140px;text-align:center;font-size:12px;}
-.m-login{background:#fff;width:420px;height:360px;}
-.m-login{background:#fff;outline:#m-companyinfo_border_color solid 1px;min-height:360px;width:420px;margin:10px auto;margin-top:150px;margin-bottom:250px;}
-.m-login .m-login-hd{width:auto;height:64px;line-height:64px;background:#fff;padding:1px 10px 1px 10px;}
-.m-login .m-login-hd >label{font-family:MicrosoftYaHei;font-size:14px;color:#666;line-height:14px;}
-.m-login .m-login-hd >img{margin-top:20px;}
-.m-login .m-login-bd{border-top:1px solid #555;padding:20px 40px;}
+.m-login{background:#fff;width:420px;height:340px;}
+.m-login-hd{width:420px;margin:10px auto;margin-top:150px;}
+.m-login-hd2{width:auto;margin:-150px 0 0 0;position:absolute;z-index:0;}
+.m-login{min-height:340px;width:420px;margin:10px auto;border-radius:5px;z-index:1;}
+.m-login .m-login-bd{padding:20px 40px;}
 .m-login .m-login-bd .login-type{height:40px;margin-top:20px;text-align:center;}
 .m-login .m-login-bd .login-type >li{display:inline-block;width:162px;height:20px;line-height:20px;font-size:18px;color:#999;cursor:pointer;}
 .m-login .m-login-bd .login-type >li.active{color:#22b2e6;font-size:20px;}
 .m-login .m-login-bd .login-type >li:first-child{border-right:2px solid #a9a9af;}
-.m-login .m-login-bd >input[type="text"],.m-login .m-login-bd >input[type="password"]{width:320px;height:32px;margin-top:20px;background:#fafec0;font-size:18px;}
-.m-login .m-login-bd >input[type="submit"]{width:320px;height:40px;line-height:40px;font-size:20px;margin-top:20px;color:#fff;background:#2eb2e3;}
+.m-login .m-login-bd >input[type="text"],.m-login .m-login-bd >input[type="password"]{width:334px;height:32px;margin-top:20px;background:#fafec0;font-size:18px;}
+.m-login .m-login-bd >input[type="submit"]{width:334px;height:40px;line-height:40px;font-size:20px;margin-top:10px;color:#fff;border:solid 1px;background:#39c;}
 .m-help{width:992px;height:auto;margin:10px auto;padding:20px 40px;}
 .m-help{width:992px;height:auto;margin:10px auto;padding:20px 40px;}
 .m-recordlist{background:#ddd;}

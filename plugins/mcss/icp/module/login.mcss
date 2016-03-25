@@ -11,40 +11,28 @@
 // Component:       `m-login`
 // ========================================================================
 
-.m-login {
-	background: $m-companyinfo_background;
-    outline: #m-companyinfo_border_color solid 1px;
 
-    min-height: $m-login_height;
+
+.m-login-hd{
+	width: $m-login_width;
+    margin: 10px auto;
+    margin-top: 150px;
+}
+.m-login-hd2{
+	width: auto;
+    margin: -150px 0 0 0;
+    position: absolute;
+    z-index: 0;
+}
+
+
+.m-login {
+	min-height: $m-login_height;
     width: $m-login_width;
     margin: 10px auto;
-
-
-	margin-top: 150px;
-	margin-bottom: 250px;
-
-	.m-login-hd{
-		width: auto;
-		height: 64px;
-		line-height: 64px;
-		background:$m-companyinfo_background;
-		padding: 1px 10px 1px 10px;
-
-		> label {
-            font-family:MicrosoftYaHei;
-            font-size:14px;
-            color:#666666;;
-            line-height:14px;
-       }
-       > img {
-            @extend .f-fr;
-            margin-top: 20px;
-       }
-	}
-
+    border-radius: 5px;
+	z-index:1;
 	.m-login-bd{
-		border-top: 1px solid #555555;
-
 		padding: 20px 40px;
 		.login-type{
 
@@ -74,7 +62,7 @@
 		}
 
 		> input[type="text"], > input[type="password"] {
-			width: 320px;
+			width: 334px;
 			height: 32px;
 			margin-top: 20px;
 			background: #fafec0;
@@ -82,13 +70,14 @@
 		}
 
 		> input[type="submit"] {
-			width: 320px;
+			width: 334px;
 			height: 40px;
 			line-height: 40px;
 			font-size: 20px;
-			margin-top: 20px;
+			margin-top: 10px;
 			color: white;
-			background: #2eb2e3;
+			border:solid 1px;
+			background: #3399cc;
 		}
 	}
 }

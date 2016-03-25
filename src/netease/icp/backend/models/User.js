@@ -46,6 +46,8 @@ var Model = using('easynode.framework.mvc.Model');
                 .defineField('recipientmobile', 'string')
                 .defineField('companyname', 'string')
                 .defineField('applycurtainstatus', 'int')
+                .defineField('operatetime', 'int')
+                .defineField('operator', 'string')
                 .defineField('lastlogintime', 'int')
                 .defineField('createtime', 'int')
             ;

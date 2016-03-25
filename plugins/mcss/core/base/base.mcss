@@ -16,7 +16,7 @@ html {
 
 body {
     font: 14px/1.6 $font-family-sans-serif;
-    background: white;
+    background: #3f5573;
     color: #333;
 }
 

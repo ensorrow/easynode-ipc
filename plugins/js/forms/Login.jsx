@@ -40,40 +40,49 @@ let Login = React.createClass({
             passwordtip = <label> { __globals__.user.resReason } </label>;
         }
         return (
-            <div className="m-login">
-                <form method="POST" action="https://auth.c.163.com/rest/login/callback">
-                    <input type="hidden" name="service" value="NCE"/>
-                    <input type="hidden" name="loginType" value={this.state.loginType}/>
-                    <input type="hidden" name="errorCallback" value={__globals__.loginCallback.error}/>
-                    <input type="hidden" name="callback" value={__globals__.loginCallback.success}/>
-                    <input type="hidden" name="autoLogin" value="true"/>
-                    <div className="m-login-hd">
-                        <label>账号登录</label>
-                    </div>
-                    <div className="m-login-bd">
-                        <ul className="login-type">
-                            <li className={this.state.loginType  == LOGINTYPE_CLOUND ? 'active': ''}  onClick={this.switchAccount}>网易云账号</li>
-                            <li className={this.state.loginType == LOGINTYPE_URL ? 'active': ''} onClick={this.switchAccount}>网易通行证</li>
-                        </ul>
+            <div>
+                <div className="m-login-hd">
+                    <img src="../assets/icp.png" alt=""/>
+                </div>
+                <div className="m-login">
+                    <form method="POST" action="https://auth.c.163.com/rest/login/callback">
+                        <input type="hidden" name="service" value="NCE"/>
+                        <input type="hidden" name="loginType" value={this.state.loginType}/>
+                        <input type="hidden" name="errorCallback" value={__globals__.loginCallback.error}/>
+                        <input type="hidden" name="callback" value={__globals__.loginCallback.success}/>
+                        <input type="hidden" name="autoLogin" value="true"/>
+                        <div className="m-login-bd">
+                            <ul className="login-type">
+                                <li className={this.state.loginType  == LOGINTYPE_CLOUND ? 'active': ''}  onClick={this.switchAccount}>网易云账号</li>
+                                <li className={this.state.loginType == LOGINTYPE_URL ? 'active': ''} onClick={this.switchAccount}>网易通行证</li>
+                            </ul>
 
-                        <input type="text" name="userName" placeholder={this.state.loginType == LOGINTYPE_CLOUND? "账号/手机/邮箱":"邮箱"} value={this.state.accountName} onChange={this.handleAccountnameChange}/>
-                        {accouttip}
-                        <input type="password" name="password" placeholder="密码" value={this.state.password} onChange={this.handlePasswordChange}/>
-                        {passwordtip}
-                        <input type="submit" className="u-commit" value="登陆"/>
-                    </div>
-                </form>
+                            <input type="text" name="userName" placeholder={this.state.loginType == LOGINTYPE_CLOUND? "账号/手机/邮箱":"邮箱"} value={this.state.accountName} onChange={this.handleAccountnameChange}/>
+                            {accouttip}
+                            <input type="password" name="password" placeholder="密码" value={this.state.password} onChange={this.handlePasswordChange}/>
+                            {passwordtip}
+                            <input type="submit" className="u-commit" value="登陆"/>
+                        </div>
+                    </form>
+                </div>
             </div>
         );
     },
 
     loggin:function(){
     },
-
+    componentDidMount: function(){
+        if( __globals__.loginType ) {
+            this.setState( {loginType:  __globals__.loginType || 0} );
+        }
+    },
     switchAccount: function(){
         this.setState({
             loginType: this.state.loginType == '0' ? '1' : '0'
-        });
+        },function(){
+            "use strict";
+            __globals__.loginType = this.state.loginType;
+        }.bind(this));
     }
 
 });

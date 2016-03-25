@@ -91,5 +91,22 @@ module.exports = {
                 err(e);
             }
         });
-    }
+    },
+    logout: function(succ,err) {
+        reqwest({
+            url: '/logout',
+            method: 'get',
+            type: 'json',
+            contentType: 'application/json',
+            headers: {
+                'If-Modified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT'
+            },
+            success: function (resp) {
+                succ && succ();
+            },
+            error: function (e) {
+                err && err(e);
+            }
+        });
+    },
 }

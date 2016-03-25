@@ -50,6 +50,8 @@ var Model = using('easynode.framework.mvc.Model');
                 .defineField('status', 'int')
                 .defineField('tenantid', 'string')
                 .defineField('reasons', 'string')
+                .defineField('operatetime', 'int')
+                .defineField('operator', 'string')
                 .defineField('updatetime', 'int')
                 .defineField('createtime', 'int')
             ;

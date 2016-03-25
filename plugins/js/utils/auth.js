@@ -1,3 +1,7 @@
+
+import Global from './globals';
+import DataSerice from '../services/DataService';
+
 module.exports ={
     login(email,pass,cb){
         cb = arguments[arguments.length-1];
@@ -23,8 +27,9 @@ module.exports ={
     },
 
     logout: function(cb){
-        location.href = "/logout";
-        __globals__.user = null;
+        delete __globals__.user ;
+        Global.set('global',__globals__);
+       DataSerice.logout();
     },
 
     loggedIn: function(){

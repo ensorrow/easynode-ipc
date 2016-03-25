@@ -6,9 +6,9 @@
 // Varibles:
 // ========================================================================
 
-$m-login_height = 360px;
+$m-login_height = 340px;
 $m-login_width = 420px;
-$m-login_background = #FFFFFF;
+$m-login_background = #FFF;
 
 
 // Component:       `m-login`
@@ -19,4 +19,5 @@ $m-login_background = #FFFFFF;
 	width: 	$m-login_width;
 	height: $m-login_height;
 }
+
 

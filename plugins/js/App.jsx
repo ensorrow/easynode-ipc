@@ -11,7 +11,8 @@ var App = React.createClass({
 
     render: function () {
         console.log("app.render");
-        if( __globals__.hasOwnProperty('user') ){
+        if( __globals__.hasOwnProperty('user') && __globals__.user.hasOwnProperty('id') ){
+            document.body.style.background = '#F7F7F7';
             return (
                 <div className="app">
                     <Header/>
@@ -20,6 +21,7 @@ var App = React.createClass({
                 </div>
             );
         }else{
+            document.body.style.background = '#3f5573';
             return (
                 <div className="app">
                     <Login/>
