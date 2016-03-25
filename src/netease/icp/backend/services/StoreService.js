@@ -419,7 +419,7 @@ var utils = require('utility');
                     var id = this.parameter.param('id') || 0;
                     conn = yield  me.app.ds.getConnection();
 
-                    sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons FROM record WHERE id = #id#`;
+                    sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons,operatetime,operator FROM record WHERE id = #id#`;
                     arr =  yield conn.execQuery(sql,{ id:id } );
                     if( arr.length <= 0 )
                         return ret;
@@ -510,12 +510,14 @@ var utils = require('utility');
                 var reasons = form.reasons;
                 var id = form.id;
                 var curtainurl = form.curtainurl;
+                var operatetime = form.operatetime;
+                var operator = form.operator;
 
                 try{
                     conn = yield me.app.ds.getConnection();
 
 
-                    model.merge( Object.assign({}, { id: id } ));
+                    model.merge( Object.assign({}, { id: id,operatetime:operatetime,operator:operator } ));
                     if( status ){
                         model.merge( Object.assign({}, { status: status } ));
                     }
@@ -545,10 +547,12 @@ var utils = require('utility');
                 var model = new User();
                 var form = this.request.body;
                 var id = form.id;
+                var operatetime = form.operatetime;
+                var operator = form.operator;
 
                 try{
                     conn = yield me.app.ds.getConnection();
-                    model.merge( Object.assign({}, { id: id, applycurtainstatus:2 } ));
+                    model.merge( Object.assign({}, { id: id, applycurtainstatus:2,operatetime: operatetime, operator:operator} ));
                     r = yield conn.update(model);
                     return true;
                 }catch(e){

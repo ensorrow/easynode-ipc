@@ -446,6 +446,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} record.code 备案号
          * @apiSuccess {Number} record.status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-未知状态\n
          * @apiSuccess {String} record.tenantid 租户ID
+         * @apiSuccess {Number} record.operatetime 操作时间
+         * @apiSuccess {String} record.operator 操作员
          * @apiSuccess {String} record.curtainurl 帘布照片URL
          * @apiSuccess {Number} record.updatetime 记录更新时间
          * @apiSuccess {Number} record.createtime 记录创建时间
@@ -613,6 +615,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiParam {Number} status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-未知状态\n
          * @apiParam {String} reasons 通过则为备注,拒绝则为理由(多条用p标签分隔)
          * @apiParam {String} [curtainurl] 帘布照片URL
+         * @apiParam {Number} operatetime 操作时间
+         * @apiParam {String} operator 操作员
          *
          * @apiSuccess {Number} ret true:成功,false:失败
          */
@@ -643,6 +647,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSampleRequest http://icp.hzspeed.cn/admin/curtain
          *
          * @apiParam {Number} id 用户ID
+         * @apiParam {Number} operatetime 操作时间
+         * @apiParam {String} operator 操作员
          *
          * @apiSuccess {Number} ret true:成功,false:失败
          */
@@ -742,6 +748,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {Number} data.type  备案类型: 0-首次备案, 1-新增网站, 2-新增接入
          * @apiSuccess {Number} data.status 备案状态: 0-草稿,1-初审中,2-初审未通过,3-初审已通过,4-照片审核中,5-照片审核未通过,6-照片审核已通过,7-通管局审核中,8-通管局审核未通过,9-通管局审核已通过,10-未知状态
          * @apiSuccess {String} data.code 备案编号
+         * @apiSuccess {Number} data.operatetime 操作时间
+         * @apiSuccess {String} data.operator 操作员
          * @apiSuccess {Number} data.updatetime 记录更新时间
          * @apiSuccess {Number} data.createtime 记录创建时间
          * @apiSuccess {Number} page 页号
@@ -790,6 +798,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} data.recipient  幕布接收人
          * @apiSuccess {String} data.recipientmobile 幕布接收人电话
          * @apiSuccess {String} [data.companyname] 幕布接收人公司
+         * @apiSuccess {Number} data.operatetime 操作时间
+         * @apiSuccess {String} data.operator 操作员
          * @apiSuccess {Number} page 页号
          * @apiSuccess {Number} pages 总页数
          * @apiSuccess {Number} rows 总记录数
