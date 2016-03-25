@@ -270,7 +270,7 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-applycurtain-bd .m-applycurtain-item .m-applycurtain-item-ctrl >select{height:32px;margin-bottom:10px;}
 .m-applycurtain-bd .m-applycurtain-item .m-applycurtain-item-ctrl >input[type="text"],.m-applycurtain-bd .m-applycurtain-item .m-applycurtain-item-ctrl input[type="number"]{margin-left:5px;width:375px;height:30px;display:block;font-size:16px;}
 .m-applycurtain-bd .m-applycurtain-item .m-applycurtain-item-ctrl .small-font{font-size:12px;}
-.m-applycurtain-bd .m-applycurtain-item .m-applycurtain-item-ctrl .u-commit{background:#69a9cc;font-size:14px;width:80px;height:28px;margin-left:60px;}
+.m-applycurtain-bd .m-applycurtain-item .m-applycurtain-item-ctrl .u-commit{background:#69a9cc;font-size:14px;width:80px;height:28px;margin-left:60px;color:#fff;}
 .m-applycurtain-bd .m-applycurtain-item .m-applycurtain-item-ctrl .u-commit >a{color:#fff;}
 .m-applycurtain-bd .m-applycurtain-item .m-applycurtain-item-ctrl .u-cancel{border:none;background:transparent;font-size:14px;width:80px;height:28px;}
 .m-applycurtain-bd .m-applycurtain-item .m-applycurtain-item-ctrl-three{width:120px;margin-left:5px;}
@@ -390,7 +390,7 @@ table.gridtable td >a{font-family:MicrosoftYaHei;font-size:10.6px;color:#38abd0;
 .m-checkcouncilpass:after{clear:both;}
 .m-toast{position:fixed;left:46%;top:66px;text-align:center;display:block;}
 .m-viewphoto{background:#fff;width:auto;height:auto;}
-.m-viewphoto{outline:#f8f8f8 solid 1px;position:fixed;top:50%;left:50%;z-index:1;transform:translateX(-50%) translateY(-50%);}
+.m-viewphoto{outline:#f8f8f8 solid 1px;position:fixed;top:51%;left:50%;z-index:1;transform:translateX(-50%) translateY(-50%);max-height:80%;}
 .m-viewphoto .m-viewphoto-close{margin-left:-20px;margin-top:-20px;}
 .u-goback{background:#fff;position:static;padding-left:20px;height:54px;line-height:54px;}
 .u-popover{background-color:#fff;padding:0 10px;line-height:30px;display:inline-block;color:#fc7272;white-space:nowrap;position:absolute;z-index:1;border:1px solid #fc7272;border-radius:2px;font-size:12px;left:100%;margin-left:10px;top:0px;}

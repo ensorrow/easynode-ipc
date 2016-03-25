@@ -35,6 +35,7 @@ let ApplyCurtain = React.createClass({
                 recipientmobile: '',
                 companyname: ''
             },
+            agree: true,
             formError: {
                 mailingaddress: {isBlank: false,regularFail: false, match: function(str){
                     return true;
@@ -158,7 +159,7 @@ let ApplyCurtain = React.createClass({
         this.setState({contactinfo: contactinfo});
     },
     handleAgreement: function(e){
-
+        this.setState({agree: !this.state.agree},function(){console.log(this.state.agree)}.bind(this));
     },
     render: function () {
         // <CascadeSelect  onChange={this.handleRegion} province={this.state.province} city={this.state.city} area={this.state.area}/>
@@ -208,7 +209,7 @@ let ApplyCurtain = React.createClass({
 
                         </div>
                         <div className="m-applycurtain-item-ctrl">
-                            <label><input type="checkbox" name="1" checked="true" className="" onChange={this.handleAgreement}/> <span className="small-font">同意ICP备案系统快递供应商可以获取如上联系信息邮寄幕布</span></label>
+                            <label><input type="checkbox" name="1" checked={this.state.agree} className="" onChange={this.handleAgreement}/> <span className="small-font">同意ICP备案系统快递供应商可以获取如上联系信息邮寄幕布</span></label>
                         </div>
                     </div>
                     <div className="m-applycurtain-item">
@@ -216,7 +217,7 @@ let ApplyCurtain = React.createClass({
 
                         </div>
                         <div className="m-applycurtain-item-ctrl">
-                            <button className="u-commit" type="button" onClick={this.handleSubmit}>提交申请</button>
+                            <button className="u-commit" type="button" disabled={!this.state.agree} onClick={this.handleSubmit}>提交申请</button>
                             <button className="u-cancel" type="button" onClick={this.handleCancel}>取消</button>
                         </div>
                     </div>

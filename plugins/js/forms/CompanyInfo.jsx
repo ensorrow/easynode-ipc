@@ -733,7 +733,7 @@ let CompanyInfo = React.createClass({
 
                 <div className="w-btn">
                     <button className="u-return" type="button" onClick={this.onReturn}> 返回修改 </button>
-                    <button className="u-main" type="button"  onClick={this.handleSubmit}>填写网站信息</button>
+                    <button className="u-main" type="button"   onClick={this.handleSubmit}>填写网站信息</button>
                     <button className="u-draft" type="button"  onClick={this.onSave}>保存草稿</button>
                 </div>
             </div>

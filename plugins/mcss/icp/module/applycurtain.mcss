@@ -112,6 +112,7 @@ $m-applycurtain_ctrl__onethird_width = 120px;
 			    > a {
 			        color: white;
 			    }
+			    color:white;
 			}
 
 			.u-cancel{
