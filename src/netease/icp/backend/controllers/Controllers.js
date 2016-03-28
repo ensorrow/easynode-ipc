@@ -218,8 +218,13 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} comapny.province 省
          * @apiSuccess {String} comapny.city 市
          * @apiSuccess {String} comapny.area 区
-         * @apiSuccess {Number} comapny.nature 性质 \n1-军队\n2-政府机关\n3-事业单位\n4-企业\n5-个人\n
-         * @apiSuccess {Number} comapny.idtype 证件类型\n1-工商执照\n2-组织机构代码
+         * @apiSuccess {Number} comapny.nature 性质 \n1-军队\n2-政府机关\n3-事业单位\n4-企业\n5-个人\n6-社会团体
+         * @apiSuccess {Number} comapny.idtype 证件类型: nature=1时:1=军队代码,
+         *                                              nature=2时:1=组织机构代码证书
+         *                                              nature=3时:1=组织机构代码证书,2=事业法人证书
+         *                                              nature=4时:1=工商营业执照,2=组织机构代码证书
+         *                                              nature=5时:1=身份证,2=护照,3=军官证,4=台胞证
+         *                                              nature=6时:1=社团法人证书,2=组织机构代码证书
          * @apiSuccess {String} comapny.idnumber 证件号码
          * @apiSuccess {String} comapny.name 名称
          * @apiSuccess {String} comapny.liveaddress 居住地址
@@ -516,7 +521,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} website.mobile 手机号码
          * @apiSuccess {String} website.email 电子邮箱
          * @apiSuccess {String} website.qq qq号码
-         * @apiSuccess {Number} website.prechecktype 前置审批类型 0-暂无 1-新闻 2-出版 3-教育 4-医疗保健 5-药品和医疗器械 6-电子公告服务 7-文化 8-广播电视节目
+         * @apiSuccess {Number} website.prechecktype record.type=2时才会有前置审批类型,前置审批类型 0-暂无 1-新闻 2-出版 3-教育 4-医疗保健 5-药品和医疗器械 6-电子公告服务 7-文化 8-广播电视节目
          * @apiSuccess {String} website.checknumber optional 前置审批号
          * @apiSuccess {String} website.checkfileurl optional 前置审批文件
          * @apiSuccess {String} website.remark optional 备注

@@ -736,8 +736,8 @@ var utils = require('utility');
                         id = formData.baseinfo.id;
                     }else{
                         code = utils.randomString(32, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-                        sql = 'INSERT record set type = #type#, tenantid = #tenantid#, updatetime = #updatetime#,createtime = #createtime#';
-                        args = { type: formData.baseinfo.type,tenantid: tenantid,updatetime: Date.now(),createtime: Date.now() };
+                        sql = 'INSERT record set type = #type#, code = #code#' tenantid = #tenantid#, updatetime = #updatetime#,createtime = #createtime#';
+                        args = { type: formData.baseinfo.type,code: code,tenantid: tenantid,updatetime: Date.now(),createtime: Date.now() };
 
                         var ret = yield conn.execUpdate(sql, args);
                         id = ret.insertId;

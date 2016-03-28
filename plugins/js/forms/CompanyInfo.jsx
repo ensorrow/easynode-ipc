@@ -528,7 +528,7 @@ let CompanyInfo = React.createClass({
         else if( nature == 3 ){
             return  (
                 <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
-                <option value ="1">级组机构代码证书</option>
+                <option value ="1">组织机构代码证书</option>
                 <option value ="2">事业法人证书</option>
                 </select>
             )
