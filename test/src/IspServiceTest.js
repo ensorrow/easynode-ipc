@@ -39,6 +39,56 @@ describe('IspService',function() {
     });
 
 
+    it('isp_upload',function (done){
+        ispService.isp_upload({}).then(function(){
+            done();
+        }).catch(function(e){
+            done(e);
+        });
+    });
+
+    it('isp_download',function (done){
+        ispService.isp_download({}).then(function(){
+            done();
+        }).catch(function(e){
+            done(e);
+        });
+    });
+
+    it('isp_downloadack',function (done){
+        ispService.isp_downloadack({}).then(function(){
+            done();
+        }).catch(function(e){
+            done(e);
+        });
+    });
+
+    it('isp_querypreviousupload',function (done){
+        ispService.isp_querypreviousupload({}).then(function(){
+            done();
+        }).catch(function(e){
+            done(e);
+        });
+    });
+
+    it('isp_querybeianstatus',function (done){
+        ispService.isp_querybeianstatus({}).then(function(){
+            done();
+        }).catch(function(e){
+            done(e);
+        });
+    });
+
+
+    it('isp_verifybamm',function (done){
+        ispService.isp_verifybamm({}).then(function(){
+            done();
+        }).catch(function(e){
+            done(e);
+        });
+    });
+
+
     after(function(done){
         console.log("IspService after");
         done();

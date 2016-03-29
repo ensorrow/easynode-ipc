@@ -57,14 +57,14 @@ var soap = require('soap');
             var me = this;
             var ps  = URLS.map( (url)=> {
                 return new Promise(function (res, rej) {
-                    soap.createClient(REPORT_URL, function (err, client) {
+                    soap.createClient(url, function (err, client) {
                         if (err) {
                             EasyNode.DEBUG && logger.debug(`createConnect to ${url} failed`);
                             rej();
                         } else {
                              url == REPORT_URL ? me.clientReport = client :
                              url == QUERY_URL ? me.clientQuery = client : me.clientVerify = client;
-                            EasyNode.DEBUG && logger.debug(`createConnect to ${url} success`);
+                            EasyNode.DEBUG && logger.debug(`createConnect to ${url} success ${client}`);
                             res();
                         }
                     });
@@ -124,8 +124,19 @@ var soap = require('soap');
              </return>
              msg_code参见第3-4节的接口返回状态msg_code代码表
          */
-        isp_upload(){
-
+        isp_upload(args){
+            var me = this;
+            return new Promise(function(res,rej){
+                me.clientReport.isp_upload(args, function(err,result){
+                    if(err){
+                        EasyNode.DEBUG && logger.debug(`isp_upload to ${args} failed, err: ${err}`);
+                        rej();
+                    }else{
+                        EasyNode.DEBUG && logger.debug(`isp_upload to ${args} success`);
+                        res();
+                    }
+                });
+            });
         }
 
         /**
@@ -186,8 +197,19 @@ var soap = require('soap');
          msg_code参见第3-4节的接口返回状态msg_code代码表。
          对于部级系统或省局系统处理企业上报的备案数据文件所产生的错误信息，均以数据文件下载形式返回给企业。数据中的错误信息详见3-5节数据处理结果代码表。
          */
-        isp_download(){
-
+        isp_download(args){
+            var me = this;
+            return new Promise(function(res,rej){
+                me.clientReport.isp_download(args, function(err,result){
+                    if(err){
+                        EasyNode.DEBUG && logger.debug(`isp_download to ${args} failed, err: ${err}`);
+                        rej();
+                    }else{
+                        EasyNode.DEBUG && logger.debug(`isp_download to ${args} success`);
+                        res();
+                    }
+                });
+            });
         }
 
         /**
@@ -236,8 +258,19 @@ var soap = require('soap');
          </return>
          msg_code参见第3-4节的返回状态msg_code代码表
          */
-        isp_downloadack(){
-
+        isp_downloadack(args){
+            var me = this;
+            return new Promise(function(res,rej){
+                me.clientReport.isp_downloadack(args, function(err,result){
+                    if(err){
+                        EasyNode.DEBUG && logger.debug(`isp_downloadack to ${args} failed, err: ${err}`);
+                        rej();
+                    }else{
+                        EasyNode.DEBUG && logger.debug(`isp_downloadack to ${args} success`);
+                        res();
+                    }
+                });
+            });
         }
 
 
@@ -292,19 +325,19 @@ var soap = require('soap');
          <msg>错误描述</msg>
          </return>
          */
-        isp_querypreviousupload() {
+        isp_querypreviousupload(args) {
             var me = this;
             return new Promise(function(res,rej){
-
-            });
-            return function * () {
-                soap.createClient(url, function (err, client) {
-                    console.log(client);
-                    client.isp_querypreviousupload(args, function (err, result) {
-                        console.log(result);
-                    });
+                me.clientReport.isp_querypreviousupload(args, function(err,result){
+                    if(err){
+                        EasyNode.DEBUG && logger.debug(`isp_querypreviousupload to ${args} failed, err: ${err}`);
+                        rej();
+                    }else{
+                        EasyNode.DEBUG && logger.debug(`isp_querypreviousupload to ${args} success`);
+                        res();
+                    }
                 });
-            }
+            });
         }
 
         /**
@@ -379,19 +412,19 @@ var soap = require('soap');
          msg_code参见第3-4节的返回状态msg_code代码表。
 
          */
-        isp_querybeianstatus() {
+        isp_querybeianstatus(args) {
             var me = this;
             return new Promise(function(res,rej){
-
-            });
-            return function * () {
-                soap.createClient(url, function (err, client) {
-                    console.log(client);
-                    client.isp_querypreviousupload(args, function (err, result) {
-                        console.log(result);
-                    });
+                me.clientQuery.isp_querybeianstatus(args, function(err,result){
+                    if(err){
+                        EasyNode.DEBUG && logger.debug(`isp_querybeianstatus to ${args} failed, err: ${err}`);
+                        rej();
+                    }else{
+                        EasyNode.DEBUG && logger.debug(`isp_querybeianstatus to ${args} success`);
+                        res();
+                    }
                 });
-            }
+            });
         }
 
         /**
@@ -439,19 +472,19 @@ var soap = require('soap');
          </return>
          msg_code参见第3-4节的返回状态msg_code代码表。
          */
-        isp_verifybamm() {
+        isp_verifybamm(args) {
             var me = this;
             return new Promise(function(res,rej){
-
-            });
-            return function * () {
-                soap.createClient(url, function (err, client) {
-                    console.log(client);
-                    client.isp_querypreviousupload(args, function (err, result) {
-                        console.log(result);
-                    });
+                me.clientVerify.isp_verifybamm(args, function(err,result){
+                    if(err){
+                        EasyNode.DEBUG && logger.debug(`isp_verifybamm to ${args} failed, err: ${err}`);
+                        rej();
+                    }else{
+                        EasyNode.DEBUG && logger.debug(`isp_verifybamm to ${args} success`);
+                        res();
+                    }
                 });
-            }
+            });
         }
 
         getClassName() {
