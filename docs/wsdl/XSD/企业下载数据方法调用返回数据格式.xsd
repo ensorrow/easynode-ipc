@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="GBK"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- edited with XMLSpy v2007 sp1 (http://www.altova.com) by TangLei (EMBRACE) -->
+<!-- edited with XML Spy v4.2 U (http://www.xmlspy.com) by munn (munn) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="return">
+		<xs:annotation>
+			<xs:documentation>企业提交信息响应</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="msg_code">
+					<xs:annotation>
+						<xs:documentation>返回状态：
+0-操作成功
+1-操作成功，数据已经下载完毕
+2-目前服务器端没有可以下载的数据
+3-服务器端数据需要下载，请继续调用本接口进行下载
+4-用户名错误
+5-密码错误
+6-解密失败
+7-哈希值验证未通过
+8-解压缩失败
+9-加密算法类型错误
+10-Hash算法类型错误
+11-压缩格式错误
+12-认证错误，服务器拒绝响应
+13-非本省ISP，服务器拒绝响应
+14-本次上载没有受理，请首先上载漏报的数据，然后再上载本次数据
+15-本次上载没有受理，已上报的数据文件已超过最大受理数量，请稍后再提交
+999-其他未知错误</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:long">
+							<xs:minInclusive value="0"/>
+							<xs:maxInclusive value="999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="msg">
+					<xs:annotation>
+						<xs:documentation>返回状态描述</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:length value="256"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="fileInfos" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>文件信息，当操作成功时，此标签存在</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="hashAlgorithm">
+								<xs:annotation>
+									<xs:documentation>哈希算法</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:long">
+										<xs:minInclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="compressionFormat">
+								<xs:annotation>
+									<xs:documentation>压缩算法</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:long">
+										<xs:minInclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="encryptAlgorithm">
+								<xs:annotation>
+									<xs:documentation>加密算法</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:long">
+										<xs:minInclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="return_FileName" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>返回的备案信息在服务器端的文件名，以便调用者调用isp_downloadack函数将该文件的接收情况返回给服务器端</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="beianInfo" type="xs:base64Binary">
+								<xs:annotation>
+									<xs:documentation>备案信息的密文内容</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="beianInfoHash" type="xs:base64Binary">
+								<xs:annotation>
+									<xs:documentation>备案信息的哈希值</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="version" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

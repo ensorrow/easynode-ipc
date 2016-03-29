@@ -13,7 +13,8 @@ const assert = chai.assert;
 
 require('easynode');
 
-EasyNode.addSourceDirectory('./easynode-ipc/node_modules/easynode/src');
+EasyNode.addArg('easynode-home',process.cwd());
+EasyNode.addSourceDirectory('/node_modules/easynode/src');
 
 
 const logger = using('easynode.framework.Logger').getLogger();
