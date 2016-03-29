@@ -499,3 +499,9 @@ http://cloud.netease.com/vpn  获取VPN密码,每次登陆重新获取一次
          *
          * @apiUse  EmptyRecord
          */
+
+77. ReferenceError: regeneratorRuntime is not defined
+
+cnpm install  babel-polyfill --save-dev
+
+require("babel-polyfill");

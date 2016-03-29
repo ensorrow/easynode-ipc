@@ -8,6 +8,11 @@ var bfs = require('babel-fs');
 var archiver = require('archiver');
 var _ = require('lodash');
 var soap = require('soap');
+var utils = require('utility');
+var ByteBuffer = require('ByteBuffer');
+var iconv = require('iconv-lite');
+var md5 =  require('md5');
+const zlib = require('zlib');
 
 (function () {
     const ISPID = 110000000211;
@@ -15,6 +20,9 @@ var soap = require('soap');
     const KEY = 'XRDRUE7FFCRE1T7I';
     const OFFSET = '7VU2H0LLBG8373LK';
     const SEQ = 1;
+    const HASHALGORITHM = 0; //0-MD5
+    const ENCRYPTALGORITHM = 0;//0-不加密 1-AES加密算法，加密模式使用CBC模式，补码方式采用PKCS5Padding，密钥偏移量由部级系统、省局系统生成的字符串，如“0102030405060708”。
+    const COMPRESSIONFORMAT = 0; //0-zip压缩格式
 
     const REPORT_URL = 'http://122.224.213.98/ISPWebService/upDownLoad?wsdl';
     const QUERY_URL = 'http://122.224.213.98/BeianStatusWebService/queryBeianStatus?wsdl';
@@ -696,6 +704,86 @@ var soap = require('soap');
                     }
                 });
             });
+        }
+
+        /**
+         * @method 产生密码HASH值
+         * @apiName genPwdHash
+         * @apiGroup ISP
+         * @apiPermission whitelist
+         * @apiVersion 0.0.2
+         * @apiDescription
+         *  1. 生成长度20个字节的随机字符串（数字和大、小写字母）
+         *  2. 并将口令与该随机字符串连接（例如，口令是字符串“1234567890”，生成的随机字符串是 “abcdefghij”，那么连接后的结果是字符串“1234567890abcdefghij”）
+         *  3. 将连接后的结果转换为GBK编码的二进制数据
+         *  4. 使用hashAlgorithm定义的哈希算法进行哈希计算，得到参数pwdHash
+         *
+         * @apiParam {String} pwd  局方配置的企业密码
+         * @apiParam {Number} hashAlgorithm 哈希算法 0-MD5
+         *
+         * @apiSuccess {String} hashAlgorithm( GBK.BINARY(PWD+RANDOM(20) )
+         */
+        genPwdHash(random,pwd = PASSWORD,hashAlgorithm = HASHALGORITHM){
+            //2,3
+            var tmp = iconv.encode(random+pwd,"GBK");
+            if( hashAlgorithm == HASHALGORITHM ){
+                return md5(tmp);
+            }else{
+                return md5(tmp);
+            }
+        }
+
+        /**
+         * @method 加密内容
+         * @apiName encryptContent
+         * @apiGroup ISP
+         * @apiPermission whitelist
+         * @apiVersion 0.0.2
+         * @apiDescription
+         *  0. 按接口类型找到*.xsd文件,生成该编制的XML文件内容,然后依次进行以下处理
+         *  1. 对xml文件全名用参数 compressionFormat 指定的压缩格式进行压缩
+         *  2. 对压缩后的信息使用参数hashAlgorithm指定的哈希算法计算哈希值，并对哈希值进行base64编码运算形成beianInfoHash
+         *  3. 如需加密上传，则对压缩后的信息使用参数encryptAlgorithm指定的加密算法加密，并对加密结果进行base64编码运算形成beianInfo；如不加密上传，则直接对压缩后的信息进行base64编码运算形成beianInfo
+         *
+         * 备注:
+         *
+         1.	企业侧系统在上报备案信息数据文件时，需要对上报的数据进行编号，该编号为4个字节长度的长整型值，初始值为1，每上报成功一次数据，该编号值递增1。如果企业侧系统上报的数据编号跟上次数据上报的编号不连续（例如上次数据上报的编号为500，本次上报的数据编号为502），那么省局系统会返回状态“本次上载没有受理，请首先上载漏报的数据，然后再上载本次数据”，同时对该次上报数据不予接收处理，要求企业侧系统首先上报漏报的数据（例如上次数据上报的编号为500，本次上报的数据编号为502，那么省局系统返回状态提示，要求企业侧系统首先上报（或重新上报）编号为501的数据）；
+         2.	本方法中数据加解密、计算哈希值和压缩/解压缩是指对数据字节流的加解密、计算哈希值和压缩/解压缩；
+         3.	IP报备流程中，IP报备必须先报来源信息，再报分配信息；
+         4.	IP报备中，IP广播信息的报备是运营企业集团公司系统的报备功能，省级运营企业和其他接入商不报备此项信息；
+         5.	域名报备只针对域名报备单位，其他报备单位不报备此项信息
+
+         * @apiParam {String} content  带加工内容
+         * @apiParam {Number} compressionFormat  压缩格式 0-zip压缩
+         * @apiParam {Number} hashAlgorithm 哈希算法 0-MD5
+         * @apiParam {Number} encryptAlgorithm 加密算法 0: 不加密  1: AES加密算法，加密模式使用CBC模式，补码方式采用PKCS5Padding，密钥偏移量由部级系统、省局系统生成的字符串，如“0102030405060708”。
+         *
+         * @apiSuccess {String} hashAlgorithm( GBK.BINARY(PWD+RANDOM(20) )
+         */
+        encryptContent(content,compressionFormat = COMPRESSIONFORMAT,hashAlgorithm = HASHALGORITHM, encryptAlgorithm = ENCRYPTALGORITHM){
+
+            return function * () {
+                if( _.isEmpty(content) ){
+                    return {};
+                }
+                //1
+                return new Promise(function(res,rej){
+                    if( compressionFormat ==  COMPRESSIONFORMAT ){
+                        zlib.gzip(content,function(err,buff){
+                            if( err ){
+                                rej(err);
+                                console.log("222");
+                                return '222';
+                            }else{
+                                res();
+                                console.log("111");
+                                return '111';
+                            }
+                        })
+                    }
+                });
+
+            }
         }
 
         getClassName() {

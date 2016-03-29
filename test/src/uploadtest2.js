@@ -33,10 +33,7 @@ describe('UploadService',function() {
 
             map.size // 2
             map.has(1) // true
-            console.log(map.get(1)); // "张三"
-            map.has("title") // true
             map.get("title") // "Author"
-
 
             done();
         }catch(e){

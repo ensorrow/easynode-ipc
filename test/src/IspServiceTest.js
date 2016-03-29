@@ -5,8 +5,11 @@
 'use strict';
 
 import co from 'co';
+require("babel-polyfill");
 import chai from 'chai';
 const assert = chai.assert;
+var utils = require('utility');
+
 
 require('easynode');
 EasyNode.addArg('easynode-home',process.cwd());
@@ -29,7 +32,7 @@ describe('IspService',function() {
         }
     });
 
-    it('createConnect',function (done){
+   /* it('createConnect',function (done){
 
         ispService.createConnect().then(function(){
            done();
@@ -86,13 +89,32 @@ describe('IspService',function() {
         }).catch(function(e){
             done(e);
         });
+    });*/
+
+    it('genPwdHash',function (done){
+        var code = utils.randomString(20, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+
+        console.log( ispService.genPwdHash(code) );
+        done();
     });
 
+    it('encryptContent',function (done){
+        var code = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        co(function * (){
+            var ret =  yield ispService.encryptContent(code);
+            if( ret == '111' )
+                done();
+            else {
+                done();
+            }
+        });
+
+    });
 
     after(function(done){
         console.log("IspService after");
         done();
-
     });
 
 });
