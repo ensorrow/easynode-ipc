@@ -29,6 +29,15 @@ describe('UploadService',function() {
         try{
           //  StoreService = using('netease.icp.backend.services.StoreService');
 
+            var map = new Map([[1, "123"], [2, "Author"]]);
+
+            map.size // 2
+            map.has(1) // true
+            console.log(map.get(1)); // "张三"
+            map.has("title") // true
+            map.get("title") // "Author"
+
+
             done();
         }catch(e){
             done(e);
