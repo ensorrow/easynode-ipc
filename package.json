@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --compilers js:babel-register"
   },
   "dependencies": {
     "adm-zip": "0.4.7",
@@ -13,6 +13,7 @@
     "babel-fs": "^1.0.5",
     "babel-runtime": "^5.8.20",
     "babelify": "^7.2.0",
+    "chai": "^3.5.0",
     "co": "~4.5.4",
     "co-fs": "~1.2.0",
     "co-multipart": "~0.2.0",
@@ -51,14 +52,14 @@
     "react-dom": "0.14.6",
     "redis": "~0.12.1",
     "request": "^2.65.0",
+    "reqwest": "^2.0.5",
     "string": "~3.1.1",
     "superagent": "^1.4.0",
     "thunkify": "~2.1.2",
     "underscore": "~1.8.3",
     "utility": "^1.6.0",
-    "watch-xdelta": "^1.8.1",
-    "reqwest": "^2.0.5",
-    "validator": "4.8.0"
+    "validator": "4.8.0",
+    "watch-xdelta": "^1.8.1"
   },
   "author": "allen.hu",
   "license": "ISC",
@@ -69,18 +70,21 @@
     "babel-plugin-transform-es3-property-literals": "^6.5.0",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
+    "babel-register": "^6.7.2",
+    "co-mocha": "^1.1.2",
     "css-loader": "^0.23.0",
     "es3ify-loader": "^0.1.0",
     "file-loader": "^0.8.5",
     "html-webpack-plugin": "^1.7.0",
     "mass": "^0.1.0",
+    "mocha": "^2.4.5",
+    "object.assign": "4.0.3",
     "open-browser-webpack-plugin": "0.0.1",
     "react-hot-loader": "^1.3.0",
     "react-router": "^1.0.2",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.11",
-    "webpack-dev-server": "^1.14.0",
-    "object.assign":"4.0.3"
+    "webpack-dev-server": "^1.14.0"
   }
 }

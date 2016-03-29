@@ -431,7 +431,7 @@ var utils = require('utility');
                         company = arr[0];
                     }
                     if( record.websiteid > 0 ){
-                        sql = `SELECT id,name,domain,domain1,domain1,domain2,domain3,domain4,homeurl,servicecontent,languages,ispname,ip,accessmethod,serverregion,managername,manageridtype,manageridnumber,officephoneregion,officephonenumber,mobile,email,qq FROM website WHERE id = #id#`;
+                        sql = `SELECT id,name,domain,domain1,domain1,domain2,domain3,domain4,homeurl,servicecontent,languages,ispname,ip,accessmethod,serverregion,managername,manageridtype,manageridnumber,officephoneregion,officephonenumber,mobile,email,qq,prechecktype,checknumber,checkfileurl,remark FROM website WHERE id = #id#`;
                         arr =  yield conn.execQuery(sql,{id:record.websiteid});
                         website = arr[0];
                     }
@@ -736,7 +736,7 @@ var utils = require('utility');
                         id = formData.baseinfo.id;
                     }else{
                         code = utils.randomString(32, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-                        sql = 'INSERT record set type = #type#, code = #code#' tenantid = #tenantid#, updatetime = #updatetime#,createtime = #createtime#';
+                        sql = 'INSERT record set type = #type#, code = #code# tenantid = #tenantid#, updatetime = #updatetime#,createtime = #createtime#';
                         args = { type: formData.baseinfo.type,code: code,tenantid: tenantid,updatetime: Date.now(),createtime: Date.now() };
 
                         var ret = yield conn.execUpdate(sql, args);
@@ -884,10 +884,20 @@ var utils = require('utility');
         * filename: 文件名
         * */
         uploadNos(key,filename){
+            console.log("1");
             return function* (){
+                console.log("2");
                 var url = `http://apollodev.nos.netease.com/${key}`;
-                    let nos = new Nos('c92f74b0d48f4fb39271a1109da74cc2','f200fad9c6b541d28f01159de8d9ecea','apollodev');
-                yield nos.upload(key,filename);
+                console.log("3");
+                let nos = new Nos('c92f74b0d48f4fb39271a1109da74cc2','f200fad9c6b541d28f01159de8d9ecea','apollodev');
+                console.log("4");
+                try{
+                    yield nos.upload(key,filename);
+                }catch (e){
+                    console.log(e);
+                }
+
+                console.log("5");
                 nos = null;
                 return url;
             }

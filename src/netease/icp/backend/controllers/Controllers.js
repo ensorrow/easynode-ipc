@@ -231,7 +231,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} comapny.commaddress 通讯地址
          * @apiSuccess {String} comapny.owner 投资人或主管单位名称
          * @apiSuccess {String} comapny.managername 法人姓名
-         * @apiSuccess {Number} comapny.manageridtype 法人证件类型\n性质 \n1-军队\n2-政府机关\n3-事业单位\n4-企业\n5-个人\n
+         * @apiSuccess {Number} comapny.manageridtype 法人证件类型1-身分证 2-护照 3-军官证 4-台胞证
          * @apiSuccess {String} comapny.manageridnumber 法人证件号码
          * @apiSuccess {String} comapny.officephoneregion 办公室电话区号
          * @apiSuccess {String} comapny.officephonenumber 办公室电话号码
@@ -351,7 +351,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} comapny.commaddress 通讯地址
          * @apiSuccess {String} comapny.owner 投资人或主管单位名称
          * @apiSuccess {String} comapny.managername 法人姓名
-         * @apiSuccess {Number} comapny.manageridtype 法人证件类型\n性质 \n1-军队\n2-政府机关\n3-事业单位\n4-企业\n5-个人\n
+         * @apiSuccess {Number} comapny.manageridtype 法人证件类型1-身分证 2-护照 3-军官证 4-台胞证
          * @apiSuccess {String} comapny.manageridnumber 法人证件号码
          * @apiSuccess {String} comapny.officephoneregion 办公室电话区号
          * @apiSuccess {String} comapny.officephonenumber 办公室电话号码
@@ -470,7 +470,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} comapny.commaddress 通讯地址
          * @apiSuccess {String} comapny.owner 投资人或主管单位名称
          * @apiSuccess {String} comapny.managername 法人姓名
-         * @apiSuccess {Number} comapny.manageridtype 法人证件类型\n性质 \n1-军队\n2-政府机关\n3-事业单位\n4-企业\n5-个人\n
+         * @apiSuccess {Number} comapny.manageridtype 法人证件类型\n 1-身分证 2-护照 3-军官证 4-台胞证
          * @apiSuccess {String} comapny.manageridnumber 法人证件号码
          * @apiSuccess {String} comapny.officephoneregion 办公室电话区号
          * @apiSuccess {String} comapny.officephonenumber 办公室电话号码
