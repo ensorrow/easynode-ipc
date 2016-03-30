@@ -13,6 +13,7 @@ var ByteBuffer = require('ByteBuffer');
 var iconv = require('iconv-lite');
 var md5 =  require('md5');
 const zlib = require('zlib');
+var fso = require('fs');
 
 (function () {
     const ISPID = 110000000211;
@@ -758,32 +759,122 @@ const zlib = require('zlib');
          * @apiParam {Number} hashAlgorithm 哈希算法 0-MD5
          * @apiParam {Number} encryptAlgorithm 加密算法 0: 不加密  1: AES加密算法，加密模式使用CBC模式，补码方式采用PKCS5Padding，密钥偏移量由部级系统、省局系统生成的字符串，如“0102030405060708”。
          *
-         * @apiSuccess {String} hashAlgorithm( GBK.BINARY(PWD+RANDOM(20) )
+         * @apiSuccess {Object} { beianInfo:'', beianInfoHash:''}
          */
         encryptContent(content,compressionFormat = COMPRESSIONFORMAT,hashAlgorithm = HASHALGORITHM, encryptAlgorithm = ENCRYPTALGORITHM){
 
+            var ret = { beianInfo:'', beianInfoHash:''};
+
             return function * () {
                 if( _.isEmpty(content) ){
-                    return {};
+                    return ret;
                 }
                 //1
-                return new Promise(function(res,rej){
+                var contentCompression = null;
+                yield new Promise(function(res,rej){
                     if( compressionFormat ==  COMPRESSIONFORMAT ){
                         zlib.gzip(content,function(err,buff){
                             if( err ){
+                                EasyNode.DEBUG && logger.debug(`gzip to failed, err: ${err}`);
                                 rej(err);
-                                console.log("222");
-                                return '222';
                             }else{
+                                EasyNode.DEBUG && logger.debug(`gzip to success`);
                                 res();
-                                console.log("111");
-                                return '111';
+                                contentCompression = buff;
+                                console.log("contentCompression",contentCompression);
                             }
                         })
                     }
                 });
-
+                if( !contentCompression ){
+                    return ret;
+                }
+                //2
+                if( hashAlgorithm == HASHALGORITHM ){
+                    ret.beianInfoHash = new Buffer(md5(contentCompression)).toString('base64');
+                }
+                //3
+                if( encryptAlgorithm == ENCRYPTALGORITHM ){
+                    ret.beianInfo = contentCompression.toString('base64');
+                }
+                return ret;
             }
+        }
+
+        /**
+         * @method 解密内容
+         * @apiName decryptContent
+         * @apiGroup ISP
+         * @apiPermission whitelist
+         * @apiVersion 0.0.2
+         * @apiDescription
+         *  0. 企业侧系统收到数据后
+         *  1. 对beianInfo信息进行base64解码
+         *  2. 使用encryptAlgorithm指定的加密算法解密
+         *  3. 在得到备案信息的压缩信息后，再使用hashAlgorithm指定的哈希算法计算哈希值，然后与beianInfoHash信息base64解码后的信息进行比较
+         *  4. 如果比较一致，那么备案信息的完整性得到保证；如果比较不一致，则哈希值验证未通过，备案数据不完整
+         *  5. 通过完整性校验后，使用compressionFormat指定的压缩格式对压缩后的信息进行解压缩，得到备案数据信息
+
+         * @apiParam {String} beianInfo  局方下发的备案信息
+         * @apiParam {String} beianInfoHash  局方下发的备案信息的HASH
+         * @apiParam {Number} compressionFormat  压缩格式 0-zip压缩
+         * @apiParam {Number} hashAlgorithm 哈希算法 0-MD5
+         * @apiParam {Number} encryptAlgorithm 加密算法 0: 不加密  1: AES加密算法，加密模式使用CBC模式，补码方式采用PKCS5Padding，密钥偏移量由部级系统、省局系统生成的字符串，如“0102030405060708”。
+         *
+         * @apiSuccess {Object} {result:0|1,beianInfo:''}  ret:0不通过,1通过, beianInfo解密,解压后的内容
+         */
+        decryptContent([beianInfo:'',beianInfoHash:''],compressionFormat = COMPRESSIONFORMAT,hashAlgorithm = HASHALGORITHM, encryptAlgorithm = ENCRYPTALGORITHM){
+            var ret = {result:0,beianInfo:''};
+            return function * () {
+                if( _.isEmpty(beianInfo) ){
+                    return ret;
+                }
+                //1. base64 decode
+                var contentDecodebase64 = new Buffer(beianInfo,'base64');
+                var calcHash = '';
+                var downHash = '';
+                var contentCompression = '';
+                if( encryptAlgorithm == ENCRYPTALGORITHM ){
+                    contentCompression = contentDecodebase64;
+                }
+                if( hashAlgorithm == HASHALGORITHM ){
+                    calcHash = new Buffer(md5(contentCompression));
+                    downHash = new Buffer(beianInfoHash,'base64').toString();
+                }
+                EasyNode.DEBUG && logger.debug(`beianInfoHash calced ${calcHash}, beianInfoHash downloaded ${downHash}`);
+                if( calcHash == downHash ){
+                    //check pass, uncompression
+                    yield new Promise(function(res,rej){
+                        if( compressionFormat ==  COMPRESSIONFORMAT ){
+                            zlib.gunzip(contentCompression,function(err,buff){
+                                if( err ){
+                                    EasyNode.DEBUG && logger.debug(`ungzip to failed, err: ${err}`);
+                                    rej(err);
+                                }else{
+                                    EasyNode.DEBUG && logger.debug(`ungzip to success`);
+                                    res();
+                                    ret.beianInfo = buff.toString();
+                                    ret.result = 1;
+                                }
+                            })
+                        }
+                    });
+                }else{
+                    //check fail
+                }
+                return ret;
+            }
+        }
+
+        base64_encode(file){
+            var bitmap = fso.readFileSync(file);
+            return new Buffer(bitmap).toString('base64');
+        }
+
+        base64_decode(base64Str,file){
+            var bitmap = new Buffer(base64str,'base64');
+            fso.writeFileSync(file,bitmap);
+            EasyNode.DEBUG && logger.debug(`******** File created from base64 encoded string ********`);
         }
 
         getClassName() {

@@ -35,6 +35,28 @@ describe('UploadService',function() {
             map.has(1) // true
             map.get("title") // "Author"
 
+/*
+            var b = new Buffer('JavaScript');
+            var s = b.toString('base64');
+            // SmF2YVNjcmlwdA==
+            console.log(s);
+
+
+             b = new Buffer('SmF2YVNjcmlwdA==', 'base64')
+             s = b.toString();
+            console.log(s);
+
+
+            b = new Buffer('1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+            var s = b.toString('base64');
+            // SmF2YVNjcmlwdA==
+            console.log(s);
+
+
+            b = new Buffer('MTIzNDU2Nzg5MGFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6QUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVo=', 'base64')
+            s = b.toString();
+            console.log(s);*/
+
             done();
         }catch(e){
             done(e);

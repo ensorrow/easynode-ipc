@@ -102,14 +102,22 @@ describe('IspService',function() {
         var code = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
         co(function * (){
-            var ret =  yield ispService.encryptContent(code);
-            if( ret == '111' )
-                done();
-            else {
-                done();
-            }
+            var {beianInfo,beianInfoHash} =  yield ispService.encryptContent(code);
+            console.log("beianInfo gzip", beianInfo);
+            console.log("beianInfoHash ", beianInfoHash);
+            done();
         });
+    });
 
+    it('decryptContent',function (done){
+        var beianInfo2 = 'H4sIAAAAAAAAAzM0MjYxNTO3sDRITEpOSU1Lz8jMys7JzcsvKCwqLiktK6+orHJ0cnZxdXP38PTy9vH18w8IDAoOCQ0Lj4iMAgBFGT7tPgAAAA==';
+        var beianInfoHash = 'Mzk5MTY2YjMwOTY1YzRiNmEyNGQ3ZjNmODIzMDdiMjU=';
+        co(function * (){
+            var {beianInfo,result} =  yield ispService.decryptContent([beianInfo2,beianInfoHash]);
+            console.log(beianInfo);
+            console.log("result:", result);
+            done();
+        });
     });
 
     after(function(done){
