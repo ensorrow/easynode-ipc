@@ -13,11 +13,13 @@ let ViewPhoto = React.createClass({
         };
     },
     componentDidMount: function(){
-
+        "use strict";
+        document.body.style.overflow = "hidden";
     },
     handleClose: function(){
         var onHidden = this.props.onHidden;
         onHidden && onHidden();
+        document.body.style.overflow = "scroll";
         console.log("handleClose");
     },
     handleDoubleClick: function(){
@@ -25,13 +27,18 @@ let ViewPhoto = React.createClass({
     },
     render: function () {
         return (
-            <div className="m-viewphoto">
-                <img className="m-viewphoto-view" src={this.props.url} onDoubleClick={this.handleDoubleClick}></img>
-                <img className="m-viewphoto-close" src="../assets/close.png" onClick={this.handleClose}></img>
+            <div className="m-viewphoto-modal">
+                <div className="m-viewphoto-mask">
+                </div>
+                <div className="m-viewphoto-dialog">
+                    <img src={this.props.url} onDoubleClick={this.handleDoubleClick}></img>
+                </div>
+                <a className="m-viewphoto-close">
+                    <img src="../assets/close2.png" alt="Icon shot x light" onClick={this.handleClose}></img>
+                </a>
             </div>
         );
     }
 });
-
 
 module.exports = ViewPhoto;

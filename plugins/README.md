@@ -507,3 +507,5 @@ cnpm install  babel-polyfill --save-dev
 require("babel-polyfill");
 
 78. CheckForm 所 有字段必须 写上 {isBlank: false}
+
+79. Mask Div 滚到底的时候会继续触发html或body里的scroll,需要先后设置overflow-x: hidden; overflow-y: hidden;
