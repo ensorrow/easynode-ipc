@@ -544,31 +544,48 @@ let SiteInfo = React.createClass({
     },
     handleIp1: function(e){
         e.preventDefault();
-
         var siteInfo = this.state.siteInfo;
-        siteInfo.ip.ip1 = e.target.value;
-        this.setState({siteInfo: siteInfo});
+        if( this.checkIpField(e.target.value) ){
+            siteInfo.ip.ip1 = e.target.value;
+            this.setState({siteInfo: siteInfo});
+        }
+    },
+    checkIpField: function(field){
+        "use strict";
+        var   fieldReg=/^(\d{1,3})$/;
+        if( field == '' ){
+            return true;
+        }
+        var   ip = field.match(fieldReg);
+        console.log(ip);
+        return  ip ? ( ( ip[0] <= 255 && ip[0] >= 1 ) ? true : false ) : false;
     },
     handleIp2: function(e){
         e.preventDefault();
 
         var siteInfo = this.state.siteInfo;
-        siteInfo.ip.ip2 = e.target.value;
-        this.setState({siteInfo: siteInfo});
+        if( this.checkIpField(e.target.value) ) {
+            siteInfo.ip.ip2 = e.target.value;
+            this.setState({siteInfo: siteInfo});
+        }
     },
     handleIp3: function(e){
         e.preventDefault();
 
         var siteInfo = this.state.siteInfo;
-        siteInfo.ip.ip3 = e.target.value;
-        this.setState({siteInfo: siteInfo});
+        if( this.checkIpField(e.target.value) ) {
+            siteInfo.ip.ip3 = e.target.value;
+            this.setState({siteInfo: siteInfo});
+        }
     },
     handleIp4: function(e){
         e.preventDefault();
 
         var siteInfo = this.state.siteInfo;
-        siteInfo.ip.ip4 = e.target.value;
-        this.setState({siteInfo: siteInfo});
+        if( this.checkIpField(e.target.value) ) {
+            siteInfo.ip.ip4 = e.target.value;
+            this.setState({siteInfo: siteInfo});
+        }
     },
     handleAccessMethod: function(id){
         var siteInfo = this.state.siteInfo;
