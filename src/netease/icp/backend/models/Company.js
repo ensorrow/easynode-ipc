@@ -48,6 +48,7 @@ var Model = using('easynode.framework.mvc.Model');
                 .defineField('managername', 'string')
                 .defineField('manageridtype', 'int')
                 .defineField('manageridnumber', 'string')
+                .defineField('manageraddress', 'string')
                 .defineField('officephoneregion', 'string')
                 .defineField('officephonenumber', 'string')
                 .defineField('mobile', 'string')

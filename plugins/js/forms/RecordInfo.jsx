@@ -290,7 +290,7 @@ let RecordInfo = React.createClass({
                             </div>
                             <div className="m-recordinfo-item">
                                 <div className="m-recordinfo-item-label">
-                                    <label>法人姓名:</label>
+                                    <label>负责人姓名:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl">
                                     <label>{__globals__.companyinfo.managername}</label>
@@ -298,7 +298,7 @@ let RecordInfo = React.createClass({
                             </div>
                             <div className="m-recordinfo-item">
                                 <div className="m-recordinfo-item-label">
-                                    <label>法人证件类型:</label>
+                                    <label>负责人证件类型:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl">
                                     <label>{this.getManagerIdType()}</label>
@@ -306,10 +306,18 @@ let RecordInfo = React.createClass({
                             </div>
                             <div className="m-recordinfo-item">
                                 <div className="m-recordinfo-item-label">
-                                    <label>法人证件号码:</label>
+                                    <label>负责人证件号码:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl">
                                     <label>{__globals__.companyinfo.manageridnumber}</label>
+                                </div>
+                            </div>
+                            <div className="m-recordinfo-item">
+                                <div className="m-recordinfo-item-label">
+                                    <label>负责人居住地址:</label>
+                                </div>
+                                <div className="m-recordinfo-item-ctrl">
+                                    <label>{__globals__.companyinfo.manageraddress}</label>
                                 </div>
                             </div>
                             <div className="m-recordinfo-item">
@@ -337,8 +345,6 @@ let RecordInfo = React.createClass({
                                 </div>
                             </div>
                         </fieldset>
-
-
                         <fieldset>
                             <div className="m-recordinfo-legend"><span>网站信息</span></div>
                             <div className="m-recordinfo-item">

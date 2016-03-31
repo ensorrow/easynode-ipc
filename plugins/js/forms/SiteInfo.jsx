@@ -71,7 +71,8 @@ let SiteInfo = React.createClass({
                     russian: false,
                     customize: false,
                     customizeLang: '',
-                    checked: true
+                    checked: true,
+                    isBlank: false
                 },
                 ispname: {isBlank: false,checked:true},
                 ip: {
@@ -81,6 +82,7 @@ let SiteInfo = React.createClass({
                     ip4: false,
                     checked: true,
                     regularFail: false,
+                    isBlank: false,
                     match: function(str){
                         return true;
                     }
@@ -90,7 +92,8 @@ let SiteInfo = React.createClass({
                     webhost: false,
                     virtualhost: true,
                     other: false,
-                    checked:true
+                    checked:true,
+                    isBlank: false
                 },
                 serverregion: {isBlank: false},
                 managername: {isBlank: false},
@@ -111,8 +114,10 @@ let SiteInfo = React.createClass({
                 qq: {isBlank: false, regularFail: false, match: function(str){
                     return validator.isInt(str);
                 }},
-                checknumber: {isBlank:false},
-                checkfileurl: {isBlank:false}
+                checknumber: {isBlank:false,checked:false},
+                checkfileurl: {isBlank:false,checked:false},
+                remark: {isBlank:false,checked:true},
+                prechecktype: {isBlank:false,checked:false}
             },
             siteInfo:{
                 name:'',domain:'',domain1:'',domain2:'',domain3:'',domain4:'',homeurl:'',servicecontent:"1",languages:{
@@ -231,21 +236,24 @@ let SiteInfo = React.createClass({
         }
     },
     validator: function(fieldName,value){
-        try{
-            var formError = this.state.formError;
-            if( formError.hasOwnProperty("isBlank") ){
-                formError[fieldName].isBlank = FormValidator.isEmpty(value);
-                formError[fieldName].regularFail = FormValidator.regular(value, formError[fieldName].match);
-            }
-            return formError;
-        }catch(e){
-            return {};
-        }
+        var formError = this.state.formError;
+
+        //if( formError.hasOwnProperty("isBlank") ){
+            formError[fieldName].isBlank = FormValidator.isEmpty(value);
+            formError[fieldName].regularFail = FormValidator.regular(value, formError[fieldName].match);
+        //}
+        return formError;
     },
     onReturn: function(){
         location.href = "#/fillcompanyinfo";
     },
     checkForm: function(){
+
+        //* 针对前置处理预处理下
+        this.state.formError.prechecktype.checked = this.state.siteInfo.prechecktype > 0 ? false : true;
+        this.state.formError.checknumber.checked = this.state.siteInfo.prechecktype > 0 ? false : true;
+        this.state.formError.checkfileurl.checked = this.state.siteInfo.prechecktype > 0 ? false : true;
+
         var siteInfo = this.state.siteInfo;
         var formError;
         for( var field in siteInfo ){
@@ -269,6 +277,7 @@ let SiteInfo = React.createClass({
 
         var hasError = this.checkForm();
 
+        console.log("hasErrorhasError",hasError);
         if( hasError ){
             this.setState({
                 processing: false

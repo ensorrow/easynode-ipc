@@ -230,9 +230,10 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} comapny.liveaddress 居住地址
          * @apiSuccess {String} comapny.commaddress 通讯地址
          * @apiSuccess {String} comapny.owner 投资人或主管单位名称
-         * @apiSuccess {String} comapny.managername 法人姓名
-         * @apiSuccess {Number} comapny.manageridtype 法人证件类型1-身分证 2-护照 3-军官证 4-台胞证
-         * @apiSuccess {String} comapny.manageridnumber 法人证件号码
+         * @apiSuccess {String} comapny.managername 负责人姓名
+         * @apiSuccess {Number} comapny.manageridtype 负责人证件类型1-身分证 2-护照 3-军官证 4-台胞证
+         * @apiSuccess {String} comapny.manageridnumber 负责人证件号码
+         * @apiSuccess {String} comapny.managermanager 负责人居住地址
          * @apiSuccess {String} comapny.officephoneregion 办公室电话区号
          * @apiSuccess {String} comapny.officephonenumber 办公室电话号码
          * @apiSuccess {String} comapny.mobile 手机号码
@@ -350,9 +351,10 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} comapny.liveaddress 居住地址
          * @apiSuccess {String} comapny.commaddress 通讯地址
          * @apiSuccess {String} comapny.owner 投资人或主管单位名称
-         * @apiSuccess {String} comapny.managername 法人姓名
-         * @apiSuccess {Number} comapny.manageridtype 法人证件类型1-身分证 2-护照 3-军官证 4-台胞证
-         * @apiSuccess {String} comapny.manageridnumber 法人证件号码
+         * @apiSuccess {String} comapny.managername 负责人姓名
+         * @apiSuccess {Number} comapny.manageridtype 负责人证件类型1-身分证 2-护照 3-军官证 4-台胞证
+         * @apiSuccess {String} comapny.manageridnumber 负责人证件号码
+         * @apiSuccess {String} comapny.manageraddress 负责人居住地址
          * @apiSuccess {String} comapny.officephoneregion 办公室电话区号
          * @apiSuccess {String} comapny.officephonenumber 办公室电话号码
          * @apiSuccess {String} comapny.mobile 手机号码
@@ -469,9 +471,10 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} comapny.liveaddress 居住地址
          * @apiSuccess {String} comapny.commaddress 通讯地址
          * @apiSuccess {String} comapny.owner 投资人或主管单位名称
-         * @apiSuccess {String} comapny.managername 法人姓名
-         * @apiSuccess {Number} comapny.manageridtype 法人证件类型\n 1-身分证 2-护照 3-军官证 4-台胞证
-         * @apiSuccess {String} comapny.manageridnumber 法人证件号码
+         * @apiSuccess {String} comapny.managername 负责人姓名
+         * @apiSuccess {Number} comapny.manageridtype 负责人证件类型\n 1-身分证 2-护照 3-军官证 4-台胞证
+         * @apiSuccess {String} comapny.manageridnumber 负责人证件号码
+         * @apiSuccess {String} comapny.manageraddress 负责人居住地址
          * @apiSuccess {String} comapny.officephoneregion 办公室电话区号
          * @apiSuccess {String} comapny.officephonenumber 办公室电话号码
          * @apiSuccess {String} comapny.mobile 手机号码

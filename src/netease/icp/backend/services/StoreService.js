@@ -371,7 +371,7 @@ var utils = require('utility');
                     record = arr[0];
 
                     if( record.companyid > 0 ){
-                        sql = `SELECT id,province,city,area,nature,idtype,idnumber,name,liveaddress,commaddress,owner,managername,manageridtype,manageridnumber,officephoneregion,officephonenumber,mobile,email,recordnumber,recordpassword FROM company WHERE id = #id#`;
+                        sql = `SELECT id,province,city,area,nature,idtype,idnumber,name,liveaddress,commaddress,owner,managername,manageridtype,manageridnumber,manageraddress,officephoneregion,officephonenumber,mobile,email,recordnumber,recordpassword FROM company WHERE id = #id#`;
                         arr =  yield conn.execQuery(sql,{id:record.companyid});
                         company = arr[0];
                     }
@@ -426,7 +426,7 @@ var utils = require('utility');
                     record = arr[0];
 
                     if( record.companyid > 0 ){
-                        sql = `SELECT id,province,city,area,nature,idtype,idnumber,name,liveaddress,commaddress,owner,managername,manageridtype,manageridnumber,officephoneregion,officephonenumber,mobile,email,recordnumber,recordpassword FROM company WHERE id = #id#`;
+                        sql = `SELECT id,province,city,area,nature,idtype,idnumber,name,liveaddress,commaddress,owner,managername,manageraddress,manageridtype,manageridnumber,officephoneregion,officephonenumber,mobile,email,recordnumber,recordpassword FROM company WHERE id = #id#`;
                         arr =  yield conn.execQuery(sql,{id:record.companyid});
                         company = arr[0];
                     }

@@ -25,7 +25,8 @@ const FT = {
     "MOBILE":6,
     "EMAIL": 7,
     "RECORDNUMBER": 8,
-    "RECORDPASSWORD": 9
+    "RECORDPASSWORD": 9,
+    "MANAGERADDRESS":10
 };
 
 let CompanyInfo = React.createClass({
@@ -57,6 +58,9 @@ let CompanyInfo = React.createClass({
                 managername: {isBlank: false,regularFail: false, match: function(str){
                     return true;
                 }},
+                manageraddress: {isBlank: false,regularFail: false, match: function(str){
+                    return true;
+                }},
                 manageridtype:  {isBlank: false},
                 manageridnumber: {isBlank: false,regularFail: false, match: function(str){
                     return true;
@@ -86,6 +90,7 @@ let CompanyInfo = React.createClass({
                 commaddress: '',
                 owner: '',
                 managername: '',
+                manageraddress:'',
                 manageridtype: 0,
                 manageridnumber: '',
               //  officephoneregion: '',
@@ -116,7 +121,8 @@ let CompanyInfo = React.createClass({
                    id == FT.MOBILE ? formError.mobile :
                    id == FT.EMAIL ? formError.email :
                    id == FT.RECORDNUMBER ? formError.recordnumber :
-                   id == FT.RECORDPASSWORD ? formError.recordpassword : formError.recordpassword;
+                   id == FT.RECORDPASSWORD ? formError.recordpassword :
+                   id == FT.MANAGERADDRESS ? formError.manageraddress: formError.manageraddress;
         var val =  id == FT.IDTYPE ? companyInfo.idtype :
                    id == FT.NAME ? companyInfo.name :
                    id == FT.LIVEADDRESS ? companyInfo.liveaddress :
@@ -126,7 +132,8 @@ let CompanyInfo = React.createClass({
                    id == FT.MOBILE ? companyInfo.mobile :
                    id == FT.EMAIL ? companyInfo.email :
                    id == FT.RECORDNUMBER ? companyInfo.recordnumber :
-                   id == FT.RECORDPASSWORD ? companyInfo.recordpassword : companyInfo.recordpassword;
+                   id == FT.RECORDPASSWORD ? companyInfo.recordpassword :
+                   id == FT.MANAGERADDRESS ? companyInfo.manageraddress : companyInfo.manageraddress;
 
         ctrl.focus = focus;
         if( ctrl.hasOwnProperty("regularFail") && val.length > 0 ){
@@ -225,6 +232,7 @@ let CompanyInfo = React.createClass({
 
         if( this.state.companyInfo.nature != "5" ){
             this.state.formError.managername.checked = false;
+            this.state.formError.manageraddress.checked = false;
             this.state.formError.manageridtype.checked = false;
             this.state.formError.manageridnumber.checked = false;
             this.state.formError.officephonenumber.checked = false;
@@ -236,7 +244,7 @@ let CompanyInfo = React.createClass({
                     <div className="m-companyinfo-legend"><span>主体单位负责人信息:</span></div>
                     <div className="m-companyinfo-item">
                         <div className="item-label">
-                            <span className="red f-fl">*</span><label>法人姓名:</label>
+                            <span className="red f-fl">*</span><label>负责人姓名:</label>
                         </div>
                         <div className="item-ctrl">
                             <input type="text" name="lpname" onChange={this.handleManagerName} value={this.state.companyInfo.managername} maxLength="30"/>
@@ -245,7 +253,7 @@ let CompanyInfo = React.createClass({
                     </div>
                     <div className="m-companyinfo-item">
                         <div className="item-label">
-                            <span className="red f-fl">*</span><label>法人证件类型:</label>
+                            <span className="red f-fl">*</span><label>负责人证件类型:</label>
                         </div>
                         <div className="item-ctrl">
                             <select onChange={this.handleManagerIdType} value={this.state.companyInfo.manageridtype}>
@@ -255,16 +263,26 @@ let CompanyInfo = React.createClass({
                                 <option value="3">军官证</option>
                                 <option value="4">台胞证</option>
                             </select>
-                            <span className={this.state.formError.manageridtype.isBlank ? "u-popover" : "u-popover hidden" }>请选择法人证件类型</span>
+                            <span className={this.state.formError.manageridtype.isBlank ? "u-popover" : "u-popover hidden" }>请选择负责人证件类型</span>
                         </div>
                     </div>
                     <div className="m-companyinfo-item">
                         <div className="item-label">
-                            <span className="red f-fl">*</span><label>法人证件号码:</label>
+                            <span className="red f-fl">*</span><label>负责人证件号码:</label>
                         </div>
                         <div className="item-ctrl">
                             <input type="text" name="npidentity" onChange={this.handleManagerIdNumber} value={this.state.companyInfo.manageridnumber} maxLength="20"/>
-                            <span className={this.state.formError.manageridnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入法人证件号码</span>
+                            <span className={this.state.formError.manageridnumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入负责人证件号码</span>
+                        </div>
+                    </div>
+                    <div className="m-companyinfo-item">
+                        <div className="item-label">
+                            <span className="red f-fl">*</span><label>负责人居住地质:</label>
+                        </div>
+                        <div className="item-ctrl">
+                            <input type="text" name="manageraddress" onChange={this.handleManagerAddress} value={this.state.companyInfo.manageraddress} onFocus={me.handleFocus.bind(me,FT.MANAGERADDRESS)} onBlur={me.handleBlur.bind(me,FT.MANAGERADDRESS)} maxLength="50"/>
+                            <span className={this.state.formError.manageraddress.isBlank > 0 ? "u-popover" : "u-popover hidden" }>请输入负责人地址</span>
+                            <span className={this.state.formError.manageraddress.regularFail > 0 ? "u-popover" : "u-popover hidden" }>请输入负责人地址</span>
                         </div>
                     </div>
                     <div className="m-companyinfo-item">
@@ -303,12 +321,14 @@ let CompanyInfo = React.createClass({
             );
         }else{
             this.state.formError.managername.checked = true;
+            this.state.formError.manageraddress.checked = true;
             this.state.formError.manageridtype.checked = true;
             this.state.formError.manageridnumber.checked = true;
             this.state.formError.officephoneregion.checked = true;
             this.state.formError.officephonenumber.checked = true;
-            this.state.formError.mobile.checked = true;
-            this.state.formError.email.checked = true;
+
+            this.state.formError.mobile.checked = false;
+            this.state.formError.email.checked = false;
         }
     },
     handleSubmit: function(e){
@@ -448,6 +468,12 @@ let CompanyInfo = React.createClass({
         companyInfo.managername = e.target.value;
         this.setState({companyInfo: companyInfo});
     },
+    handleManagerAddress: function(e){
+        e.preventDefault();
+        var companyInfo = this.state.companyInfo;
+        companyInfo.manageraddress = e.target.value;
+        this.setState({companyInfo: companyInfo});
+    },
     handleManagerIdType: function(e){
         e.preventDefault();
         var companyInfo = this.state.companyInfo;
@@ -508,6 +534,44 @@ let CompanyInfo = React.createClass({
 
     componentWillUnmount: function(){
         clearInterval(this.interval);
+    },
+    getIndividualMobile: function(){
+        var me = this;
+        if( this.state.companyInfo.nature == 5 ){
+            return (
+                <div className="m-companyinfo-item">
+                    <div className="item-label">
+                        <span className="red f-fl">*</span><label>主体联系人手机号码:</label>
+                    </div>
+                    <div className="item-ctrl">
+                        <input type="text" name="mobilephone" min="1" max="10" onChange={this.handleMobile} value={this.state.companyInfo.mobile} onFocus={me.handleFocus.bind(me,FT.MOBILE)} onBlur={me.handleBlur.bind(me,FT.MOBILE)} maxLength="11"/>
+                        <span className={this.state.formError.mobile.isBlank ? "u-popover" : "u-popover hidden" }>请输入手机号码</span>
+                        <span className={this.state.formError.mobile.focus ? "u-popover2" : "u-popover2 hidden" }>1、请确保电话畅通能联系到本人</span>
+                        <span className={this.state.formError.mobile.regularFail ? "u-popover" : "u-popover hidden" }>请输入正确的手机号码</span>
+                    </div>
+                </div>
+            );
+        }
+    },
+    getIndividualEmail: function(){
+        var me = this;
+        if( this.state.companyInfo.nature == 5 ) {
+            return (
+                <div className="m-companyinfo-item">
+                    <div className="item-label">
+                        <span className="red f-fl">*</span><label>主体联系人电子邮箱:</label>
+                    </div>
+                    <div className="item-ctrl">
+                        <input type="text" name="email" onChange={this.handleEmail} value={this.state.companyInfo.email}
+                               onFocus={me.handleFocus.bind(me,FT.EMAIL)} onBlur={me.handleBlur.bind(me,FT.EMAIL)}
+                               maxLength="50"/>
+                        <span className={this.state.formError.email.isBlank > 0 ? "u-popover" : "u-popover hidden" }>请输入电子邮箱</span>
+                        <span
+                            className={this.state.formError.email.regularFail > 0 ? "u-popover" : "u-popover hidden" }>请输入正确电子邮箱</span>
+                    </div>
+                </div>
+            );
+        }
     },
     getOptions: function(nature){
         var me = this;
@@ -723,9 +787,11 @@ let CompanyInfo = React.createClass({
                                 <div className="item-ctrl">
                                     <input type="text" name="investorname" onChange={this.handleOwner} value={this.state.companyInfo.owner} onFocus={me.handleFocus.bind(me,FT.OWNER)} onBlur={me.handleBlur.bind(me,FT.OWNER)} maxLength="30"/>
                                     <span className={this.state.formError.owner.isBlank ? "u-popover" : "u-popover hidden" }>请输入投资人或主管单位名称</span>
-                                    <span className={this.state.formError.owner.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、单位用户建议填写法人姓名或主办单位全称</p><p>2、个人用户请填写个人姓名</p></span>
+                                    <span className={this.state.formError.owner.focus ? "u-popover2" : "u-popover2 hidden" }><p>1、单位用户建议填写负责人姓名或主办单位全称</p><p>2、个人用户请填写个人姓名</p></span>
                                 </div>
                             </div>
+                            {this.getIndividualMobile()}
+                            {this.getIndividualEmail()}
                         </fieldset>
                         {this.getMasterInfo()}
                     </form>
@@ -743,3 +809,5 @@ let CompanyInfo = React.createClass({
 
 
 module.exports = CompanyInfo;
+
+
