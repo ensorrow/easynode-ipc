@@ -32,7 +32,7 @@ describe('IspService',function() {
         }
     });
 
-   /* it('createConnect',function (done){
+    it('createConnect',function (done){
 
         ispService.createConnect().then(function(){
            done();
@@ -41,7 +41,14 @@ describe('IspService',function() {
         });
     });
 
-
+    it('isp_download',function (done){
+        ispService.isp_download(ispService.getDownloadInitParam()).then(function(){
+            done();
+        }).catch(function(e){
+            done(e);
+        });
+    });
+/*
     it('isp_upload',function (done){
         ispService.isp_upload({}).then(function(){
             done();
@@ -50,13 +57,7 @@ describe('IspService',function() {
         });
     });
 
-    it('isp_download',function (done){
-        ispService.isp_download({}).then(function(){
-            done();
-        }).catch(function(e){
-            done(e);
-        });
-    });
+
 
     it('isp_downloadack',function (done){
         ispService.isp_downloadack({}).then(function(){
@@ -91,7 +92,7 @@ describe('IspService',function() {
         });
     });*/
 
-    it('genPwdHash',function (done){
+   /* it('genPwdHash',function (done){
         var code = utils.randomString(20, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
         console.log( ispService.genPwdHash(code) );
@@ -103,8 +104,6 @@ describe('IspService',function() {
 
         co(function * (){
             var {beianInfo,beianInfoHash} =  yield ispService.encryptContent(code);
-            console.log("beianInfo gzip", beianInfo);
-            console.log("beianInfoHash ", beianInfoHash);
             done();
         });
     });
@@ -114,8 +113,21 @@ describe('IspService',function() {
         var beianInfoHash = 'Mzk5MTY2YjMwOTY1YzRiNmEyNGQ3ZjNmODIzMDdiMjU=';
         co(function * (){
             var {beianInfo,result} =  yield ispService.decryptContent([beianInfo2,beianInfoHash]);
-            console.log(beianInfo);
-            console.log("result:", result);
+            done();
+        });
+    });
+*/
+    it('getDownloadInitParam',function (done){
+        co(function * (){
+            var ret =  yield ispService.getDownloadInitParam();
+            console.log(ret);
+            done();
+        });
+    });
+
+    it('getUploadInitParam',function (done){
+        co(function * (){
+            var ret =  yield ispService.getUploadInitParam();
             done();
         });
     });

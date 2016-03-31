@@ -21,6 +21,7 @@ var fso = require('fs');
     const KEY = 'XRDRUE7FFCRE1T7I';
     const OFFSET = '7VU2H0LLBG8373LK';
     const SEQ = 1;
+    const USERNAME = 'NetEase';
     const HASHALGORITHM = 0; //0-MD5
     const ENCRYPTALGORITHM = 0;//0-不加密 1-AES加密算法，加密模式使用CBC模式，补码方式采用PKCS5Padding，密钥偏移量由部级系统、省局系统生成的字符串，如“0102030405060708”。
     const COMPRESSIONFORMAT = 0; //0-zip压缩格式
@@ -264,6 +265,7 @@ var fso = require('fs');
             this.clientReport = null;
             this.clientQuery = null;
             this.clientVerify = null;
+            this.dataSequence = 0;
         }
 
         /**
@@ -422,7 +424,7 @@ var fso = require('fs');
             return new Promise(function(res,rej){
                 me.clientReport.isp_download(args, function(err,result){
                     if(err){
-                        EasyNode.DEBUG && logger.debug(`isp_download to ${args} failed, err: ${err}`);
+                        EasyNode.DEBUG && logger.debug(`isp_download to ${args} failed, err: ${err},result: ${result}`);
                         rej();
                     }else{
                         EasyNode.DEBUG && logger.debug(`isp_download to ${args} success`);
@@ -864,6 +866,18 @@ var fso = require('fs');
                 }
                 return ret;
             }
+        }
+
+        getUploadInitParam(){
+            var randVal = utils.randomString(20, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+            var pwdHash = this.genPwdHash(randVal,PASSWORD, HASHALGORITHM);
+            return {ispId:ISPID,userName:USERNAME,randVal:randVal,pwdHash:pwdHash,encryptAlgorithm:ENCRYPTALGORITHM,hashAlgorithm:HASHALGORITHM,compressionFormat:COMPRESSIONFORMAT};
+        }
+
+        getDownloadInitParam(){
+            var randVal = utils.randomString(20, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+            var pwdHash = this.genPwdHash(randVal,PASSWORD, HASHALGORITHM);
+            return {ispId:ISPID,userName:USERNAME,randVal:randVal,pwdHash:pwdHash,hashAlgorithm:HASHALGORITHM};
         }
 
         base64_encode(file){
