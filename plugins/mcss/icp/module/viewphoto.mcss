@@ -25,7 +25,7 @@ $m-viewphoto_ctrl__onethird_width = 120px;
     background: #000;
 	text-align: center;
     overflow-y: scroll;
-    overflow-x: scroll
+    overflow-x: scroll;
 
 	.m-viewphoto-mask{
         position: absolute;

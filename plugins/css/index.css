@@ -389,8 +389,8 @@ table.gridtable td >a{font-family:MicrosoftYaHei;font-size:10.6px;color:#38abd0;
 .m-checkcouncilpass:after{clear:both;}
 .m-toast{position:fixed;left:46%;top:66px;text-align:center;display:block;}
 .m-viewphoto{background:#fff;width:auto;height:auto;}
-.m-viewphoto-modal{position:fixed;left:0;right:0;top:0;bottom:0;z-index:99;background:#000;text-align:center;overflow-y:scroll;}
-.m-viewphoto-modal overflow-x: scroll .m-viewphoto-mask{position:absolute;left:0;right:0;top:0;bottom:0;background-color:#000;opacity:0.1;}
+.m-viewphoto-modal{position:fixed;left:0;right:0;top:0;bottom:0;z-index:99;background:#000;text-align:center;overflow-y:scroll;overflow-x:scroll;}
+.m-viewphoto-modal .m-viewphoto-mask{position:absolute;left:0;right:0;top:0;bottom:0;background-color:#000;opacity:0.1;}
 .m-viewphoto-modal .m-viewphoto-dialog{z-index:999;margin-top:50px;}
 .m-viewphoto-modal .m-viewphoto-close{position:absolute;top:0;right:0;width:20px;height:20px;padding:20px;opacity:0.5;z-index:9998;}
 .u-goback{background:#fff;position:static;padding-left:20px;height:54px;line-height:54px;}
