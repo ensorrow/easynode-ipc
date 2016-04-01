@@ -1,17 +1,15 @@
 var assert = require('assert');
 var logger = using('easynode.framework.Logger').forFile(__filename);
 var GenericObject = using('easynode.GenericObject');
-var md5 =  require('md5');
 var fs = require('co-fs');
-var f =  require('fs');
-var bfs = require('babel-fs');
 var archiver = require('archiver');
 var _ = require('lodash');
 var soap = require('soap');
 var utils = require('utility');
 var ByteBuffer = require('ByteBuffer');
 var iconv = require('iconv-lite');
-var md5 =  require('md5');
+const crypto = require('crypto');
+var md5 = crypto.createHash('md5');
 const zlib = require('zlib');
 var fso = require('fs');
 
@@ -26,7 +24,7 @@ var fso = require('fs');
     const ENCRYPTALGORITHM = 0;//0-不加密 1-AES加密算法，加密模式使用CBC模式，补码方式采用PKCS5Padding，密钥偏移量由部级系统、省局系统生成的字符串，如“0102030405060708”。
     const COMPRESSIONFORMAT = 0; //0-zip压缩格式
 
-    const REPORT_URL = 'http://122.224.213.98/ISPWebService/upDownLoad?wsdl';
+    const REPORT_URL = '/Users/hujiabao/Desktop/upDownLoad.xml';
     const QUERY_URL = 'http://122.224.213.98/BeianStatusWebService/queryBeianStatus?wsdl';
     const VERIFY_URL = 'http://zcaisp.miitbeian.gov.cn/BeianStatusWebService/verifyBamm?wsdl';
 
@@ -555,7 +553,8 @@ var fso = require('fs');
                         EasyNode.DEBUG && logger.debug(`isp_querypreviousupload to ${args} failed, err: ${err}`);
                         rej();
                     }else{
-                        EasyNode.DEBUG && logger.debug(`isp_querypreviousupload to ${args} success`);
+                        EasyNode.DEBUG && logger.debug(`isp_querypreviousupload to ${args} success ${result}`);
+                        console.log(result);
                         res();
                     }
                 });
@@ -728,11 +727,11 @@ var fso = require('fs');
          */
         genPwdHash(random,pwd = PASSWORD,hashAlgorithm = HASHALGORITHM){
             //2,3
-            var tmp = iconv.encode(random+pwd,"GBK");
+            var tmp = iconv.encode(pwd+random,"GBK");
             if( hashAlgorithm == HASHALGORITHM ){
-                return md5(tmp);
+                return md5.update(tmp).digest('base64');
             }else{
-                return md5(tmp);
+                return md5.update(tmp).digest('base64');
             }
         }
 

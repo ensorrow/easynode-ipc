@@ -8,7 +8,9 @@ import co from 'co';
 require("babel-polyfill");
 import chai from 'chai';
 const assert = chai.assert;
-var utils = require('utility');x
+var utils = require('utility');
+const crypto = require('crypto');
+var md5 = crypto.createHash('md5');
 
 
 require('easynode');
@@ -42,11 +44,15 @@ describe('IspService',function() {
     });
 
     it('isp_querypreviousupload',function (done){
-        ispService.isp_querypreviousupload({}).then(function(){
-            done();
-        }).catch(function(e){
-            done(e);
-        });
+
+        co(function * (){
+            ispService.isp_querypreviousupload(ispService.getDownloadInitParam()).then(function(){
+                    done();
+                }).catch(function(e){
+                    done(e);
+                });
+            });
+
     });
 
  /*   it('isp_download',function (done){
@@ -119,14 +125,14 @@ describe('IspService',function() {
         });
     });
 */
-    //it('getDownloadInitParam',function (done){
-    //    co(function * (){
-    //        var ret =  yield ispService.getDownloadInitParam();
-    //        console.log(ret);
-    //        done();
-    //    });
-    //});
-    //
+   /* it('getDownloadInitParam',function (done){
+        co(function * (){
+            var ret =  yield ispService.getDownloadInitParam();
+            console.log(ret);
+            done();
+        });
+    });*/
+
     //it('getUploadInitParam',function (done){
     //    co(function * (){
     //        var ret =  yield ispService.getUploadInitParam();
