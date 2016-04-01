@@ -8,7 +8,7 @@ import co from 'co';
 require("babel-polyfill");
 import chai from 'chai';
 const assert = chai.assert;
-var utils = require('utility');
+var utils = require('utility');x
 
 
 require('easynode');
@@ -41,13 +41,21 @@ describe('IspService',function() {
         });
     });
 
-    it('isp_download',function (done){
-        ispService.isp_download(ispService.getDownloadInitParam()).then(function(){
+    it('isp_querypreviousupload',function (done){
+        ispService.isp_querypreviousupload({}).then(function(){
             done();
         }).catch(function(e){
             done(e);
         });
     });
+
+ /*   it('isp_download',function (done){
+        ispService.isp_download(ispService.getDownloadInitParam()).then(function(){
+            done();
+        }).catch(function(e){
+            done(e);
+        });
+    });*/
 /*
     it('isp_upload',function (done){
         ispService.isp_upload({}).then(function(){
@@ -67,13 +75,7 @@ describe('IspService',function() {
         });
     });
 
-    it('isp_querypreviousupload',function (done){
-        ispService.isp_querypreviousupload({}).then(function(){
-            done();
-        }).catch(function(e){
-            done(e);
-        });
-    });
+
 
     it('isp_querybeianstatus',function (done){
         ispService.isp_querybeianstatus({}).then(function(){
@@ -117,20 +119,20 @@ describe('IspService',function() {
         });
     });
 */
-    it('getDownloadInitParam',function (done){
-        co(function * (){
-            var ret =  yield ispService.getDownloadInitParam();
-            console.log(ret);
-            done();
-        });
-    });
-
-    it('getUploadInitParam',function (done){
-        co(function * (){
-            var ret =  yield ispService.getUploadInitParam();
-            done();
-        });
-    });
+    //it('getDownloadInitParam',function (done){
+    //    co(function * (){
+    //        var ret =  yield ispService.getDownloadInitParam();
+    //        console.log(ret);
+    //        done();
+    //    });
+    //});
+    //
+    //it('getUploadInitParam',function (done){
+    //    co(function * (){
+    //        var ret =  yield ispService.getUploadInitParam();
+    //        done();
+    //    });
+    //});
 
     after(function(done){
         console.log("IspService after");

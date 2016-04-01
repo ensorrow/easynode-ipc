@@ -45,12 +45,12 @@ let UploadMaterial = React.createClass({
               securityurl2: ''
           },
           sample:{
-              sitemanagerurl: 'http://apollodev.nos.netease.com/1456282622803',
-              checklisturl: 'http://apollodev.nos.netease.com/1456282666775',
-              protocolurl1: 'http://apollodev.nos.netease.com/1456282709452',
-              protocolurl2: 'http://apollodev.nos.netease.com/1456282714862',
-              securityurl1: 'http://apollodev.nos.netease.com/1456282720423',
-              securityurl2: 'http://apollodev.nos.netease.com/1456282725557'
+              sitemanagerurl: 'http://apollodev.nos.netease.com/1459492803511',
+              checklisturl: 'http://apollodev.nos.netease.com/1459493043170',
+              protocolurl1: 'http://apollodev.nos.netease.com/1459493125947',
+              protocolurl2: 'http://apollodev.nos.netease.com/1459493125947',
+              securityurl1: 'http://apollodev.nos.netease.com/1459493107645',
+              securityurl2: 'http://apollodev.nos.netease.com/1459493107645'
           }
       }
     },
