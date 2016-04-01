@@ -551,6 +551,8 @@ var utils = require('utility');
                 var name = form.name;
                 var officephonenumber = form.officephonenumber;
 
+                languages = JSON.stringify(languages);
+
                 try{
                     conn = yield me.app.ds.getConnection();
 
