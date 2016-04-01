@@ -43,7 +43,7 @@ $m-viewphoto_ctrl__onethird_width = 120px;
     }
 
 	.m-viewphoto-close{
-	    position: absolute;
+	    position: fixed;
 	    top: 0;
 	    right: 0;
 	    width: 20px;
