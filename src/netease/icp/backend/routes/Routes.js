@@ -65,6 +65,8 @@ import bodyParse from 'koa-body';
             httpServer.addRoute('get','/admin/records',Controllers.getRecordsb(httpServer));
             httpServer.addRoute('get','/admin/record',Controllers.getRecordb(httpServer));
             httpServer.addRoute('put','/admin/record',Controllers.putRecordb(httpServer));
+            httpServer.addRoute('put','/admin/company',Controllers.putCompanyb(httpServer));
+            httpServer.addRoute('put','/admin/website',Controllers.putWebsiteb(httpServer));
         }
 
         getClassName()

@@ -539,6 +539,86 @@ var utils = require('utility');
             }
         }
 
+        putWebsiteb(){
+            var me = this;
+            return function *(){
+                var r = null;
+                var conn = null;
+                var model = new Website();
+                var form = this.request.body;
+                var id = form.id;
+                var languages = form.languages;
+                var name = form.name;
+                var officephonenumber = form.officephonenumber;
+
+                try{
+                    conn = yield me.app.ds.getConnection();
+
+
+                    model.merge( Object.assign({}, { id: id} ));
+                    if( languages ){
+                        model.merge( Object.assign({}, { languages: languages } ));
+                    }
+                    if( name ){
+                        model.merge( Object.assign({}, { name: name } ));
+                    }
+                    if( officephonenumber ){
+                        model.merge( Object.assign({}, { officephonenumber: officephonenumber } ));
+                    }
+
+                    r = yield conn.update(model);
+                    return true;
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                    return false;
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
+        putCompanyb(){
+            var me = this;
+            return function *(){
+                var r = null;
+                var conn = null;
+                var model = new Company();
+                var form = this.request.body;
+                var id = form.id;
+                var liveaddress = form.liveaddress;
+                var commaddress = form.commaddress;
+                var officephonenumber = form.officephonenumber;
+                var owner = form.owner;
+
+                try{
+                    conn = yield me.app.ds.getConnection();
+
+
+                    model.merge( Object.assign({}, { id: id } ));
+                    if( commaddress ){
+                        model.merge( Object.assign({}, { commaddress: commaddress } ));
+                    }
+                    if( liveaddress ){
+                        model.merge( Object.assign({}, { liveaddress: liveaddress } ));
+                    }
+                    if( officephonenumber ){
+                        model.merge( Object.assign({}, { officephonenumber: officephonenumber } ));
+                    }
+                    if( owner ){
+                        model.merge( Object.assign({}, { owner: owner } ));
+                    }
+
+                    r = yield conn.update(model);
+                    return true;
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                    return false;
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
         putCurtainb(){
             var me = this;
             return function *(){

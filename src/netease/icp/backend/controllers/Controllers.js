@@ -181,7 +181,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
                 var ret = {};
 
-                var storeService = new StoreService(app)
+                var storeService = new StoreService(app);
                 ret = yield storeService.savedraft();
 
                 this.type = 'json';
@@ -305,8 +305,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 this.body = {ret: ret};
             }
         }
-
-
 
         /**
          * @api {get} /record 获取记录详情
@@ -538,7 +536,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
                 var pass = Controllers.passWhitelist(this.remoteAddress,app);
                 if( pass ) {
-                    var storeService = new StoreService(app)
+                    var storeService = new StoreService(app);
                     ret = yield storeService.getRecordb();
                 }
 
@@ -570,7 +568,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 var session = this.session;
                 var ret = {};
 
-                var storeService = new StoreService(app)
+                var storeService = new StoreService(app);
                 ret = yield storeService.putRecord();
 
                 this.type = 'json';
@@ -601,7 +599,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 var session = this.session;
                 var ret = {};
 
-                var storeService = new StoreService(app)
+                var storeService = new StoreService(app);
                 ret = yield storeService.putUser();
 
                 this.type = 'json';
@@ -635,7 +633,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
                 var pass = Controllers.passWhitelist(this.remoteAddress,app);
                 if( pass ) {
-                    var storeService = new StoreService(app)
+                    var storeService = new StoreService(app);
                     ret = yield storeService.putRecordb();
                 }
 
@@ -643,6 +641,74 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 this.body = {ret: ret};
             }
         }
+
+        /**
+         * @api {put} /admin/company 修改企业信息
+         * @apiName putCompanyb
+         * @apiGroup Ops
+         * @apiPermission whitelist
+         * @apiVersion 0.0.2
+         * @apiDescription 通过白名单管理权限
+         *
+         * @apiSampleRequest http://icp.hzspeed.cn/admin/company
+         *
+         * @apiParam {Number} id CompnayID
+         * @apiParam {Number} [liveaddress] 主体单位证件住所
+         * @apiParam {String} [commaddress] 主体单位通讯地址
+         * @apiParam {String} [officephonenumber] 办公室电话
+         * @apiParam {Number} [owner] 投资人或主管单位名称
+
+         * @apiSuccess {Number} ret true:成功,false:失败
+         */
+        static putCompanyb(app){
+            var me = this;
+            return function *(){
+                var ret = {};
+
+                var pass = Controllers.passWhitelist(this.remoteAddress,app);
+                if( pass ) {
+                    var storeService = new StoreService(app);
+                    ret = yield storeService.putCompanyb();
+                }
+
+                this.type = 'json';
+                this.body = {ret: ret};
+            }
+        }
+
+        /**
+         * @api {put} /admin/website website信息
+         * @apiName putWebsiteb
+         * @apiGroup Ops
+         * @apiPermission whitelist
+         * @apiVersion 0.0.2
+         * @apiDescription 通过白名单管理权限
+         *
+         * @apiSampleRequest http://icp.hzspeed.cn/admin/website
+         *
+         * @apiParam {Number} id WebsiteID
+         * @apiParam {Number} [name] 网站名称
+         * @apiParam {String} [languages] 网站语言, json格式转换后的字符串{"chinese":true,"chinesetraditional":false,"eglish":false,"japanese":false,"french":false,"spanish":false,"arabic":false,"russian":false,"customize":false,"customizeLang":""}
+         * @apiParam {String} [officephonenumber] 办公室电话
+
+         * @apiSuccess {Number} ret true:成功,false:失败
+         */
+        static putWebsiteb(app){
+            var me = this;
+            return function *(){
+                var ret = {};
+
+                var pass = Controllers.passWhitelist(this.remoteAddress,app);
+                if( pass ) {
+                    var storeService = new StoreService(app);
+                    ret = yield storeService.putWebsiteb();
+                }
+
+                this.type = 'json';
+                this.body = {ret: ret};
+            }
+        }
+
 
         /**
          * @api {put} /admin/curtain 寄送幕布
