@@ -12,6 +12,11 @@ const crypto = require('crypto');
 var md5 = crypto.createHash('md5');
 const zlib = require('zlib');
 var fso = require('fs');
+var parser = require('xml2json');
+var json2xml = require('json2xml');
+import { UploadData } from '../json/ICP';
+
+
 
 (function () {
     const ISPID = 110000000211;
@@ -353,6 +358,14 @@ var fso = require('fs');
                         rej();
                     }else{
                         EasyNode.DEBUG && logger.debug(`isp_upload to ${args} success`);
+                        var xml = result.return;
+                        var json = parser.toJson(xml, {object: true, arrayNotation: false});
+                        console.log(json);
+                        if( 0 == parseInt(json.return.msg_code) ){
+                            me.dataSequence = parseInt(json.return.fileInfos.dataSequence);
+                        }else{
+                            EasyNode.DEBUG && console.log(map[json.return.msg_code]);
+                        }
                         res();
                     }
                 });
@@ -547,6 +560,9 @@ var fso = require('fs');
          */
         isp_querypreviousupload(args) {
             var me = this;
+
+            console.log("UploadData:",UploadData);
+
             return new Promise(function(res,rej){
                 me.clientReport.isp_querypreviousupload(args, function(err,result){
                     if(err){
@@ -554,7 +570,19 @@ var fso = require('fs');
                         rej();
                     }else{
                         EasyNode.DEBUG && logger.debug(`isp_querypreviousupload to ${args} success ${result}`);
-                        console.log(result);
+                        var xml = result.return;
+                        var json = parser.toJson(xml, {object: true, arrayNotation: false});
+                        console.log(json);
+                        if( 0 == parseInt(json.return.msg_code) ){
+                            me.dataSequence = parseInt(json.return.fileInfos.dataSequence);
+                        }else{
+                            EasyNode.DEBUG && console.log(map[json.return.msg_code]);
+                        }
+                        console.log("me.dataSequence:",me.dataSequence );
+                        /*console.log(me.dataSequence);
+                        //parser.toXml(json);生成的结果不符合XML规范
+                        var xml2 = json2xml(json, {header: true});
+                        console.log(xml2);*/
                         res();
                     }
                 });
@@ -871,6 +899,10 @@ var fso = require('fs');
             var randVal = utils.randomString(20, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
             var pwdHash = this.genPwdHash(randVal,PASSWORD, HASHALGORITHM);
             return {ispId:ISPID,userName:USERNAME,randVal:randVal,pwdHash:pwdHash,encryptAlgorithm:ENCRYPTALGORITHM,hashAlgorithm:HASHALGORITHM,compressionFormat:COMPRESSIONFORMAT};
+        }
+
+        getbeianInfo(){
+
         }
 
         getDownloadInitParam(){

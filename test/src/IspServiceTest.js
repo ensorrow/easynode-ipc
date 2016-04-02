@@ -43,32 +43,32 @@ describe('IspService',function() {
         });
     });
 
-    //it('isp_querypreviousupload',function (done){
-    //
-    //    co(function * (){
-    //        ispService.isp_querypreviousupload(ispService.getDownloadInitParam()).then(function(){
-    //                done();
-    //            }).catch(function(e){
-    //                done(e);
-    //            });
-    //        });
-    //
-    //});
+    it('isp_querypreviousupload',function (done){
 
-    it('isp_download',function (done){
-
-        co(function * () {
-
-            var ret = ispService.getDownloadInitParam();
-            console.log(ret);
-            //ispService.isp_download(ret).then(function () {
-            //    done();
-            //}).catch(function (e) {
-            //    done(e);
-            //});
-        });
+        co(function * (){
+            ispService.isp_querypreviousupload(ispService.getDownloadInitParam()).then(function(){
+                    done();
+                }).catch(function(e){
+                    done(e);
+                });
+            });
 
     });
+
+    //it('isp_download',function (done){
+    //
+    //    co(function * () {
+    //
+    //        var ret = ispService.getDownloadInitParam();
+    //        console.log(ret);
+    //        //ispService.isp_download(ret).then(function () {
+    //        //    done();
+    //        //}).catch(function (e) {
+    //        //    done(e);
+    //        //});
+    //    });
+    //
+    //});
 /*
     it('isp_upload',function (done){
         ispService.isp_upload({}).then(function(){
