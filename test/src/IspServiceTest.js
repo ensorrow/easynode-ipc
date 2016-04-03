@@ -61,29 +61,33 @@ describe('IspService',function() {
     });
 
 
-  /*  it('isp_querypreviousupload',function (done){
-
-        co(function * (){
-            yield ispService.isp_querypreviousupload(ispService.getDownloadInitParam()).then(function(){
-                    done();
-            }).catch(function(e){
-                    done(e);
-            });
-        });
-
-    });*/
+    //it('isp_querypreviousupload',function (done){
+    //
+    //    co(function * (){
+    //        yield ispService.isp_querypreviousupload(ispService.getDownloadInitParam()).then(function(){
+    //                done();
+    //        }).catch(function(e){
+    //                done(e);
+    //        });
+    //    });
+    //
+    //});
 
     it('isp_upload',function (done){
 
 
         co(function * () {
 
-            console.log("1");
+
             var beianInfo = yield ispService.genbeianInfo(json,ispService.FIRST);
+            var args;
+            try{
+                 args = Object.assign( ispService.getUploadInitParam(), beianInfo);
+                console.log(args);
 
-            var args = Object.assign( ispService.getUploadInitParam(), beianInfo);
-
-            console.log(args);
+            }catch(e){
+                EasyNode.DEBUG && logger.debug(` ${e}`);
+            }
 
             ispService.isp_upload(args).then(function () {
                 done();
@@ -93,7 +97,6 @@ describe('IspService',function() {
         });
 
     });
-
 
     //it('isp_download',function (done){
     //

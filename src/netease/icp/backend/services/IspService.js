@@ -9,8 +9,8 @@ var utils = require('utility');
 var ByteBuffer = require('ByteBuffer');
 var iconv = require('iconv-lite');
 const crypto = require('crypto');
-var md5 = crypto.createHash('md5');
-var md55 =  require('md5');
+//var md5 = crypto.createHash('md5');
+//var md55 =  require('md5');
 const zlib = require('zlib');
 var fso = require('fs');
 var parser = require('xml2json');
@@ -757,9 +757,9 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
             //2,3
             var tmp = iconv.encode(pwd+random,"GBK");
             if( hashAlgorithm == HASHALGORITHM ){
-                return md5.update(tmp).digest('base64');
+                return crypto.createHash('md5').update(tmp).digest('base64');
             }else{
-                return md5.update(tmp).digest('base64');
+                return crypto.createHash('md5').update(tmp).digest('base64');
             }
         }
 
@@ -820,8 +820,7 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
                 }
                 //2
                 if( hashAlgorithm == HASHALGORITHM ){
-                    ret.beianInfoHash = new Buffer(md55(contentCompression)).toString('base64');
-
+                    ret.beianInfoHash = crypto.createHash('md5').update(contentCompression).digest('base64');
                 }
                 //3
                 if( encryptAlgorithm == ENCRYPTALGORITHM ){
@@ -899,17 +898,18 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
         getUploadInitParam(){
             var randVal = utils.randomString(20, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
             var pwdHash = this.genPwdHash(randVal,PASSWORD, HASHALGORITHM);
-            return {ispId:ISPID,userName:USERNAME,randVal:randVal,pwdHash:pwdHash,encryptAlgorithm:ENCRYPTALGORITHM,hashAlgorithm:HASHALGORITHM,compressionFormat:COMPRESSIONFORMAT};
+            return {ispId:ISPID,userName:USERNAME,randVal:randVal,pwdHash:pwdHash,encryptAlgorithm:ENCRYPTALGORITHM,hashAlgorithm:HASHALGORITHM,compressionFormat:COMPRESSIONFORMAT,dataSequence:this.dataSequence};
         }
 
         genbeianInfo(json,type){
+
             var me = this;
             return function *(){
                 if(type == me.FIRST){
                     try{
                         var assignedJson = XZBA_ASSIGN(json) ;
                         console.log(assignedJson);
-                        var xml2 = json2xml(assignedJson, {header: true});
+                        var xml2 = json2xml(assignedJson, { attributes_key: 'attr',header: true });
                         console.log(xml2);
                         var ret = yield me.encryptContent(xml2);
                         console.log(ret);

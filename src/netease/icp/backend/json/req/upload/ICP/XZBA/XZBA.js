@@ -108,7 +108,9 @@ var  ICP = {
 var XZBA = {
     UploadData: {
         ICP: ICP
-    }
+
+    },
+    attr: {version:"V.3.0"}
 };
 
 /*
