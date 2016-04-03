@@ -514,3 +514,27 @@ require("babel-polyfill");
 
 at Parser.error (/usr/src/app/node_modules/css-loader/node_modules/cssnano/node_modules/postcss-minify-selectors/node_modules/postcss-selector-parser/dist/parser.js:212:15)
 eslint-disable-line new-cap
+
+81. <div class="container">
+    <div cass="header"></div>
+
+    <div class="body"></div>
+
+    <div class="footer"></div>
+    </div>
+    复制代码
+
+
+    第一种情况：footer随着滚动条的滚动而滚动
+
+    .container{position:relative;width:100%;min-height:100%;}
+    .body{padding-bottom:50px;}
+    .footer{height:50px;position:absolute;bottom:0px;left:0px;}
+
+
+    第二种情况:footer始终在其底部固定
+
+    .container{position:relative;width:100%;min-height:100%;}
+    .body{padding-bottom:50px;}
+    .footer{height:50px;position:fixed;bottom:0px;left:0px;}
+
