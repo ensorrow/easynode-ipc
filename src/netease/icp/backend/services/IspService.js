@@ -10,11 +10,12 @@ var ByteBuffer = require('ByteBuffer');
 var iconv = require('iconv-lite');
 const crypto = require('crypto');
 var md5 = crypto.createHash('md5');
+var md55 =  require('md5');
 const zlib = require('zlib');
 var fso = require('fs');
 var parser = require('xml2json');
 var json2xml = require('json2xml');
-import { UploadData } from '../json/ICP';
+import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
 
 
 
@@ -269,6 +270,7 @@ import { UploadData } from '../json/ICP';
             this.clientQuery = null;
             this.clientVerify = null;
             this.dataSequence = 0;
+            this.FIRST = 1;
         }
 
         /**
@@ -561,8 +563,6 @@ import { UploadData } from '../json/ICP';
         isp_querypreviousupload(args) {
             var me = this;
 
-            console.log("UploadData:",UploadData);
-
             return new Promise(function(res,rej){
                 me.clientReport.isp_querypreviousupload(args, function(err,result){
                     if(err){
@@ -820,7 +820,8 @@ import { UploadData } from '../json/ICP';
                 }
                 //2
                 if( hashAlgorithm == HASHALGORITHM ){
-                    ret.beianInfoHash = new Buffer(md5(contentCompression)).toString('base64');
+                    ret.beianInfoHash = new Buffer(md55(contentCompression)).toString('base64');
+
                 }
                 //3
                 if( encryptAlgorithm == ENCRYPTALGORITHM ){
@@ -901,8 +902,24 @@ import { UploadData } from '../json/ICP';
             return {ispId:ISPID,userName:USERNAME,randVal:randVal,pwdHash:pwdHash,encryptAlgorithm:ENCRYPTALGORITHM,hashAlgorithm:HASHALGORITHM,compressionFormat:COMPRESSIONFORMAT};
         }
 
-        getbeianInfo(){
-
+        genbeianInfo(json,type){
+            var me = this;
+            return function *(){
+                if(type == me.FIRST){
+                    try{
+                        var assignedJson = XZBA_ASSIGN(json) ;
+                        console.log(assignedJson);
+                        var xml2 = json2xml(assignedJson, {header: true});
+                        console.log(xml2);
+                        var ret = yield me.encryptContent(xml2);
+                        console.log(ret);
+                        return ret;
+                    }catch(e){
+                        EasyNode.DEBUG && logger.debug(` ${e}`);
+                        return {beianInfo:'',beianInfoHash:''};
+                    }
+                }
+            }
         }
 
         getDownloadInitParam(){

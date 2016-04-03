@@ -11,27 +11,44 @@ const assert = chai.assert;
 var utils = require('utility');
 const crypto = require('crypto');
 var md5 = crypto.createHash('md5');
-
+var request = require('superagent');
 
 require('easynode');
 EasyNode.addArg('easynode-home',process.cwd());
 EasyNode.addSourceDirectory('/node_modules/easynode/src');
 const logger = using('easynode.framework.Logger').getLogger();
 
-var IspService = using('netease.icp.backend.services.ispService');
+var IspService = using('netease.icp.backend.services.IspService');
 var ispService ;
 
+var url = 'http://icp.hzspeed.cn/admin/record/?id=590';
+var json = {};
 describe('IspService',function() {
 
     before(function(done){
         console.log("IspService before");
         try{
             ispService = new IspService();
-
             done();
         }catch(e){
             done(e);
         }
+    });
+
+    it('getRecordJson',function (done){
+
+        request
+            .get(url)
+            .end(function(err, res){
+                // Do something
+                if( err ){
+                    done(err);
+                }else{
+                    json = res.body;
+                    console.log(json);
+                    done();
+                }
+            });
     });
 
     it('createConnect',function (done){
@@ -43,17 +60,40 @@ describe('IspService',function() {
         });
     });
 
-    it('isp_querypreviousupload',function (done){
+
+  /*  it('isp_querypreviousupload',function (done){
 
         co(function * (){
-            ispService.isp_querypreviousupload(ispService.getDownloadInitParam()).then(function(){
+            yield ispService.isp_querypreviousupload(ispService.getDownloadInitParam()).then(function(){
                     done();
-                }).catch(function(e){
+            }).catch(function(e){
                     done(e);
-                });
             });
+        });
+
+    });*/
+
+    it('isp_upload',function (done){
+
+
+        co(function * () {
+
+            console.log("1");
+            var beianInfo = yield ispService.genbeianInfo(json,ispService.FIRST);
+
+            var args = Object.assign( ispService.getUploadInitParam(), beianInfo);
+
+            console.log(args);
+
+            ispService.isp_upload(args).then(function () {
+                done();
+            }).catch(function (e) {
+                done(e);
+            });
+        });
 
     });
+
 
     //it('isp_download',function (done){
     //
@@ -70,13 +110,6 @@ describe('IspService',function() {
     //
     //});
 /*
-    it('isp_upload',function (done){
-        ispService.isp_upload({}).then(function(){
-            done();
-        }).catch(function(e){
-            done(e);
-        });
-    });
 
 
 

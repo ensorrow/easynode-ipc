@@ -47,85 +47,85 @@ var rWz_xx = {
             Fzr_zjhm:''
         },
         Syurl:'',
-        Wz_Bz:''
-    },
-    Fj:{
-        Fjxx:{
-            Fjwjgs:0,
-            Fjyt:0,
-            Fjnr:'',
-            Fjssdx:{
-                Ssdxlx:1,
-                Ssdxbs::{
-                    Jlid:0,
-                    Baxh:''
-                }
-            },
-            Bz:''
+        Wz_Bz:'',
+        Fj:{
+            Fjxx:{
+                Fjwjgs:0,
+                Fjyt:0,
+                Fjnr:'',
+                Fjssdx:{
+                    Ssdxlx:1,
+                    Ssdxbs:{
+                        Jlid:0,
+                        Baxh:''
+                    }
+                },
+                Bz:''
             }
-        }
+         }
 };
 
 var UploadData = {
-    ICP:{
-        XZJR:{
-            Baxx:{
-                Zt_xx:{
-                    Dwmc:'',
-                    Dwxz:0,
-                    Tzr:'',
-                    Txdz:{
-                        Shengid:0,
-                        Shiid:0,
-                        Xianid:0,
-                        Xxdz,''
+    ICP: {
+        XZJR: {
+            Baxx: {
+                Zt_xx: {
+                    Dwmc: '',
+                    Dwxz: 0,
+                    Tzr: '',
+                    Txdz: {
+                        Shengid: 0,
+                        Shiid: 0,
+                        Xianid: 0,
+                        Xxdz: ''
                     },
-                    Zj:{
-                        Zjlx:0,
-                        Zjhm:'',
-                        Zjzs:''
+                    Zj: {
+                        Zjlx: 0,
+                        Zjhm: '',
+                        Zjzs: ''
                     },
-                    Fzr:{
-                        Fzr_xm:'',
-                        Fzr_dhhm:'',
-                        Fzr_sjhm:'',
-                        Fzr_dzyj:'',
-                        Msn:'',
-                        Qq:'',
-                        Fzr_zjlx:0,
-                        Fzr_zjhm:''
+                    Fzr: {
+                        Fzr_xm: '',
+                        Fzr_dhhm: '',
+                        Fzr_sjhm: '',
+                        Fzr_dzyj: '',
+                        Msn: '',
+                        Qq: '',
+                        Fzr_zjlx: 0,
+                        Fzr_zjhm: ''
                     },
-                    Bbfs:1,
-                    Bz:''
+                    Bbfs: 1,
+                    Bz: ''
                 },
                 Wz_xx: rWz_xx
-        },
-        XZJR:{
-            Xzxx:{
-                Zt_xx:{
-                    Ztbah:'',
-                    Ztid:
+            },
+            XZJR: {
+                Xzxx: {
+                    Zt_xx: {
+                        Ztbah: '',
+                        Ztid: 0
+                    }
                 }
-            }
+            },
+            BGBA: {},
+            HSJG: {},
+            WBACLJG: {},
+            ZXBA: {},
+            XZHYD: {},
+            Qqdwid: {}
+        },
+        IP: {
+            XZBA: {},
+            XGBA: {},
+            SCBA: {},
+            Qqdwid: {}
+        },
+        YM: {
+            XZBA: {},
+            XGBA: {},
+            SCBA: {},
+            Qqdwid: {}
         }
-        BGBA:{},
-        HSJG:{},
-        WBACLJG:{},
-        ZXBA:{},
-        XZHYD:{},
-        Qqdwid:{}
-    },
-    IP:{
-        XZBA:{},
-        XGBA:{},
-        SCBA:{},
-        Qqdwid:{}
-    },
-    YM:{
-        XZBA:{},
-        XGBA:{},
-        SCBA:{},
-        Qqdwid:{}
     }
 };
 
