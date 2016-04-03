@@ -239,12 +239,12 @@ let RecordList = React.createClass({
                     <table className="gridtable">
                         <thead>
                             <tr>
-                            <th>申请ID</th>
-                            <th>类型</th>
-                            <th>主机所在区域</th>
-                            <th>进展</th>
-                            <th>创建时间</th>
-                            <th>操作</th>
+                            <th className="fid">申请ID</th>
+                            <th className="ftype">类型</th>
+                            <th className="farea">主机所在区域</th>
+                            <th className="fprocess">进展</th>
+                            <th className="fdate">创建时间</th>
+                            <th className="fop">操作</th>
                             </tr>
                         </thead>
                         <Records data={this.state.data} onDelete={this.onDelete} onShow={this.onShow}/>

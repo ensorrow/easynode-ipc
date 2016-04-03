@@ -131,11 +131,11 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .type{float:left;display:inline-block;width:130px;height:230px;text-align:center;}
 .type >span{line-height:230px;}
 .ul-items{float:left;margin-top:40px;}
-.item{float:left;display:inline-block;width:140px;height:140px;background:#f8f8f8;outline:#ddd solid 1px;}
+.item{float:left;display:inline-block;width:148px;height:140px;background:#f8f8f8;outline:#ddd solid 1px;}
 .item +.item{margin-left:59px;}
 .item .item-icon >img{display:inline-block;margin-top:32px;margin-left:42px;}
 .item .item-icon .title{display:inline-block;margin-top:-48px;margin-left:44px;}
-.item .item-describe{display:inline-block;font-size:12px;margin-top:24px;}
+.item .item-describe{display:inline-block;font-size:14px;margin-top:24px;}
 .recordarea .red{color:#f00;}
 .area{float:left;display:inline-block;width:130px;height:100px;text-align:center;}
 .area >span{line-height:100px;}
@@ -321,6 +321,12 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-recordlist >button,.m-recordlist input[type="button"]{background:transparent;height:24px;border:none;color:#69a9cc;margin:2px 2px;font-size:16px;}
 table.gridtable{width:1050px;font-family:MicrosoftYaHei;font-size:14px;border-width:1px;border-color:#666;border-collapse:collapse;color:#888;line-height:20px;}
 table.gridtable th{border-width:1px;padding:8px;border-style:solid;border-color:#666;background-color:#dedede;}
+.fid{width:20%;}
+.ftype{width:8%;}
+.farea{width:5%;}
+.fprocess{width:15%;}
+.fdate{width:23%;}
+.fop{width:29%;}
 table.gridtable td{border-width:1px;padding:4px;border-style:solid;border-color:#666;background-color:#fff;}
 table.gridtable td >a{font-family:MicrosoftYaHei;font-size:10.6px;color:#38abd0;line-height:14px;}
 .code{color:#69a9cc;}
@@ -410,6 +416,8 @@ table.gridtable td >a{font-family:MicrosoftYaHei;font-size:10.6px;color:#38abd0;
 .u-draft{margin-left:30px;border:none;background:transparent;font-size:14px;}
 a:hover{text-decoration:none;}
 .g-hd{position:static;left:0;right:0;top:0;z-index:5;height:54px;background:#252b33;}
-.g-ft{bottom:0px;left:0px;height:60px;width:100%;background:#ededed;}
+.g-bd{padding-bottom:50px;}
+.app{position:relative;width:100%;min-height:100px;}
+.g-ft{bottom:-60px;left:0px;height:60px;width:100%;background:#ededed;position:absolute;}
 .g-bd-return{width:960px;height:54px;margin-left:52px;test-align:center;background:#fdfdfd;}
 .g-progress{background:#ededed;width:100%;}

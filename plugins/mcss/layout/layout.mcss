@@ -10,18 +10,22 @@
 
 
 .g-bd{
-
-
+	padding-bottom:50px;
 }
 
+.app{
+	position:relative;
+	width:100%;
+	min-height:100px;
+}
 
 .g-ft {
-	//position: fixed;
-	bottom: 0px;
+	bottom: -60px;
 	left: 0px;
 	height: 60px;
 	width: 100%;
 	background: $m-footer_background;
+	position:absolute;
 }
 
 

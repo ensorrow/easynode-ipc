@@ -22,6 +22,7 @@ var IspService = using('netease.icp.backend.services.IspService');
 var ispService ;
 
 var url = 'http://icp.hzspeed.cn/admin/record/?id=590';
+var urlPic = 'http://apollodev.nos.netease.com/1457595670071';
 var json = {};
 describe('IspService',function() {
 
@@ -50,6 +51,24 @@ describe('IspService',function() {
                 }
             });
     });
+
+    it('download Picture',function (done){
+
+        request
+            .get(urlPic)
+            .end(function(err, res){
+                // Do something
+                if( err ){
+                    done(err);
+                }else{
+                    console.log(res.body);
+                    done();
+                }
+            });
+    });
+
+
+
 
     it('createConnect',function (done){
 

@@ -71,6 +71,25 @@ table.gridtable th {
 	background-color: #dedede;
 }
 
+.fid{
+	width:20%;
+}
+.ftype{
+	width:8%;
+}
+.farea{
+	width:5%;
+}
+.fprocess{
+	width:15%;
+}
+.fdate{
+   width:23%;
+}
+.fop{
+	width:29%;
+}
+
 table.gridtable td {
 
 	border-width: 1px;

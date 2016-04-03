@@ -254,8 +254,8 @@ function XZBA_ASSIGN(json){
     tmp.Wz_xx.Wz_Bz = json.website.remark;
     var temp = {
         Fjxx:{
-            Fjwjgx:0,
-            Fjyt:'',
+            Fjwjgx:1,
+            Fjyt:1,
             Fjnr:'',
             Fjssdx:{
                 Ssdxlx:1,

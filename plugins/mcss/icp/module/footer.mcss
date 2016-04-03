@@ -21,6 +21,6 @@ $m-footer_background = #EDEDED;
 $m-footer_height = 60px;
 
 .m-footer {
-	line-height: $m-footer_height;
+    line-height: $m-footer_height;
 	text-align: center;
 }

@@ -810,7 +810,6 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
                                 EasyNode.DEBUG && logger.debug(`gzip to success`);
                                 res();
                                 contentCompression = buff;
-                                console.log("contentCompression",contentCompression);
                             }
                         })
                     }
@@ -908,11 +907,8 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
                 if(type == me.FIRST){
                     try{
                         var assignedJson = XZBA_ASSIGN(json) ;
-                        console.log(assignedJson);
                         var xml2 = json2xml(assignedJson, { attributes_key: 'attr',header: true });
-                        console.log(xml2);
                         var ret = yield me.encryptContent(xml2);
-                        console.log(ret);
                         return ret;
                     }catch(e){
                         EasyNode.DEBUG && logger.debug(` ${e}`);
