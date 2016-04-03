@@ -274,10 +274,10 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
         }
 
         /**
-         * @method createConnect 创建连接
+         * @method  创建连接
          * @since 0.1.0
 
-         * @apiSuccess {Promise[]}
+         * @apiSuccess {Promise[]} Promise对象
          *
          */
         createConnect(){
@@ -332,16 +332,15 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
          * @apiParam {Number} hashAlgorithm 哈希算法 0: MD5哈希算法
          * @apiParam {Number} compressionFormat 压缩格式 0: Zip压缩算法
          *
-         * @apiSuccess {XML}
-         *
+         * @apiSuccess {XML} XML
          * 该方法返回一个XML数据流（数据格式详见文件“企业上报数据方法调用返回数据格式.xsd”），其中描述了本次操作的结果代码、结果描述。
              如果操作成功，则返回以下信息：
-                <return>
-                    <msg_code>0</msg_code>
-                    <msg>操作成功</msg>
-                </return>
-         * @apiError {XML}
-         * 如果操作错误，则返回以下信息：
+             <return>
+             <msg_code>0</msg_code>
+             <msg>操作成功</msg>
+             </return>
+         * @apiError {XML} xml
+             * 如果操作错误，则返回以下信息：
              <return>
              <msg_code>x</msg_code>
              <msg>错误描述</msg>
@@ -405,22 +404,21 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
          * @apiParam {String} pwdHash 使用指定的哈希算法对用户密码和随机字符串进行哈希运算，然后进行base64编码运算得到的结果，用户口令由企业所在省管局（或部管局）维护管理
          * @apiParam {Number} hashAlgorithm 哈希算法 0: MD5哈希算法
          *
-         * @apiSuccess {XML}
-         *
+         * @apiSuccess {XML} xml
          * 该方法返回一个XML数据流（数据格式详见文件“企业下载数据方法调用返回数据格式.xsd”），其中描述了本次操作的结果代码、结果描述。
-         如果成功，返回以下信息：
-         <return>
-         <msg_code>0</msg_code>
-         <msg>操作成功</msg>
-         <fileInfos>
-         <hashAlgorithm>哈希算法</hashAlgorithm>
-         <compressionFormat>压缩格式</compressionFormat>
-         <encryptAlgorithm>加密算法</encryptAlgorithm>
-         <return_FileName>省局系统的备案数据文件名</return_FileName>
-         <beianInfo>备案信息内容</beianInfo>
-         <beianInfoHash>备案信息的哈希值</beianInfoHash>
-         </fileInfos>
-         </return>
+             如果成功，返回以下信息：
+             <return>
+             <msg_code>0</msg_code>
+             <msg>操作成功</msg>
+             <fileInfos>
+             <hashAlgorithm>哈希算法</hashAlgorithm>
+             <compressionFormat>压缩格式</compressionFormat>
+             <encryptAlgorithm>加密算法</encryptAlgorithm>
+             <return_FileName>省局系统的备案数据文件名</return_FileName>
+             <beianInfo>备案信息内容</beianInfo>
+             <beianInfoHash>备案信息的哈希值</beianInfoHash>
+             </fileInfos>
+             </return>
 
          企业侧系统收到上述数据后，首先对beianInfo信息进行base64解码，接着对解码后的信息使用encryptAlgorithm指定的加密算法解密，在得到备案信息的压缩信息后，再使用hashAlgorithm指定的哈希算法计算哈希值，然后与beianInfoHash信息base64解码后的信息进行比较。如果比较一致，那么备案信息的完整性得到保证；如果比较不一致，则哈希值验证未通过，备案数据不完整。最后，在通过完整性校验后，使用compressionFormat指定的压缩格式对压缩后的信息进行解压缩，得到备案数据信息。
          如果操作错误，返回以下信息：
@@ -484,7 +482,7 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
          * @apiParam {Number} hashAlgorithm 哈希算法 0: MD5哈希算法
          * @apiParam {String} fileName  在isp_download方法中已成功接收到的备案信息文件名
          *
-         * @apiSuccess {XML}
+         * @apiSuccess {XML} xml
          *
          *该方法返回一个XML数据流（详见文件“企业数据下载确认方法调用返回数据格式.xsd”），参照以下信息：
          <return>
@@ -537,7 +535,7 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
          * @apiParam {String} pwdHash 使用指定的哈希算法对用户密码和随机字符串进行哈希运算，然后进行base64编码运算得到的结果，用户口令由企业所在省管局（或部管局）维护管理
          * @apiParam {Number} hashAlgorithm 哈希算法 0: MD5哈希算法
          *
-         * @apiSuccess {XML}
+         * @apiSuccess {XML} xml
          *该方法返回一个XML数据流（详见文件“企业最近上载数据查询方法调用返回数据格式.xsd”），其中描述了本次操作的结果代码、结果描述。
          如果成功，返回以下信息：
          <return>
@@ -627,7 +625,7 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
                      11-表示通过台胞证号码查询个人主体是否备案。
          * @apiParam {String} queryCondition 与queryConditionType对应的域名或证件号码：
          *
-         * @apiSuccess {XML}
+         * @apiSuccess {XML} xml
          *该方法返回一个XML数据流（详见文件“是否备案查询方法调用返回数据格式.xsd”），其中描述了本次操作的结果代码、结果描述以及是否备案信息。
          1）	查询成功的返回
          	已备案的结果信息：
@@ -683,6 +681,7 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
          * @apiPermission whitelist
          * @apiVersion 0.0.2
          *
+         * @apiDescription
          * 方法调用限制：一定时间内，系统限制同一备案密码校验的次数，具体限制次数根据业务需要设定。
              企业侧系统可以通过该方法校验备案密码是否正确。
              注：本方法中计算哈希值是指对数据字节流的哈希值计算。
@@ -703,7 +702,7 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
          * @apiParam {String} baxh 备案号
          * @apiParam {String} bamm 备案密码
          *
-         * @apiSuccess {XML}
+         * @apiSuccess {XML} xml
          该方法返回一个XML数据流，其中描述了本次操作的结果代码、结果描述以及是否校验成功。
          1）	校验操作成功的返回
 
@@ -788,7 +787,7 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
          * @apiParam {Number} hashAlgorithm 哈希算法 0-MD5
          * @apiParam {Number} encryptAlgorithm 加密算法 0: 不加密  1: AES加密算法，加密模式使用CBC模式，补码方式采用PKCS5Padding，密钥偏移量由部级系统、省局系统生成的字符串，如“0102030405060708”。
          *
-         * @apiSuccess {Object} { beianInfo:'', beianInfoHash:''}
+         * @apiSuccess {Object} ret {beianInfo:'', beianInfoHash:''}
          */
         encryptContent(content,compressionFormat = COMPRESSIONFORMAT,hashAlgorithm = HASHALGORITHM, encryptAlgorithm = ENCRYPTALGORITHM){
 
@@ -849,7 +848,7 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
          * @apiParam {Number} hashAlgorithm 哈希算法 0-MD5
          * @apiParam {Number} encryptAlgorithm 加密算法 0: 不加密  1: AES加密算法，加密模式使用CBC模式，补码方式采用PKCS5Padding，密钥偏移量由部级系统、省局系统生成的字符串，如“0102030405060708”。
          *
-         * @apiSuccess {Object} {result:0|1,beianInfo:''}  ret:0不通过,1通过, beianInfo解密,解压后的内容
+         * @apiSuccess {Object} ret {result:0|1,beianInfo:''}  ret:0不通过,1通过, beianInfo解密,解压后的内容
          */
         decryptContent([beianInfo:'',beianInfoHash:''],compressionFormat = COMPRESSIONFORMAT,hashAlgorithm = HASHALGORITHM, encryptAlgorithm = ENCRYPTALGORITHM){
             var ret = {result:0,beianInfo:''};
