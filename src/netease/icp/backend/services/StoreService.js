@@ -966,22 +966,35 @@ var utils = require('utility');
         * filename: 文件名
         * */
         uploadNos(key,filename){
-            console.log("1");
             return function* (){
-                console.log("2");
                 var url = `http://apollodev.nos.netease.com/${key}`;
-                console.log("3");
                 let nos = new Nos('c92f74b0d48f4fb39271a1109da74cc2','f200fad9c6b541d28f01159de8d9ecea','apollodev');
-                console.log("4");
                 try{
                     yield nos.upload(key,filename);
                 }catch (e){
                     console.log(e);
                 }
-
-                console.log("5");
                 nos = null;
                 return url;
+            }
+        }
+
+        /*
+        * key:  object key, can be date object
+        * filename: 文件名
+        * */
+        downloadNos(key){
+            return function* (){
+                var url = `http://apollodev.nos.netease.com/${key}`;
+                let nos = new Nos('c92f74b0d48f4fb39271a1109da74cc2','f200fad9c6b541d28f01159de8d9ecea','apollodev');
+                try{
+                    var ret = yield nos.getObject(key);
+                }catch (e){
+                    console.log(e);
+                }
+
+                nos = null;
+                return ret;
             }
         }
 

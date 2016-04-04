@@ -581,7 +581,7 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
                         //parser.toXml(json);生成的结果不符合XML规范
                         var xml2 = json2xml(json, {header: true});
                         console.log(xml2);*/
-                        res();
+                        res({dataSequence:me.dataSequence});
                     }
                 });
             });
@@ -729,7 +729,7 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
                         rej();
                     }else{
                         EasyNode.DEBUG && logger.debug(`isp_verifybamm to ${args} success`);
-                        res();
+                        res(result);
                     }
                 });
             });
@@ -893,15 +893,12 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
             }
         }
 
-        getUploadInitParam(){
-            var randVal = utils.randomString(20, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-            var pwdHash = this.genPwdHash(randVal,PASSWORD, HASHALGORITHM);
-            return {ispId:ISPID,userName:USERNAME,randVal:randVal,pwdHash:pwdHash,encryptAlgorithm:ENCRYPTALGORITHM,hashAlgorithm:HASHALGORITHM,compressionFormat:COMPRESSIONFORMAT,dataSequence:this.dataSequence};
-        }
+
 
         genbeianInfo(json,type){
-
             var me = this;
+            json.record.sitemanagerurl = this.base64_encode('/Users/hujiabao/Downloads/1457595670071');
+
             return function *(){
                 if(type == me.FIRST){
                     try{
@@ -915,13 +912,19 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
                     }
                 }
             }
+
         }
 
-        getDownloadInitParam(){
+        getUploadInitParam(){
+            return Object.assign({encryptAlgorithm:ENCRYPTALGORITHM,compressionFormat:COMPRESSIONFORMAT,dataSequence:this.dataSequence},this.getInitParam(true));
+        }
+
+        getInitParam(upcase=true){
             var randVal = utils.randomString(20, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
             var pwdHash = this.genPwdHash(randVal,PASSWORD, HASHALGORITHM);
-            return {ispId:ISPID,userName:USERNAME,randVal:randVal,pwdHash:pwdHash,hashAlgorithm:HASHALGORITHM};
+            return Object.assign({userName:USERNAME,randVal:randVal,pwdHash:pwdHash,hashAlgorithm:HASHALGORITHM},upcase ? {ispID:ISPID} : { ispId:ISPID});
         }
+
 
         base64_encode(file){
             var bitmap = fso.readFileSync(file);

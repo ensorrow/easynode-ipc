@@ -1,3 +1,4 @@
+const fs = require('fs');
 var xzba = {
    Baxx:[
        {
@@ -256,10 +257,10 @@ function XZBA_ASSIGN(json){
         Fjxx:{
             Fjwjgx:1,
             Fjyt:1,
-            Fjnr:'',
+            Fjnr:json.record.sitemanagerurl,
             Fjssdx:{
                 Ssdxlx:1,
-                Ssdxbs:json.website.id
+                Ssdxbs:json.company.id
             },
             Bz:''
         }
