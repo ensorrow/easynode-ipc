@@ -271,6 +271,7 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
             this.clientVerify = null;
             this.dataSequence = 0;
             this.FIRST = 1;
+
         }
 
         /**
@@ -903,8 +904,10 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
                 if(type == me.FIRST){
                     try{
                         var assignedJson = XZBA_ASSIGN(json) ;
+                        //fso.writeFileSync('/Users/hujiabao/Downloads/aa.txt',JSON.stringify(assignedJson));
                         var xml2 = json2xml(assignedJson, { attributes_key: 'attr',header: true });
-                        var ret = yield me.encryptContent(xml2);
+                        fso.writeFileSync('/Users/hujiabao/Downloads/beianinfo.xml',iconv.encode(xml2, 'GBK'));
+                        var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
                         return ret;
                     }catch(e){
                         EasyNode.DEBUG && logger.debug(` ${e}`);

@@ -1,118 +1,19 @@
 const fs = require('fs');
+
 var xzba = {
-   Baxx:[
-       {
-       Zt_xx:{
-           IspZtid:0,
-           Dwmc:'',
-           Dwxz:0,
-           Tzr:'',
-           Txdz:{
-               Shengid:0,
-               Shiid:0,
-               Xianid:0,
-               Xxdz:''
-           },
-           Zj:{
-               Zjlx:0,
-               Zjhm:'',
-               Zjzs:''
-           },
-           Fzr:{
-               Fzr_xm:'',
-               Fzr_dhhm:'',
-               Fzr_sjhm:'',
-               Fzr_dzyj:'',
-               Msn:'',
-               Qq:'',
-               Fzr_zjlx:0,
-               Fzr_zjhm:''
-           },
-           Bbfs:1,
-           Bz:''
-       },
-       Wz_xx:{
-           IspWzid:0,
-           Wzmc:'',
-           Nrlx:{
-               Nrlx_xx:{
-                   Nrlx_id:0,
-                   Qzsph:'',
-                   Spwj:['']
-               }
-           },
-           Fwnr:{
-               Fwnr_id:0
-           },
-           Yylb: {
-               Yylb_id: [0]
-           },
-           Ym_xx:[
-               {
-                   IspYmid:0,
-                   Ym:''
-               }
-           ],
-           Jr_xx:[
-               {
-                   IspJrid:0,
-                   Wzfb:[
-                       1
-                   ],
-                   Wzjrfs:{
-                       Jrfs:[
-                           1
-                       ]
-                   },
-                   Ip_xx:{
-                       IspIpid:0,
-                       Qsip:'',
-                       Zzip:''
-                   }
-               }
-           ],
-           Wz_Fzr:{
-               Fzr_xm:'',
-               Fzr_ddhm:'',
-               Fzr_sjhm:'',
-               Fzr_dzyj:'',
-               Msn:'',
-               Qq:'',
-               Fzr_zjlx:0,
-               Fzr_zjhm:''
-           },
-           Syurl:'',
-           Wz_Bz:''
-       },
-       Fj: [
-           {
-           Fjxx: {
-               Fjwjgs: 0,
-               Fjyt: 0,
-               Fjnr: '',
-               Fjssdx: {
-                   Ssdxlx: 1,
-                   Ssdxbs: 0
-               },
-               Bz: ''
-            }
-           }
-       ]
-    }
-   ]
-};
-
-var  ICP = {
-    XZBA:xzba
-};
-
-var XZBA = {
     UploadData: {
-        ICP: ICP
+        ICP: {
+            XZBA:{
+                Baxx:[
 
+                ]
+            },
+            Qqdwid:0
+        }
     },
     attr: {version:"V.3.0"}
 };
+
 
 /*
 * { website:
@@ -186,89 +87,167 @@ var XZBA = {
 */
 function XZBA_ASSIGN(json){
     "use strict";
-    var tmp = ICP.XZBA.Baxx[0];
-    tmp.Zt_xx.IspZtid = json.company.id;
-    tmp.Zt_xx.Dwmc = json.company.name;
-    tmp.Zt_xx.Dwxz = json.company.nature;//ToDo
-    tmp.Zt_xx.Tzr = json.company.owner;
-    tmp.Zt_xx.Txdz.Shengid = 0;
-    tmp.Zt_xx.Txdz.Shiid = 0;
-    tmp.Zt_xx.Txdz.Xianid = 0;
-    tmp.Zt_xx.Txdz.Xxdz = json.company.commaddress;
-    tmp.Zt_xx.Zj.Zjlx = json.company.idtype;//ToDo
-    tmp.Zt_xx.Zj.Zjhm = json.company.idnumber;
-    tmp.Zt_xx.Zj.Zjzs = json.company.liveaddress
-    tmp.Zt_xx.Fzr.Fzr_xm = json.company.managername;
-    tmp.Zt_xx.Fzr.Fzr_dhhm = json.company.officephonenumber;
-    tmp.Zt_xx.Fzr.Fzr_sjhm = json.company.mobile;
-    tmp.Zt_xx.Fzr.Fzr_dzyj = json.company.email;
-    tmp.Zt_xx.Fzr.Msn = '';//ToDo
-    tmp.Zt_xx.Fzr.Qq = json.website.qq;//ToDo
-    tmp.Zt_xx.Fzr.Fzr_zjlx = json.company.manageridtype;
-    tmp.Zt_xx.Fzr.Fzr_zjhm = json.company.manageridnumber;
-    tmp.Zt_xx.Bbfs = 1;//0-自行报备,1-代为报备
-    tmp.Zt_xx.Bz = '';//ToDo
+    var Baxx = {
+        Zt_xx:{},
+        Wz_xx:[],
+        Fj:[]
+    };
+    var ztxx = {
+        IspZtid:0,
+        Dwmc:'',
+        Dwxz:0,
+        Tzr:'',
+        Txdz:{
+            Shengid:0,
+            Shiid:0,
+            Xianid:0,
+            Xxdz:''
+        },
+        Zj:{
+            Zjlx:0,
+            Zjhm:'',
+            Zjzs:''
+        },
+        Fzr:{
+            Fzr_xm:'',
+            Fzr_dhhm:'',
+            Fzr_sjhm:'',
+            Fzr_dzyj:'',
+            Msn:'',
+            Qq:'',
+            Fzr_zjlx:0,
+            Fzr_zjhm:''
+        },
+        Bbfs:1,
+        Bz:''
+    };
 
-    tmp.Wz_xx.IspWzid = json.website.id;
-    tmp.Wz_xx.Wzmc = json.website.name;
-    tmp.Wz_xx.Nrlx.Nrlx_xx.Nrlx_id = json.website.prechecktype;//ToDo
-    tmp.Wz_xx.Nrlx.Nrlx_xx.Qzsph = json.website.checknumber;
-    tmp.Wz_xx.Nrlx.Nrlx_xx.Spwj = json.website.checkfileurl;
-    tmp.Wz_xx.Fwnr.Fwnr_id = json.website.servicecontent;//ToDo
-    tmp.Wz_xx.Yylb.Yylb_id = [1];//json.website.languages;//ToDo
-    tmp.Wz_xx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain});
+    ztxx.IspZtid = json.company.id;
+    ztxx.Dwmc = json.company.name;
+    ztxx.Dwxz = json.company.nature;//ToDo
+    ztxx.Tzr = json.company.owner;
+    ztxx.Txdz.Shengid = 110000;//ToDo
+    ztxx.Txdz.Shiid = 110101;//ToDo
+    ztxx.Txdz.Xianid = 110102;//ToDo
+    ztxx.Txdz.Xxdz = json.company.commaddress;
+    ztxx.Zj.Zjlx = json.company.idtype;//ToDo
+    ztxx.Zj.Zjhm = json.company.idnumber;
+    ztxx.Zj.Zjzs = json.company.liveaddress;
+    ztxx.Fzr.Fzr_xm = json.company.managername;
+    ztxx.Fzr.Fzr_dhhm = json.company.officephonenumber;
+    ztxx.Fzr.Fzr_sjhm = json.company.mobile;
+    ztxx.Fzr.Fzr_dzyj = json.company.email;
+    ztxx.Fzr.Msn = 'hujb2000@hotmail.com';//ToDo
+    ztxx.Fzr.Qq = json.website.qq;//ToDo
+    ztxx.Fzr.Fzr_zjlx = json.company.manageridtype;
+    ztxx.Fzr.Fzr_zjhm = json.company.manageridnumber;
+    ztxx.Bbfs = 1;//0-自行报备,1-代为报备
+    ztxx.Bz = '无';//ToDo
+
+    Baxx.Zt_xx = ztxx;
+
+    var wzxx = {
+        IspWzid:0,
+        Wzmc:'',
+        Nrlx:{
+            Nrlx_xx:{
+                Nrlx_id:0,
+                Qzsph:'',
+                Spwj:['']
+            }
+        },
+        Fwnr:{
+            Fwnr_id:0
+        },
+        Yylb: {
+            Yylb_id: [0]
+        },
+        Ym_xx:[
+
+        ],
+        Jr_xx:[
+
+        ],
+        Wz_Fzr:{
+            Fzr_xm:'',
+            Fzr_dhhm:'',
+            Fzr_sjhm:'',
+            Fzr_dzyj:'',
+            Msn:'',
+            Qq:'',
+            Fzr_zjlx:0,
+            Fzr_zjhm:''
+        },
+        Syurl:'',
+        Wz_Bz:''
+    };
+
+    wzxx.IspWzid = json.website.id;
+    wzxx.Wzmc = json.website.name;
+    wzxx.Nrlx.Nrlx_xx.Nrlx_id = json.website.prechecktype;//ToDo
+    wzxx.Nrlx.Nrlx_xx.Qzsph = json.website.checknumber;
+    wzxx.Nrlx.Nrlx_xx.Spwj = json.website.checkfileurl;
+    wzxx.Fwnr.Fwnr_id = json.website.servicecontent;//ToDo
+    wzxx.Yylb.Yylb_id = [1];//json.website.languages;//ToDo
+    wzxx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain});
     if( json.website.domain1.length > 0 ){
-        tmp.Wz_xx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain1});
+        wzxx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain1});
     }
     if( json.website.domain2.length > 0 ){
-        tmp.Wz_xx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain2});
+        wzxx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain2});
     }
     if( json.website.domain3.length > 0 ){
-        tmp.Wz_xx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain3});
+        wzxx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain3});
     }
     if( json.website.domain4.length > 0 ){
-        tmp.Wz_xx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain4});
+        wzxx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain4});
     }
-    tmp.Wz_xx.Jr_xx.push({
+    wzxx.Jr_xx.push({
         IspJrid:json.website.id,
         Wzfb:{
-            Fbdd:json.website.serverregion
+            Fbdd:[json.website.serverregion]
         },
         Wzjrfs:{
             Jrfs:[1]
         },
-        Ip_xx:{
-            IspIpid:json.website.id,
-            Qsip:json.website.ip.ip1,
-            Zzip:json.website.ip.ip2
-        }
+        Ip_xx:[
+            {
+                IspIpid:json.website.id,
+                Qsip:json.website.ip.ip1,
+                Zzip:json.website.ip.ip2
+            }
+        ]
     }); //ToDo
-    tmp.Wz_xx.Wz_Fzr.Fzr_xm = json.website.managername;
-    tmp.Wz_xx.Wz_Fzr.Fzr_dhhm = json.website.officephonenumber;
-    tmp.Wz_xx.Wz_Fzr.Fzr_sjhm = json.website.mobile;
-    tmp.Wz_xx.Wz_Fzr.Fzr_dzyj = json.website.email;
-    tmp.Wz_xx.Wz_Fzr.Msq = '';//ToDo
-    tmp.Wz_xx.Wz_Fzr.Qq = json.website.qq;
-    tmp.Wz_xx.Wz_Fzr.Fzr_zjlx = json.website.manageridtype;
-    tmp.Wz_xx.Wz_Fzr.Fzr_zjhm = json.website.manageridnumber;
-    tmp.Wz_xx.Syurl = json.website.homeurl;
-    tmp.Wz_xx.Wz_Bz = json.website.remark;
-    var temp = {
+    wzxx.Wz_Fzr.Fzr_xm = json.website.managername;
+    wzxx.Wz_Fzr.Fzr_dhhm = '0571'+json.website.officephonenumber;//ToDo
+    wzxx.Wz_Fzr.Fzr_sjhm = json.website.mobile;
+    wzxx.Wz_Fzr.Fzr_dzyj = json.website.email;
+    wzxx.Wz_Fzr.Msn = 'hujb2000@hotmail.com';//ToDo
+    wzxx.Wz_Fzr.Qq = json.website.qq;
+    wzxx.Wz_Fzr.Fzr_zjlx = json.website.manageridtype;
+    wzxx.Wz_Fzr.Fzr_zjhm = json.website.manageridnumber;
+    wzxx.Syurl = json.website.homeurl;
+    wzxx.Wz_Bz = json.website.remark.length <= 0 ? "remark empty" : json.website.remark ;//ToDo
+    Baxx.Wz_xx.push(wzxx);
+
+    var fj = {
         Fjxx:{
-            Fjwjgx:1,
+            Fjwjgs:1,
             Fjyt:1,
             Fjnr:json.record.sitemanagerurl,
             Fjssdx:{
                 Ssdxlx:1,
                 Ssdxbs:json.company.id
             },
-            Bz:''
+            Bz:'empty'
         }
     };//ToDo
-    tmp.Fj.push(temp);
-    ICP.XZBA.Baxx.push(tmp);
+    Baxx.Fj.push(fj);
 
-    return XZBA;
+    console.log(xzba);
+    xzba.UploadData.ICP.XZBA.Baxx.push(Baxx);
+    xzba.UploadData.ICP.Qqdwid = 110000000211;
+    return xzba;
 };
 
 export { XZBA_ASSIGN };
