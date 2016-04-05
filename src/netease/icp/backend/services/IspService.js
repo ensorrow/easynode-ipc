@@ -857,20 +857,19 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
                 if( _.isEmpty(beianInfo) ){
                     return ret;
                 }
+
                 //1. base64 decode
                 var contentDecodebase64 = new Buffer(beianInfo,'base64');
                 var calcHash = '';
-                var downHash = '';
                 var contentCompression = '';
                 if( encryptAlgorithm == ENCRYPTALGORITHM ){
                     contentCompression = contentDecodebase64;
                 }
                 if( hashAlgorithm == HASHALGORITHM ){
-                    calcHash = new Buffer(md5(contentCompression));
-                    downHash = new Buffer(beianInfoHash,'base64').toString();
+                    calcHash = new Buffer(crypto.createHash('md5').update(contentCompression).digest('base64'));
                 }
-                EasyNode.DEBUG && logger.debug(`beianInfoHash calced ${calcHash}, beianInfoHash downloaded ${downHash}`);
-                if( calcHash == downHash ){
+                EasyNode.DEBUG && logger.debug(`beianInfoHash calced ${calcHash}, beianInfoHash downloaded ${beianInfoHash}`);
+                if( calcHash == beianInfoHash ){
                     //check pass, uncompression
                     yield new Promise(function(res,rej){
                         if( compressionFormat ==  COMPRESSIONFORMAT ){
@@ -893,7 +892,6 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
                 return ret;
             }
         }
-
 
 
         genbeianInfo(json,type){
