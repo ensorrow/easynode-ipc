@@ -102,10 +102,11 @@ describe('IspService',function() {
             try{
                  beianInfo = yield ispService.genbeianInfo(json,ispService.FIRST);
                  args = Object.assign(ispService.getUploadInitParam(), beianInfo);
+                // var ret = yield ispService.decryptContent([beianInfo.beianInfo,beianInfo.beianInfoHash]);
+                //
+                //console.log("decrypt resut:",ret.result);
+                //console.log("decryptContent:",ret.beianInfo);
 
-                 var ret = yield ispService.decryptContent([beianInfo.beianInfo,beianInfo.beianInfoHash]);
-                console.log("decrypt resut:",ret.result);
-                console.log("decryptContent:",ret.beianInfo);
             }catch(e){
                 EasyNode.DEBUG && logger.debug(` ${e}`);
             }
@@ -115,9 +116,12 @@ describe('IspService',function() {
                 EasyNode.DEBUG && logger.debug(` ${e}`);
             }
 
-            ispService.isp_upload(args).then(function () {
+            ispService.isp_upload(args).then(function (result) {
+                console.log(result);
+                console.log("aaa");
                 done();
             }).catch(function (e) {
+                console.log("eeeee");
                 done(e);
             });
         });

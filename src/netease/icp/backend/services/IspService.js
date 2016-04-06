@@ -793,10 +793,6 @@ var archiver = require('archiver');
         encryptContent(content,compressionFormat = COMPRESSIONFORMAT,hashAlgorithm = HASHALGORITHM, encryptAlgorithm = ENCRYPTALGORITHM){
 
             var ret = { beianInfo:'', beianInfoHash:''};
-
-            console.log("content:",content);
-            console.log("content:",content.toString());
-
             var me = this;
 
             return function * () {
@@ -805,33 +801,32 @@ var archiver = require('archiver');
                 }
                 //1
                 var contentCompression = null;
-                yield new Promise(function(res,rej){
-                    if( compressionFormat ==  COMPRESSIONFORMAT ){
-                        zlib.gzip(content,function(err,buff){
-                            if( err ){
-                                EasyNode.DEBUG && logger.debug(`gzip to failed, err: ${err}`);
-                                rej(err);
-                            }else{
-                                EasyNode.DEBUG && logger.debug(`gzip to success`);
-                                res();
-                                contentCompression = buff;
-                            }
-                        })
-                    }
-                });
-                if( !contentCompression ){
-                    return ret;
-                }
+                //yield new Promise(function(res,rej){
+                //    if( compressionFormat ==  COMPRESSIONFORMAT ){
+                //        zlib.gzip(content,function(err,buff){
+                //            if( err ){
+                //                EasyNode.DEBUG && logger.debug(`gzip to failed, err: ${err}`);
+                //                rej(err);
+                //            }else{
+                //                EasyNode.DEBUG && logger.debug(`gzip to success`);
+                //                res();
+                //                contentCompression = buff;
+                //            }
+                //        })
+                //    }
+                //});
+                //if( !contentCompression ){
+                //    return ret;
+                //}
                 yield me.generateZip(content,"/Users/hujiabao/Downloads/beianinfo.zip","beianinfo.xml");
 
                 //CG Test Data
-                contentCompression = fso.readFileSync('/Users/hujiabao/Downloads/1.zip');
+                contentCompression = fso.readFileSync('/Users/hujiabao/Downloads/beianinfo.zip');
                 //2
                 if( hashAlgorithm == HASHALGORITHM ){
                     ret.beianInfoHash = crypto.createHash('md5').update(contentCompression).digest('base64');
                 }
                 //3
-                console.log("zipcontent",contentCompression);
                 if( encryptAlgorithm == ENCRYPTALGORITHM ){
                     ret.beianInfo = contentCompression.toString('base64');
                 }
@@ -860,7 +855,7 @@ var archiver = require('archiver');
 
                 zipArchiver.pipe(output);
 
-                zipArchiver.append(buffer,{name:`name`});
+                zipArchiver.append(buffer,{name:name});
 
                 zipArchiver.finalize();
             });
@@ -936,6 +931,8 @@ var archiver = require('archiver');
         genbeianInfo(json,type){
 
             var me = this;
+
+            //ToDo
             json.record.sitemanagerurl = this.base64_encode('/Users/hujiabao/Downloads/1457595670071');
 
             return function *(){
@@ -943,9 +940,6 @@ var archiver = require('archiver');
                     try{
                         var assignedJson = XZBA_ASSIGN(json) ;
                         var xml2 = json2xml(assignedJson, { attributes_key: 'attr',header: true });
-                        //xml2 = 'abcdefghijkljmnopqrst';
-
-                        fso.writeFileSync('/Users/hujiabao/Downloads/beianinfo.xml',iconv.encode(xml2, 'GBK'));
 
                         var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
                         return ret;
