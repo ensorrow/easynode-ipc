@@ -365,6 +365,7 @@ var archiver = require('archiver');
                         console.log(json);
                         if( 0 == parseInt(json.return.msg_code) ){
                             var msg = json.return.msg;
+                            me.writeDataSequence(me.dataSequence+1);
                             console.log(msg);
                         }else if( 14 == parseInt(json.return.msg_code) ){
                             me.writeDataSequence(json.return.dataSequences.dataSequence);
@@ -442,10 +443,19 @@ var archiver = require('archiver');
                 me.clientReport.isp_download(args, function(err,result){
                     if(err){
                         EasyNode.DEBUG && logger.debug(`isp_download to ${args} failed, err: ${err},result: ${result}`);
+                        console.log(result);
                         rej();
                     }else{
                         EasyNode.DEBUG && logger.debug(`isp_download to ${args} success`);
-                        res();
+                        var xml = result.return;
+                        var json = parser.toJson(xml, {object: true, arrayNotation: false});
+                        if( 3 == json.return.msg_code ){//Continue download
+
+                        }
+
+                        var fileInfos = json.return.fileInfos;
+
+                        res(fileInfos);
                     }
                 });
             });
@@ -890,7 +900,9 @@ var archiver = require('archiver');
          */
         decryptContent([beianInfo:'',beianInfoHash:''],compressionFormat = COMPRESSIONFORMAT,hashAlgorithm = HASHALGORITHM, encryptAlgorithm = ENCRYPTALGORITHM){
             var ret = {result:0,beianInfo:''};
+            console.log("1");
             return function * () {
+                console.log("2");
                 if( _.isEmpty(beianInfo) ){
                     return ret;
                 }
@@ -901,6 +913,8 @@ var archiver = require('archiver');
                 var contentCompression = '';
                 if( encryptAlgorithm == ENCRYPTALGORITHM ){
                     contentCompression = contentDecodebase64;
+                }else {
+                    console.log("ToDo");
                 }
                 if( hashAlgorithm == HASHALGORITHM ){
                     calcHash = new Buffer(crypto.createHash('md5').update(contentCompression).digest('base64'));

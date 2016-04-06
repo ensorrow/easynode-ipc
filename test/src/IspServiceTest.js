@@ -96,68 +96,74 @@ describe('IspService',function() {
     //
     //});
 
-    it('isp_upload',function (done){
+    //it('isp_upload',function (done){
+    //
+    //    co(function * () {
+    //
+    //        var beianInfo;
+    //        var args;
+    //        try{
+    //             beianInfo = yield ispService.genbeianInfo(json,ispService.FIRST);
+    //             args = ispService.getUploadInitParam();
+    //             args.beianInfo  = beianInfo.beianInfo;
+    //             args.beianInfoHash = beianInfo.beianInfoHash;
+    //
+    //            console.log("dataSequence upload:",args.dataSequence);
+    //
+    //            // var ret = yield ispService.decryptContent([beianInfo.beianInfo,beianInfo.beianInfoHash]);
+    //            //
+    //            //console.log("decrypt resut:",ret.result);
+    //            //console.log("decryptContent:",ret.beianInfo);
+    //
+    //        }catch(e){
+    //            EasyNode.DEBUG && logger.debug(` ${e}`);
+    //        }
+    //        try{
+    //            fs.writeFileSync('/Users/hujiabao/Downloads/reqdata.txt',JSON.stringify(args));
+    //        }catch(e){
+    //            EasyNode.DEBUG && logger.debug(` ${e}`);
+    //        }
+    //
+    //        console.log("isp_upload......");
+    //        try{
+    //            ispService.isp_upload(args).then(function (result) {
+    //                console.log(result);
+    //                console.log("aaa");
+    //                done();
+    //            }).catch(function (e,result) {
+    //                console.log("eeeee");
+    //                console.log("result",result);
+    //                done(e);
+    //            });
+    //        }catch(e){
+    //            console.log("11111");
+    //            console.log(e);
+    //            console.log(e.stack);
+    //        }
+    //
+    //    });
+    //
+    //});
+
+    it('isp_download',function (done){
 
         co(function * () {
 
-            var beianInfo;
-            var args;
-            try{
-                 beianInfo = yield ispService.genbeianInfo(json,ispService.FIRST);
-                 args = ispService.getUploadInitParam();
-                 args.beianInfo  = beianInfo.beianInfo;
-                 args.beianInfoHash = beianInfo.beianInfoHash;
+            var ret = ispService.getInitParam();
+            var fileInfos ;
+            yield ispService.isp_download(ret).then(function (result) {
+                fileInfos = result;
+            }).catch(function (e) {
+                done(e);
+            });
 
-                console.log("dataSequence upload:",args.dataSequence);
+            yield ispService.decryptContent([fileInfos.beianInfo,fileInfos.beianInfoHash],fileInfos.compressionFormat,fileInfos.hashAlgorithm,fileInfos.encryptAlgorithm);
 
-                // var ret = yield ispService.decryptContent([beianInfo.beianInfo,beianInfo.beianInfoHash]);
-                //
-                //console.log("decrypt resut:",ret.result);
-                //console.log("decryptContent:",ret.beianInfo);
-
-            }catch(e){
-                EasyNode.DEBUG && logger.debug(` ${e}`);
-            }
-            try{
-                fs.writeFileSync('/Users/hujiabao/Downloads/reqdata.txt',JSON.stringify(args));
-            }catch(e){
-                EasyNode.DEBUG && logger.debug(` ${e}`);
-            }
-
-            console.log("isp_upload......");
-            try{
-                ispService.isp_upload(args).then(function (result) {
-                    console.log(result);
-                    console.log("aaa");
-                    done();
-                }).catch(function (e,result) {
-                    console.log("eeeee");
-                    console.log("result",result);
-                    done(e);
-                });
-            }catch(e){
-                console.log("11111");
-                console.log(e);
-                console.log(e.stack);
-            }
+            done();
 
         });
 
     });
-
-    //it('isp_download',function (done){
-    //
-    //    co(function * () {
-    //
-    //        var ret = ispService.getInitParam();
-    //        ispService.isp_download(ret).then(function () {
-    //            done();
-    //        }).catch(function (e) {
-    //            done(e);
-    //        });
-    //    });
-    //
-    //});
     //
     //it('isp_downloadack',function (done){
     //
