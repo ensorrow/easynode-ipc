@@ -269,9 +269,9 @@ var archiver = require('archiver');
             this.clientReport = null;
             this.clientQuery = null;
             this.clientVerify = null;
-            this.dataSequence = 0;
+            this.dataSequence = 6;
             this.FIRST = 1;
-
+            this.readDataSequence();
         }
 
         /**
@@ -364,9 +364,14 @@ var archiver = require('archiver');
                         var json = parser.toJson(xml, {object: true, arrayNotation: false});
                         console.log(json);
                         if( 0 == parseInt(json.return.msg_code) ){
-                            me.dataSequence = parseInt(json.return.fileInfos.dataSequence);
-                        }else{
+                            var msg = json.return.msg;
+                            console.log(msg);
+                        }else if( 14 == parseInt(json.return.msg_code) ){
+                            me.writeDataSequence(json.return.dataSequences.dataSequence);
+                        }
+                        else{
                             EasyNode.DEBUG && console.log(map[json.return.msg_code]);
+                            console.log(json);
                         }
                         res();
                     }
@@ -953,13 +958,17 @@ var archiver = require('archiver');
         }
 
         getUploadInitParam(){
-            return Object.assign({encryptAlgorithm:ENCRYPTALGORITHM,compressionFormat:COMPRESSIONFORMAT,dataSequence:this.dataSequence},this.getInitParam(true));
+            var randVal = utils.randomString(20, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+            var pwdHash = this.genPwdHash(randVal,PASSWORD, HASHALGORITHM);
+            return { ispID:ISPID,userName:USERNAME,randVal:randVal,pwdHash:pwdHash,beianInfo:'',beianInfoHash:'',dataSequence:this.dataSequence,encryptAlgorithm:ENCRYPTALGORITHM,hashAlgorithm:HASHALGORITHM,compressionFormat:COMPRESSIONFORMAT};
         }
 
         getInitParam(upcase=true){
             var randVal = utils.randomString(20, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
             var pwdHash = this.genPwdHash(randVal,PASSWORD, HASHALGORITHM);
-            return Object.assign({userName:USERNAME,randVal:randVal,pwdHash:pwdHash,hashAlgorithm:HASHALGORITHM},upcase ? {ispID:ISPID} : { ispId:ISPID});
+            return upcase ?
+                { ispID:ISPID,userName:USERNAME,randVal:randVal,pwdHash:pwdHash,hashAlgorithm:HASHALGORITHM}:
+                { ispId:ISPID,userName:USERNAME,randVal:randVal,pwdHash:pwdHash,hashAlgorithm:HASHALGORITHM};
         }
 
 
@@ -972,6 +981,17 @@ var archiver = require('archiver');
             var bitmap = new Buffer(base64str,'base64');
             fso.writeFileSync(file,bitmap);
             EasyNode.DEBUG && logger.debug(`******** File created from base64 encoded string ********`);
+        }
+
+        readDataSequence(){
+            var ds = fso.readFileSync('./dataSequence.bin');
+            this.dataSequence = parseInt(ds);
+            console.log("read dataSequence:",this.dataSequence);
+        }
+
+        writeDataSequence(ds){
+            fso.writeFileSync('./dataSequence.bin',ds);
+            console.log("write dataSequence:",ds);
         }
 
         getClassName() {

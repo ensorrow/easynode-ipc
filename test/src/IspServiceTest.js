@@ -77,14 +77,17 @@ describe('IspService',function() {
         }).catch(function(e){
             done(e);
         });
+
     });
 
 
     //it('isp_querypreviousupload',function (done){
     //
     //    co(function * (){
-    //        yield ispService.isp_querypreviousupload(ispService.getInitParam(false)).then(function(result){
-    //                console.log(result);
+    //        var args = ispService.getInitParam(false);
+    //        console.log(args);
+    //        ispService.isp_querypreviousupload(args).then(function(result){
+    //                console.log("dataSequence:", result);
     //                done();
     //        }).catch(function(e){
     //                done(e);
@@ -92,7 +95,7 @@ describe('IspService',function() {
     //    });
     //
     //});
-    //
+
     it('isp_upload',function (done){
 
         co(function * () {
@@ -101,7 +104,12 @@ describe('IspService',function() {
             var args;
             try{
                  beianInfo = yield ispService.genbeianInfo(json,ispService.FIRST);
-                 args = Object.assign(ispService.getUploadInitParam(), beianInfo);
+                 args = ispService.getUploadInitParam();
+                 args.beianInfo  = beianInfo.beianInfo;
+                 args.beianInfoHash = beianInfo.beianInfoHash;
+
+                console.log("dataSequence upload:",args.dataSequence);
+
                 // var ret = yield ispService.decryptContent([beianInfo.beianInfo,beianInfo.beianInfoHash]);
                 //
                 //console.log("decrypt resut:",ret.result);
@@ -116,14 +124,23 @@ describe('IspService',function() {
                 EasyNode.DEBUG && logger.debug(` ${e}`);
             }
 
-            ispService.isp_upload(args).then(function (result) {
-                console.log(result);
-                console.log("aaa");
-                done();
-            }).catch(function (e) {
-                console.log("eeeee");
-                done(e);
-            });
+            console.log("isp_upload......");
+            try{
+                ispService.isp_upload(args).then(function (result) {
+                    console.log(result);
+                    console.log("aaa");
+                    done();
+                }).catch(function (e,result) {
+                    console.log("eeeee");
+                    console.log("result",result);
+                    done(e);
+                });
+            }catch(e){
+                console.log("11111");
+                console.log(e);
+                console.log(e.stack);
+            }
+
         });
 
     });
