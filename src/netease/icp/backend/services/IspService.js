@@ -16,7 +16,7 @@ var fso = require('fs');
 var parser = require('xml2json');
 var json2xml = require('json2xml');
 import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
-
+var archiver = require('archiver');
 
 
 (function () {
@@ -794,6 +794,11 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
 
             var ret = { beianInfo:'', beianInfoHash:''};
 
+            console.log("content:",content);
+            console.log("content:",content.toString());
+
+            var me = this;
+
             return function * () {
                 if( _.isEmpty(content) ){
                     return ret;
@@ -817,16 +822,48 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
                 if( !contentCompression ){
                     return ret;
                 }
+                yield me.generateZip(content,"/Users/hujiabao/Downloads/beianinfo.zip","beianinfo.xml");
+
+                //CG Test Data
+                contentCompression = fso.readFileSync('/Users/hujiabao/Downloads/1.zip');
                 //2
                 if( hashAlgorithm == HASHALGORITHM ){
                     ret.beianInfoHash = crypto.createHash('md5').update(contentCompression).digest('base64');
                 }
                 //3
+                console.log("zipcontent",contentCompression);
                 if( encryptAlgorithm == ENCRYPTALGORITHM ){
                     ret.beianInfo = contentCompression.toString('base64');
                 }
                 return ret;
             }
+        }
+
+        /*
+        * Generate zip file
+        * */
+        generateZip(buffer,zipPath,name){
+            return new Promise(function(res,rej){
+                var output = fso.createWriteStream(zipPath);
+                var zipArchiver = archiver('zip');
+
+                output.on('close',function(){
+                    console.log(zipArchiver.pointer()+' total bytes');
+                    console.log('archiver has been finalized and the output file descriptor has closed.');
+                    res();
+                });
+
+                zipArchiver.on('error',function(err){
+                    rej();
+                    throw err;
+                });
+
+                zipArchiver.pipe(output);
+
+                zipArchiver.append(buffer,{name:`name`});
+
+                zipArchiver.finalize();
+            });
         }
 
         /**
@@ -878,9 +915,11 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
                                     EasyNode.DEBUG && logger.debug(`ungzip to failed, err: ${err}`);
                                     rej(err);
                                 }else{
+                                    fso.writeFileSync('/Users/hujiabao/Downloads/response.zip',buff);
+
                                     EasyNode.DEBUG && logger.debug(`ungzip to success`);
                                     res();
-                                    ret.beianInfo = buff.toString();
+                                    ret.beianInfo = iconv.decode(buff, "GBK");
                                     ret.result = 1;
                                 }
                             })
@@ -895,6 +934,7 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
 
 
         genbeianInfo(json,type){
+
             var me = this;
             json.record.sitemanagerurl = this.base64_encode('/Users/hujiabao/Downloads/1457595670071');
 
@@ -902,9 +942,11 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
                 if(type == me.FIRST){
                     try{
                         var assignedJson = XZBA_ASSIGN(json) ;
-                        //fso.writeFileSync('/Users/hujiabao/Downloads/aa.txt',JSON.stringify(assignedJson));
                         var xml2 = json2xml(assignedJson, { attributes_key: 'attr',header: true });
+                        //xml2 = 'abcdefghijkljmnopqrst';
+
                         fso.writeFileSync('/Users/hujiabao/Downloads/beianinfo.xml',iconv.encode(xml2, 'GBK'));
+
                         var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
                         return ret;
                     }catch(e){
