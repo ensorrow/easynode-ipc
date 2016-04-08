@@ -17,7 +17,8 @@ var parser = require('xml2json');
 var json2xml = require('json2xml');
 import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
 var archiver = require('archiver');
-
+var unzip = require('unzip');
+var http = require("http");
 
 (function () {
     const ISPID = 110000000211;
@@ -900,45 +901,72 @@ var archiver = require('archiver');
          */
         decryptContent([beianInfo:'',beianInfoHash:''],compressionFormat = COMPRESSIONFORMAT,hashAlgorithm = HASHALGORITHM, encryptAlgorithm = ENCRYPTALGORITHM){
             var ret = {result:0,beianInfo:''};
-            console.log("1");
+            var me = this;
             return function * () {
-                console.log("2");
                 if( _.isEmpty(beianInfo) ){
                     return ret;
                 }
 
                 //1. base64 decode
-                var contentDecodebase64 = new Buffer(beianInfo,'base64');
+                var contentDecodebase64 = beianInfo;
                 var calcHash = '';
                 var contentCompression = '';
                 if( encryptAlgorithm == ENCRYPTALGORITHM ){
                     contentCompression = contentDecodebase64;
                 }else {
                     console.log("ToDo");
+                    try{
+                        contentCompression = contentDecodebase64;
+                        contentCompression = me.decryption(contentCompression);
+                    }catch(e){
+                        EasyNode.DEBUG && logger.debug(` ${e}`);
+                        console.log(e.stack);
+                        return false;
+                    }
                 }
                 if( hashAlgorithm == HASHALGORITHM ){
                     calcHash = new Buffer(crypto.createHash('md5').update(contentCompression).digest('base64'));
                 }
                 EasyNode.DEBUG && logger.debug(`beianInfoHash calced ${calcHash}, beianInfoHash downloaded ${beianInfoHash}`);
                 if( calcHash == beianInfoHash ){
+
+                    //fso.writeFileSync("/Users/hujiabao/Downloads/response.zip",contentCompression);
+                    //contentCompression = fso.readFileSync("/Users/hujiabao/Downloads/1.zip");
+
+                    //try{
+                    //    fso.createReadStream('/Users/hujiabao/Downloads/response.zip').pipe(unzip.Extract({ path: '/Users/hujiabao/Downloads/output' }));
+                    //}catch(e){
+                    //    EasyNode.DEBUG && logger.debug(` ${e}`);
+                    //    return false;
+                    //}
+
                     //check pass, uncompression
                     yield new Promise(function(res,rej){
                         if( compressionFormat ==  COMPRESSIONFORMAT ){
-                            zlib.gunzip(contentCompression,function(err,buff){
-                                if( err ){
-                                    EasyNode.DEBUG && logger.debug(`ungzip to failed, err: ${err}`);
-                                    rej(err);
-                                }else{
-                                    fso.writeFileSync('/Users/hujiabao/Downloads/response.zip',buff);
 
-                                    EasyNode.DEBUG && logger.debug(`ungzip to success`);
-                                    res();
-                                    ret.beianInfo = iconv.decode(buff, "GBK");
-                                    ret.result = 1;
-                                }
-                            })
+                            try{
+
+                                zlib.unzip(contentCompression,function(err,buff){
+                                    if( err ){
+                                        EasyNode.DEBUG && logger.debug(`ungzip to failed, err: ${err}`);
+                                        rej(err);
+                                    }else{
+                                        console.log(iconv.encode(buff,'GBK'));
+
+                                        EasyNode.DEBUG && logger.debug(`ungzip to success`);
+                                        res();
+                                        ret.beianInfo = iconv.decode(buff, "GBK");
+                                        ret.result = 1;
+                                    }
+                                });
+                            }catch(e){
+                                EasyNode.DEBUG && logger.debug(` ${e}`);
+                                return false;
+                            }
                         }
                     });
+
+
                 }else{
                     //check fail
                 }
@@ -952,11 +980,17 @@ var archiver = require('archiver');
             var me = this;
 
             //ToDo
-            json.record.sitemanagerurl = this.base64_encode('/Users/hujiabao/Downloads/1457595670071');
 
             return function *(){
                 if(type == me.FIRST){
                     try{
+                        json.record.sitemanagerurl = this.base64_encode('/Users/hujiabao/Downloads/1457595670071');
+                        var clip = '?imageView&quality=50';
+
+
+                        json.record.sitemanagerurl = new Buffer( yield me.downloadNos(json.record.sitemanagerurl + clip)).toString('base64');
+
+
                         var assignedJson = XZBA_ASSIGN(json) ;
                         var xml2 = json2xml(assignedJson, { attributes_key: 'attr',header: true });
 
@@ -986,6 +1020,39 @@ var archiver = require('archiver');
         }
 
 
+         encryption(data){
+            var key = KEY;
+            var iv = OFFSET;
+            var clearEncoding = 'utf8';
+            var cipherEncoding = 'base64';
+            var cipherChunks = [];
+            var cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
+            cipher.setAutoPadding(true);
+
+            cipherChunks.push(cipher.update(data, clearEncoding, cipherEncoding));
+            cipherChunks.push(cipher.final(cipherEncoding));
+
+            return cipherChunks.join('');
+        }
+
+        //data 是你的准备解密的字符串,key是你的密钥
+         decryption(data) {
+            var key = KEY;
+            key = iconv.encode(key,"GBK");
+            var iv = OFFSET;
+            iv = iconv.encode(iv,"GBK");
+            var clearEncoding = 'binary';
+            var cipherEncoding = 'base64';
+            var cipherChunks = [];
+            var decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
+            decipher.setAutoPadding(true);
+
+            cipherChunks.push(decipher.update(data, cipherEncoding, clearEncoding));
+            cipherChunks.push(decipher.final(clearEncoding));
+
+            return cipherChunks.join('');
+        }
+
         base64_encode(file){
             var bitmap = fso.readFileSync(file);
             return new Buffer(bitmap).toString('base64');
@@ -1007,6 +1074,27 @@ var archiver = require('archiver');
             fso.writeFileSync('./dataSequence.bin',ds);
             console.log("write dataSequence:",ds);
         }
+
+        downloadNos(url){
+            return function *(){
+                var imgData = "";
+                yield new Promise(function(resq,rej){
+                    http.get(url, function(res){
+                        res.setEncoding("binary"); //一定要设置response的编码为binary否则会下载下来的图片打不开
+                        res.on("data", function(chunk){
+                            imgData+=chunk;
+                        });
+
+                        res.on("end", function(){
+
+                        });
+                    });
+                });
+                return imgData;
+            }
+        }
+
+
 
         getClassName() {
             return EasyNode.namespace(__filename);
