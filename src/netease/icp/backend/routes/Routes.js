@@ -1,4 +1,4 @@
-xx'use strict'
+'use strict'
 
 var assert = require('assert');
 var logger = using('easynode.framework.Logger').forFile(__filename);

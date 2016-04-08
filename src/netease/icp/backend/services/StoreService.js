@@ -15,6 +15,7 @@ var Record = using('netease.icp.backend.models.Record');
 var Nos = require('nenos');
 var utils = require('utility');
 
+
 (function () {
 
     const FILTER_CONDITION_ALL = 0;
@@ -400,7 +401,7 @@ var utils = require('utility');
         }
 
 
-        getRecordb(){
+        getRecordb(recordId = 0){
             var me = this;
             return function *(){
 
@@ -416,7 +417,7 @@ var utils = require('utility');
                 //3. website
                 try{
                     var sql = '';
-                    var id = this.parameter.param('id') || 0;
+                    var id = this.parameter.param('id') || recordId;
                     conn = yield  me.app.ds.getConnection();
 
                     sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons,operatetime,operator FROM record WHERE id = #id#`;
@@ -516,7 +517,6 @@ var utils = require('utility');
                 try{
                     conn = yield me.app.ds.getConnection();
 
-
                     model.merge( Object.assign({}, { id: id,operatetime:operatetime,operator:operator } ));
                     if( status ){
                         model.merge( Object.assign({}, { status: status } ));
@@ -528,8 +528,14 @@ var utils = require('utility');
                         model.merge( Object.assign({}, { curtainurl: curtainurl } ));
                     }
 
+                    if( status == 7 ){
+                        var json = yield me.isp_upload(id);
+
+
+
+                    }
                     r = yield conn.update(model);
-                    return true;
+                    return r.affectedRows + r.insertId > 0 ?  true : false;
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
                     return false;
@@ -1000,6 +1006,38 @@ var utils = require('utility');
 
         getClassName() {
             return EasyNode.namespace(__filename);
+        }
+
+        isp_upload(id){
+            var me = this;
+            return function* (){
+                var json = yield me.getRecordb(id);
+
+                var beianInfo;
+                var args;
+                try{
+                    beianInfo = yield me.app.ispService.genbeianInfo(json,me.app.ispService.FIRST);
+
+                    args = me.app.ispService.getUploadInitParam();
+                    args.beianInfo  = beianInfo.beianInfo;
+                    args.beianInfoHash = beianInfo.beianInfoHash;
+
+                    console.log("dataSequence upload:",args.dataSequence);
+
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e}`);
+                }
+                console.log("isp_upload......");
+                try{
+                    me.app.ispService.isp_upload(args).then(function (result) {
+                        console.log("is_upload success",result);
+                    }).catch(function (e,result) {
+                        console.log("isp_upload fail result",e,result);
+                    });
+                }catch(e){
+                    console.log(e.stack);
+                }
+            }
         }
     }
 

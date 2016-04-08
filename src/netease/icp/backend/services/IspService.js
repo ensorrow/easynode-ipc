@@ -834,14 +834,15 @@ var http = require("http");
                 //if( !contentCompression ){
                 //    return ret;
                 //}
-                yield me.generateZip(content,"/Users/hujiabao/Downloads/beianinfo.zip","beianinfo.xml");
+                yield me.generateZip(content,"./beianinfo.zip","beianinfo.xml");
 
-                //CG Test Data
-                contentCompression = fso.readFileSync('/Users/hujiabao/Downloads/beianinfo.zip');
+                contentCompression = fso.readFileSync('./beianinfo.zip');
+
                 //2
                 if( hashAlgorithm == HASHALGORITHM ){
                     ret.beianInfoHash = crypto.createHash('md5').update(contentCompression).digest('base64');
                 }
+
                 //3
                 if( encryptAlgorithm == ENCRYPTALGORITHM ){
                     ret.beianInfo = contentCompression.toString('base64');
@@ -980,20 +981,33 @@ var http = require("http");
             var me = this;
 
             //ToDo
-
             return function *(){
                 if(type == me.FIRST){
                     try{
-                        json.record.sitemanagerurl = this.base64_encode('/Users/hujiabao/Downloads/1457595670071');
                         var clip = '?imageView&quality=50';
 
+                        var image = yield me.downloadNos(json.record.sitemanagerurl + clip);
+                        json.record.sitemanagerurl = new Buffer(image).toString('base64');
 
-                        json.record.sitemanagerurl = new Buffer( yield me.downloadNos(json.record.sitemanagerurl + clip)).toString('base64');
+                        image = yield me.downloadNos(json.record.checklisturl + clip);
+                        json.record.checklisturl = new Buffer(image).toString('base64');
+
+                        image = yield me.downloadNos(json.record.protocolurl1 + clip);
+                        json.record.protocolurl1 = new Buffer(image).toString('base64');
+
+                        image = yield me.downloadNos(json.record.protocolurl2 + clip);
+                        json.record.protocolurl2 = new Buffer(image).toString('base64');
+
+                        image = yield me.downloadNos(json.record.securityurl1 + clip);
+                        json.record.securityurl1 = new Buffer(image).toString('base64');
+
+
+                        image = yield me.downloadNos(json.record.securityurl2 + clip);
+                        json.record.securityurl2 = new Buffer(image).toString('base64');
 
 
                         var assignedJson = XZBA_ASSIGN(json) ;
                         var xml2 = json2xml(assignedJson, { attributes_key: 'attr',header: true });
-
                         var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
                         return ret;
                     }catch(e){
@@ -1072,6 +1086,7 @@ var http = require("http");
 
         writeDataSequence(ds){
             fso.writeFileSync('./dataSequence.bin',ds);
+            this.dataSequence = ds;
             console.log("write dataSequence:",ds);
         }
 
@@ -1085,8 +1100,13 @@ var http = require("http");
                             imgData+=chunk;
                         });
 
-                        res.on("end", function(){
-
+                        res.on("end", function(err){
+                            if(err){
+                                console.log("down fail");
+                                rej();
+                            }
+                            console.log("down success");
+                            resq();
                         });
                     });
                 });

@@ -6,6 +6,8 @@ var thunkify = require('thunkify');
 var Routes = using('netease.icp.backend.routes.Routes');
 var MySqlDataSource = using('easynode.framework.db.MysqlDataSource');
 var HTTPUtil =  using('easynode.framework.util.HTTPUtil');
+var IspService = using('netease.icp.backend.services.IspService');
+
 
 (function () {
     /**
@@ -56,8 +58,12 @@ var HTTPUtil =  using('easynode.framework.util.HTTPUtil');
             var httpPort = S(EasyNode.config('http.server.port','7000')).toInt();
             var httpServer = new KOAHttpServer(httpPort);
 
+            var ispService = new IspService();
+            ispService.createConnect();
+
             httpServer.ds = ds;
             httpServer.ds.conn = conn;
+            httpServer.ispService = ispService;
             //设置ContextHook,
             httpServer.setActionContextListener({
                 onCreate: function (ctx) {
