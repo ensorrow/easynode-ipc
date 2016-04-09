@@ -97,7 +97,8 @@ var IspService = using('netease.icp.backend.services.IspService');
             Routes.defineRoutes(httpServer);
 
             yield httpServer.start();
-            yield ispService.readDataSequence();
+            var dataSequence = yield ispService.readDataSequence();
+            console.log("init dataSequence:",dataSequence);
         }
 
         getClassName()

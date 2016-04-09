@@ -41,8 +41,9 @@ describe('ControllerTest',function() {
 
     it('Post /admin/record',function (done){
 
+        //590-首次备案  603-新增网站 669-新增接入
         request.put('http://icpdev.hzspeed.cn/admin/record')
-            .send({id:590,status:7,reasons:'passed'})
+            .send({id:669,status:7,reasons:'passed'})
             .end(done);
     });
 

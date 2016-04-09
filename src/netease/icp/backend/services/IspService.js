@@ -17,6 +17,9 @@ var fso = require('fs');
 var parser = require('xml2json');
 var json2xml = require('json2xml');
 import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
+import { XZWZ_ASSIGN } from '../json/req/upload/ICP/XZWZ/XZWZ';
+import { XZJR_ASSIGN } from '../json/req/upload/ICP/XZJR/XZJR';
+
 var archiver = require('archiver');
 var unzip = require('unzip');
 var http = require("http");
@@ -273,7 +276,9 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             this.clientQuery = null;
             this.clientVerify = null;
             this.dataSequence = 6;
-            this.FIRST = 1;
+            this.FIRST = 0;
+            this.XZWZ = 1;
+            this.XZJR = 2;
             this.dataSequence = 69;
          }
 
@@ -378,7 +383,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                         else{
                             EasyNode.DEBUG && console.log(map[json.return.msg_code]);
                             console.log(json);
-                            res();
+                            res(me.dataSequence);
                         }
                     }
                 });
@@ -1013,6 +1018,76 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                         var assignedJson = XZBA_ASSIGN(json) ;
                         var xml2 = json2xml(assignedJson, { attributes_key: 'attr',header: true });
                         var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
+                        return ret;
+                    }catch(e){
+                        EasyNode.DEBUG && logger.debug(` ${e}`);
+                        return {beianInfo:'',beianInfoHash:''};
+                    }
+                }
+                if(type == me.XZWZ){
+                    try{
+                        var clip = '?imageView&quality=50';
+
+                        var image = yield me.downloadNos(json.record.sitemanagerurl + clip);
+                        json.record.sitemanagerurl = new Buffer(image).toString('base64');
+
+                        image = yield me.downloadNos(json.record.checklisturl + clip);
+                        json.record.checklisturl = new Buffer(image).toString('base64');
+
+                        image = yield me.downloadNos(json.record.protocolurl1 + clip);
+                        json.record.protocolurl1 = new Buffer(image).toString('base64');
+
+                        image = yield me.downloadNos(json.record.protocolurl2 + clip);
+                        json.record.protocolurl2 = new Buffer(image).toString('base64');
+
+                        image = yield me.downloadNos(json.record.securityurl1 + clip);
+                        json.record.securityurl1 = new Buffer(image).toString('base64');
+
+
+                        image = yield me.downloadNos(json.record.securityurl2 + clip);
+                        json.record.securityurl2 = new Buffer(image).toString('base64');
+
+
+                        var assignedJson = XZWZ_ASSIGN(json) ;
+                        var xml2 = json2xml(assignedJson, { attributes_key: 'attr',header: true });
+                        var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
+                        return ret;
+                    }catch(e){
+                        EasyNode.DEBUG && logger.debug(` ${e}`);
+                        return {beianInfo:'',beianInfoHash:''};
+                    }
+                }
+                if(type == me.XZJR){
+                    try{
+                        var clip = '?imageView&quality=50';
+
+                        var image = yield me.downloadNos(json.record.sitemanagerurl + clip);
+                        json.record.sitemanagerurl = new Buffer(image).toString('base64');
+
+                        image = yield me.downloadNos(json.record.checklisturl + clip);
+                        json.record.checklisturl = new Buffer(image).toString('base64');
+
+                        image = yield me.downloadNos(json.record.protocolurl1 + clip);
+                        json.record.protocolurl1 = new Buffer(image).toString('base64');
+
+                        image = yield me.downloadNos(json.record.protocolurl2 + clip);
+                        json.record.protocolurl2 = new Buffer(image).toString('base64');
+
+                        image = yield me.downloadNos(json.record.securityurl1 + clip);
+                        json.record.securityurl1 = new Buffer(image).toString('base64');
+
+
+                        image = yield me.downloadNos(json.record.securityurl2 + clip);
+                        json.record.securityurl2 = new Buffer(image).toString('base64');
+
+
+                        console.log("1");
+                        var assignedJson = XZJR_ASSIGN(json) ;
+                        console.log("2");
+                        var xml2 = json2xml(assignedJson, { attributes_key: 'attr',header: true });
+                        console.log("3");
+                        var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
+                        console.log("4");
                         return ret;
                     }catch(e){
                         EasyNode.DEBUG && logger.debug(` ${e}`);

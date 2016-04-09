@@ -1069,7 +1069,9 @@ var utils = require('utility');
                 var beianInfo;
                 var args;
                 try{
-                    beianInfo = yield me.app.ispService.genbeianInfo(json,me.app.ispService.FIRST);
+                    var type = json.record.type == 0 ? me.app.ispService.FIRST :
+                        json.record.type == 1 ? me.app.ispService.XZWZ : me.app.ispService.XZJR ;
+                    beianInfo = yield me.app.ispService.genbeianInfo(json,type);
 
                     args = me.app.ispService.getUploadInitParam();
                     args.beianInfo  = beianInfo.beianInfo;
