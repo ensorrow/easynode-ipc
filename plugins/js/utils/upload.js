@@ -20,11 +20,6 @@ function ajaxUpload({url,name,cors,file,onProgress,onLoad,onError,withCredential
     let data = new FormData();
     data.append(name,file);
 
-    console.log("1");
-    console.log(name);
-    console.log(url);
-    console.log(file);
-    console.log("2");
     let xhr = createCORSRequest('post',url,cors);
     xhr.withCredentials = withCredentials;
     xhr.upload.addEventListener('progress',onProgress,false);
