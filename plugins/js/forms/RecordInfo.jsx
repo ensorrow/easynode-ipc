@@ -71,29 +71,196 @@ let RecordInfo = React.createClass({
             );
         }
     },
+    getIndividualMobile: function(){
+        "use strict";
+        if( __globals__.companyinfo.nature == 5  ){
+            return (
+                <div className="m-recordinfo-item">
+                    <div className="m-recordinfo-item-label">
+                        <label>主体联系人手机号码:</label>
+                    </div>
+                    <div className="m-recordinfo-item-ctrl">
+                        <label>{__globals__.companyinfo.mobile}</label>
+                    </div>
+                </div>
+            );
+        }
+    },
+    getIndividualEmail: function(){
+        if( __globals__.companyinfo.nature == 5  ){
+            return (
+                <div className="m-recordinfo-item">
+                    <div className="m-recordinfo-item-label">
+                        <label>主体联系人电子邮箱:</label>
+                    </div>
+                    <div className="m-recordinfo-item-ctrl">
+                        <label>{__globals__.companyinfo.email}</label>
+                    </div>
+                </div>
+            );
+        }
+    },
+    getOwner1: function(){
+        if( __globals__.companyinfo.nature != 5  ){
+            return (
+                <div className="m-recordinfo-item">
+                    <div className="m-recordinfo-item-label">
+                        <label>负责人姓名:</label>
+                    </div>
+                    <div className="m-recordinfo-item-ctrl">
+                        <label>{__globals__.companyinfo.managername}</label>
+                    </div>
+                </div>
+            );
+        }
+    },
+    getOwner2: function(){
+        if( __globals__.companyinfo.nature != 5  ){
+            return (
+                <div className="m-recordinfo-item">
+                    <div className="m-recordinfo-item-label">
+                        <label>负责人证件类型:</label>
+                    </div>
+                    <div className="m-recordinfo-item-ctrl">
+                        <label>{this.getManagerIdType()}</label>
+                    </div>
+                </div>
+            );
+        }
+    },
+    getOwner3: function(){
+        if( __globals__.companyinfo.nature != 5  ){
+            return (
+                <div className="m-recordinfo-item">
+                    <div className="m-recordinfo-item-label">
+                        <label>负责人证件号码:</label>
+                    </div>
+                    <div className="m-recordinfo-item-ctrl">
+                        <label>{__globals__.companyinfo.manageridnumber}</label>
+                    </div>
+                </div>
+            );
+        }
+    },
+    getOwner4: function(){
+        if( __globals__.companyinfo.nature != 5  ){
+            return (
+                <div className="m-recordinfo-item">
+                    <div className="m-recordinfo-item-label">
+                        <label>负责人居住地址:</label>
+                    </div>
+                    <div className="m-recordinfo-item-ctrl">
+                        <label>{__globals__.companyinfo.manageraddress}</label>
+                    </div>
+                </div>
+            );
+        }
+    },
+    getOwner5: function(){
+        if( __globals__.companyinfo.nature != 5  ){
+            return (
+                <div className="m-recordinfo-item">
+                    <div className="m-recordinfo-item-label">
+                        <label>办公室电话:</label>
+                    </div>
+                    <div className="m-recordinfo-item-ctrl">
+                        <label>{__globals__.companyinfo.officephonenumber}</label>
+                    </div>
+                </div>
+            );
+        }
+    },
+    getOwner6: function(){
+        if( __globals__.companyinfo.nature != 5  ){
+            return (
+                <div className="m-recordinfo-item">
+                    <div className="m-recordinfo-item-label">
+                        <label>手机号码:</label>
+                    </div>
+                    <div className="m-recordinfo-item-ctrl">
+                        <label>{__globals__.companyinfo.mobile}</label>
+                    </div>
+                </div>
+            );
+        }
+    },
+    getOwner7: function(){
+        if( __globals__.companyinfo.nature != 5  ){
+            return (
+                <div className="m-recordinfo-item">
+                    <div className="m-recordinfo-item-label">
+                        <label>电子邮箱:</label>
+                    </div>
+                    <div className="m-recordinfo-item-ctrl">
+                        <label>{__globals__.companyinfo.email}</label>
+                    </div>
+                </div>
+            );
+        }
+    },
     getIdNumber: function(){
         return  __globals__.companyinfo.idnumber;
     },
     getDomain: function(){
         var domain = '';
         domain =  __globals__.siteinfo.domain;
-        if( __globals__.siteinfo.domain1.length > 0 ){
-            domain =  domain + ';';
-            domain = domain + __globals__.siteinfo.domain1;
-        }
-        if( __globals__.siteinfo.domain2.length > 0 ){
-            domain = domain + ';';
-            domain =  domain + __globals__.siteinfo.domain2;
-        }
-        if( __globals__.siteinfo.domain3.length > 0 ){
-            domain = domain + ';';
-            domain =  domain +__globals__.siteinfo.domain3;
-        }
-        if( __globals__.siteinfo.domain4.length > 0 ){
-            domain  =  domain + ';';
-            domain  = domain + __globals__.siteinfo.domain4;
-        }
         return domain;
+    },
+    getDomain1: function(){
+        if( __globals__.siteinfo.domain1.length > 0 ){
+            return (
+                <div className="m-recordinfo-item">
+                    <div className="m-recordinfo-item-label-onetwo">
+                        <label>网站域名1:</label>
+                    </div>
+                    <div className="m-recordinfo-item-ctrl-onetwo">
+                        <label>{__globals__.siteinfo.domain1}</label>
+                    </div>
+                </div>
+            );
+        }
+    },
+    getDomain2: function(){
+        if( __globals__.siteinfo.domain2.length > 0 ){
+            return (
+                <div className="m-recordinfo-item">
+                    <div className="m-recordinfo-item-label-onetwo">
+                        <label>网站域名2:</label>
+                    </div>
+                    <div className="m-recordinfo-item-ctrl-onetwo">
+                        <label>{__globals__.siteinfo.domain2}</label>
+                    </div>
+                </div>
+            );
+        }
+    },
+    getDomain3: function(){
+        if( __globals__.siteinfo.domain3.length > 0 ){
+            return (
+                <div className="m-recordinfo-item">
+                    <div className="m-recordinfo-item-label-onetwo">
+                        <label>网站域名3:</label>
+                    </div>
+                    <div className="m-recordinfo-item-ctrl-onetwo">
+                        <label>{__globals__.siteinfo.domain3}</label>
+                    </div>
+                </div>
+            );
+        }
+    },
+    getDomain4: function(){
+        if( __globals__.siteinfo.domain4.length > 0 ){
+            return (
+                <div className="m-recordinfo-item">
+                    <div className="m-recordinfo-item-label-onetwo">
+                        <label>网站域名4:</label>
+                    </div>
+                    <div className="m-recordinfo-item-ctrl-onetwo">
+                        <label>{__globals__.siteinfo.domain4}</label>
+                    </div>
+                </div>
+            );
+        }
     },
     getIp: function(){
         return   __globals__.siteinfo.ip.ip1 + '.' + __globals__.siteinfo.ip.ip2 + '.' + __globals__.siteinfo.ip.ip3 + '.' + __globals__.siteinfo.ip.ip4;
@@ -282,68 +449,21 @@ let RecordInfo = React.createClass({
                                     <label>{__globals__.companyinfo.commaddress}</label>
                                 </div>
                             </div>
+                            {this.getIndividualMobile()}
+                            {this.getIndividualEmail()}
                             <div className="m-recordinfo-item">
                                 <div className="m-recordinfo-item-label">
                                 </div>
                                 <div className="m-recordinfo-item-ctrl">
                                 </div>
                             </div>
-                            <div className="m-recordinfo-item">
-                                <div className="m-recordinfo-item-label">
-                                    <label>负责人姓名:</label>
-                                </div>
-                                <div className="m-recordinfo-item-ctrl">
-                                    <label>{__globals__.companyinfo.managername}</label>
-                                </div>
-                            </div>
-                            <div className="m-recordinfo-item">
-                                <div className="m-recordinfo-item-label">
-                                    <label>负责人证件类型:</label>
-                                </div>
-                                <div className="m-recordinfo-item-ctrl">
-                                    <label>{this.getManagerIdType()}</label>
-                                </div>
-                            </div>
-                            <div className="m-recordinfo-item">
-                                <div className="m-recordinfo-item-label">
-                                    <label>负责人证件号码:</label>
-                                </div>
-                                <div className="m-recordinfo-item-ctrl">
-                                    <label>{__globals__.companyinfo.manageridnumber}</label>
-                                </div>
-                            </div>
-                            <div className="m-recordinfo-item">
-                                <div className="m-recordinfo-item-label">
-                                    <label>负责人居住地址:</label>
-                                </div>
-                                <div className="m-recordinfo-item-ctrl">
-                                    <label>{__globals__.companyinfo.manageraddress}</label>
-                                </div>
-                            </div>
-                            <div className="m-recordinfo-item">
-                                <div className="m-recordinfo-item-label">
-                                    <label>办公室电话:</label>
-                                </div>
-                                <div className="m-recordinfo-item-ctrl">
-                                    <label>{__globals__.companyinfo.officephonenumber}</label>
-                                </div>
-                            </div>
-                            <div className="m-recordinfo-item">
-                                <div className="m-recordinfo-item-label">
-                                    <label>手机号码:</label>
-                                </div>
-                                <div className="m-recordinfo-item-ctrl">
-                                    <label>{__globals__.companyinfo.mobile}</label>
-                                </div>
-                            </div>
-                            <div className="m-recordinfo-item">
-                                <div className="m-recordinfo-item-label">
-                                    <label>电子邮箱:</label>
-                                </div>
-                                <div className="m-recordinfo-item-ctrl">
-                                    <label>{__globals__.companyinfo.email}</label>
-                                </div>
-                            </div>
+                            {this.getOwner1()}
+                            {this.getOwner2()}
+                            {this.getOwner3()}
+                            {this.getOwner4()}
+                            {this.getOwner5()}
+                            {this.getOwner6()}
+                            {this.getOwner7()}
                         </fieldset>
                         <fieldset>
                             <div className="m-recordinfo-legend"><span>网站信息</span></div>
@@ -375,6 +495,10 @@ let RecordInfo = React.createClass({
                                     <label>{this.getIp()}</label>
                                 </div>
                             </div>
+                            {this.getDomain1()}
+                            {this.getDomain2()}
+                            {this.getDomain3()}
+                            {this.getDomain4()}
                             <div className="m-recordinfo-item">
                                 <div className="m-recordinfo-item-label-onetwo">
                                     <label>网站首页URL:</label>
