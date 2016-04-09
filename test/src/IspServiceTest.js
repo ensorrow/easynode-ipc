@@ -21,10 +21,8 @@ const logger = using('easynode.framework.Logger').getLogger();
 
 var IspService = using('netease.icp.backend.services.IspService');
 var ispService ;
-var StoreService = using('netease.icp.backend.services.StoreService');
-var storeService;
 
-var url = 'http://icp.hzspeed.cn/admin/record/?id=590';
+var url = 'http://icpdev.hzspeed.cn/admin/record/?id=590';
 var urlPic = 'http://apollodev.nos.netease.com/1457595670071';
 var json = {};
 var Nos = require('nenos');
@@ -35,7 +33,6 @@ describe('IspService',function() {
         console.log("IspService before");
         try{
             ispService = new IspService();
-            storeService = new StoreService();
             done();
         }catch(e){
             done(e);

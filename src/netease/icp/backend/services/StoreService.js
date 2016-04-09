@@ -12,6 +12,7 @@ var User = using('netease.icp.backend.models.User');
 var Company = using('netease.icp.backend.models.Company');
 var Website = using('netease.icp.backend.models.Website');
 var Record = using('netease.icp.backend.models.Record');
+var Sys = using('netease.icp.backend.models.Sys');
 var Nos = require('nenos');
 var utils = require('utility');
 
@@ -490,7 +491,7 @@ var utils = require('utility');
                     }
 
                     r = yield conn.update(model);
-                    return true;
+                    return r.affectedRows + r.insertId > 0 ?  true : false;
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
                     return false;
@@ -530,9 +531,6 @@ var utils = require('utility');
 
                     if( status == 7 ){
                         var json = yield me.isp_upload(id);
-
-
-
                     }
                     r = yield conn.update(model);
                     return r.affectedRows + r.insertId > 0 ?  true : false;
@@ -575,7 +573,7 @@ var utils = require('utility');
                     }
 
                     r = yield conn.update(model);
-                    return true;
+                    return r.affectedRows + r.insertId > 0 ?  true : false;
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
                     return false;
@@ -617,7 +615,7 @@ var utils = require('utility');
                     }
 
                     r = yield conn.update(model);
-                    return true;
+                    return r.affectedRows + r.insertId > 0 ?  true : false;
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
                     return false;
@@ -642,7 +640,7 @@ var utils = require('utility');
                     conn = yield me.app.ds.getConnection();
                     model.merge( Object.assign({}, { id: id, applycurtainstatus:2,operatetime: operatetime, operator:operator} ));
                     r = yield conn.update(model);
-                    return true;
+                    return r.affectedRows + r.insertId > 0 ?  true : false;
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
                     return false;
@@ -685,7 +683,7 @@ var utils = require('utility');
                     }
 
                     r = yield conn.update(model);
-                    return true;
+                    return r.affectedRows + r.insertId > 0 ?  true : false;
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
                     return false;
@@ -716,15 +714,16 @@ var utils = require('utility');
                         return {id: formData.id,ret:false};
 
                     yield conn.del( model,[formData.id]);
+                    return {id: formData.id,ret:true};
                 } catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
                     return {id: formData.id,ret:false};
                 }finally{
                     yield me.app.ds.releaseConnection(conn);
-                    return {id: formData.id,ret:true};
                 }
             }
         }
+
 
 
         updateRecordCompanyid(id,companyid) {
@@ -740,7 +739,7 @@ var utils = require('utility');
 
                     model.merge( Object.assign({}, {companyid:companyid,id:id} ));
                     r = yield conn.update(model);
-                    return true;
+                    return r.affectedRows + r.insertId > 0 ?  true : false;
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
                     return false;
@@ -764,7 +763,7 @@ var utils = require('utility');
 
                     model.merge( Object.assign({}, {websiteid:websiteid,id:id} ));
                     r = yield conn.update(model);
-                    return true;
+                    return r.affectedRows + r.insertId > 0 ?  true : false;
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
                     return false;
@@ -1004,11 +1003,65 @@ var utils = require('utility');
             }
         }
 
-        getClassName() {
-            return EasyNode.namespace(__filename);
+        putSys(i=0,k=0,v="0"){
+            var me = this;
+            return function *(){
+                var conn = null;
+                var arr = [];
+                var sql = ``;
+
+                var form = this.request.body;
+                var key = form.key || k;
+                var value = form.value || v;
+                var id = i > 0 ? i : (form.id || 0);
+
+                try{
+                    var model = new Sys();
+                    conn = yield  me.app.ds.getConnection();
+
+                    model.merge({id:id,k:key,value:value});
+
+                    var r = yield conn.update(model);
+                    return r.affectedRows + r.insertId > 0 ?  true : false;
+                } catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
+                    return false;
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
         }
 
-        isp_upload(id){
+        getSys(k=0){
+            var me = this;
+            return function *(){
+                var conn = null;
+                var arr = [];
+                var sql = ``;
+
+                var key = k > 0 ? k : (this.parameter.param('key') || 0);
+                console.log("key:",key);
+                try{
+                    var model = new Sys();
+                    conn = yield  me.app.ds.getConnection();
+
+                    sql = `SELECT value FROM sys WHERE k = #key#`;
+                    arr =  yield conn.execQuery(sql,{key:key});
+                    if( arr.length <= 0 )
+                        return 0;
+
+                    return parseInt(arr[0].value);
+                } catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
+                    return 0;
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
+
+         isp_upload(id){
             var me = this;
             return function* (){
                 var json = yield me.getRecordb(id);
@@ -1023,22 +1076,29 @@ var utils = require('utility');
                     args.beianInfoHash = beianInfo.beianInfoHash;
 
                     console.log("dataSequence upload:",args.dataSequence);
-
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e}`);
                 }
                 console.log("isp_upload......");
                 try{
-                    me.app.ispService.isp_upload(args).then(function (result) {
+                    var ds = yield me.app.ispService.isp_upload(args).then(function (result) {
                         console.log("is_upload success",result);
+                        args.dataSequence = result;
                     }).catch(function (e,result) {
                         console.log("isp_upload fail result",e,result);
                     });
+                    yield me.app.ispService.writeDataSequence(args.dataSequence);
                 }catch(e){
                     console.log(e.stack);
                 }
             }
         }
+
+        getClassName() {
+            return EasyNode.namespace(__filename);
+        }
+
+
     }
 
     module.exports = StoreService;

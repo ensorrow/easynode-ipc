@@ -545,3 +545,31 @@ http://dev.mo.cn/article_279.html
 83. XML Field sort, Attribute,
 
 84. neutron, openvsswitch
+
+85. finally 里不要加返回值,会覆盖其它两个分支的返回结果,或者光在finally里返回
+                try{
+                    var model = new Sys();
+                    conn = yield  me.app.ds.getConnection();
+
+                    model.merge({id:id,k:key,value:value});
+
+                    var r = yield conn.update(model);
+                    console.log(r);
+                    return true;
+                } catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
+                    return false;
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                    return false;
+                }
+
+86.  k与key不能字段 名相同
+getSys(k=0){
+                var me = this;
+                return function *(){
+                    var conn = null;
+                    var arr = [];
+                    var sql = ``;
+
+                    var key = this.parameter.param('key') || k;

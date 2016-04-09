@@ -58,12 +58,14 @@ var IspService = using('netease.icp.backend.services.IspService');
             var httpPort = S(EasyNode.config('http.server.port','7000')).toInt();
             var httpServer = new KOAHttpServer(httpPort);
 
-            var ispService = new IspService();
-            ispService.createConnect();
 
             httpServer.ds = ds;
             httpServer.ds.conn = conn;
+
+            var ispService = new IspService(httpServer);
+            yield ispService.createConnect();
             httpServer.ispService = ispService;
+
             //设置ContextHook,
             httpServer.setActionContextListener({
                 onCreate: function (ctx) {
@@ -95,6 +97,7 @@ var IspService = using('netease.icp.backend.services.IspService');
             Routes.defineRoutes(httpServer);
 
             yield httpServer.start();
+            yield ispService.readDataSequence();
         }
 
         getClassName()

@@ -20,14 +20,12 @@ EasyNode.addSourceDirectory('/node_modules/easynode/src');
 const logger = using('easynode.framework.Logger').getLogger();
 
 
-var storeService ;
 
 describe('UploadService',function() {
 
     before(function(done){
         console.log("UploadService before");
         try{
-          //  StoreService = using('netease.icp.backend.services.StoreService');
 
             var map = new Map([[1, "123"], [2, "Author"]]);
 

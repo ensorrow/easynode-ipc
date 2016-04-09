@@ -989,7 +989,66 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         }
 
 
+        /**
+         * @api {get} /rest/sys 获取sys信息
+         * @apiName getSys
+         * @apiGroup Ops
+         * @apiPermission whitelist
+         * @apiVersion 0.0.2
+         * @apiDescription 通过白名单管理权限
+         *
+         * @apiSampleRequest http://icp.hzspeed.cn/rest/sys
+         *
+         * @apiParam {Number} key key
+         *
+         * @apiSuccess {String} value value
+         */
+        static getSys(app){
+            var me = this;
+            return function *(){
+                var ret = {};
 
+                var pass = Controllers.passWhitelist(this.remoteAddress,app);
+                if( pass ) {
+                    var storeService = new StoreService(app);
+                    ret = yield storeService.getSys();
+                }
+
+                this.type = 'json';
+                this.body = {ret: ret};
+            }
+        }
+
+        /**
+         * @api {put} /rest/sys 修改sys信息
+         * @apiName putWebsiteb
+         * @apiGroup Ops
+         * @apiPermission whitelist
+         * @apiVersion 0.0.2
+         * @apiDescription 通过白名单管理权限
+         *
+         * @apiSampleRequest http://icp.hzspeed.cn/admin/website
+         *
+         * @apiParam {Number} key key
+         * @apiParam {String} value value
+
+         * @apiSuccess {Number} ret true:成功,false:失败
+         */
+        static putSys(app){
+            var me = this;
+            return function *(){
+                var ret = {};
+
+                var pass = Controllers.passWhitelist(this.remoteAddress,app);
+                if( pass ) {
+                    var storeService = new StoreService(app);
+                    ret = yield storeService.putSys();
+                }
+
+                this.type = 'json';
+                this.body = {ret: ret};
+            }
+        }
 
         static passWhitelist( ip,app ){
             var pass = false;

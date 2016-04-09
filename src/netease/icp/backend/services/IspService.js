@@ -1,3 +1,4 @@
+import co from 'co';
 var assert = require('assert');
 var logger = using('easynode.framework.Logger').forFile(__filename);
 var GenericObject = using('easynode.GenericObject');
@@ -19,6 +20,7 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
 var archiver = require('archiver');
 var unzip = require('unzip');
 var http = require("http");
+var StoreService = using('netease.icp.backend.services.StoreService');
 
 (function () {
     const ISPID = 110000000211;
@@ -272,8 +274,8 @@ var http = require("http");
             this.clientVerify = null;
             this.dataSequence = 6;
             this.FIRST = 1;
-            this.readDataSequence();
-        }
+            this.dataSequence = 69;
+         }
 
         /**
          * @method  创建连接
@@ -366,16 +368,18 @@ var http = require("http");
                         console.log(json);
                         if( 0 == parseInt(json.return.msg_code) ){
                             var msg = json.return.msg;
-                            me.writeDataSequence(me.dataSequence+1);
+                            //me.writeDataSequence(me.dataSequence+1);
+                            res(me.dataSequence+1);
                             console.log(msg);
                         }else if( 14 == parseInt(json.return.msg_code) ){
-                            me.writeDataSequence(json.return.dataSequences.dataSequence);
+                            //me.writeDataSequence(json.return.dataSequences.dataSequence);
+                            res(json.return.dataSequences.dataSequence);
                         }
                         else{
                             EasyNode.DEBUG && console.log(map[json.return.msg_code]);
                             console.log(json);
+                            res();
                         }
-                        res();
                     }
                 });
             });
@@ -1078,16 +1082,42 @@ var http = require("http");
             EasyNode.DEBUG && logger.debug(`******** File created from base64 encoded string ********`);
         }
 
+
+
+
         readDataSequence(){
-            var ds = fso.readFileSync('./dataSequence.bin');
-            this.dataSequence = parseInt(ds);
-            console.log("read dataSequence:",this.dataSequence);
+            //var ds = fso.readFileSync('./dataSequence.bin');
+            //this.dataSequence = parseInt(ds);
+            //console.log("read dataSequence:",this.dataSequence);
+
+            console.log("111");
+            var me = this;
+            return function * () {
+                console.log("2222");
+                    var storeService = new StoreService(me.app);
+                    var ret = yield storeService.getSys(1);
+                    me.dataSequence = ret;
+                    console.log("333");
+                    console.log("read dataSequence:", ret);
+                    return ret;
+            };
         }
 
-        writeDataSequence(ds){
-            fso.writeFileSync('./dataSequence.bin',ds);
-            this.dataSequence = ds;
-            console.log("write dataSequence:",ds);
+        writeDataSequence(dataSequence){
+            //fso.writeFileSync('./dataSequence.bin',ds);
+            //this.dataSequence = ds;
+            //console.log("write dataSequence:",ds);
+            var me = this;
+
+            return function *() {
+                var storeService = new StoreService(me.app);
+                var ret = yield storeService.putSys(1, 1, dataSequence + '');
+                if (ret == true) {
+                    me.dataSequence = dataSequence;
+                    console.log("write dataSequence:", dataSequence);
+                }
+                console.log("retL",ret);
+            }
         }
 
         downloadNos(url){
