@@ -939,7 +939,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                         }
                         else{
                             var storeService = new StoreService(app);
-                            url = yield storeService.uploadNos(Date.now(),file.path);
+                            url = yield storeService.uploadNos(Date.now()+file.filename,file.path);
                             filename = file.filename;
                         }
                     };
@@ -973,7 +973,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                     var parts = yield* multipart(this);
                     for(let file  of parts.files) {
                           var storeService = new StoreService(app);
-                            url = yield storeService.uploadNos(Date.now(),file.path);
+                            url = yield storeService.uploadNos(Date.now()+file.filename,file.path);
                             filename = file.filename;
                     };
                     parts.dispose();

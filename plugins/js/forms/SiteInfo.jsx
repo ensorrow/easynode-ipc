@@ -413,6 +413,7 @@ let SiteInfo = React.createClass({
         e.preventDefault();
         var siteInfo = this.state.siteInfo;
         siteInfo.checkfileurl = e.target.value;
+        console.log(e);
         this.setState({siteInfo: siteInfo});
     },
     handleAddSite: function(e){
