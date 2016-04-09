@@ -578,22 +578,22 @@ let CompanyInfo = React.createClass({
         if( nature == 1 ){
             return  (
                 <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
-                <option value ="1">军队代码</option>
+                <option value ="5">军队代码</option>
                 </select>
             )
         }
         else if( nature == 2 ){
             return  (
                 <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
-                <option value ="1">组织机构代码证书</option>
+                <option value ="9">组织机构代码证书</option>
                 </select>
             )
         }
         else if( nature == 3 ){
             return  (
                 <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
-                <option value ="1">组织机构代码证书</option>
-                <option value ="2">事业法人证书</option>
+                <option value ="3">组织机构代码证书</option>
+                <option value ="4">事业法人证书</option>
                 </select>
             )
         }
@@ -601,25 +601,25 @@ let CompanyInfo = React.createClass({
             return  (
                 <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
                 <option value ="1">工商营业执照</option>
-                <option value ="2">组织机构代码证书</option>
+                <option value ="12">组织机构代码证书</option>
                 </select>
             )
         }
         else if( nature == 5 ){
             return  (
                 <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
-                <option value ="1">身份证</option>
-                <option value ="2">护照</option>
-                <option value ="3">军官证</option>
-                <option value ="4">台胞证</option>
+                <option value ="2">身份证</option>
+                <option value ="7">护照</option>
+                <option value ="8">军官证</option>
+                <option value ="11">台胞证</option>
                 </select>
             )
         }
         else if( nature == 6 ){
             return  (
                 <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
-                <option value ="1">社团法人证书</option>
-                <option value ="2">组织机构代码证书</option>
+                <option value ="6">社团法人证书</option>
+                <option value ="10">组织机构代码证书</option>
                 </select>
             )
         }

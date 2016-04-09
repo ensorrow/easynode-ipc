@@ -219,12 +219,12 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} comapny.city 市
          * @apiSuccess {String} comapny.area 区
          * @apiSuccess {Number} comapny.nature 性质 \n1-军队\n2-政府机关\n3-事业单位\n4-企业\n5-个人\n6-社会团体
-         * @apiSuccess {Number} comapny.idtype 证件类型: nature=1时:1=军队代码,
-         *                                              nature=2时:1=组织机构代码证书
-         *                                              nature=3时:1=组织机构代码证书,2=事业法人证书
-         *                                              nature=4时:1=工商营业执照,2=组织机构代码证书
-         *                                              nature=5时:1=身份证,2=护照,3=军官证,4=台胞证
-         *                                              nature=6时:1=社团法人证书,2=组织机构代码证书
+         * @apiSuccess {Number} comapny.idtype 证件类型: nature=1时:5=军队代码,
+         *                                              nature=2时:9=组织机构代码证书
+         *                                              nature=3时:3=组织机构代码证书,4=事业法人证书
+         *                                              nature=4时:1=工商营业执照,12=组织机构代码证书
+         *                                              nature=5时:2=身份证,7=护照,8=军官证,11=台胞证
+         *                                              nature=6时:6=社团法人证书,10=组织机构代码证书
          * @apiSuccess {String} comapny.idnumber 证件号码
          * @apiSuccess {String} comapny.name 名称
          * @apiSuccess {String} comapny.liveaddress 居住地址
