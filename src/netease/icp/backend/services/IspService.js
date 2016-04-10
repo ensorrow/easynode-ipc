@@ -690,11 +690,20 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             return new Promise(function(res,rej){
                 me.clientQuery.isp_querybeianstatus(args, function(err,result){
                     if(err){
-                        EasyNode.DEBUG && logger.debug(`isp_querybeianstatus to ${args} failed, err: ${err}`);
+                        EasyNode.DEBUG && logger.debug(`isp_querybeianstatus to ${args} failed, err: ${err}`,result);
                         rej();
                     }else{
-                        EasyNode.DEBUG && logger.debug(`isp_querybeianstatus to ${args} success`);
-                        res();
+                        EasyNode.DEBUG && logger.debug(`isp_querybeianstatus to ${args} success`,result);
+                        var xml = result.return;
+                        var json = parser.toJson(xml, {object: true, arrayNotation: false});
+                        console.log(json);
+                        var msg = json.return.msg;
+                        if( 0 == parseInt(json.return.msg_code) ){
+                            res( {ret:true,msg:msg,StatusInfo:json.return.StatusInfo});
+                        }else{
+                            EasyNode.DEBUG && console.log(map.get(parseInt(json.return.msg_code)));
+                            res( {ret:false, msg:msg,StatusInfo:{}} );
+                        }
                     }
                 });
             });

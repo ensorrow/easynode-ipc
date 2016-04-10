@@ -1051,14 +1051,14 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         }
 
         /**
-         * @api {put} /icp/bamm 检查备案密码
+         * @api {put} /admin/icp/verifybamm 检查备案密码
          * @apiName putWebsiteb
          * @apiGroup Ops
          * @apiPermission whitelist
          * @apiVersion 0.0.2
          * @apiDescription 通过白名单管理权限
          *
-         * @apiSampleRequest http://icp.hzspeed.cn/icp/website
+         * @apiSampleRequest http://icp.hzspeed.cn/admin/icp/verifybamm
          *
          * @apiParam {String} baxh 备案号
          * @apiParam {String} bamm 备案密码
@@ -1080,6 +1080,70 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 this.body = {ret: ret};
             }
         }
+
+        /**
+         * @api {put} /admin/icp/querybeianstatus 查询备案状态
+         * @apiName putWebsiteb
+         * @apiGroup Ops
+         * @apiPermission whitelist
+         * @apiVersion 0.0.2
+         * @apiDescription 通过白名单管理权限
+         *
+         * @apiSampleRequest http://icp.hzspeed.cn/admin/icp/querybeianstatus
+         *
+         * @apiParam {Number} queryConditionType 查询条件类型
+         * {
+            0-表示通过网站域名查询网站是否已备案；
+            1-表示通过工商营业执照号码查询单位主体是否备案；
+            2-表示通过个人身份证号码查询个人主体是否备案；
+            3-表示通过事业单位组织机构代码证号码查询单位主体是否备案；
+            4-表示通过事业法人证号码查询单位主体是否备案；
+            5-表示通过军队代号号码查询单位主体是否备案；
+            6-表示通过社会团体社团法人证号码查询单位主体是否备案；
+            7-表示通过护照号码查询个人主体是否备案；
+            8-表示通过军官证号码查询个人主体是否备案；
+            9-表示通过政府机关组织机构代码证号码查询单位主体是否备案；
+            10-表示通过社会团体组织机构代码证号码查询单位主体是否备案；
+            11-表示通过台胞证号码查询个人主体是否备案。
+         * }
+         * @apiParam {String} queryCondition 对queryConditionType对应的域名或证件号码
+
+         * @apiSuccess {Object} ret { ret:true|false,msg:'', StatusInfo:{}}
+         * 当ret=true,StatusInfo
+         *  1）	查询成功的返回
+         	已备案的结果信息：
+         <StatusInfo>
+         <Cxtjlx>条件类型</Cxtjlx>
+         <Cxtj>网站域名或证件号码</Cxtj>
+         <Wzmc>网站名称（当查询主体是否备案时，此项为空</Wzmc>
+         <Ztbah>主体备案号</Ztbah>
+         <Wzbah>网站备案号（当查询主体是否备案时，此项为空）</Wzbah>
+         <Bazt>备案状态（0表示已备案）</Bazt>
+         </StatusInfo>
+         	未备案的结果信息：
+         <StatusInfo>
+         <Cxtjlx>条件类型</Cxtjlx>
+         <Cxtj>网站域名或证件号码</Cxtj>
+         <Bazt>备案状态（1表示未备案）</Bazt>
+         </StatusInfo>
+         * 当ret=false时, StatusInfo:{}
+         */
+        static querybeianstatus(app){
+            var me = this;
+            return function *(){
+                var ret = {};
+
+                var pass = Controllers.passWhitelist(this.remoteAddress,app);
+                if( pass ) {
+                    var storeService = new StoreService(app);
+                    ret = yield storeService.isp_querybeianstatus();
+                }
+
+                this.type = 'json';
+                this.body = {ret: ret};
+            }
+        }
+
 
 
         static passWhitelist( ip,app ){

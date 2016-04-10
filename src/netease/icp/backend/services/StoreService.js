@@ -1109,12 +1109,45 @@ var utils = require('utility');
                     console.log("isp_verifybamm......");
 
                     args = me.app.ispService.getInitParam();
-
+                    args.baxh = baxh;
+                    args.bamm = bamm;
+                    console.log(args);
                     var ret = yield me.app.ispService.isp_verifybamm(args).then(function (result) {
                         console.log("isp_verifybamm success",result);
                         return result;
                     }).catch(function (e,result) {
                         console.log("isp_verifybamm fail result",e,result);
+                        return {ret:false,msg:"Error"};
+                    });
+                    return ret;
+                }catch(e){
+                    console.log(e.stack);
+                }
+            }
+        }
+
+        isp_querybeianstatus(queryConditionTypep=1,queryCondition=''){
+            var me = this;
+            return function* (){
+                var queryConditionType = this.parameter.param('queryConditionType') || queryConditionTypep;
+                var queryCondition = this.parameter.param('queryCondition') || queryConditionp;
+
+                var args;
+
+                try{
+                    console.log("isp_querybeianstatus......");
+
+                    args = me.app.ispService.getInitParam();
+                    args.queryConditionType = queryConditionType;
+                    args.queryCondition = queryCondition;
+
+                    console.log(args);
+
+                    var ret = yield me.app.ispService.isp_querybeianstatus(args).then(function (result) {
+                        console.log("isp_querybeianstatus success",result);
+                        return result;
+                    }).catch(function (e,result) {
+                        console.log("isp_querybeianstatus fail result",e,result);
                         return {ret:false,msg:"Error"};
                     });
                     return ret;

@@ -71,7 +71,9 @@ import bodyParse from 'koa-body';
             httpServer.addRoute('put','/admin/rest/sys',Controllers.putSys(httpServer));
             httpServer.addRoute('get','/admin/rest/sys',Controllers.getSys(httpServer));
 
-            httpServer.addRoute('get','/admin/icp/bamm',Controllers.checkBamm(httpServer));
+            httpServer.addRoute('get','/admin/icp/verifybamm',Controllers.checkBamm(httpServer));
+            httpServer.addRoute('get','/admin/icp/querybeianstatus',Controllers.querybeianstatus(httpServer));
+
 
         }
 
