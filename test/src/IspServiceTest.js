@@ -83,20 +83,25 @@ describe('IspService',function() {
     });
 
 
-    //it('isp_querypreviousupload',function (done){
-    //
-    //    co(function * (){
-    //        var args = ispService.getInitParam(false);
-    //        console.log(args);
-    //        ispService.isp_querypreviousupload(args).then(function(result){
-    //                console.log("dataSequence:", result);
-    //                done();
-    //        }).catch(function(e){
-    //                done(e);
-    //        });
-    //    });
-    //
-    //});
+    it('isp_querypreviousupload',function (done){
+
+        co(function * (){
+            var args = ispService.getInitParam(false);
+            console.log(args);
+            var fileInfos =  yield ispService.isp_querypreviousupload(args).then(function(result){
+                    return  result;
+            }).catch(function(e){
+                    done(e);
+            });
+            console.log("1",fileInfos);
+            var ret = yield ispService.decryptContent([fileInfos.beianInfo,fileInfos.beianInfoHash],fileInfos.compressionFormat,fileInfos.hashAlgorithm,fileInfos.encryptAlgorithm);
+
+            console.log(ret);
+
+            done();
+        });
+
+    });
 
     //it('isp_upload',function (done){
     //

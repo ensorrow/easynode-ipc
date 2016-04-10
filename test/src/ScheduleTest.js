@@ -1,6 +1,7 @@
-/**
+/*
+/!**
  * Created by hujiabao on 9/21/15.
- */
+ *!/
 
 'use strict';
 
@@ -34,7 +35,7 @@ describe('ScheduleTest',function() {
 
     it('TimerTest',function (done){
 
-        var j = schedule.scheduleJob('*/1 * * * *', function(){
+        var j = schedule.scheduleJob('*!/1 * * * *', function(){
             console.log('The answer to life, the universe, and everything!');
         });
 
@@ -48,4 +49,4 @@ describe('ScheduleTest',function() {
 
     });
 
-});
+});*/

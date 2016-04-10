@@ -1,6 +1,7 @@
-/**
+/*
+/!**
  * Created by hujiabao on 9/21/15.
- */
+ *!/
 
 'use strict';
 
@@ -33,7 +34,7 @@ describe('UploadService',function() {
             map.has(1) // true
             map.get("title") // "Author"
 
-/*
+/!*
             var b = new Buffer('JavaScript');
             var s = b.toString('base64');
             // SmF2YVNjcmlwdA==
@@ -53,7 +54,7 @@ describe('UploadService',function() {
 
             b = new Buffer('MTIzNDU2Nzg5MGFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6QUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVo=', 'base64')
             s = b.toString();
-            console.log(s);*/
+            console.log(s);*!/
 
             done();
         }catch(e){
@@ -64,7 +65,7 @@ describe('UploadService',function() {
     it('upload',function (done){
         done();
     });
-    /*
+    /!*
         it('GET /getVersionInfo?version=0.0.2',function (done){
             req.get('/getVersionInfo?version=0.0.2')
                 .expect(200)
@@ -74,7 +75,7 @@ describe('UploadService',function() {
                     url:'http://apollodev.nos.netease.com/0.0.2-0.1.0.zip'
                 })
                 .end(done);
-        });*/
+        });*!/
 
     //it('GET /getVersionInfo?version=0.1.0',function (done){
     //    req.get('/getVersionInfo?version=0.1.0')
@@ -95,4 +96,4 @@ describe('UploadService',function() {
 
     });
 
-});
+});*/

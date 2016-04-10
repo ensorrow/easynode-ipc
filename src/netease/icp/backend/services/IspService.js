@@ -607,7 +607,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                         //parser.toXml(json);生成的结果不符合XML规范
                         var xml2 = json2xml(json, {header: true});
                         console.log(xml2);*/
-                        res({dataSequence:me.dataSequence});
+                        res( json.return.fileInfos );
                     }
                 });
             });
@@ -951,7 +951,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                     }catch(e){
                         EasyNode.DEBUG && logger.debug(` ${e}`);
                         console.log(e.stack);
-                        return false;
+                        return ret;
                     }
                 }
                 if( hashAlgorithm == HASHALGORITHM ){
@@ -991,7 +991,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                                 });
                             }catch(e){
                                 EasyNode.DEBUG && logger.debug(` ${e}`);
-                                return false;
+                                return ret;
                             }
                         }
                     });
