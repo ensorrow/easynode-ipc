@@ -48,9 +48,9 @@ describe('ControllerTest',function() {
     });
 
 
-    it('Get /rest/sys',function (done){
+    it('Get /admin/rest/sys',function (done){
 
-        request.get('http://icpdev.hzspeed.cn/rest/sys')
+        request.get('http://icpdev.hzspeed.cn/admin/rest/sys')
             .query({id:1,key:1})
             .accept('json')
             .end(function(err, res){
@@ -59,6 +59,19 @@ describe('ControllerTest',function() {
                 console.log(res.text);
                 //var ret = JSON.parse(res.text);
                 //dataSequence = ret.ret;
+                done();
+            });
+    });
+
+    it('Get /admin/icp/bamm',function (done){
+
+        request.get('http://icpdev.hzspeed.cn/admin/icp/bamm')
+            .query({baxh:"aaa",bamm:"aaa"})
+            .accept('json')
+            .end(function(err, res){
+                // Do something
+
+                console.log(res.text);
                 done();
             });
     });

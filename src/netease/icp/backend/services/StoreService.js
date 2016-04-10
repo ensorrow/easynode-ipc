@@ -1097,6 +1097,33 @@ var utils = require('utility');
             }
         }
 
+        isp_verifybamm(baxhp='',bammp=''){
+            var me = this;
+            return function* (){
+                var baxh = this.parameter.param('baxh') || baxhp;
+                var bamm = this.parameter.param('bamm') || bammp;
+
+                var args;
+
+                try{
+                    console.log("isp_verifybamm......");
+
+                    args = me.app.ispService.getInitParam();
+
+                    var ret = yield me.app.ispService.isp_verifybamm(args).then(function (result) {
+                        console.log("isp_verifybamm success",result);
+                        return result;
+                    }).catch(function (e,result) {
+                        console.log("isp_verifybamm fail result",e,result);
+                        return {ret:false,msg:"Error"};
+                    });
+                    return ret;
+                }catch(e){
+                    console.log(e.stack);
+                }
+            }
+        }
+
         getClassName() {
             return EasyNode.namespace(__filename);
         }

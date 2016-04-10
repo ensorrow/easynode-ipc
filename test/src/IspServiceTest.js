@@ -276,13 +276,13 @@ describe('IspService',function() {
     //    });
     //});
     //
-    //it('getUploadInitParam',function (done){
-    //    co(function * (){
-    //        var ret =  yield ispService.getUploadInitParam();
-    //        console.log(ret);
-    //        done();
-    //    });
-    //});
+    it('getUploadInitParam',function (done){
+        co(function * (){
+            var ret =  yield ispService.getUploadInitParam();
+            console.log(ret);
+            done();
+        });
+    });
 
     after(function(done){
         console.log("IspService after");

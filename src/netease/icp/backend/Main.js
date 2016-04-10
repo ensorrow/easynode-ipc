@@ -100,7 +100,7 @@ var schedule = require('node-schedule');
             var sys  = yield ispService.readSys();
             httpServer.sys =  JSON.parse(sys);
             EasyNode.DEBUG && logger.debug(` init sys: `,httpServer.sys);
-            var job = schedule.scheduleJob(sys.timer,function(){
+            var job = schedule.scheduleJob('*/1 * * * *',function(){
                 EasyNode.DEBUG && logger.debug(`Executing query task....`);
             });
         }

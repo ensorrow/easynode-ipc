@@ -575,3 +575,5 @@ getSys(k=0){
                     var key = this.parameter.param('key') || k;
 
 87. 在相关领域顶尖国际会议(如ACL, EMNLP)发表十余篇论文
+88. ：.gitignore只适用于尚未添加到git库的文件。如果已经添加了，则需用git rm移除后再重新commit。
+

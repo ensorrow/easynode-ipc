@@ -1050,6 +1050,38 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             }
         }
 
+        /**
+         * @api {put} /icp/bamm 检查备案密码
+         * @apiName putWebsiteb
+         * @apiGroup Ops
+         * @apiPermission whitelist
+         * @apiVersion 0.0.2
+         * @apiDescription 通过白名单管理权限
+         *
+         * @apiSampleRequest http://icp.hzspeed.cn/icp/website
+         *
+         * @apiParam {String} baxh 备案号
+         * @apiParam {String} bamm 备案密码
+
+         * @apiSuccess {Object} ret { ret:true|false,msg:''}
+         */
+        static checkBamm(app){
+            var me = this;
+            return function *(){
+                var ret = {};
+
+                var pass = Controllers.passWhitelist(this.remoteAddress,app);
+                if( pass ) {
+                    var storeService = new StoreService(app);
+                    ret = yield storeService.isp_verifybamm();
+                }
+
+                this.type = 'json';
+                this.body = {ret: ret};
+            }
+        }
+
+
         static passWhitelist( ip,app ){
             var pass = false;
             const ips = app.config.whiteips;

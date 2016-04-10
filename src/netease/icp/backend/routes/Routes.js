@@ -68,8 +68,10 @@ import bodyParse from 'koa-body';
             httpServer.addRoute('put','/admin/company',Controllers.putCompanyb(httpServer));
             httpServer.addRoute('put','/admin/website',Controllers.putWebsiteb(httpServer));
 
-            httpServer.addRoute('put','/rest/sys',Controllers.putSys(httpServer));
-            httpServer.addRoute('get','/rest/sys',Controllers.getSys(httpServer));
+            httpServer.addRoute('put','/admin/rest/sys',Controllers.putSys(httpServer));
+            httpServer.addRoute('get','/admin/rest/sys',Controllers.getSys(httpServer));
+
+            httpServer.addRoute('get','/admin/icp/bamm',Controllers.checkBamm(httpServer));
 
         }
 

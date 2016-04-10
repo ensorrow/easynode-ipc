@@ -745,17 +745,28 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          <msg>错误描述</msg>
          </return>
          msg_code参见第3-4节的返回状态msg_code代码表。
+
+         res( ret:true|false,msg:msg)
          */
         isp_verifybamm(args) {
             var me = this;
             return new Promise(function(res,rej){
                 me.clientVerify.isp_verifybamm(args, function(err,result){
                     if(err){
-                        EasyNode.DEBUG && logger.debug(`isp_verifybamm to ${args} failed, err: ${err}`);
+                        EasyNode.DEBUG && logger.debug(`isp_verifybamm to ${args} failed, err: ${err}`,result);
                         rej();
                     }else{
-                        EasyNode.DEBUG && logger.debug(`isp_verifybamm to ${args} success`);
-                        res(result);
+                        EasyNode.DEBUG && logger.debug(`isp_verifybamm to ${args} success`,result);
+                        var xml = result.return;
+                        var json = parser.toJson(xml, {object: true, arrayNotation: false});
+                        console.log(json);
+                        var msg = json.return.msg;
+                        if( 0 == parseInt(json.return.msg_code) ){
+                            res( {ret:json.return.VerifyRes == 0 ? true: false,msg:msg});
+                        }else{
+                            EasyNode.DEBUG && console.log(map.get(parseInt(json.return.msg_code)));
+                            res( {ret:false, msg:msg} );
+                        }
                     }
                 });
             });
