@@ -1050,7 +1050,7 @@ var utils = require('utility');
                     if( arr.length <= 0 )
                         return 0;
 
-                    return parseInt(arr[0].value);
+                    return arr[0].value;
                 } catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
                     return 0;
@@ -1089,7 +1089,8 @@ var utils = require('utility');
                     }).catch(function (e,result) {
                         console.log("isp_upload fail result",e,result);
                     });
-                    yield me.app.ispService.writeDataSequence(args.dataSequence);
+                    me.app.sys.dataSequence = args.dataSequence;
+                    yield me.app.ispService.writeSys(me.app.sys);
                 }catch(e){
                     console.log(e.stack);
                 }

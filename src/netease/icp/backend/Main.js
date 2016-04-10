@@ -7,7 +7,7 @@ var Routes = using('netease.icp.backend.routes.Routes');
 var MySqlDataSource = using('easynode.framework.db.MysqlDataSource');
 var HTTPUtil =  using('easynode.framework.util.HTTPUtil');
 var IspService = using('netease.icp.backend.services.IspService');
-
+var schedule = require('node-schedule');
 
 (function () {
     /**
@@ -97,8 +97,12 @@ var IspService = using('netease.icp.backend.services.IspService');
             Routes.defineRoutes(httpServer);
 
             yield httpServer.start();
-            var dataSequence = yield ispService.readDataSequence();
-            console.log("init dataSequence:",dataSequence);
+            var sys  = yield ispService.readSys();
+            httpServer.sys =  JSON.parse(sys);
+            EasyNode.DEBUG && logger.debug(` init sys: `,httpServer.sys);
+            var job = schedule.scheduleJob(sys.timer,function(){
+                EasyNode.DEBUG && logger.debug(`Executing query task....`);
+            });
         }
 
         getClassName()

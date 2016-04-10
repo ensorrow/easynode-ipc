@@ -279,7 +279,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             this.FIRST = 0;
             this.XZWZ = 1;
             this.XZJR = 2;
-            this.dataSequence = 69;
+            this.dataSequence = 80;
          }
 
         /**
@@ -1157,24 +1157,24 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             EasyNode.DEBUG && logger.debug(`******** File created from base64 encoded string ********`);
         }
 
-        readDataSequence(){
+        readSys(){
             var me = this;
             return function * () {
                     var storeService = new StoreService(me.app);
                     var ret = yield storeService.getSys(1);
-                    me.dataSequence = ret;
+                    me.dataSequence = JSON.parse(ret).dataSequence;
                     return ret;
             };
         }
 
-        writeDataSequence(dataSequence){
+        writeSys(sys){
             var me = this;
             return function *() {
                 var storeService = new StoreService(me.app);
-                var ret = yield storeService.putSys(1, 1, dataSequence + '');
+                var ret = yield storeService.putSys(1, 1, JSON.stringify(sys));
                 if (ret == true) {
-                    me.dataSequence = dataSequence;
-                    console.log("write dataSequence:", dataSequence);
+                    me.dataSequence = parseInt(sys.dataSequence);
+                    console.log("write dataSequence:", me.dataSequence);
                 }
             }
         }
