@@ -90,10 +90,10 @@ describe('IspService',function() {
             }).catch(function(e){
                     done(e);
             });
-            console.log("1",fileInfos);
-            fs.writeFileSync("/Users/hujiabao/Downloads/response.text",JSON.stringify(fileInfos),'utf8');
+            //console.log("1",fileInfos);
+            //fs.writeFileSync("/Users/hujiabao/Downloads/response.text",JSON.stringify(fileInfos),'utf8');
 
-            var ret = yield ispService.decryptContent([fileInfos.beianInfo,fileInfos.beianInfoHash],fileInfos.compressionFormat,fileInfos.hashAlgorithm,fileInfos.encryptAlgorithm);
+            var ret = yield ispService.decryptContent([fileInfos.return_FileName,fileInfos.beianInfo,fileInfos.beianInfoHash],fileInfos.compressionFormat,fileInfos.hashAlgorithm,fileInfos.encryptAlgorithm);
 
             console.log(ret);
 

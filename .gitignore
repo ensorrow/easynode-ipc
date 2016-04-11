@@ -52,3 +52,5 @@ plugins/8..
 bin/nohup.out
 config.json
 bin/beianinfo.zip
+response.zip
+*.xml

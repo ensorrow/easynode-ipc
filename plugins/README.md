@@ -596,3 +596,7 @@ getSys(k=0){
             注意用enc+=;
             join('')隐式转成字符串,虽然hash值计算时对的,要转成二进制进行操作
 
+93. 记得部署之前更新文档
+94.  new Buffer(contentCompression,'binary')
+95.  unzip只能解一半,有时解不开,有问题
+

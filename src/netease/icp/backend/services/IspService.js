@@ -10,9 +10,6 @@ var utils = require('utility');
 var ByteBuffer = require('ByteBuffer');
 var iconv = require('iconv-lite');
 const crypto = require('crypto');
-//var md5 = crypto.createHash('md5');
-//var md55 =  require('md5');
-const zlib = require('zlib');
 var fso = require('fs');
 var parser = require('xml2json');
 var json2xml = require('icp-json2xml');
@@ -20,8 +17,10 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
 import { XZWZ_ASSIGN } from '../json/req/upload/ICP/XZWZ/XZWZ';
 import { XZJR_ASSIGN } from '../json/req/upload/ICP/XZJR/XZJR';
 
-var archiver = require('archiver');
+var fstream = require("fstream");
 var unzip = require('unzip');
+var zlib = require('zlib');
+var AdmZip = require('adm-zip');
 var http = require("http");
 var StoreService = using('netease.icp.backend.services.StoreService');
 
@@ -594,13 +593,12 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                         EasyNode.DEBUG && logger.debug(`isp_querypreviousupload to ${args} success ${result}`);
                         var xml = result.return;
                         var json = parser.toJson(xml, {object: true, arrayNotation: false});
-                        console.log(json);
                         if( 0 == parseInt(json.return.msg_code) ){
                             me.dataSequence = parseInt(json.return.fileInfos.dataSequence);
                         }else{
                             EasyNode.DEBUG && console.log(map[json.return.msg_code]);
                         }
-                        console.log("me.dataSequence:",me.dataSequence );
+                        EasyNode.DEBUG && logger.debug(` e.dataSequence: ${me.dataSequence}`);
                         res( json.return.fileInfos );
                     }
                 });
@@ -883,6 +881,32 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             });
         }
 
+        /*
+        * unzip file
+        * */
+        unzip(buffer,fileName) {
+            return new Promise(function (res, rej) {
+
+                console.log(fileName);
+                var resolved = false;
+
+                var zip = new AdmZip(buffer);
+                var zipEntries = zip.getEntries(); // an array of ZipEntry records
+
+                zipEntries.forEach(function (zipEntry) {
+                    console.log(zipEntry.entryName);
+                    if (zipEntry.entryName == fileName) {
+                        resolved = true;
+                        res(zipEntry.getData());
+                    }
+                });
+
+                if (!resolved) {
+                    rej(new Error('No file found in archive: ' + fileName));
+                }
+            });
+        };
+
         /**
          * @method 解密内容
          * @apiName decryptContent
@@ -905,7 +929,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiSuccess {Object} ret {result:0|1,beianInfo:''}  ret:0不通过,1通过, beianInfo解密,解压后的内容
          */
-        decryptContent([beianInfo:'',beianInfoHash:''],compressionFormat = COMPRESSIONFORMAT,hashAlgorithm = HASHALGORITHM, encryptAlgorithm = ENCRYPTALGORITHM){
+        decryptContent([filename:'',beianInfo:'',beianInfoHash:''],compressionFormat = COMPRESSIONFORMAT,hashAlgorithm = HASHALGORITHM, encryptAlgorithm = ENCRYPTALGORITHM){
             var ret = {result:0,beianInfo:''};
             var me = this;
             return function * () {
@@ -933,45 +957,23 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                     calcHash = new Buffer(crypto.createHash('md5').update(contentCompression).digest('base64'));
                 }
                 EasyNode.DEBUG && logger.debug(`beianInfoHash calced ${calcHash}, beianInfoHash downloaded ${beianInfoHash}`);
+
                 if( calcHash == beianInfoHash ){
 
-                    //fso.writeFileSync("/Users/hujiabao/Downloads/response.zip",contentCompression,'binary');
+                    console.log("1");
+                    try{
+                        var xml = yield me.unzip(new Buffer(contentCompression,'binary'),filename);
+                        xml = iconv.decode(xml,'GBK');
+                        var json = parser.toJson(xml, {object: true, arrayNotation: false});
+                        console.log(json);
+                        console.log(json.UploadData.ICP.Qqdwid);
+                        console.log(json.UploadData.ICP.XZBA.Baxx);
 
-                    //try{
-                    //    fso.createReadStream('/Users/hujiabao/Downloads/beianinfo.zip').pipe(unzip.Extract({ path: '/Users/hujiabao/Downloads/output' }));
-                    //}catch(e){
-                    //    EasyNode.DEBUG && logger.debug(` ${e}`);
-                    //    return false;
-                    //}
+                    }catch(e){
+                        EasyNode.DEBUG && logger.debug(` ${e}`);
 
-                    //check pass, uncompression
-                    //yield new Promise(function(res,rej){
-                    //    if( compressionFormat ==  COMPRESSIONFORMAT ){
-                    //
-                    //        try{
-                    //
-                    //            zlib.unzip(contentCompression,function(err,buff){
-                    //                if( err ){
-                    //                    EasyNode.DEBUG && logger.debug(`ungzip to failed, err: ${err}`);
-                    //                    rej(err);
-                    //                }else{
-                    //                    console.log(iconv.encode(buff,'GBK'));
-                    //
-                    //                    EasyNode.DEBUG && logger.debug(`ungzip to success`);
-                    //                    res();
-                    //                    ret.beianInfo = iconv.decode(buff, "GBK");
-                    //                    ret.result = 1;
-                    //                }
-                    //            });
-                    //        }catch(e){
-                    //            EasyNode.DEBUG && logger.debug(` ${e}`);
-                    //            return ret;
-                    //        }
-                    //    }
-                    //});
-
-
-                }else{
+                    }
+                 }else{
                     //check fail
                 }
                 return ret;
