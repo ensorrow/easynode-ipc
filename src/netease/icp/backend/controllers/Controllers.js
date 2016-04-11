@@ -458,7 +458,32 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} record.curtainurl 帘布照片URL
          * @apiSuccess {Number} record.updatetime 记录更新时间
          * @apiSuccess {Number} record.createtime 记录创建时间
-         *
+         * @apiSuccess {String} record.beianstatus 备案状态,JSON数组的字符串
+         * [
+         *  {
+         *   ret:true|false,
+         *   msg:'',
+         *   StatusInfo:{
+         *    }
+         *  }
+         * ]
+         * 当ret == true时,StatusInfo为以下两种:
+         * 一.已备案的结果
+         *   StatusInfo:{
+         *      Cxtjlx:'',
+         *      Cxtj:'',
+         *      Wzmc:'',
+         *      Ztbah:'',
+         *      Wzbah:'',
+         *      Bazt:0
+         *   }
+         * 二.未备案的结果
+         *   StatusInfo:{
+         *      Cxtjlx:'',
+         *      Cxtj:'',
+         *      Baxt:1
+         *   }
+         * 当ret == false时, StatusInfo为{}空对象
          * @apiSuccess {Object} comapny 记录
          * @apiSuccess {Number} comapny.id 公司ID
          * @apiSuccess {String} comapny.province 省

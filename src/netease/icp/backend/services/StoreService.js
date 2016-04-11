@@ -418,10 +418,10 @@ var utils = require('utility');
                 //3. website
                 try{
                     var sql = '';
-                    var id = recordId || this.parameter.param('id') ;
+                    var id =  recordId > 0 ? recordId : this.parameter.param('id') ;
                     conn = yield  me.app.ds.getConnection();
 
-                    sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,checkedlisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons,operatetime,operator FROM record WHERE id = #id#`;
+                    sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,checkedlisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons,operatetime,operator,beianstatus FROM record WHERE id = #id#`;
                     arr =  yield conn.execQuery(sql,{ id:id } );
                     if( arr.length <= 0 )
                         return ret;
@@ -550,6 +550,32 @@ var utils = require('utility');
                             var json = yield me.isp_upload(id);
                         }
                     }
+                    return ret;
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                    return false;
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
+        putBeianstatus(idp=0,beianstatusp=''){
+            var me = this;
+            return function *(){
+                var r = null;
+                var conn = null;
+                var model = new Record();
+                var id = idp;
+                var beianstatus = beianstatusp;
+
+                try{
+                    conn = yield me.app.ds.getConnection();
+
+                    model.merge( Object.assign({}, { id: id, beianstatus:beianstatus} ));
+
+                    r = yield conn.update(model);
+                    var ret =  r.affectedRows + r.insertId > 0 ?  true : false;
                     return ret;
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
@@ -1146,8 +1172,9 @@ var utils = require('utility');
         isp_querybeianstatus(queryConditionTypep=1,queryConditionp=''){
             var me = this;
             return function* (){
-                var queryConditionType = queryConditionTypep || this.parameter.param('queryConditionType');
-                var queryCondition = queryConditionp || this.parameter.param('queryCondition');
+                console.log(this.parameter);
+                var queryConditionType =  ( this.parameter && this.parameter.param && this.parameter.param('queryConditionType') ) || queryConditionTypep;
+                var queryCondition = ( this.parameter && this.parameter.param && this.parameter.param('queryCondition') )|| queryConditionp;
 
                 var args;
 

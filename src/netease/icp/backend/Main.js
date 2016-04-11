@@ -10,6 +10,8 @@ var IspService = using('netease.icp.backend.services.IspService');
 var schedule = require('node-schedule');
 var StoreService = using('netease.icp.backend.services.StoreService');
 var co = require('co');
+import {IDTYPE} from '../../../../public/netease/icp/constant/define';
+
 
 (function () {
     /**
@@ -119,22 +121,45 @@ var co = require('co');
             var timerFunc =
             setInterval(function(){
                 httpServer.checklist.forEach(function(element, index, array){
-                    console.log("element:",element);
                     co( function*(){
+                        console.log('1',element);
                         var storeService = new StoreService(httpServer);
                         var ret = yield storeService.getRecordb(element);
-                        console.log(ret);
+                        console.log('222222222',element);
+                        var result = [];
+                        var r = {};
                         try{
-                            ret = yield storeService.isp_querybeianstatus(2,'330222197809135514');
-                            console.log(ret);
+                            if( ret.website.domain ){
+                               r =  yield storeService.isp_querybeianstatus(IDTYPE.DOMAIN,ret.website.domain);
+                                result.push(r);
+                            }
+                            if( ret.website.domain1 ){
+                                r =   yield storeService.isp_querybeianstatus(IDTYPE.DOMAIN,ret.website.domain1);
+                                result.push(r);
+                            }
+                            if( ret.website.domain2 ){
+                                r =  yield storeService.isp_querybeianstatus(IDTYPE.DOMAIN,ret.website.domain2);
+                                result.push(r);
+                            }
+                            if( ret.website.domain3 ){
+                                r =  yield storeService.isp_querybeianstatus(IDTYPE.DOMAIN,ret.website.domain3);
+                                result.push(r);
+                            }
+                            if( ret.website.domain4 ){
+                                r =  yield storeService.isp_querybeianstatus(IDTYPE.DOMAIN,ret.website.domain4);
+                                result.push(r);
+                            }
+
+                            r = yield storeService.isp_querybeianstatus(ret.company.idtype,ret.company.idnumber);
+                            result.push(r);
+                            ret = yield storeService.putBeianstatus(ret.record.id,JSON.stringify(result));
+                            console.log("putBeianstatus result:",ret);
 
                         }catch(e){
                             EasyNode.DEBUG && logger.debug(` ${e}`);
                             return false;
                         }
-
                     });
-
                 });
             },10000);
         }
