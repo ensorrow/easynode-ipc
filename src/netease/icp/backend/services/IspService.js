@@ -36,7 +36,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
     const ENCRYPTALGORITHM = 0;//0-不加密 1-AES加密算法，加密模式使用CBC模式，补码方式采用PKCS5Padding，密钥偏移量由部级系统、省局系统生成的字符串，如“0102030405060708”。
     const COMPRESSIONFORMAT = 0; //0-zip压缩格式
 
-    const REPORT_URL = '/Users/hujiabao/Desktop/upDownLoad.xml';
+    const REPORT_URL = 'http://122.224.213.98/ISPWebService/upDownLoad?wsdl';
     const QUERY_URL = 'http://122.224.213.98/BeianStatusWebService/queryBeianStatus?wsdl';
     const VERIFY_URL = 'http://zcaisp.miitbeian.gov.cn/BeianStatusWebService/verifyBamm?wsdl';
 
@@ -373,11 +373,9 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                         console.log(json);
                         if( 0 == parseInt(json.return.msg_code) ){
                             var msg = json.return.msg;
-                            //me.writeDataSequence(me.dataSequence+1);
                             res(me.dataSequence+1);
                             console.log(msg);
                         }else if( 14 == parseInt(json.return.msg_code) ){
-                            //me.writeDataSequence(json.return.dataSequences.dataSequence);
                             res(json.return.dataSequences.dataSequence);
                         }
                         else{
@@ -603,10 +601,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                             EasyNode.DEBUG && console.log(map[json.return.msg_code]);
                         }
                         console.log("me.dataSequence:",me.dataSequence );
-                        /*console.log(me.dataSequence);
-                        //parser.toXml(json);生成的结果不符合XML规范
-                        var xml2 = json2xml(json, {header: true});
-                        console.log(xml2);*/
                         res( json.return.fileInfos );
                     }
                 });
@@ -846,25 +840,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 }
                 //1
                 var contentCompression = null;
-                //yield new Promise(function(res,rej){
-                //    if( compressionFormat ==  COMPRESSIONFORMAT ){
-                //        zlib.gzip(content,function(err,buff){
-                //            if( err ){
-                //                EasyNode.DEBUG && logger.debug(`gzip to failed, err: ${err}`);
-                //                rej(err);
-                //            }else{
-                //                EasyNode.DEBUG && logger.debug(`gzip to success`);
-                //                res();
-                //                contentCompression = buff;
-                //            }
-                //        })
-                //    }
-                //});
-                //if( !contentCompression ){
-                //    return ret;
-                //}
                 yield me.generateZip(content,"./beianinfo.zip","beianinfo.xml");
-
                 contentCompression = fso.readFileSync('./beianinfo.zip');
 
                 //2
@@ -959,7 +935,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 EasyNode.DEBUG && logger.debug(`beianInfoHash calced ${calcHash}, beianInfoHash downloaded ${beianInfoHash}`);
                 if( calcHash == beianInfoHash ){
 
-                    fso.writeFileSync("/Users/hujiabao/Downloads/response.zip",contentCompression,'binary');
+                    //fso.writeFileSync("/Users/hujiabao/Downloads/response.zip",contentCompression,'binary');
 
                     //try{
                     //    fso.createReadStream('/Users/hujiabao/Downloads/beianinfo.zip').pipe(unzip.Extract({ path: '/Users/hujiabao/Downloads/output' }));
@@ -1007,7 +983,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
             var me = this;
 
-            //ToDo
             return function *(){
                 if(type == me.FIRST){
                     try{
@@ -1099,13 +1074,9 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                         json.record.securityurl2 = new Buffer(image).toString('base64');
 
 
-                        console.log("1");
                         var assignedJson = XZJR_ASSIGN(json) ;
-                        console.log("2");
                         var xml2 = json2xml(assignedJson, { attributes_key: 'attr',header: true });
-                        console.log("3");
                         var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
-                        console.log("4");
                         return ret;
                     }catch(e){
                         EasyNode.DEBUG && logger.debug(` ${e}`);
@@ -1140,10 +1111,10 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             var cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
             cipher.setAutoPadding(true);
 
-            cipherChunks.push(cipher.update(data, clearEncoding, cipherEncoding));
-            cipherChunks.push(cipher.final(cipherEncoding));
+            var enc = cipher.update(data, clearEncoding, cipherEncoding);
+            enc += cipher.final(cipherEncoding);
 
-            return cipherChunks.join('');
+            return enc;
         }
 
         //data 是你的准备解密的字符串,key是你的密钥

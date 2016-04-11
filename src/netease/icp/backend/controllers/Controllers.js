@@ -859,7 +859,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiVersion 0.0.2
          * @apiDescription 权限通过白名单管理
          *
-         * @apiParam {Number} filter 查询状态过滤条件 0-全部(除草稿) 1-待审核  2-已审核通过 3-审核失败的 6-状态照片审核通过(status=6)
+         * @apiParam {Number} filter 查询状态过滤条件 0-全部(除草稿) 1-待审核  2-已审核通过 3-审核失败的 6-状态照片审核通过()
          * @apiParam {Number} page 页号.
          * @apiParam {Number} rpp  每页记录数.
          *

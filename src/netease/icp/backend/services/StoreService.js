@@ -5,7 +5,6 @@ var md5 =  require('md5');
 var fs = require('co-fs');
 var f =  require('fs');
 var bfs = require('babel-fs');
-var Nos = require('nenos');
 var archiver = require('archiver');
 var _ = require('lodash');
 var User = using('netease.icp.backend.models.User');

@@ -1,4 +1,3 @@
-/*
 
 'use strict';
 
@@ -295,4 +294,3 @@ describe('IspService',function() {
     });
 
 });
-*/
