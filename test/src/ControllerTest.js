@@ -57,6 +57,21 @@ describe('ControllerTest',function() {
     });
 
 
+    //it('Get /admin/records',function (done){
+    //
+    //    request.get('http://icpdev.hzspeed.cn/admin/records')
+    //        .query({filter:6,rpp:20,page:0})
+    //        .accept('json')
+    //        .end(function(err, res){
+    //            // Do something
+    //
+    //            console.log(res.text);
+    //            //var ret = JSON.parse(res.text);
+    //            //dataSequence = ret.ret;
+    //            done();
+    //        });
+    //});
+
     //it('Get /admin/rest/sys',function (done){
     //
     //    request.get('http://icpdev.hzspeed.cn/admin/rest/sys')

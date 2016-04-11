@@ -120,12 +120,12 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
             //});
             var timerFunc =
             setInterval(function(){
-                httpServer.checklist.forEach(function(element, index, array){
                     co( function*(){
-                        console.log('1',element);
+                        var id = httpServer.checklist.shift() || 0;
+                        if( id == 0 )
+                            return ;
                         var storeService = new StoreService(httpServer);
-                        var ret = yield storeService.getRecordb(element);
-                        console.log('222222222',element);
+                        var ret = yield storeService.getRecordb(id);
                         var result = [];
                         var r = {};
                         try{
@@ -160,7 +160,6 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
                             return false;
                         }
                     });
-                });
             },10000);
         }
 

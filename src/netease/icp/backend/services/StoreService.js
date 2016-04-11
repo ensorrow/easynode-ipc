@@ -257,6 +257,7 @@ var utils = require('utility');
                         const FILTER_CONDITION_WAITED = 1;
                         const FILTER_CONDITION_PASSED = 2;
                         const FILTER_CONDITION_NOPASS = 3;
+                        const FILTER_CONDITION_PHOTO_PASSED = 6;
                         if( filter ==  FILTER_CONDITION_ALL )
                             ret = yield conn.list(model,{ status: { exp:'<>',value:0 } },{ page: page,rpp: rpp },['updatetime ASC]']);
                         if( filter ==  FILTER_CONDITION_WAITED )
@@ -265,6 +266,9 @@ var utils = require('utility');
                             ret = yield conn.list(model,{ status: { exp:'in',value:[3,6,9] } },{ page: page,rpp: rpp },['updatetime DESC']);
                         if( filter ==  FILTER_CONDITION_NOPASS )
                             ret = yield conn.list(model,{ status: { exp:'in',value:[2,5,8] } },{ page: page,rpp: rpp },['updatetime DESC']);
+                        if( filter == FILTER_CONDITION_PHOTO_PASSED ){
+                            ret =  yield conn.list(model,{ status: { exp:'in',value:[6] } },{ page: page,rpp: rpp },['updatetime DESC']);
+                        }
                     }else{
                         ret = yield conn.list(model,{ tenantid: { exp:'=',value: tenantid } },{ page: page,rpp: rpp },['updatetime DESC']);
                     }
@@ -296,6 +300,7 @@ var utils = require('utility');
                     const FILTER_CONDITION_WAITED = 1;
                     const FILTER_CONDITION_PASSED = 2;
                     const FILTER_CONDITION_NOPASS = 3;
+                    const FILTER_CONDITION_PHOTO_PASSED = 6;
                     if( filter ==  FILTER_CONDITION_ALL )
                         ret =  yield conn.list(model,{ status: { exp:'<>',value:0 } },{ page: page,rpp: rpp },['updatetime DESC']);
                     if( filter ==  FILTER_CONDITION_WAITED )
@@ -304,6 +309,9 @@ var utils = require('utility');
                         ret =  yield conn.list(model,{ status: { exp:'in',value:[3,6,9] } },{ page: page,rpp: rpp },['updatetime DESC']);
                     if( filter ==  FILTER_CONDITION_NOPASS )
                         ret =  yield conn.list(model,{ status: { exp:'in',value:[2,5,8] } },{ page: page,rpp: rpp },['updatetime DESC']);
+                    if( filter == FILTER_CONDITION_PHOTO_PASSED ){
+                        ret =  yield conn.list(model,{ status: { exp:'in',value:[6] } },{ page: page,rpp: rpp },['updatetime DESC']);
+                    }
                 } catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
                 }finally{
@@ -418,7 +426,7 @@ var utils = require('utility');
                 //3. website
                 try{
                     var sql = '';
-                    var id =  recordId > 0 ? recordId : this.parameter.param('id') ;
+                    var id =  (this.parameter && this.parameter.param && this.parameter.param('id') ) || recordId ;
                     conn = yield  me.app.ds.getConnection();
 
                     sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,checkedlisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons,operatetime,operator,beianstatus FROM record WHERE id = #id#`;
@@ -1143,8 +1151,8 @@ var utils = require('utility');
         isp_verifybamm(baxhp='',bammp=''){
             var me = this;
             return function* (){
-                var baxh = this.parameter.param('baxh') || baxhp;
-                var bamm = this.parameter.param('bamm') || bammp;
+                var baxh = ( this.parameter && this.parameter.param && this.parameter.param('baxh') ) || baxhp;
+                var bamm = ( this.parameter && this.parameter.param &&  this.parameter.param('bamm') ) || bammp;
 
                 var args;
 
@@ -1172,7 +1180,6 @@ var utils = require('utility');
         isp_querybeianstatus(queryConditionTypep=1,queryConditionp=''){
             var me = this;
             return function* (){
-                console.log(this.parameter);
                 var queryConditionType =  ( this.parameter && this.parameter.param && this.parameter.param('queryConditionType') ) || queryConditionTypep;
                 var queryCondition = ( this.parameter && this.parameter.param && this.parameter.param('queryCondition') )|| queryConditionp;
 
@@ -1184,8 +1191,6 @@ var utils = require('utility');
                     args = me.app.ispService.getInitParam();
                     args.queryConditionType = queryConditionType;
                     args.queryCondition = queryCondition;
-
-                    console.log(args);
 
                     var ret = yield me.app.ispService.isp_querybeianstatus(args).then(function (result) {
                         console.log("isp_querybeianstatus success",result);
