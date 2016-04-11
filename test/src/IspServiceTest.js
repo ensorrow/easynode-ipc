@@ -1,7 +1,4 @@
-/**
- * Created by hujiabao on 9/21/15.
- */
-
+/*
 'use strict';
 
 import co from 'co';
@@ -103,52 +100,52 @@ describe('IspService',function() {
 
     });
 
-    //it('isp_upload',function (done){
-    //
-    //    co(function * () {
-    //
-    //        var beianInfo;
-    //        var args;
-    //        try{
-    //             beianInfo = yield ispService.genbeianInfo(json,ispService.FIRST);
-    //             console.log("1");
-    //             args = ispService.getUploadInitParam();
-    //             args.beianInfo  = beianInfo.beianInfo;
-    //             args.beianInfoHash = beianInfo.beianInfoHash;
-    //
-    //             console.log("dataSequence upload:",args.dataSequence);
-    //
-    //            // var ret = yield ispService.decryptContent([beianInfo.beianInfo,beianInfo.beianInfoHash]);
-    //            //
-    //            //console.log("decrypt resut:",ret.result);
-    //            //console.log("decryptContent:",ret.beianInfo);
-    //
-    //        }catch(e){
-    //            EasyNode.DEBUG && logger.debug(` ${e}`);
-    //        }
-    //
-    //        //try{
-    //        //    fs.writeFileSync('/Users/hujiabao/Downloads/reqdata.txt',JSON.stringify(args));
-    //        //}catch(e){
-    //        //    EasyNode.DEBUG && logger.debug(` ${e}`);
-    //        //}
-    //
-    //        console.log("isp_upload......");
-    //        try{
-    //            ispService.isp_upload(args).then(function (result) {
-    //                console.log("is_upload success",result);
-    //                done();
-    //            }).catch(function (e,result) {
-    //                console.log("isp_upload fail result",result);
-    //                done(e);
-    //            });
-    //        }catch(e){
-    //            console.log(e.stack);
-    //        }
-    //
-    //    });
-    //
-    //});
+    it('isp_upload',function (done){
+
+        co(function * () {
+
+            var beianInfo;
+            var args;
+            try{
+                 beianInfo = yield ispService.genbeianInfo(json,ispService.FIRST);
+                 console.log("1");
+                 args = ispService.getUploadInitParam();
+                 args.beianInfo  = beianInfo.beianInfo;
+                 args.beianInfoHash = beianInfo.beianInfoHash;
+
+                 console.log("dataSequence upload:",args.dataSequence);
+
+                // var ret = yield ispService.decryptContent([beianInfo.beianInfo,beianInfo.beianInfoHash]);
+                //
+                //console.log("decrypt resut:",ret.result);
+                //console.log("decryptContent:",ret.beianInfo);
+
+            }catch(e){
+                EasyNode.DEBUG && logger.debug(` ${e}`);
+            }
+
+            //try{
+            //    fs.writeFileSync('/Users/hujiabao/Downloads/reqdata.txt',JSON.stringify(args));
+            //}catch(e){
+            //    EasyNode.DEBUG && logger.debug(` ${e}`);
+            //}
+
+            console.log("isp_upload......");
+            try{
+                ispService.isp_upload(args).then(function (result) {
+                    console.log("is_upload success",result);
+                    done();
+                }).catch(function (e,result) {
+                    console.log("isp_upload fail result",result);
+                    done(e);
+                });
+            }catch(e){
+                console.log(e.stack);
+            }
+
+        });
+
+    });
 
     //it('isp_aes',function (done){
     //
@@ -294,4 +291,4 @@ describe('IspService',function() {
         done();
     });
 
-});
+});*/

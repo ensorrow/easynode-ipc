@@ -326,6 +326,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {Number} record.websiteid 网站id
          * @apiSuccess {String} record.sitemanagerurl 主体单位负责人图片URL
          * @apiSuccess {String} record.checklisturl 核验单图片URL
+         * @apiSuccess {String} record.checkedlisturl 校验过的核验单图片URL
          * @apiSuccess {String} record.protocolurl1 云平台服务协议第一页l图片URL
          * @apiSuccess {String} record.protocolurl2 云平台服务协议第二页图片URL
          * @apiSuccess {String} record.securityurl1 信息安全管理责任书第一页图片URL
@@ -444,6 +445,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {Number} record.websiteid 网站id
          * @apiSuccess {String} record.sitemanagerurl 主体单位负责人图片URL
          * @apiSuccess {String} record.checklisturl 核验单图片URL
+         * @apiSuccess {String} record.checkedlisturl 校验过的核验单图片URL
          * @apiSuccess {String} record.protocolurl1 云平台服务协议第一页l图片URL
          * @apiSuccess {String} record.protocolurl2 云平台服务协议第二页图片URL
          * @apiSuccess {String} record.securityurl1 信息安全管理责任书第一页图片URL
@@ -621,6 +623,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiParam {Number} status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-未知状态\n
          * @apiParam {String} reasons 通过则为备注,拒绝则为理由(多条用p标签分隔)
          * @apiParam {String} [curtainurl] 帘布照片URL
+         * @apiParam {String} [checkedlisturl] 校验过的核验单URL,当status=7时必须有该以该参娄
          * @apiParam {Number} operatetime 操作时间
          * @apiParam {String} operator 操作员
          *
@@ -759,6 +762,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {Object[]} data 记录列表
          * @apiSuccess {Number} data.id 记录id
          * @apiSuccess {String} data.checklisturl 核验单图片URL
+         * checkedlisturl
          * @apiSuccess {String} data.protocolurl1 云平台协议第一页图片
          * @apiSuccess {String} data.protocolurl2 云平台协议第二页图片
          * @apiSuccess {String} data.securityurl1 信息安全管理责任书第一页图片URL
@@ -812,6 +816,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {Object[]} data 记录列表
          * @apiSuccess {Number} data.id 记录id
          * @apiSuccess {String} data.checklisturl 核验单图片URL
+         * @apiSuccess {String} data.checkedlisturl 校验过的核验单图片URL
          * @apiSuccess {String} data.protocolurl1 云平台协议第一页图片
          * @apiSuccess {String} data.protocolurl2 云平台协议第二页图片
          * @apiSuccess {String} data.securityurl1 信息安全管理责任书第一页图片URL

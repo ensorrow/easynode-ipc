@@ -944,7 +944,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 if( encryptAlgorithm == ENCRYPTALGORITHM ){
                     contentCompression = contentDecodebase64;
                 }else {
-                    console.log("ToDo");
                     try{
                         contentCompression = contentDecodebase64;
                         contentCompression = me.decryption(contentCompression);
@@ -960,41 +959,40 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 EasyNode.DEBUG && logger.debug(`beianInfoHash calced ${calcHash}, beianInfoHash downloaded ${beianInfoHash}`);
                 if( calcHash == beianInfoHash ){
 
-                    //fso.writeFileSync("/Users/hujiabao/Downloads/response.zip",contentCompression);
-                    //contentCompression = fso.readFileSync("/Users/hujiabao/Downloads/1.zip");
+                    fso.writeFileSync("/Users/hujiabao/Downloads/response.zip",new Buffer(contentCompression),'utf8');
 
                     //try{
-                    //    fso.createReadStream('/Users/hujiabao/Downloads/response.zip').pipe(unzip.Extract({ path: '/Users/hujiabao/Downloads/output' }));
+                    //    fso.createReadStream('/Users/hujiabao/Downloads/beianinfo.zip').pipe(unzip.Extract({ path: '/Users/hujiabao/Downloads/output' }));
                     //}catch(e){
                     //    EasyNode.DEBUG && logger.debug(` ${e}`);
                     //    return false;
                     //}
 
                     //check pass, uncompression
-                    yield new Promise(function(res,rej){
-                        if( compressionFormat ==  COMPRESSIONFORMAT ){
-
-                            try{
-
-                                zlib.unzip(contentCompression,function(err,buff){
-                                    if( err ){
-                                        EasyNode.DEBUG && logger.debug(`ungzip to failed, err: ${err}`);
-                                        rej(err);
-                                    }else{
-                                        console.log(iconv.encode(buff,'GBK'));
-
-                                        EasyNode.DEBUG && logger.debug(`ungzip to success`);
-                                        res();
-                                        ret.beianInfo = iconv.decode(buff, "GBK");
-                                        ret.result = 1;
-                                    }
-                                });
-                            }catch(e){
-                                EasyNode.DEBUG && logger.debug(` ${e}`);
-                                return ret;
-                            }
-                        }
-                    });
+                    //yield new Promise(function(res,rej){
+                    //    if( compressionFormat ==  COMPRESSIONFORMAT ){
+                    //
+                    //        try{
+                    //
+                    //            zlib.unzip(contentCompression,function(err,buff){
+                    //                if( err ){
+                    //                    EasyNode.DEBUG && logger.debug(`ungzip to failed, err: ${err}`);
+                    //                    rej(err);
+                    //                }else{
+                    //                    console.log(iconv.encode(buff,'GBK'));
+                    //
+                    //                    EasyNode.DEBUG && logger.debug(`ungzip to success`);
+                    //                    res();
+                    //                    ret.beianInfo = iconv.decode(buff, "GBK");
+                    //                    ret.result = 1;
+                    //                }
+                    //            });
+                    //        }catch(e){
+                    //            EasyNode.DEBUG && logger.debug(` ${e}`);
+                    //            return ret;
+                    //        }
+                    //    }
+                    //});
 
 
                 }else{
@@ -1018,8 +1016,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                         var image = yield me.downloadNos(json.record.sitemanagerurl + clip);
                         json.record.sitemanagerurl = new Buffer(image).toString('base64');
 
-                        image = yield me.downloadNos(json.record.checklisturl + clip);
-                        json.record.checklisturl = new Buffer(image).toString('base64');
+                        image = yield me.downloadNos(json.record.checkedlisturl + clip);
+                        json.record.checkedlisturl = new Buffer(image).toString('base64');
 
                         image = yield me.downloadNos(json.record.protocolurl1 + clip);
                         json.record.protocolurl1 = new Buffer(image).toString('base64');
@@ -1051,8 +1049,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                         var image = yield me.downloadNos(json.record.sitemanagerurl + clip);
                         json.record.sitemanagerurl = new Buffer(image).toString('base64');
 
-                        image = yield me.downloadNos(json.record.checklisturl + clip);
-                        json.record.checklisturl = new Buffer(image).toString('base64');
+                        image = yield me.downloadNos(json.record.checkedlisturl + clip);
+                        json.record.checkedlisturl = new Buffer(image).toString('base64');
 
                         image = yield me.downloadNos(json.record.protocolurl1 + clip);
                         json.record.protocolurl1 = new Buffer(image).toString('base64');
@@ -1084,8 +1082,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                         var image = yield me.downloadNos(json.record.sitemanagerurl + clip);
                         json.record.sitemanagerurl = new Buffer(image).toString('base64');
 
-                        image = yield me.downloadNos(json.record.checklisturl + clip);
-                        json.record.checklisturl = new Buffer(image).toString('base64');
+                        image = yield me.downloadNos(json.record.checkedlisturl + clip);
+                        json.record.checkedlisturl = new Buffer(image).toString('base64');
 
                         image = yield me.downloadNos(json.record.protocolurl1 + clip);
                         json.record.protocolurl1 = new Buffer(image).toString('base64');

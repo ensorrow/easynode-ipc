@@ -366,7 +366,7 @@ var utils = require('utility');
                     var id = this.parameter.param('id') || 0;
                     conn = yield  me.app.ds.getConnection();
 
-                    sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons FROM record WHERE id = #id# and tenantid = #tenantid#`;
+                    sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,checkedlisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons FROM record WHERE id = #id# and tenantid = #tenantid#`;
                     arr =  yield conn.execQuery(sql,{ id:id,tenantid:tenantid });
                     if( arr.length <= 0 )
                         return ret;
@@ -421,7 +421,7 @@ var utils = require('utility');
                     var id = this.parameter.param('id') || recordId;
                     conn = yield  me.app.ds.getConnection();
 
-                    sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons,operatetime,operator FROM record WHERE id = #id#`;
+                    sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,checkedlisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons,operatetime,operator FROM record WHERE id = #id#`;
                     arr =  yield conn.execQuery(sql,{ id:id } );
                     if( arr.length <= 0 )
                         return ret;
@@ -514,6 +514,7 @@ var utils = require('utility');
                 var curtainurl = form.curtainurl;
                 var operatetime = form.operatetime;
                 var operator = form.operator;
+                var checkedlisturl = form.checkedlisturl;
 
                 try{
                     conn = yield me.app.ds.getConnection();
@@ -528,12 +529,19 @@ var utils = require('utility');
                     if( curtainurl ){
                         model.merge( Object.assign({}, { curtainurl: curtainurl } ));
                     }
-
-                    if( status == 7 ){
-                        var json = yield me.isp_upload(id);
+                    if( checkedlisturl ){
+                        model.merge( Object.assign({}, { checkedlisturl: checkedlisturl } ));
                     }
+
+
                     r = yield conn.update(model);
-                    return r.affectedRows + r.insertId > 0 ?  true : false;
+                    var ret =  r.affectedRows + r.insertId > 0 ?  true : false;
+                    if( ret ){
+                        if( status == 7 ){
+                            var json = yield me.isp_upload(id);
+                        }
+                    }
+                    return ret;
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
                     return false;

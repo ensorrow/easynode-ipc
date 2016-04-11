@@ -1,7 +1,6 @@
-/*
-/!**
+/**
  * Created by hujiabao on 9/21/15.
- *!/
+ */
 
 'use strict';
 
@@ -44,51 +43,51 @@ describe('ControllerTest',function() {
 
         //590-首次备案  603-新增网站 669-新增接入
         request.put('http://icpdev.hzspeed.cn/admin/record')
-            .send({id:669,status:7,reasons:'passed'})
+            .send({id:684,status:7,reasons:'passed',checkedlisturl:'http://news.cnr.cn/gjxw/tpjj/20160411/t20160411_521834830.shtml'})
             .end(done);
     });
 
 
-    it('Get /admin/rest/sys',function (done){
-
-        request.get('http://icpdev.hzspeed.cn/admin/rest/sys')
-            .query({id:1,key:1})
-            .accept('json')
-            .end(function(err, res){
-                // Do something
-
-                console.log(res.text);
-                //var ret = JSON.parse(res.text);
-                //dataSequence = ret.ret;
-                done();
-            });
-    });
-
-    it('Get /admin/icp/verifybamm',function (done){
-
-        request.get('http://icpdev.hzspeed.cn/admin/icp/verifybamm')
-            .query({baxh:"浙ICP备14001515号",bamm:"EZM123"})
-            .accept('json')
-            .end(function(err, res){
-                // Do something
-
-                console.log(res.text);
-                done();
-            });
-    });
-
-    it('Get /admin/icp/querybeianstatus',function (done){
-
-        request.get('http://icpdev.hzspeed.cn/admin/icp/querybeianstatus')
-            .query({queryConditionType:2,queryCondition:"330222197809135514"})
-            .accept('json')
-            .end(function(err, res){
-                // Do something
-
-                console.log(res.text);
-                done();
-            });
-    });
+    //it('Get /admin/rest/sys',function (done){
+    //
+    //    request.get('http://icpdev.hzspeed.cn/admin/rest/sys')
+    //        .query({id:1,key:1})
+    //        .accept('json')
+    //        .end(function(err, res){
+    //            // Do something
+    //
+    //            console.log(res.text);
+    //            //var ret = JSON.parse(res.text);
+    //            //dataSequence = ret.ret;
+    //            done();
+    //        });
+    //});
+    //
+    //it('Get /admin/icp/verifybamm',function (done){
+    //
+    //    request.get('http://icpdev.hzspeed.cn/admin/icp/verifybamm')
+    //        .query({baxh:"浙ICP备14001515号",bamm:"EZM123"})
+    //        .accept('json')
+    //        .end(function(err, res){
+    //            // Do something
+    //
+    //            console.log(res.text);
+    //            done();
+    //        });
+    //});
+    //
+    //it('Get /admin/icp/querybeianstatus',function (done){
+    //
+    //    request.get('http://icpdev.hzspeed.cn/admin/icp/querybeianstatus')
+    //        .query({queryConditionType:2,queryCondition:"330222197809135514"})
+    //        .accept('json')
+    //        .end(function(err, res){
+    //            // Do something
+    //
+    //            console.log(res.text);
+    //            done();
+    //        });
+    //});
 
 
     //it('Put /rest/sys',function (done){
@@ -111,4 +110,4 @@ describe('ControllerTest',function() {
 
     });
 
-});*/
+});
