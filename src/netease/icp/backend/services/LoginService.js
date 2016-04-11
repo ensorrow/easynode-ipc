@@ -59,8 +59,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiSampleRequest http://icp.hzspeed.cn/records
          *
-         * @apiSuccess {Object[]} {insertId:id}
-         * @apiSuccess {Number} data.id 记录id
          *
          * @apiUse  EmptyRecord
         */
