@@ -14,6 +14,8 @@ import Global from '../utils/globals';
 import assigner from 'object.assign';
 var assign = assigner.getPolyfill();
 import DataService from '../services/DataService.js';
+import {IDTYPE,NATURE} from '../constants/define';
+
 
 const FT = {
     "IDTYPE": 0,
@@ -258,10 +260,10 @@ let CompanyInfo = React.createClass({
                         <div className="item-ctrl">
                             <select onChange={this.handleManagerIdType} value={this.state.companyInfo.manageridtype}>
                                 <option value ="0">请选择证件类型</option>
-                                <option value ="1">身份证</option>
-                                <option value="2">护照</option>
-                                <option value="3">军官证</option>
-                                <option value="4">台胞证</option>
+                                <option value ={IDTYPE.GR_SFZ}>身份证</option>
+                                <option value={IDTYPE.GR_HZ}>护照</option>
+                                <option value={IDTYPE.GR_JGZ}>军官证</option>
+                                <option value={IDTYPE.GR_TBZ}>台胞证</option>
                             </select>
                             <span className={this.state.formError.manageridtype.isBlank ? "u-popover" : "u-popover hidden" }>请选择负责人证件类型</span>
                         </div>
@@ -397,6 +399,20 @@ let CompanyInfo = React.createClass({
         e.preventDefault();
         var companyInfo = this.state.companyInfo;
         companyInfo.nature = e.target.value;
+        //Address idtype default value
+        if( companyInfo.nature == NATURE.JD){
+            companyInfo.idtype = IDTYPE.JD_JDDH;
+        }else if( companyInfo.nature == NATURE.ZFJG){
+            companyInfo.idtype = IDTYPE.ZFJG_ZZJGDMZS;
+        }else if( companyInfo.nature == NATURE.SYDW){
+            companyInfo.idtype = IDTYPE.SY_ZZJGDMZ;
+        }else if( companyInfo.nature == NATURE.QY){
+            companyInfo.idtype = IDTYPE.QY_GSYYZZ;
+        }else if( companyInfo.nature == NATURE.GR){
+            companyInfo.idtype = IDTYPE.GR_SFZ;
+        }else{
+            companyInfo.idtype = IDTYPE.SFTT_STFRZS;
+        }
         this.setState({companyInfo: companyInfo});
         /*if(parseInt(e.target.value) > 1){
             companyInfo.idtypeEnable = 1;
@@ -575,51 +591,51 @@ let CompanyInfo = React.createClass({
     },
     getOptions: function(nature){
         var me = this;
-        if( nature == 1 ){
+        if( nature == NATURE.JD ){
             return  (
                 <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
-                <option value ="5">军队代码</option>
+                <option value ={IDTYPE.JD_JDDH}>军队代码</option>
                 </select>
             )
         }
-        else if( nature == 2 ){
+        else if( nature == NATURE.ZFJG ){
             return  (
                 <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
-                <option value ="9">组织机构代码证书</option>
+                <option value ={IDTYPE.ZFJG_ZZJGDMZS}>组织机构代码证书</option>
                 </select>
             )
         }
-        else if( nature == 3 ){
+        else if( nature == NATURE.SYDW ){
             return  (
                 <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
-                <option value ="3">组织机构代码证书</option>
-                <option value ="4">事业法人证书</option>
+                <option value ={IDTYPE.SY_ZZJGDMZ}>组织机构代码证书</option>
+                <option value ={IDTYPE.SY_FRZS}>事业法人证书</option>
                 </select>
             )
         }
-        else if( nature == 4 ){
+        else if( nature == NATURE.QY ){
             return  (
                 <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
-                <option value ="1">工商营业执照</option>
-                <option value ="12">组织机构代码证书</option>
+                <option value = {IDTYPE.QY_GSYYZZ}>工商营业执照</option>
+                <option value = {IDTYPE.QY_ZZJGDMZS}>组织机构代码证书</option>
                 </select>
             )
         }
-        else if( nature == 5 ){
+        else if( nature == NATURE.GR ){
             return  (
                 <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
-                <option value ="2">身份证</option>
-                <option value ="7">护照</option>
-                <option value ="8">军官证</option>
-                <option value ="11">台胞证</option>
+                <option value ={IDTYPE.GR_SFZ}>身份证</option>
+                <option value = {IDTYPE.GR_HZ}>护照</option>
+                <option value = {IDTYPE.GR_JGZ}>军官证</option>
+                <option value = {IDTYPE.GR_TBZ}>台胞证</option>
                 </select>
             )
         }
-        else if( nature == 6 ){
+        else if( nature == NATURE.SFTT ){
             return  (
                 <select  name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
-                <option value ="6">社团法人证书</option>
-                <option value ="10">组织机构代码证书</option>
+                <option value = {IDTYPE.SFTT_STFRZS}>社团法人证书</option>
+                <option value = {IDTYPE.SFTT_ZZJGDMZS}>组织机构代码证书</option>
                 </select>
             )
         }
@@ -633,22 +649,20 @@ let CompanyInfo = React.createClass({
             return (
                 <select name="idtype" onChange={this.handleIdType} value={this.state.companyInfo.idtype} disabled="false" className="gray" onFocus={me.handleFocus.bind(me,FT.IDTYPE)} onBlur={me.handleBlur.bind(me,FT.IDTYPE)}>
                     <option value ="0">请选择主体单位证件类型</option>
-                    <option value ="1">社团法人证书</option>
-                    <option value ="2">组织机构代码证书</option>
                 </select>
             );
         }
     },
     getIdTypeTips:function(nature){
         var me = this;
-        if( nature == 0 ){
+        if( nature == NATURE.OTHER ){
             return  (
                 <div className="item-ctrl">
                     {this.getIdType()}
                 </div>
             )
         }
-        else if( nature == 1 ){
+        else if( nature == NATURE.JD ){
             return  (
                 <div className="item-ctrl">
                 {this.getIdType()}
@@ -656,7 +670,7 @@ let CompanyInfo = React.createClass({
                 </div>
             )
         }
-        else if( nature == 2 ){
+        else if( nature == NATURE.ZFJG ){
             return  (
                 <div className="item-ctrl">
                 {this.getIdType()}
@@ -664,7 +678,7 @@ let CompanyInfo = React.createClass({
                 </div>
             )
         }
-        else if( nature == 3 ){
+        else if( nature == NATURE.SYDW ){
             return  (
                 <div className="item-ctrl">
                     {this.getIdType()}
@@ -672,7 +686,7 @@ let CompanyInfo = React.createClass({
                 </div>
             )
         }
-        else if( nature == 4 ){
+        else if( nature == NATURE.QY ){
             return  (
                 <div className="item-ctrl">
                     {this.getIdType()}
@@ -680,7 +694,7 @@ let CompanyInfo = React.createClass({
                 </div>
             )
         }
-        else if( nature == 5 ){
+        else if( nature == NATURE.GR ){
             return  (
                 <div className="item-ctrl">
                     {this.getIdType()}
@@ -688,7 +702,7 @@ let CompanyInfo = React.createClass({
                 </div>
             )
         }
-        else if( nature == 6 ){
+        else if( nature == NATURE.SFTT ){
             return  (
                 <div className="item-ctrl">
                     {this.getIdType()}

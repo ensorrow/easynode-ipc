@@ -576,4 +576,7 @@ getSys(k=0){
 
 87. 在相关领域顶尖国际会议(如ACL, EMNLP)发表十余篇论文
 88. ：.gitignore只适用于尚未添加到git库的文件。如果已经添加了，则需用git rm移除后再重新commit。
+89. git branch -D deletebranch
+90. soap,json2xml库改成 isp-soap, isp-json2xml  则必须在package.json里改名,引用头文件里改名,node_modules里改名
 
+91. why define.js 存入public/netease/icp/constant/define.js ,Webpack 打包出现问题

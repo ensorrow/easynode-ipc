@@ -8,6 +8,8 @@ var MySqlDataSource = using('easynode.framework.db.MysqlDataSource');
 var HTTPUtil =  using('easynode.framework.util.HTTPUtil');
 var IspService = using('netease.icp.backend.services.IspService');
 var schedule = require('node-schedule');
+var StoreService = using('netease.icp.backend.services.StoreService');
+var co = require('co');
 
 (function () {
     /**
@@ -97,12 +99,44 @@ var schedule = require('node-schedule');
             Routes.defineRoutes(httpServer);
 
             yield httpServer.start();
+            httpServer.checklist = [];
             var sys  = yield ispService.readSys();
             httpServer.sys =  JSON.parse(sys);
             EasyNode.DEBUG && logger.debug(` init sys: `,httpServer.sys);
-            var job = schedule.scheduleJob('*/1 * * * *',function(){
-                EasyNode.DEBUG && logger.debug(`Executing query task....`);
-            });
+            //var job = schedule.scheduleJob('*/1 * * * *',function (){
+            //    EasyNode.DEBUG && logger.debug(`Executing query task....`);
+            //    httpServer.checklist.forEach(function(element, index, array){
+            //        console.log("element:",element);
+            //        co( function*(){
+            //            var storeService = new StoreService(httpServer);
+            //            var ret = yield storeService.getRecordb(element);
+            //
+            //            console.log(ret);
+            //        });
+            //
+            //    });
+            //});
+            var timerFunc =
+            setInterval(function(){
+                httpServer.checklist.forEach(function(element, index, array){
+                    console.log("element:",element);
+                    co( function*(){
+                        var storeService = new StoreService(httpServer);
+                        var ret = yield storeService.getRecordb(element);
+                        console.log(ret);
+                        try{
+                            ret = yield storeService.isp_querybeianstatus(2,'330222197809135514');
+                            console.log(ret);
+
+                        }catch(e){
+                            EasyNode.DEBUG && logger.debug(` ${e}`);
+                            return false;
+                        }
+
+                    });
+
+                });
+            },10000);
         }
 
         getClassName()

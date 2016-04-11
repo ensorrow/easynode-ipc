@@ -959,7 +959,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 EasyNode.DEBUG && logger.debug(`beianInfoHash calced ${calcHash}, beianInfoHash downloaded ${beianInfoHash}`);
                 if( calcHash == beianInfoHash ){
 
-                    fso.writeFileSync("/Users/hujiabao/Downloads/response.zip",new Buffer(contentCompression),'utf8');
+                    fso.writeFileSync("/Users/hujiabao/Downloads/response.zip",contentCompression,'binary');
 
                     //try{
                     //    fso.createReadStream('/Users/hujiabao/Downloads/beianinfo.zip').pipe(unzip.Extract({ path: '/Users/hujiabao/Downloads/output' }));
@@ -1149,19 +1149,16 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         //data 是你的准备解密的字符串,key是你的密钥
          decryption(data) {
             var key = KEY;
-            key = iconv.encode(key,"GBK");
             var iv = OFFSET;
-            iv = iconv.encode(iv,"GBK");
             var clearEncoding = 'binary';
             var cipherEncoding = 'base64';
-            var cipherChunks = [];
             var decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
             decipher.setAutoPadding(true);
 
-            cipherChunks.push(decipher.update(data, cipherEncoding, clearEncoding));
-            cipherChunks.push(decipher.final(clearEncoding));
+            var enc = decipher.update(data, cipherEncoding, clearEncoding);
+            enc += decipher.final(clearEncoding);
 
-            return cipherChunks.join('');
+            return enc;
         }
 
         base64_encode(file){

@@ -36,14 +36,23 @@ describe('ControllerTest',function() {
 
     it('upload',function (done){
         done();
-    });
+    })
 
 
-    it('Post /admin/record',function (done){
+    //it('Put /admin/record',function (done){
+    //
+    //    //590-首次备案  603-新增网站 669-新增接入
+    //    request.put('http://icpdev.hzspeed.cn/admin/record')
+    //        .send({id:684,status:7,reasons:'passed',checkedlisturl:'http://news.cnr.cn/gjxw/tpjj/20160411/t20160411_521834830.shtml'})
+    //        .end(done);
+    //});
+
+
+    it('Put /record',function (done){
 
         //590-首次备案  603-新增网站 669-新增接入
-        request.put('http://icpdev.hzspeed.cn/admin/record')
-            .send({id:684,status:7,reasons:'passed',checkedlisturl:'http://news.cnr.cn/gjxw/tpjj/20160411/t20160411_521834830.shtml'})
+        request.put('http://icpdev.hzspeed.cn/record')
+            .send({id:684,status:1,reasons:'passed',tenantid:'cffbc4146a7941f9ad443ad650518ff1'})
             .end(done);
     });
 
@@ -75,11 +84,11 @@ describe('ControllerTest',function() {
     //            done();
     //        });
     //});
-    //
-    //it('Get /admin/icp/querybeianstatus',function (done){
+
+    //it('Get /admin/icp/querybeianstatus identity',function (done){
     //
     //    request.get('http://icpdev.hzspeed.cn/admin/icp/querybeianstatus')
-    //        .query({queryConditionType:2,queryCondition:"330222197809135514"})
+    //        .query({queryConditionType:2,queryCondition:""})
     //        .accept('json')
     //        .end(function(err, res){
     //            // Do something
@@ -88,7 +97,33 @@ describe('ControllerTest',function() {
     //            done();
     //        });
     //});
-
+    //
+    //
+    //it('Get /admin/icp/querybeianstatus 163.com',function (done){
+    //
+    //    request.get('http://icpdev.hzspeed.cn/admin/icp/querybeianstatus')
+    //        .query({queryConditionType:0,queryCondition:"163.com"})
+    //        .accept('json')
+    //        .end(function(err, res){
+    //            // Do something
+    //
+    //            console.log(res.text);
+    //            done();
+    //        });
+    //});
+    //
+    //it('Get /admin/icp/querybeianstatus aaa163.com',function (done){
+    //
+    //    request.get('http://icpdev.hzspeed.cn/admin/icp/querybeianstatus')
+    //        .query({queryConditionType:0,queryCondition:"aaa163.com"})
+    //        .accept('json')
+    //        .end(function(err, res){
+    //            // Do something
+    //
+    //            console.log(res.text);
+    //            done();
+    //        });
+    //});
 
     //it('Put /rest/sys',function (done){
     //

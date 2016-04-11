@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute } from 'react-router';
 import ProgressBar from './ProgressBar.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
+import {IDTYPE,NATURE} from '../constants/define';
 
 let RecordInfo = React.createClass({
 
@@ -25,8 +26,8 @@ let RecordInfo = React.createClass({
         return  arr[__globals__.companyinfo.nature -1];
     },
     getIdType: function(){
-        var arr = [["军队代码"],["组织机构代码证书"],["组织机构代码证书","事业法人证书"],["工商营业执照","组织机构代码证书"],["身份证","护照","军官证","台胞证"],["社团法人证书","组织机构代码证书"]];
-        return  arr[__globals__.companyinfo.nature -1 ][__globals__.companyinfo.idtype - 1];
+        var arr = ["工商营业执照","身份证","组织机构代码证书","事业法人证书","军队代码","社团法人证书","护照","军官证","组织机构代码证书","组织机构代码证书","台胞证","组织机构代码证书"];
+        return  arr[__globals__.companyinfo.idtype - 1];
     },
     getPrechecktype: function(){
         var arr = ["暂无","新闻","出版","教育","医疗保健","药品和医疗器械","电子公告服务","文化"];
@@ -115,7 +116,7 @@ let RecordInfo = React.createClass({
         }
     },
     getOwner2: function(){
-        if( __globals__.companyinfo.nature != 5  ){
+        if( __globals__.companyinfo.nature != NATURE.GR  ){
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
@@ -129,7 +130,7 @@ let RecordInfo = React.createClass({
         }
     },
     getOwner3: function(){
-        if( __globals__.companyinfo.nature != 5  ){
+        if( __globals__.companyinfo.nature != NATURE.GR  ){
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
@@ -143,7 +144,7 @@ let RecordInfo = React.createClass({
         }
     },
     getOwner4: function(){
-        if( __globals__.companyinfo.nature != 5  ){
+        if( __globals__.companyinfo.nature != NATURE.GR  ){
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
@@ -157,7 +158,7 @@ let RecordInfo = React.createClass({
         }
     },
     getOwner5: function(){
-        if( __globals__.companyinfo.nature != 5  ){
+        if( __globals__.companyinfo.nature != NATURE.GR  ){
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
@@ -171,7 +172,7 @@ let RecordInfo = React.createClass({
         }
     },
     getOwner6: function(){
-        if( __globals__.companyinfo.nature != 5  ){
+        if( __globals__.companyinfo.nature != NATURE.GR  ){
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
@@ -185,7 +186,7 @@ let RecordInfo = React.createClass({
         }
     },
     getOwner7: function(){
-        if( __globals__.companyinfo.nature != 5  ){
+        if( __globals__.companyinfo.nature != NATURE.GR  ){
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
@@ -316,10 +317,10 @@ let RecordInfo = React.createClass({
         return lStr;
     },
     getManagerIdType: function(){
-        return  __globals__.siteinfo.manageridtype == 1 ? "身份证" :
-                __globals__.siteinfo.manageridtype == 2 ? "护照" :
-                __globals__.siteinfo.manageridtype == 3 ? "军官证" :
-                __globals__.siteinfo.manageridtype == 4 ? "台胞证" : "台胞证";
+        return  __globals__.siteinfo.manageridtype == IDTYPE.GR_SFZ ? "身份证" :
+                __globals__.siteinfo.manageridtype == IDTYPE.GR_HZ ? "护照" :
+                __globals__.siteinfo.manageridtype == IDTYPE.GR_JGZ ? "军官证" :
+                __globals__.siteinfo.manageridtype == IDTYPE.GR_TBZ ? "台胞证" : "台胞证";
     },
     getSiteRecordNumber: function(){
         return __globals__.companyinfo.recordnumber;

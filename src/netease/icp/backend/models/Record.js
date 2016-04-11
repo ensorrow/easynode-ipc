@@ -49,6 +49,7 @@ var Model = using('easynode.framework.mvc.Model');
                 .defineField('curtainurl','string')
                 .defineField('code', 'string')
                 .defineField('status', 'int')
+                .defineField('beianstatus', 'string')
                 .defineField('tenantid', 'string')
                 .defineField('reasons', 'string')
                 .defineField('operatetime', 'int')

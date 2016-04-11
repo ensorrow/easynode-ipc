@@ -418,7 +418,7 @@ var utils = require('utility');
                 //3. website
                 try{
                     var sql = '';
-                    var id = this.parameter.param('id') || recordId;
+                    var id = recordId || this.parameter.param('id') ;
                     conn = yield  me.app.ds.getConnection();
 
                     sql = `SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,checkedlisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons,operatetime,operator FROM record WHERE id = #id#`;
@@ -467,7 +467,7 @@ var utils = require('utility');
                 var reasons = form.reasons;
                 var id = form.id;
                 var curtainurl = form.curtainurl;
-                var tenantid = this.session.user.tenantid;
+                var tenantid = form.tenantid || this.session.user.tenantid;
                 var arr = [];
                 var sql = ``;
 
@@ -491,7 +491,13 @@ var utils = require('utility');
                     }
 
                     r = yield conn.update(model);
-                    return r.affectedRows + r.insertId > 0 ?  true : false;
+                    var ret =  r.affectedRows + r.insertId > 0 ?  true : false;
+                    if( ret ){
+                        if( status == 1 ){//初审中
+                            me.app.checklist.push(id);
+                        }
+                    }
+                    return ret;
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
                     return false;
@@ -515,6 +521,7 @@ var utils = require('utility');
                 var operatetime = form.operatetime;
                 var operator = form.operator;
                 var checkedlisturl = form.checkedlisturl;
+                var beianstatus = form.beianstatus;
 
                 try{
                     conn = yield me.app.ds.getConnection();
@@ -532,12 +539,14 @@ var utils = require('utility');
                     if( checkedlisturl ){
                         model.merge( Object.assign({}, { checkedlisturl: checkedlisturl } ));
                     }
-
+                    if( beianstatus ){
+                        model.merge( Object.assign({}, { beianstatus: beianstatus } ));
+                    }
 
                     r = yield conn.update(model);
                     var ret =  r.affectedRows + r.insertId > 0 ?  true : false;
                     if( ret ){
-                        if( status == 7 ){
+                        if( status == 7 ){//管局审核中
                             var json = yield me.isp_upload(id);
                         }
                     }
@@ -1134,11 +1143,11 @@ var utils = require('utility');
             }
         }
 
-        isp_querybeianstatus(queryConditionTypep=1,queryCondition=''){
+        isp_querybeianstatus(queryConditionTypep=1,queryConditionp=''){
             var me = this;
             return function* (){
-                var queryConditionType = this.parameter.param('queryConditionType') || queryConditionTypep;
-                var queryCondition = this.parameter.param('queryCondition') || queryConditionp;
+                var queryConditionType = queryConditionTypep || this.parameter.param('queryConditionType');
+                var queryCondition = queryConditionp || this.parameter.param('queryCondition');
 
                 var args;
 

@@ -213,44 +213,44 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiParam {String} material.securityurl1 信息安全管理责任书第一页图片URL
          * @apiParam {String} material.securityurl2 信息安全管理责任书第二页图片URL
          *
-         * @apiSuccess {Object} comapnyinfo 公司信息
-         * @apiSuccess {Number} comapny.id 公司ID
-         * @apiSuccess {String} comapny.province 省
-         * @apiSuccess {String} comapny.city 市
-         * @apiSuccess {String} comapny.area 区
-         * @apiSuccess {Number} comapny.nature 性质 \n1-军队\n2-政府机关\n3-事业单位\n4-企业\n5-个人\n6-社会团体
-         * @apiSuccess {Number} comapny.idtype 证件类型: nature=1时:5=军队代码,
+         * @apiParam {Object} comapnyinfo 公司信息
+         * @apiParam {Number} comapny.id 公司ID
+         * @apiParam {String} comapny.province 省
+         * @apiParam {String} comapny.city 市
+         * @apiParam {String} comapny.area 区
+         * @apiSuapiParamccess {Number} comapny.nature 性质 \n1-军队\n2-政府机关\n3-事业单位\n4-企业\n5-个人\n6-社会团体
+         * @apiParam {Number} comapny.idtype 证件类型: nature=1时:5=军队代码,
          *                                              nature=2时:9=组织机构代码证书
          *                                              nature=3时:3=组织机构代码证书,4=事业法人证书
          *                                              nature=4时:1=工商营业执照,12=组织机构代码证书
          *                                              nature=5时:2=身份证,7=护照,8=军官证,11=台胞证
          *                                              nature=6时:6=社团法人证书,10=组织机构代码证书
-         * @apiSuccess {String} comapny.idnumber 证件号码
-         * @apiSuccess {String} comapny.name 名称
-         * @apiSuccess {String} comapny.liveaddress 居住地址
-         * @apiSuccess {String} comapny.commaddress 通讯地址
-         * @apiSuccess {String} comapny.owner 投资人或主管单位名称
-         * @apiSuccess {String} comapny.managername 负责人姓名
-         * @apiSuccess {Number} comapny.manageridtype 负责人证件类型1-身分证 2-护照 3-军官证 4-台胞证
-         * @apiSuccess {String} comapny.manageridnumber 负责人证件号码
-         * @apiSuccess {String} comapny.managermanager 负责人居住地址
-         * @apiSuccess {String} comapny.officephoneregion 办公室电话区号
-         * @apiSuccess {String} comapny.officephonenumber 办公室电话号码
-         * @apiSuccess {String} comapny.mobile 手机号码
-         * @apiSuccess {String} comapny.email 电子邮箱
-         * @apiSuccess {String} comapny.recordnumber 主体备案号
+         * @apiParam {String} comapny.idnumber 证件号码
+         * @apiParam {String} comapny.name 名称
+         * @apiParam {String} comapny.liveaddress 居住地址
+         * @apiParam {String} comapny.commaddress 通讯地址
+         * @apiParam {String} comapny.owner 投资人或主管单位名称
+         * @apiParam {String} comapny.managername 负责人姓名
+         * @apiParam {Number} comapny.manageridtype 负责人证件类型1-身分证 2-护照 3-军官证 4-台胞证
+         * @apiParam {String} comapny.manageridnumber 负责人证件号码
+         * @apiParam {String} comapny.managermanager 负责人居住地址
+         * @apiParam {String} comapny.officephoneregion 办公室电话区号
+         * @apiParam {String} comapny.officephonenumber 办公室电话号码
+         * @apiParam {String} comapny.mobile 手机号码
+         * @apiParam {String} comapny.email 电子邮箱
+         * @apiParam {String} comapny.recordnumber 主体备案号
          *
-         * @apiSuccess {Object} siteinfo 网站
-         * @apiSuccess {Number} website.id 网站ID
-         * @apiSuccess {String} website.name 网站名称
-         * @apiSuccess {String} website.domain 网站域名
-         * @apiSuccess {String} website.domain1 网站域名1
-         * @apiSuccess {String} website.domain2 网站域名2
-         * @apiSuccess {String} website.domain3 网站域名3
-         * @apiSuccess {String} website.domain4 网站域名4
-         * @apiSuccess {String} website.homeurl 网站首页URL
-         * @apiSuccess {String} website.servicecontent 网站服务内容
-         * @apiSuccess {Object} website.languages 网站语言,json结构
+         * @apiParam {Object} siteinfo 网站
+         * @apiParam {Number} website.id 网站ID
+         * @apiParam {String} website.name 网站名称
+         * @apiParam {String} website.domain 网站域名
+         * @apiParam {String} website.domain1 网站域名1
+         * @apiParam {String} website.domain2 网站域名2
+         * @apiParam {String} website.domain3 网站域名3
+         * @apiParam {String} website.domain4 网站域名4
+         * @apiParam {String} website.homeurl 网站首页URL
+         * @apiParam {String} website.servicecontent 网站服务内容
+         * @apiParam {Object} website.languages 网站语言,json结构
          {
              chinese: true,
              chinesetraditional: false,
@@ -263,31 +263,31 @@ var StoreService = using('netease.icp.backend.services.StoreService');
              customize: false,
              customizeLang: ''
          }
-         * @apiSuccess {String} website.ispname ISP名称
-         * @apiSuccess {Object} website.ip 网站IP地址:
+         * @apiParam {String} website.ispname ISP名称
+         * @apiParam {Object} website.ip 网站IP地址:
          {
             ip1:"",
             ip2:"",
             ip3:"",
             ip4:""
          }
-         * @apiSuccess {Object} website.accessmethod 网站接入方式,json结构
+         * @apiParam {Object} website.accessmethod 网站接入方式,json结构
          {
              specialline: false,
              webhost: false,
              virtualhost: true,
              other: false
          }
-         * @apiSuccess {String} website.serverregion 服务器放置地
+         * @apiParam {String} website.serverregion 服务器放置地
          *
-         * @apiSuccess {String} website.managername 负责人姓名
-         * @apiSuccess {Number} website.manageridtype 证件类型：1-身分证 2-护照 3-军官证 4-台胞证
-         * @apiSuccess {String} website.manageridnumber 证件号码
-         * @apiSuccess {String} website.officephoneregion 办公室电话区号
-         * @apiSuccess {String} website.officephonenumber 办公室电话号码
-         * @apiSuccess {String} website.mobile 手机号码
-         * @apiSuccess {String} website.email 电子邮箱
-         * @apiSuccess {String} website.qq qq号码
+         * @apiParam {String} website.managername 负责人姓名
+         * @apiParam {Number} website.manageridtype 证件类型：1-身分证 2-护照 3-军官证 4-台胞证
+         * @apiParam {String} website.manageridnumber 证件号码
+         * @apiParam {String} website.officephoneregion 办公室电话区号
+         * @apiParam {String} website.officephonenumber 办公室电话号码
+         * @apiParam {String} website.mobile 手机号码
+         * @apiParam {String} website.email 电子邮箱
+         * @apiParam {String} website.qq qq号码
          *
          * @apiUse EmptyRecord
          */
@@ -624,6 +624,33 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiParam {String} reasons 通过则为备注,拒绝则为理由(多条用p标签分隔)
          * @apiParam {String} [curtainurl] 帘布照片URL
          * @apiParam {String} [checkedlisturl] 校验过的核验单URL,当status=7时必须有该以该参娄
+         * @apiParam {String} [beianstatus] 备案状态,JSON数组的字符串
+         * [
+         *  {
+         *   ret:true|false,
+         *   msg:'',
+         *   StatusInfo:{
+         *    }
+         *  }
+         * ]
+         * 当ret == true时,StatusInfo为以下两种:
+         * 一.已备案的结果
+         *   StatusInfo:{
+         *      Cxtjlx:'',
+         *      Cxtj:'',
+         *      Wzmc:'',
+         *      Ztbah:'',
+         *      Wzbah:'',
+         *      Bazt:0
+         *   }
+         * 二.未备案的结果
+         *   StatusInfo:{
+         *      Cxtjlx:'',
+         *      Cxtj:'',
+         *      Baxt:1
+         *   }
+         * 当ret == false时, StatusInfo为{}空对象
+         *
          * @apiParam {Number} operatetime 操作时间
          * @apiParam {String} operator 操作员
          *
