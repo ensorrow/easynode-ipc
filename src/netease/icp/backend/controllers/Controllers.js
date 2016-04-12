@@ -1202,6 +1202,42 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         }
 
 
+        /**
+         * @api {put} /admin/ip/iply 创建IP来源
+         * @apiName putWebsiteb
+         * @apiGroup IP
+         * @apiPermission whitelist
+         * @apiVersion 0.0.2
+         * @apiDescription 通过白名单管理权限
+         *
+         * @apiSampleRequest http://icp.hzspeed.cn/admin/ip/iply
+         *
+         * @apiParam {Object} iply IP来源对象
+         * @apiParam {Number} iply.qsip 起始IP
+         * @apiParam {Number} iply.zzip 终止IP
+         * @apiParam {Number} iply.lydw 来源单位
+         * @apiParam {String} iply.bz 备注
+         * @apiParam {String} iply.area 区域
+         * @apiParam {Number} iply.net IP网段
+
+         @apiSuccess {Object} ret { ret: {id:id} }
+         */
+        static createIply(app){
+            var me = this;
+            return function *(){
+                var ret = {};
+
+                var pass = Controllers.passWhitelist(this.remoteAddress,app);
+                if( pass ) {
+                    var storeService = new StoreService(app);
+                    ret = yield storeService.createIply();
+                }
+
+                this.type = 'json';
+                this.body = {ret: ret};
+            }
+        }
+
 
         static passWhitelist( ip,app ){
             var pass = false;

@@ -38,7 +38,8 @@ describe('IpServiceTest',function() {
                 lydw:1197,
                 bz:'',
                 area:'义桥',
-                net:'106.2.76.0/22'
+                net:'106.2.76.0/22',
+                status:0
             },
             {
                 qsip:0x6A024801,
@@ -46,7 +47,8 @@ describe('IpServiceTest',function() {
                 lydw:1197,
                 bz:'',
                 area:'义桥',
-                net:'106.2.72.0/22'
+                net:'106.2.72.0/22',
+                status:0
             },
             {
                 qsip:0x6A025401,
@@ -54,7 +56,8 @@ describe('IpServiceTest',function() {
                 lydw:1197,
                 bz:'',
                 area:'义桥',
-                net:'106.2.84.0/22'
+                net:'106.2.84.0/22',
+                status:0
             },
             {
                 qsip:0x6A027401,
@@ -62,7 +65,8 @@ describe('IpServiceTest',function() {
                 lydw:1197,
                 bz:'',
                 area:'义桥',
-                net:'106.2.116.0/22'
+                net:'106.2.116.0/22',
+                status:0
             },
             {
                 qsip:0x6A027801,
@@ -70,7 +74,8 @@ describe('IpServiceTest',function() {
                 lydw:1197,
                 bz:'',
                 area:'义桥',
-                net:'106.2.120.0/22'
+                net:'106.2.120.0/22',
+                status:0
             },
             {
                 qsip:0xDFFCDF01,
@@ -86,7 +91,8 @@ describe('IpServiceTest',function() {
                 lydw:1197,
                 bz:'',
                 area:'萧山',
-                net:'106.2.98.0/23'
+                net:'106.2.98.0/23',
+                status:0
             },
             {
                 qsip:0x6A023C01,
@@ -94,7 +100,8 @@ describe('IpServiceTest',function() {
                 lydw:1197,
                 bz:'',
                 area:'萧山',
-                net:'106.2.60.0/23'
+                net:'106.2.60.0/23',
+                status:0
             },
             {
                 qsip:0x6A027001,
@@ -102,7 +109,8 @@ describe('IpServiceTest',function() {
                 lydw:1197,
                 bz:'',
                 area:'萧山',
-                net:'106.2.112.0/22'
+                net:'106.2.112.0/22',
+                status:0
             },
             {
                 qsip:0x6A026401,
@@ -110,7 +118,8 @@ describe('IpServiceTest',function() {
                 lydw:1197,
                 bz:'',
                 area:'萧山',
-                net:'106.2.100.0/23'
+                net:'106.2.100.0/23',
+                status:0
             },
             {
                 qsip:0x6A026C01,
@@ -118,7 +127,8 @@ describe('IpServiceTest',function() {
                 lydw:1197,
                 bz:'',
                 area:'萧山',
-                net:'106.2.108.0/22'
+                net:'106.2.108.0/22',
+                status:0
             },
             {
                 qsip:0x6A027B01,
@@ -126,9 +136,21 @@ describe('IpServiceTest',function() {
                 lydw:1197,
                 bz:'',
                 area:'萧山',
-                net:'106.2.123.0/24'
+                net:'106.2.123.0/24',
+                status:0
             }
         ];
+
+        co(function*(){
+
+            for( var index = 0; index < iplys.length; index++ ){
+                request.post('http://icpdev.hzspeed.cn/admin/ip/iply')
+                  .send( iplys[index] )
+                  .end();
+            }
+
+            done();
+        });
 
     });
 
