@@ -998,18 +998,18 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             var me = this;
             return function * () {
                 if( json.DownloadData.hasOwnProperty('ICP') ){
-                    yield me.addressDownloadDataICP(json);
+                   return yield me.addressDownloadDataICP(json);
                 }else if(json.DownloadData.hasOwnProperty('IP')){
-                    me.addressDownloadDataIP(json);
+                   return yield me.addressDownloadDataIP(json);
                 }
                 else if(json.DownloadData.hasOwnProperty('YM')){
-                    me.addressDownloadDataYM(json);
+                    return yield me.addressDownloadDataYM(json);
                 }
                 else if(json.DownloadData.hasOwnProperty('JCDM')){
-                    me.addressDownloadDataJCDM(json);
+                    return yield me.addressDownloadDataJCDM(json);
                 }
                 else if(json.DownloadData.hasOwnProperty('SJTB')){
-                    me.addressDownloadDataSJTB(json);
+                    return yield me.addressDownloadDataSJTB(json);
                 }else{
 
                 }
@@ -1043,6 +1043,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                         me.addressDownloadDataICPXGTZ(json);
                     }
                 }
+                return true;
             }
         }
 
@@ -1050,23 +1051,27 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             EasyNode.DEBUG && logger.debug(` addressDownloadDataICPBASJ `);
             console.log("Ztid:",json.DownloadData.ICP.BASJ[0].Zt_xx.Ztid);
             console.log("Ztid:",json.DownloadData.ICP.BASJ[0].Wz_xx.Wzid);
-
+            return true;
         }
 
         addressDownloadDataICPZXSJ(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataICPZXSJ `);
+            return true;
         }
 
         addressDownloadDataICPHMDLB(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataICPHMDLB `);
+            return true;
         }
 
         addressDownloadDataICPFFJRHMD(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataICPFFJRHMD `);
+            return true;
         }
 
         addressDownloadDataICPWBAWZLB(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataICPWBAWZLB `);
+            return true;
         }
 
         addressDownloadDataICPBAJG(json){
@@ -1076,7 +1081,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 if( json.DownloadData.ICP.BAJG.hasOwnProperty('Jg_xx') ){
                     console.log("BAJG:",json.DownloadData.ICP.BAJG.Jg_xx);
                 }
-                if( json.DownloadData.ICP.BAJG.hasOwnProperty('Jg_xx') ){
+                if( json.DownloadData.ICP.BAJG.hasOwnProperty('GJSHS') ){
                     console.log("BAJG:",json.DownloadData.ICP.BAJG.GJSHS);
                     var gjsh = json.DownloadData.ICP.GJSHS.Gjsh;
                     for( var index=0; index < gjsh.length; index++ ){
@@ -1087,28 +1092,35 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
                     //1. 记录管局的审核意见
                     //2. 修改审核意见的备案结果
+
                 }
+                return true;
             }
         }
 
         addressDownloadDataICPHSRW(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataICPHSRW `);
+            return true;
         }
 
         addressDownloadDataICPHCJG(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataICPHCJG `);
+            return true;
         }
 
         addressDownloadDataICPXGTZ(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataICPXGTZ `);
+            return true;
         }
 
         addressDownloadDataIP(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataIP `);
+            return true;
         }
 
         addressDownloadDataYM(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataYM `);
+            return true;
         }
 
         addressDownloadDataJCDM(json){
@@ -1117,10 +1129,12 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 console.log(json.DownloadData.JCDM.Bbdwlb);
                 console.log(json.DownloadData.JCDM.Jcdm_xx);
             }
+            return true;
         }
 
         addressDownloadDataSJTB(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataSJTB `);
+            return true;
         }
 
         genbeianInfo(json,type){

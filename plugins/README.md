@@ -602,3 +602,7 @@ getSys(k=0){
 
 96. forEach里不允许yield
 
+97. sudo ipcalc 106.2.76.0/22   , apt-get install ipcalc
+http://help.bitscn.com/ip/
+
+

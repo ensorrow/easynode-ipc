@@ -166,26 +166,37 @@ describe('IspService',function() {
 
             //1.下载数据
             var args = ispService.getInitParam();
-            console.log(args);
+            console.log('isp_download param',args);
             var fileInfos = yield ispService.isp_download(args).then(function (result) {
                 return result;
             }).catch(function (e) {
                 done(e);
             });
 
-            console.log(fileInfos);
+            console.log("isp_download  info",fileInfos);
 
             //2.解密码,解压数据
             var ret = yield ispService.decryptContent([fileInfos.return_FileName,fileInfos.beianInfo,fileInfos.beianInfoHash],fileInfos.compressionFormat,fileInfos.hashAlgorithm,fileInfos.encryptAlgorithm);
 
+            console.log("decryptContent", ret);
+
             //3.处理数据
             if( ret.result ){
                 fs.writeFileSync('/Users/hujiabao/Downloads/req.txt',JSON.stringify(ret));
-                var addressRet  = yield ispService.addressDownloadData(ret.beianInfo);
-                console.log('addressRet:',addressRet);
+                try{
+                    var addressRet  = yield ispService.addressDownloadData(ret.beianInfo);
+                    console.log('addressRet:',addressRet);
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e}`);
+                }
+
             }
 
+            console.log("download data address over");
+
             //4.下载回执
+            console.log("downloadack start....");
+            args = null;
             args = ispService.getInitParam();
             args.fileName = fileInfos.return_FileName;
 
@@ -195,7 +206,7 @@ describe('IspService',function() {
                 done(e);
             });
 
-            console.log(ret);
+            console.log("downloadack ended, ret:",ret);
 
             done();
 

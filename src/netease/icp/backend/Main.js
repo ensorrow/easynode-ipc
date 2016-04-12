@@ -128,7 +128,6 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
                         var fileInfos = yield ispService.isp_download(args).then(function (result) {
                             return result;
                         }).catch(function (e) {
-                            done(e);
                         });
 
                         console.log(fileInfos);
@@ -138,22 +137,21 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
 
                         //3.处理数据
                         if( ret.result ){
-                            fs.writeFileSync('/Users/hujiabao/Downloads/req.txt',JSON.stringify(ret));
                             var addressRet  = yield ispService.addressDownloadData(ret.beianInfo);
                             console.log('addressRet:',addressRet);
                         }
 
                         //4.下载回执
+                        args = null;
                         args = ispService.getInitParam();
                         args.fileName = fileInfos.return_FileName;
 
                         ret = yield ispService.isp_downloadack(args).then(function (result) {
                             return result;
                         }).catch(function (e) {
-                            done(e);
                         });
 
-                        console.log(ret);
+                        console.log('isp_downloadack resutl',ret);
 
 
                         //1.查询备案状态开始
