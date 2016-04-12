@@ -28,6 +28,8 @@ var AM_WEBHOST = 2;
 var AM_VIRTUALHOST = 3;
 var AM_OTHER = 4;
 
+import {IDTYPE,NATURE} from '../constants/define';
+
 const FT = {
     "NAME": 0,
     "DOMAIN": 1,
@@ -827,10 +829,10 @@ let SiteInfo = React.createClass({
                                 <div className="item-ctrl">
                                     <select onChange={this.handleManagerIdType} value={this.state.siteInfo.manageridtype}>
                                         <option value ="0">--请选择证件类型--</option>
-                                        <option value ="1">身份证</option>
-                                        <option value="2">护照</option>
-                                        <option value="3">军官证</option>
-                                        <option value="4">台胞证</option>
+                                        <option value ={IDTYPE.GR_SFZ}>身份证</option>
+                                        <option value={IDTYPE.GR_HZ}>护照</option>
+                                        <option value={IDTYPE.GR_JGZ}>军官证</option>
+                                        <option value={IDTYPE.GR_TBZ}>台胞证</option>
                                     </select>
                                     <span className={this.state.formError.manageridtype.isBlank  ? "u-popover" : "u-popover hidden" }>请选择有效证件类型</span>
                                 </div>

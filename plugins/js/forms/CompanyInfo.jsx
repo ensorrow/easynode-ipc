@@ -69,7 +69,7 @@ let CompanyInfo = React.createClass({
                 }},
                 officephoneregion: {isBlank: false,checked:true},
                 officephonenumber: {isBlank: false,focus: false,regularFail: false, match: function(str){
-                    return /\d{8}|\d{7}/.test(str);
+                    return /\d{5}|\d{9}/.test(str);
                 }},
                 mobile: {isBlank: false,focus: false,regularFail: false, match: function(str){
                     return validator.isMobilePhone(str,"zh-CN");
@@ -292,7 +292,7 @@ let CompanyInfo = React.createClass({
                             <span className="red f-fl">*</span><label>办公室电话:</label>
                         </div>
                         <div className="item-ctrl">
-                            <input type="text" name="officerphone" min="1" max="10" onChange={this.handleOfficePhoneNumber} value={this.state.companyInfo.officephonenumber} onFocus={me.handleFocus.bind(me,FT.OFFICEPHONENUMBER)} onBlur={me.handleBlur.bind(me,FT.OFFICEPHONENUMBER)} maxLength="12"/>
+                            <input type="text" name="officerphone" onChange={this.handleOfficePhoneNumber} value={this.state.companyInfo.officephonenumber} onFocus={me.handleFocus.bind(me,FT.OFFICEPHONENUMBER)} onBlur={me.handleBlur.bind(me,FT.OFFICEPHONENUMBER)} minLength="8" maxLength="13"/>
                             <span className={this.state.formError.officephonenumber.isBlank ? "u-popover" : "u-popover hidden" }>请输入办公室电话</span>
                             <span className={this.state.formError.officephonenumber.focus ? "u-popover2" : "u-popover2 hidden" }>1、请确保电话畅通能联系到本人</span>
                             <span className={this.state.formError.officephonenumber.regularFail ? "u-popover" : "u-popover hidden" }>请输入正确的办公室电话</span>

@@ -35,7 +35,7 @@ let RecordInfo = React.createClass({
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
-                        <label>备注:</label>
+                        <label>前置或专项审批类型:</label>
                     </div>
                     <div className="m-recordinfo-item-ctrl">
                         <label>{ arr[__globals__.siteinfo.prechecktype] }</label>
@@ -320,7 +320,7 @@ let RecordInfo = React.createClass({
         return  __globals__.siteinfo.manageridtype == IDTYPE.GR_SFZ ? "身份证" :
                 __globals__.siteinfo.manageridtype == IDTYPE.GR_HZ ? "护照" :
                 __globals__.siteinfo.manageridtype == IDTYPE.GR_JGZ ? "军官证" :
-                __globals__.siteinfo.manageridtype == IDTYPE.GR_TBZ ? "台胞证" : "台胞证";
+                __globals__.siteinfo.manageridtype == IDTYPE.GR_TBZ ? "台胞证" : "未知";
     },
     getSiteRecordNumber: function(){
         return __globals__.companyinfo.recordnumber;

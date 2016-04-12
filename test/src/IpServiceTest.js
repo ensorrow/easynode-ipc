@@ -1,3 +1,4 @@
+/*
 
 'use strict';
 
@@ -33,8 +34,8 @@ describe('IpServiceTest',function() {
     it('insert iply',function (done){
         var iplys = [
             {
-                qsip:0x6A024c01,
-                zzip:0x66A024FFE,
+                qsip:1778535425,
+                zzip:1778536446,
                 lydw:1197,
                 bz:'',
                 area:'义桥',
@@ -161,3 +162,4 @@ describe('IpServiceTest',function() {
 
 });
 
+*/

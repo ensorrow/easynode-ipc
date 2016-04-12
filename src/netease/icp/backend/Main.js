@@ -124,34 +124,36 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
 
                         //1.下载数据
                         var args = ispService.getInitParam();
-                        console.log(args);
                         var fileInfos = yield ispService.isp_download(args).then(function (result) {
                             return result;
                         }).catch(function (e) {
                         });
 
-                        console.log(fileInfos);
+                        if( fileInfos ){
+                            //2.解密码,解压数据
+                            var ret = yield ispService.decryptContent([fileInfos.return_FileName,fileInfos.beianInfo,fileInfos.beianInfoHash],fileInfos.compressionFormat,fileInfos.hashAlgorithm,fileInfos.encryptAlgorithm);
 
-                        //2.解密码,解压数据
-                        var ret = yield ispService.decryptContent([fileInfos.return_FileName,fileInfos.beianInfo,fileInfos.beianInfoHash],fileInfos.compressionFormat,fileInfos.hashAlgorithm,fileInfos.encryptAlgorithm);
+                            //3.处理数据
+                            if( ret.result ){
+                                var fs = require('fs');
+                                fs.writeFileSync(fileInfos.return_FileName,JSON.stringify(ret.beianInfo),'utf8');
+                                var addressRet  = yield ispService.addressDownloadData(ret.beianInfo);
+                                console.log('addressRet:',addressRet);
+                            }
 
-                        //3.处理数据
-                        if( ret.result ){
-                            var addressRet  = yield ispService.addressDownloadData(ret.beianInfo);
-                            console.log('addressRet:',addressRet);
+                            //4.下载回执
+                            args = null;
+                            args = ispService.getInitParam();
+                            args.fileName = fileInfos.return_FileName;
+
+                            ret = yield ispService.isp_downloadack(args).then(function (result) {
+                                return result;
+                            }).catch(function (e) {
+                            });
+
+                            console.log('isp_downloadack resutl',ret);
                         }
 
-                        //4.下载回执
-                        args = null;
-                        args = ispService.getInitParam();
-                        args.fileName = fileInfos.return_FileName;
-
-                        ret = yield ispService.isp_downloadack(args).then(function (result) {
-                            return result;
-                        }).catch(function (e) {
-                        });
-
-                        console.log('isp_downloadack resutl',ret);
 
 
                         //1.查询备案状态开始

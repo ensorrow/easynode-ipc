@@ -36,7 +36,7 @@ describe('IspService',function() {
         }
     });
 
-    it('getRecordJson',function (done){
+   /* it('getRecordJson',function (done){
 
         request
             .get(url)
@@ -50,7 +50,7 @@ describe('IspService',function() {
                     done();
                 }
             });
-    });
+    });*/
 
     //it('download Picture',function (done){
     //
@@ -79,6 +79,39 @@ describe('IspService',function() {
 
     });
 
+
+    it('isp_upload IP XZBA',function (done){
+
+        co(function * () {
+
+            var beianInfo;
+            var args;
+            try{
+                beianInfo = yield ispService.genbeianInfo(json,ispService.IP_XZBA);
+                args = ispService.getUploadInitParam();
+                args.beianInfo  = beianInfo.beianInfo;
+                args.beianInfoHash = beianInfo.beianInfoHash;
+                console.log("dataSequence upload:",args.dataSequence);
+
+            }catch(e){
+                EasyNode.DEBUG && logger.debug(` ${e}`);
+            }
+
+            console.log("isp_upload......");
+            try{
+                ispService.isp_upload(args).then(function (result) {
+                    console.log("is_upload success",result);
+                    done();
+                }).catch(function (e,result) {
+                    console.log("x fail result",result);
+                    done(e);
+                });
+            }catch(e){
+                console.log(e.stack);
+            }
+        });
+
+    });
 
     //it('isp_querypreviousupload',function (done){
     //
@@ -160,59 +193,59 @@ describe('IspService',function() {
     //
     //});
 
-    it('isp_download',function (done){
-
-        co(function * () {
-
-            //1.下载数据
-            var args = ispService.getInitParam();
-            console.log('isp_download param',args);
-            var fileInfos = yield ispService.isp_download(args).then(function (result) {
-                return result;
-            }).catch(function (e) {
-                done(e);
-            });
-
-            console.log("isp_download  info",fileInfos);
-
-            //2.解密码,解压数据
-            var ret = yield ispService.decryptContent([fileInfos.return_FileName,fileInfos.beianInfo,fileInfos.beianInfoHash],fileInfos.compressionFormat,fileInfos.hashAlgorithm,fileInfos.encryptAlgorithm);
-
-            console.log("decryptContent", ret);
-
-            //3.处理数据
-            if( ret.result ){
-                fs.writeFileSync('/Users/hujiabao/Downloads/req.txt',JSON.stringify(ret));
-                try{
-                    var addressRet  = yield ispService.addressDownloadData(ret.beianInfo);
-                    console.log('addressRet:',addressRet);
-                }catch(e){
-                    EasyNode.DEBUG && logger.debug(` ${e}`);
-                }
-
-            }
-
-            console.log("download data address over");
-
-            //4.下载回执
-            console.log("downloadack start....");
-            args = null;
-            args = ispService.getInitParam();
-            args.fileName = fileInfos.return_FileName;
-
-            ret = yield ispService.isp_downloadack(args).then(function (result) {
-                return result;
-            }).catch(function (e) {
-                done(e);
-            });
-
-            console.log("downloadack ended, ret:",ret);
-
-            done();
-
-        });
-
-    });
+    //it('isp_download',function (done){
+    //
+    //    co(function * () {
+    //
+    //        //1.下载数据
+    //        var args = ispService.getInitParam();
+    //        console.log('isp_download param',args);
+    //        var fileInfos = yield ispService.isp_download(args).then(function (result) {
+    //            return result;
+    //        }).catch(function (e) {
+    //            done(e);
+    //        });
+    //
+    //        console.log("isp_download  info",fileInfos);
+    //
+    //        //2.解密码,解压数据
+    //        var ret = yield ispService.decryptContent([fileInfos.return_FileName,fileInfos.beianInfo,fileInfos.beianInfoHash],fileInfos.compressionFormat,fileInfos.hashAlgorithm,fileInfos.encryptAlgorithm);
+    //
+    //        console.log("decryptContent", ret);
+    //
+    //        //3.处理数据
+    //        if( ret.result ){
+    //            fs.writeFileSync('/Users/hujiabao/Downloads/req.txt',JSON.stringify(ret));
+    //            try{
+    //                var addressRet  = yield ispService.addressDownloadData(ret.beianInfo);
+    //                console.log('addressRet:',addressRet);
+    //            }catch(e){
+    //                EasyNode.DEBUG && logger.debug(` ${e}`);
+    //            }
+    //
+    //        }
+    //
+    //        console.log("download data address over");
+    //
+    //        //4.下载回执
+    //        console.log("downloadack start....");
+    //        args = null;
+    //        args = ispService.getInitParam();
+    //        args.fileName = fileInfos.return_FileName;
+    //
+    //        ret = yield ispService.isp_downloadack(args).then(function (result) {
+    //            return result;
+    //        }).catch(function (e) {
+    //            done(e);
+    //        });
+    //
+    //        console.log("downloadack ended, ret:",ret);
+    //
+    //        done();
+    //
+    //    });
+    //
+    //});
 
     //it('isp_downloadack',function (done){
     //
@@ -302,13 +335,13 @@ describe('IspService',function() {
     //    });
     //});
     //
-    it('getUploadInitParam',function (done){
-        co(function * (){
-            var ret =  yield ispService.getUploadInitParam();
-            console.log(ret);
-            done();
-        });
-    });
+    //it('getUploadInitParam',function (done){
+    //    co(function * (){
+    //        var ret =  yield ispService.getUploadInitParam();
+    //        console.log(ret);
+    //        done();
+    //    });
+    //});
 
     after(function(done){
         console.log("IspService after");

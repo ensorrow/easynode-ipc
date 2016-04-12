@@ -606,3 +606,4 @@ getSys(k=0){
 http://help.bitscn.com/ip/
 
 
+98. 中文文件名URL需要编码,encodeURIComponent

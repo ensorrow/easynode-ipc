@@ -17,6 +17,7 @@ import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
 import { XZWZ_ASSIGN } from '../json/req/upload/ICP/XZWZ/XZWZ';
 import { XZJR_ASSIGN } from '../json/req/upload/ICP/XZJR/XZJR';
 import { HSJG_ASSIGN } from '../json/req/upload/ICP/HSJG/HSJG';
+import { IP_XZBA_ASSIGN } from '../json/req/upload/IP/XZBA/XZBA';
 
 var fstream = require("fstream");
 var unzip = require('unzip');
@@ -280,7 +281,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             this.XZWZ = 1;
             this.XZJR = 2;
             this.HSJG = 3;
-            this.dataSequence = 80;
+            this.IP_XZBA = 4;
+            this.dataSequence = 138;
          }
 
         /**
@@ -1024,23 +1026,31 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             return function *(){
                 if( json && json.DownloadData ){
                     if( json.DownloadData.ICP.hasOwnProperty('BASJ') ){
-                        me.addressDownloadDataICPBASJ(json);
-                    }else if( json.DownloadData.ICP.hasOwnProperty('ZXSJ') ){
-                        me.addressDownloadDataICPZXSJ(json);
-                    }else if( json.DownloadData.ICP.hasOwnProperty('HMDLB') ){
-                        me.addressDownloadDataICPHMDLB(json);
-                    }else if( json.DownloadData.ICP.hasOwnProperty('FFJRHMD') ){
-                        me.addressDownloadDataICPFFJRHMD(json);
-                    }else if( json.DownloadData.ICP.hasOwnProperty('WBAWZLB') ){
-                        me.addressDownloadDataICWBAWZLB(json);
-                    }else if( json.DownloadData.ICP.hasOwnProperty('BAJG') ){
-                        yield me.addressDownloadDataICPBAJG(json);
-                    }else if( json.DownloadData.ICP.hasOwnProperty('HSRW') ){
-                        me.addressDownloadDataICPHSRW(json);
-                    }else if( json.DownloadData.ICP.hasOwnProperty('HCJG') ){
-                        me.addressDownloadDataICPHCJG(json);
-                    }else if( json.DownloadData.ICP.hasOwnProperty('XGTZ') ){
-                        me.addressDownloadDataICPXGTZ(json);
+                        yield me.addressDownloadDataICPBASJ(json);
+                    }
+                    if( json.DownloadData.ICP.hasOwnProperty('ZXSJ') ){
+                        yield me.addressDownloadDataICPZXSJ(json);
+                    }
+                    if( json.DownloadData.ICP.hasOwnProperty('HMDLB') ){
+                        yield me.addressDownloadDataICPHMDLB(json);
+                    }
+                    if( json.DownloadData.ICP.hasOwnProperty('FFJRHMD') ){
+                        yield me.addressDownloadDataICPFFJRHMD(json);
+                    }
+                    if( json.DownloadData.ICP.hasOwnProperty('WBAWZLB') ){
+                        yield me.addressDownloadDataICWBAWZLB(json);
+                    }
+                    if( json.DownloadData.ICP.hasOwnProperty('BAJG') ){
+                        yield yield me.addressDownloadDataICPBAJG(json);
+                    }
+                    if( json.DownloadData.ICP.hasOwnProperty('HSRW') ){
+                        yield me.addressDownloadDataICPHSRW(json);
+                    }
+                    if( json.DownloadData.ICP.hasOwnProperty('HCJG') ){
+                        yield me.addressDownloadDataICPHCJG(json);
+                    }
+                    if( json.DownloadData.ICP.hasOwnProperty('XGTZ') ){
+                        yield me.addressDownloadDataICPXGTZ(json);
                     }
                 }
                 return true;
@@ -1049,29 +1059,44 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
         addressDownloadDataICPBASJ(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataICPBASJ `);
-            console.log("Ztid:",json.DownloadData.ICP.BASJ[0].Zt_xx.Ztid);
-            console.log("Ztid:",json.DownloadData.ICP.BASJ[0].Wz_xx.Wzid);
-            return true;
+            var me = this;
+            return function*(){
+
+                return true;
+            }
         }
 
         addressDownloadDataICPZXSJ(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataICPZXSJ `);
-            return true;
+            var me = this;
+            return function*(){
+
+                return true;
+            }
         }
 
         addressDownloadDataICPHMDLB(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataICPHMDLB `);
-            return true;
+            return function*(){
+
+                return true;
+            }
         }
 
         addressDownloadDataICPFFJRHMD(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataICPFFJRHMD `);
-            return true;
+            return function*(){
+
+                return true;
+            }
         }
 
         addressDownloadDataICPWBAWZLB(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataICPWBAWZLB `);
-            return true;
+            return function*(){
+
+                return true;
+            }
         }
 
         addressDownloadDataICPBAJG(json){
@@ -1100,41 +1125,86 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
         addressDownloadDataICPHSRW(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataICPHSRW `);
-            return true;
+            return function*(){
+
+                return true;
+            }
         }
 
         addressDownloadDataICPHCJG(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataICPHCJG `);
-            return true;
+            return function*(){
+
+                return true;
+            }
         }
 
         addressDownloadDataICPXGTZ(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataICPXGTZ `);
-            return true;
+            return function*(){
+
+                return true;
+            }
         }
 
         addressDownloadDataIP(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataIP `);
-            return true;
+            var me = this;
+            return function *(){
+                if( json && json.DownloadData ){
+                    if( json.DownloadData.IP.hasOwnProperty('BAJG') ){
+                        yield me.addressDownloadDataIPBAJG(json);
+                    }
+                    if( json.DownloadData.IP.hasOwnProperty('HCJG') ){
+                        yield me.addressDownloadDataIPHCJG(json);
+                    }
+                }
+                return true;
+            }
+        }
+
+        addressDownloadDataIPBAJG(json){
+            EasyNode.DEBUG && logger.debug(` addressDownloadDataIPBAJG `,json);
+            var me = this;
+            return function*(){
+                console.log("BAJG:",json.DownloadData.IP.BAJG[0]);
+                return true;
+            }
+        }
+
+        addressDownloadDataIPHCJG(json){
+            EasyNode.DEBUG && logger.debug(` addressDownloadDataIPHCJG `);
+            var me = this;
+            return function*(){
+                if( json.DownloadData.IP.HCJG.hasOwnProperty('Jgxx') ){
+                    console.log("Lyjg:",json.DownloadData.IP.HCJG.Jgxx);
+                }
+                return true;
+            }
         }
 
         addressDownloadDataYM(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataYM `);
-            return true;
+            return function*(){
+
+                return true;
+            }
         }
 
         addressDownloadDataJCDM(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataJCDM `);
-            if( json && json.DownloadData ){
-                console.log(json.DownloadData.JCDM.Bbdwlb);
-                console.log(json.DownloadData.JCDM.Jcdm_xx);
+            return function*(){
+
+                return true;
             }
-            return true;
         }
 
         addressDownloadDataSJTB(json){
             EasyNode.DEBUG && logger.debug(` addressDownloadDataSJTB `);
-            return true;
+            return function*(){
+
+                return true;
+            }
         }
 
         genbeianInfo(json,type){
@@ -1175,7 +1245,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                         return {beianInfo:'',beianInfoHash:''};
                     }
                 }
-                if(type == me.XZWZ){
+                else if(type == me.XZWZ){
                     try{
                         var clip = '?imageView&quality=50';
 
@@ -1208,7 +1278,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                         return {beianInfo:'',beianInfoHash:''};
                     }
                 }
-                if(type == me.XZJR){
+                else if(type == me.XZJR){
                     try{
                         var clip = '?imageView&quality=50';
 
@@ -1241,7 +1311,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                         return {beianInfo:'',beianInfoHash:''};
                     }
                 }
-                if(type == me.HSJG){
+                else if(type == me.HSJG){
                     try{
                         var clip = '?imageView&quality=50';
 
@@ -1267,6 +1337,19 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
                         var assignedJson = HSJG_ASSIGN(json) ;
                         var xml2 = json2xml(assignedJson, { attributes_key: 'attr',header: true });
+                        var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
+                        return ret;
+                    }catch(e){
+                        EasyNode.DEBUG && logger.debug(` ${e}`);
+                        return {beianInfo:'',beianInfoHash:''};
+                    }
+                }
+                else if(type == me.IP_XZBA){
+                    try{
+                        console.log(assignedJson);
+                        var assignedJson = IP_XZBA_ASSIGN(json) ;
+                        var xml2 = json2xml(assignedJson, { attributes_key: 'attr',header: true });
+                        fso.writeFileSync('/Users/hujiabao/Downloads/ip_xzba.xml',xml2,'utf8');
                         var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
                         return ret;
                     }catch(e){
