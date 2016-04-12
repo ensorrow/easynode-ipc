@@ -121,6 +121,42 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
             var timerFunc =
             setInterval(function(){
                     co( function*(){
+
+                        //1.下载数据
+                        var args = ispService.getInitParam();
+                        console.log(args);
+                        var fileInfos = yield ispService.isp_download(args).then(function (result) {
+                            return result;
+                        }).catch(function (e) {
+                            done(e);
+                        });
+
+                        console.log(fileInfos);
+
+                        //2.解密码,解压数据
+                        var ret = yield ispService.decryptContent([fileInfos.return_FileName,fileInfos.beianInfo,fileInfos.beianInfoHash],fileInfos.compressionFormat,fileInfos.hashAlgorithm,fileInfos.encryptAlgorithm);
+
+                        //3.处理数据
+                        if( ret.result ){
+                            fs.writeFileSync('/Users/hujiabao/Downloads/req.txt',JSON.stringify(ret));
+                            var addressRet  = yield ispService.addressDownloadData(ret.beianInfo);
+                            console.log('addressRet:',addressRet);
+                        }
+
+                        //4.下载回执
+                        args = ispService.getInitParam();
+                        args.fileName = fileInfos.return_FileName;
+
+                        ret = yield ispService.isp_downloadack(args).then(function (result) {
+                            return result;
+                        }).catch(function (e) {
+                            done(e);
+                        });
+
+                        console.log(ret);
+
+
+                        //1.查询备案状态开始
                         var id = httpServer.checklist.shift() || 0;
                         if( id == 0 )
                             return ;
@@ -159,6 +195,9 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
                             EasyNode.DEBUG && logger.debug(` ${e}`);
                             return false;
                         }
+                        //查询备案状态结束
+
+
                     });
             },10000);
         }

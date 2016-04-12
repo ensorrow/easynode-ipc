@@ -1,6 +1,7 @@
-/**
+/*
+/!**
  * Created by hujiabao on 9/21/15.
- */
+ *!/
 
 'use strict';
 
@@ -48,13 +49,13 @@ describe('ControllerTest',function() {
     //});
 
 
-    it('Put /record',function (done){
+   /!* it('Put /record',function (done){
 
         //590-首次备案  603-新增网站 669-新增接入
         request.put('http://icpdev.hzspeed.cn/record')
             .send({id:684,status:1,reasons:'passed',tenantid:'cffbc4146a7941f9ad443ad650518ff1'})
             .end(done);
-    });
+    });*!/
 
 
     //it('Get /admin/records',function (done){
@@ -161,3 +162,4 @@ describe('ControllerTest',function() {
     });
 
 });
+*/

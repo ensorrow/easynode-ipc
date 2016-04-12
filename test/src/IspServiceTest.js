@@ -80,75 +80,63 @@ describe('IspService',function() {
     });
 
 
-    it('isp_querypreviousupload',function (done){
-
-        co(function * (){
-            var args = ispService.getInitParam(false);
-            console.log(args);
-            var fileInfos =  yield ispService.isp_querypreviousupload(args).then(function(result){
-                    return  result;
-            }).catch(function(e){
-                    done(e);
-            });
-            //console.log("1",fileInfos);
-            //fs.writeFileSync("/Users/hujiabao/Downloads/response.text",JSON.stringify(fileInfos),'utf8');
-
-            var ret = yield ispService.decryptContent([fileInfos.return_FileName,fileInfos.beianInfo,fileInfos.beianInfoHash],fileInfos.compressionFormat,fileInfos.hashAlgorithm,fileInfos.encryptAlgorithm);
-
-            console.log(ret);
-
-            done();
-        });
-
-    });
-
-    //it('isp_upload',function (done){
+    //it('isp_querypreviousupload',function (done){
     //
-    //    co(function * () {
-    //
-    //        var beianInfo;
-    //        var args;
-    //        try{
-    //             beianInfo = yield ispService.genbeianInfo(json,ispService.FIRST);
-    //             console.log("1");
-    //             args = ispService.getUploadInitParam();
-    //             args.beianInfo  = beianInfo.beianInfo;
-    //             args.beianInfoHash = beianInfo.beianInfoHash;
-    //
-    //             console.log("dataSequence upload:",args.dataSequence);
-    //
-    //            // var ret = yield ispService.decryptContent([beianInfo.beianInfo,beianInfo.beianInfoHash]);
-    //            //
-    //            //console.log("decrypt resut:",ret.result);
-    //            //console.log("decryptContent:",ret.beianInfo);
-    //
-    //        }catch(e){
-    //            EasyNode.DEBUG && logger.debug(` ${e}`);
-    //        }
-    //
-    //        //try{
-    //        //    fs.writeFileSync('/Users/hujiabao/Downloads/reqdata.txt',JSON.stringify(args));
-    //        //}catch(e){
-    //        //    EasyNode.DEBUG && logger.debug(` ${e}`);
-    //        //}
-    //
-    //        console.log("isp_upload......");
-    //        try{
-    //            ispService.isp_upload(args).then(function (result) {
-    //                console.log("is_upload success",result);
-    //                done();
-    //            }).catch(function (e,result) {
-    //                console.log("isp_upload fail result",result);
+    //    co(function * (){
+    //        var args = ispService.getInitParam(false);
+    //        console.log(args);
+    //        var fileInfos =  yield ispService.isp_querypreviousupload(args).then(function(result){
+    //                return  result;
+    //        }).catch(function(e){
     //                done(e);
-    //            });
-    //        }catch(e){
-    //            console.log(e.stack);
-    //        }
+    //        });
+    //        //console.log("1",fileInfos);
+    //        //fs.writeFileSync("/Users/hujiabao/Downloads/response.text",JSON.stringify(fileInfos),'utf8');
     //
+    //        var ret = yield ispService.decryptContent([fileInfos.return_FileName,fileInfos.beianInfo,fileInfos.beianInfoHash],fileInfos.compressionFormat,fileInfos.hashAlgorithm,fileInfos.encryptAlgorithm);
+    //
+    //        console.log(ret);
+    //
+    //        done();
     //    });
     //
     //});
 
+    /*it('isp_upload',function (done){
+
+        co(function * () {
+
+            var beianInfo;
+            var args;
+            try{
+                 beianInfo = yield ispService.genbeianInfo(json,ispService.FIRST);
+                 console.log("1");
+                 args = ispService.getUploadInitParam();
+                 args.beianInfo  = beianInfo.beianInfo;
+                 args.beianInfoHash = beianInfo.beianInfoHash;
+                 console.log("dataSequence upload:",args.dataSequence);
+
+            }catch(e){
+                EasyNode.DEBUG && logger.debug(` ${e}`);
+            }
+
+            console.log("isp_upload......");
+            try{
+                ispService.isp_upload(args).then(function (result) {
+                    console.log("is_upload success",result);
+                    done();
+                }).catch(function (e,result) {
+                    console.log("isp_upload fail result",result);
+                    done(e);
+                });
+            }catch(e){
+                console.log(e.stack);
+            }
+
+        });
+
+    });
+*/
     //it('isp_aes',function (done){
     //
     //    co(function * () {
@@ -172,26 +160,49 @@ describe('IspService',function() {
     //
     //});
 
-    //it('isp_download',function (done){
-    //
-    //    co(function * () {
-    //
-    //        var ret = ispService.getInitParam();
-    //        var fileInfos ;
-    //        yield ispService.isp_download(ret).then(function (result) {
-    //            fileInfos = result;
-    //        }).catch(function (e) {
-    //            done(e);
-    //        });
-    //        console.log(fileInfos);
-    //        yield ispService.decryptContent([fileInfos.beianInfo,fileInfos.beianInfoHash],fileInfos.compressionFormat,fileInfos.hashAlgorithm,fileInfos.encryptAlgorithm);
-    //
-    //        done();
-    //
-    //    });
-    //
-    //});
-    //
+    it('isp_download',function (done){
+
+        co(function * () {
+
+            //1.下载数据
+            var args = ispService.getInitParam();
+            console.log(args);
+            var fileInfos = yield ispService.isp_download(args).then(function (result) {
+                return result;
+            }).catch(function (e) {
+                done(e);
+            });
+
+            console.log(fileInfos);
+
+            //2.解密码,解压数据
+            var ret = yield ispService.decryptContent([fileInfos.return_FileName,fileInfos.beianInfo,fileInfos.beianInfoHash],fileInfos.compressionFormat,fileInfos.hashAlgorithm,fileInfos.encryptAlgorithm);
+
+            //3.处理数据
+            if( ret.result ){
+                fs.writeFileSync('/Users/hujiabao/Downloads/req.txt',JSON.stringify(ret));
+                var addressRet  = yield ispService.addressDownloadData(ret.beianInfo);
+                console.log('addressRet:',addressRet);
+            }
+
+            //4.下载回执
+            args = ispService.getInitParam();
+            args.fileName = fileInfos.return_FileName;
+
+            ret = yield ispService.isp_downloadack(args).then(function (result) {
+                return result;
+            }).catch(function (e) {
+                done(e);
+            });
+
+            console.log(ret);
+
+            done();
+
+        });
+
+    });
+
     //it('isp_downloadack',function (done){
     //
     //    co(function * () {
@@ -215,7 +226,7 @@ describe('IspService',function() {
     //
     //        var ret = ispService.getInitParam();
     //
-    //        ispService.isp_querybeianstatus(ret).then(function () {
+    //        yield ispService.isp_querybeianstatus(ret).then(function () {
     //            done();
     //        }).catch(function (e) {
     //            done(e);

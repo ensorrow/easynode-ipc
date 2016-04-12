@@ -16,6 +16,7 @@ var json2xml = require('icp-json2xml');
 import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
 import { XZWZ_ASSIGN } from '../json/req/upload/ICP/XZWZ/XZWZ';
 import { XZJR_ASSIGN } from '../json/req/upload/ICP/XZJR/XZJR';
+import { HSJG_ASSIGN } from '../json/req/upload/ICP/HSJG/HSJG';
 
 var fstream = require("fstream");
 var unzip = require('unzip');
@@ -278,6 +279,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             this.FIRST = 0;
             this.XZWZ = 1;
             this.XZJR = 2;
+            this.HSJG = 3;
             this.dataSequence = 80;
          }
 
@@ -523,7 +525,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                         rej();
                     }else{
                         EasyNode.DEBUG && logger.debug(`isp_downloadack to ${args} success`);
-                        res();
+                        res(result);
                     }
                 });
             });
@@ -927,10 +929,10 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiParam {Number} hashAlgorithm 哈希算法 0-MD5
          * @apiParam {Number} encryptAlgorithm 加密算法 0: 不加密  1: AES加密算法，加密模式使用CBC模式，补码方式采用PKCS5Padding，密钥偏移量由部级系统、省局系统生成的字符串，如“0102030405060708”。
          *
-         * @apiSuccess {Object} ret {result:0|1,beianInfo:''}  ret:0不通过,1通过, beianInfo解密,解压后的内容
+         * @apiSuccess {Object} ret {result:0|1,beianInfo:{}}  ret:0不通过,1通过, beianInfo解密,解压后的内容
          */
         decryptContent([filename:'',beianInfo:'',beianInfoHash:''],compressionFormat = COMPRESSIONFORMAT,hashAlgorithm = HASHALGORITHM, encryptAlgorithm = ENCRYPTALGORITHM){
-            var ret = {result:0,beianInfo:''};
+            var ret = {result:0,beianInfo:{}};
             var me = this;
             return function * () {
                 if( _.isEmpty(beianInfo) ){
@@ -960,14 +962,12 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
                 if( calcHash == beianInfoHash ){
 
-                    console.log("1");
                     try{
                         var xml = yield me.unzip(new Buffer(contentCompression,'binary'),filename);
                         xml = iconv.decode(xml,'GBK');
                         var json = parser.toJson(xml, {object: true, arrayNotation: false});
-                        console.log(json);
-                        console.log(json.UploadData.ICP.Qqdwid);
-                        console.log(json.UploadData.ICP.XZBA.Baxx);
+                        ret.result = 1;
+                        ret.beianInfo = json;
 
                     }catch(e){
                         EasyNode.DEBUG && logger.debug(` ${e}`);
@@ -980,6 +980,148 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             }
         }
 
+        /**
+         * @method isp_download 下载数据处理
+         * @apiName genPwdHash
+         * @apiGroup ISP
+         * @apiPermission whitelist
+         * @apiVersion 0.0.2
+         * @apiDescription
+         *  参见企业数据下载格式
+         *
+         * @apiParam {Object} json  ICP|IP|YM|JCDM|SJTB 具体参数企业数据下载格式.xsd文件
+         *
+         * @apiSuccess {Number} ret true || false
+         */
+        addressDownloadData(json){
+            var ret = false;
+            var me = this;
+            return function * () {
+                if( json.DownloadData.hasOwnProperty('ICP') ){
+                    yield me.addressDownloadDataICP(json);
+                }else if(json.DownloadData.hasOwnProperty('IP')){
+                    me.addressDownloadDataIP(json);
+                }
+                else if(json.DownloadData.hasOwnProperty('YM')){
+                    me.addressDownloadDataYM(json);
+                }
+                else if(json.DownloadData.hasOwnProperty('JCDM')){
+                    me.addressDownloadDataJCDM(json);
+                }
+                else if(json.DownloadData.hasOwnProperty('SJTB')){
+                    me.addressDownloadDataSJTB(json);
+                }else{
+
+                }
+                return ret;
+            }
+        }
+
+
+
+        addressDownloadDataICP(json){
+            var me = this;
+            return function *(){
+                if( json && json.DownloadData ){
+                    if( json.DownloadData.ICP.hasOwnProperty('BASJ') ){
+                        me.addressDownloadDataICPBASJ(json);
+                    }else if( json.DownloadData.ICP.hasOwnProperty('ZXSJ') ){
+                        me.addressDownloadDataICPZXSJ(json);
+                    }else if( json.DownloadData.ICP.hasOwnProperty('HMDLB') ){
+                        me.addressDownloadDataICPHMDLB(json);
+                    }else if( json.DownloadData.ICP.hasOwnProperty('FFJRHMD') ){
+                        me.addressDownloadDataICPFFJRHMD(json);
+                    }else if( json.DownloadData.ICP.hasOwnProperty('WBAWZLB') ){
+                        me.addressDownloadDataICWBAWZLB(json);
+                    }else if( json.DownloadData.ICP.hasOwnProperty('BAJG') ){
+                        yield me.addressDownloadDataICPBAJG(json);
+                    }else if( json.DownloadData.ICP.hasOwnProperty('HSRW') ){
+                        me.addressDownloadDataICPHSRW(json);
+                    }else if( json.DownloadData.ICP.hasOwnProperty('HCJG') ){
+                        me.addressDownloadDataICPHCJG(json);
+                    }else if( json.DownloadData.ICP.hasOwnProperty('XGTZ') ){
+                        me.addressDownloadDataICPXGTZ(json);
+                    }
+                }
+            }
+        }
+
+        addressDownloadDataICPBASJ(json){
+            EasyNode.DEBUG && logger.debug(` addressDownloadDataICPBASJ `);
+            console.log("Ztid:",json.DownloadData.ICP.BASJ[0].Zt_xx.Ztid);
+            console.log("Ztid:",json.DownloadData.ICP.BASJ[0].Wz_xx.Wzid);
+
+        }
+
+        addressDownloadDataICPZXSJ(json){
+            EasyNode.DEBUG && logger.debug(` addressDownloadDataICPZXSJ `);
+        }
+
+        addressDownloadDataICPHMDLB(json){
+            EasyNode.DEBUG && logger.debug(` addressDownloadDataICPHMDLB `);
+        }
+
+        addressDownloadDataICPFFJRHMD(json){
+            EasyNode.DEBUG && logger.debug(` addressDownloadDataICPFFJRHMD `);
+        }
+
+        addressDownloadDataICPWBAWZLB(json){
+            EasyNode.DEBUG && logger.debug(` addressDownloadDataICPWBAWZLB `);
+        }
+
+        addressDownloadDataICPBAJG(json){
+            EasyNode.DEBUG && logger.debug(` addressDownloadDataICPBAJG `);
+            var me = this;
+            return function*(){
+                if( json.DownloadData.ICP.BAJG.hasOwnProperty('Jg_xx') ){
+                    console.log("BAJG:",json.DownloadData.ICP.BAJG.Jg_xx);
+                }
+                if( json.DownloadData.ICP.BAJG.hasOwnProperty('Jg_xx') ){
+                    console.log("BAJG:",json.DownloadData.ICP.BAJG.GJSHS);
+                    var gjsh = json.DownloadData.ICP.GJSHS.Gjsh;
+                    for( var index=0; index < gjsh.length; index++ ){
+                        var storeService = new StoreService(me.app);
+                        var ret = yield storeService.putRecordbgjsh(gjsh[index]);
+                        console.log("addressICPBAJG result:",ret);
+                    }
+
+                    //1. 记录管局的审核意见
+                    //2. 修改审核意见的备案结果
+                }
+            }
+        }
+
+        addressDownloadDataICPHSRW(json){
+            EasyNode.DEBUG && logger.debug(` addressDownloadDataICPHSRW `);
+        }
+
+        addressDownloadDataICPHCJG(json){
+            EasyNode.DEBUG && logger.debug(` addressDownloadDataICPHCJG `);
+        }
+
+        addressDownloadDataICPXGTZ(json){
+            EasyNode.DEBUG && logger.debug(` addressDownloadDataICPXGTZ `);
+        }
+
+        addressDownloadDataIP(json){
+            EasyNode.DEBUG && logger.debug(` addressDownloadDataIP `);
+        }
+
+        addressDownloadDataYM(json){
+            EasyNode.DEBUG && logger.debug(` addressDownloadDataYM `);
+        }
+
+        addressDownloadDataJCDM(json){
+            EasyNode.DEBUG && logger.debug(` addressDownloadDataJCDM `);
+            if( json && json.DownloadData ){
+                console.log(json.DownloadData.JCDM.Bbdwlb);
+                console.log(json.DownloadData.JCDM.Jcdm_xx);
+            }
+        }
+
+        addressDownloadDataSJTB(json){
+            EasyNode.DEBUG && logger.debug(` addressDownloadDataSJTB `);
+        }
 
         genbeianInfo(json,type){
 
@@ -1077,6 +1219,39 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
 
                         var assignedJson = XZJR_ASSIGN(json) ;
+                        var xml2 = json2xml(assignedJson, { attributes_key: 'attr',header: true });
+                        var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
+                        return ret;
+                    }catch(e){
+                        EasyNode.DEBUG && logger.debug(` ${e}`);
+                        return {beianInfo:'',beianInfoHash:''};
+                    }
+                }
+                if(type == me.HSJG){
+                    try{
+                        var clip = '?imageView&quality=50';
+
+                        var image = yield me.downloadNos(json.record.sitemanagerurl + clip);
+                        json.record.sitemanagerurl = new Buffer(image).toString('base64');
+
+                        image = yield me.downloadNos(json.record.checkedlisturl + clip);
+                        json.record.checkedlisturl = new Buffer(image).toString('base64');
+
+                        image = yield me.downloadNos(json.record.protocolurl1 + clip);
+                        json.record.protocolurl1 = new Buffer(image).toString('base64');
+
+                        image = yield me.downloadNos(json.record.protocolurl2 + clip);
+                        json.record.protocolurl2 = new Buffer(image).toString('base64');
+
+                        image = yield me.downloadNos(json.record.securityurl1 + clip);
+                        json.record.securityurl1 = new Buffer(image).toString('base64');
+
+
+                        image = yield me.downloadNos(json.record.securityurl2 + clip);
+                        json.record.securityurl2 = new Buffer(image).toString('base64');
+
+
+                        var assignedJson = HSJG_ASSIGN(json) ;
                         var xml2 = json2xml(assignedJson, { attributes_key: 'attr',header: true });
                         var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
                         return ret;

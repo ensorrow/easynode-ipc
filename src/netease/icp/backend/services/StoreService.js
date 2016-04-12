@@ -14,7 +14,7 @@ var Record = using('netease.icp.backend.models.Record');
 var Sys = using('netease.icp.backend.models.Sys');
 var Nos = require('nenos');
 var utils = require('utility');
-
+import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/define';
 
 (function () {
 
@@ -554,8 +554,66 @@ var utils = require('utility');
                     var ret =  r.affectedRows + r.insertId > 0 ?  true : false;
                     if( ret ){
                         if( status == 7 ){//管局审核中
-                            var json = yield me.isp_upload(id);
+                            var ret = yield me.isp_upload(id);
+                            EasyNode.DEBUG && logger.debug(` upload to GYB result:`, ret);
+                            if( ret ){
+                                //yield ms.isp_upload_hsjg(id);//useless
+                                EasyNode.DEBUG && logger.debug(` upload hsjg`, ret);
+                            }
                         }
+                    }
+                    return ret;
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                    return false;
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
+        /**
+         * @method 管局审核
+         * @apiName decryptContent
+         * @apiGroup ISP
+         * @apiPermission whitelist
+         * @apiVersion 0.0.2
+         * @apiDescription
+         *   管局审核意见及处理结果
+         *
+         * @apiParam {Object} gjsh  管局审核意见及处理结果对象
+         * @apiParam {String} gjsh.Shrxm  审核人姓名
+         * @apiParam {String} gjsh.Shr_ddhm  联系电话
+         * @apiParam {String} gjsh.Shsj  审核时间
+         * @apiParam {String} gjsh.Shyj  审核意见
+         * @apiParam {Number} gjsh.Shjg  审核结果
+         * @apiParam {Number} gjsh.Czlx  操作类型
+         * @apiParam {Number} gjsh.Jlid  相关记录id
+         *
+         *
+         * @apiSuccess {Object} ret {result:0|1,beianInfo:{}}  ret:0不通过,1通过, beianInfo解密,解压后的内容
+        * */
+        putRecordbgjsh(gjsh){
+            var me = this;
+            return function *(){
+                var r = null;
+                var conn = null;
+                var model = new Record();
+                var status = gjsh.Shjg == 0 ? RecordCheckStatus.RS_COUNCIL_NOPASS : RecordCheckStatus.RS_COUNCIL_PASS;
+                var reasons = gjsh.Shyj;
+                var id = gjsh.Jlid;
+                var operatetime = Date.now();
+                var operator = gjsh.Shrxm;
+
+                try{
+                    conn = yield me.app.ds.getConnection();
+
+                    model.merge( Object.assign({}, { id: id,operatetime:operatetime,operator:operator,reasons: reasons,status: status  } ));
+
+                    r = yield conn.update(model);
+                    var ret =  r.affectedRows + r.insertId > 0 ?  true : false;
+                    if( ret ){
+                        console.log("record original gjsh, ToDo");//ToDo
                     }
                     return ret;
                 }catch(e){
@@ -1130,6 +1188,7 @@ var utils = require('utility');
                     console.log("dataSequence upload:",args.dataSequence);
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e}`);
+                    return false;
                 }
                 console.log("isp_upload......");
                 try{
@@ -1138,11 +1197,52 @@ var utils = require('utility');
                         args.dataSequence = result;
                     }).catch(function (e,result) {
                         console.log("isp_upload fail result",e,result);
+                        return false;
                     });
                     me.app.sys.dataSequence = args.dataSequence;
                     yield me.app.ispService.writeSys(me.app.sys);
+                    return true;
                 }catch(e){
                     console.log(e.stack);
+                    return false;
+                }
+            }
+        }
+
+        isp_upload_hsjg(id){
+            var me = this;
+            return function* (){
+                var json = yield me.getRecordb(id);
+
+                var beianInfo;
+                var args;
+                try{
+                    beianInfo = yield me.app.ispService.genbeianInfo(json,me.app.ispService.HSJG);
+
+                    args = me.app.ispService.getUploadInitParam();
+                    args.beianInfo  = beianInfo.beianInfo;
+                    args.beianInfoHash = beianInfo.beianInfoHash;
+
+                    console.log("dataSequence upload:",args.dataSequence);
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e}`);
+                    return false;
+                }
+                console.log("isp_upload hsjg......");
+                try{
+                    var ds = yield me.app.ispService.isp_upload(args).then(function (result) {
+                        console.log("is_upload hsjg success",result);
+                        args.dataSequence = result;
+                    }).catch(function (e,result) {
+                        console.log("isp_upload hsjg fail result",e,result);
+                        return false;
+                    });
+                    me.app.sys.dataSequence = args.dataSequence;
+                    yield me.app.ispService.writeSys(me.app.sys);
+                    return true;
+                }catch(e){
+                    console.log(e.stack);
+                    return false;
                 }
             }
         }

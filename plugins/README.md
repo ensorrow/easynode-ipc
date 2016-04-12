@@ -600,3 +600,5 @@ getSys(k=0){
 94.  new Buffer(contentCompression,'binary')
 95.  unzip只能解一半,有时解不开,有问题
 
+96. forEach里不允许yield
+

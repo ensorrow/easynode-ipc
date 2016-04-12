@@ -87,13 +87,15 @@ var hsjg = {
 */
 function HSJG_ASSIGN(json){
     "use strict";
+    var cur = new Date();
+    var hssj = cur.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
     var hsjgxx = {
         Hsjg:0,
-        Hsrxm:'',
-        Hssj:'',
-        Bbdw:0,
-        Hsyj:'',
-        Cwxx:'',
+        Hsrxm:'胡家宝',
+        Hssj:hssj,
+        Bbdw:110000000211,
+        Hsyj:'核实通过',
+        Cwxx:'无',
         Baxx:{
             Zt_xx:{
 
@@ -105,11 +107,11 @@ function HSJG_ASSIGN(json){
     };
 
     hsjgxx.Hsjg = 0;
-    hsjgxx.Hsrxm = '';
-    Hsrxm.Hssj = '';
-    Hsrxm.Bddw = 0;
-    Hsrxm.Hsyj = '';
-    Hsrxm.Cwxx = '';
+    hsjgxx.Hsrxm = '胡家宝';
+    Hsrxm.Hssj = hssj;
+    Hsrxm.Bddw = 110000000211;
+    Hsrxm.Hsyj = '核实通过';
+    Hsrxm.Cwxx = '无';
 
     var ztxx = {
         Ztid: 0,
