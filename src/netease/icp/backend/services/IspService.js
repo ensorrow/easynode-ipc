@@ -20,7 +20,6 @@ import { HSJG_ASSIGN } from '../json/req/upload/ICP/HSJG/HSJG';
 import { IP_XZBA_ASSIGN } from '../json/req/upload/IP/XZBA/XZBA';
 
 var fstream = require("fstream");
-var unzip = require('unzip');
 var zlib = require('zlib');
 var AdmZip = require('adm-zip');
 var http = require("http");
