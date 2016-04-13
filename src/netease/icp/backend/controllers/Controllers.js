@@ -1078,7 +1078,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
         /**
          * @api {put} /rest/sys 修改sys信息
-         * @apiName putWebsiteb
+         * @apiName putSys
          * @apiGroup Ops
          * @apiPermission whitelist
          * @apiVersion 0.0.2

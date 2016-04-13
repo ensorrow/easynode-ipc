@@ -37,6 +37,17 @@ var xzba = {
     attr: {version:"V.3.0"}
 };
 
+/*{
+    id:0,
+    qsip:1778547457,
+        zzip:1778547710,
+    lydw:1197,
+    bz:'',
+    area:'萧山',
+    net:'106.2.123.0/24',
+    status:0
+}
+*/
 
 function IP_XZBA_ASSIGN(json){
     "use strict";
@@ -48,6 +59,12 @@ function IP_XZBA_ASSIGN(json){
         Lydw:1197,
         Bz:'义桥'
     };
+
+    ly.IspId = json.id;
+    ly.Qsip = json.qsip;
+    ly.Zzip = json.zzip;
+    ly.Lydw = json.lydw;
+    ly.Bz = json.area;
 
     var fpsy = {
         IspId:0,

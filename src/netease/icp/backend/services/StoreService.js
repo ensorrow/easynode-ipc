@@ -11,7 +11,6 @@ var User = using('netease.icp.backend.models.User');
 var Company = using('netease.icp.backend.models.Company');
 var Website = using('netease.icp.backend.models.Website');
 var Record = using('netease.icp.backend.models.Record');
-var Iply = using('netease.icp.backend.models.Iply');
 var Sys = using('netease.icp.backend.models.Sys');
 var Nos = require('nenos');
 var utils = require('utility');
@@ -664,12 +663,9 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
                 var name = form.name;
                 var officephonenumber = form.officephonenumber;
 
-                languages = JSON.stringify(languages);
 
                 try{
                     conn = yield me.app.ds.getConnection();
-
-
                     model.merge( Object.assign({}, { id: id} ));
                     if( languages ){
                         model.merge( Object.assign({}, { languages: languages } ));
@@ -1322,8 +1318,13 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
                     model = new Iply();
                     model.merge( Object.assign({},formData ));
 
-                    r = yield conn.create(model);
-                    id = r.insertId;
+                    if( formData.companyinfo.hasOwnProperty("id") ){
+                        r = yield conn.update(model);
+                        id = formData.companyinfo.id;
+                    }else{
+                        r = yield conn.create(model);
+                        id = r.insertId;
+                    }
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
                 }finally {

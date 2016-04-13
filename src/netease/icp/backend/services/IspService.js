@@ -281,7 +281,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             this.XZJR = 2;
             this.HSJG = 3;
             this.IP_XZBA = 4;
-            this.dataSequence = 138;
+            this.dataSequence = 142;
          }
 
         /**
@@ -375,7 +375,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                         console.log(json);
                         if( 0 == parseInt(json.return.msg_code) ){
                             var msg = json.return.msg;
-                            res(me.dataSequence+1);
+                            me.dataSequence = me.dataSequence + 1;
+                            res(me.dataSequence);
                             console.log(msg);
                         }else if( 14 == parseInt(json.return.msg_code) ){
                             res(json.return.dataSequences.dataSequence);
@@ -1345,7 +1346,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 }
                 else if(type == me.IP_XZBA){
                     try{
-                        console.log(assignedJson);
                         var assignedJson = IP_XZBA_ASSIGN(json) ;
                         var xml2 = json2xml(assignedJson, { attributes_key: 'attr',header: true });
                         fso.writeFileSync('/Users/hujiabao/Downloads/ip_xzba.xml',xml2,'utf8');

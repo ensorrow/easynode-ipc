@@ -298,6 +298,7 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-recordinfo-item .m-recordinfo-item-ctrl-onetwo{width:250px;margin-left:40px;}
 .m-recordinfo-item .m-recordinfo-item-label{width:200px;text-align:right;}
 .m-recordinfo-item .m-recordinfo-item-ctrl{width:430px;margin-left:40px;}
+.m-recordinfo-item .m-recordinfo-item-ctrl >label{word-break:break-all;}
 .m-recordinfo-item2{width:140px;margin-left:80px;}
 .m-recordinfo-item2 .m-recordinfo-item-icon{margin-top:21px;width:140px;height:140px;background:#f5f5f5;border:1px solid #ddd;line-height:140px;text-align:center;}
 .m-recordinfo-item2 .m-recordinfo-item-icon-title{display:block;width:140px;text-align:center;font-size:12px;}

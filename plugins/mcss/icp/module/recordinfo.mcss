@@ -76,6 +76,10 @@ $m-recordinfo_ctrl_width = 430px;
 		width: $m-recordinfo_ctrl_width;
 		margin-left: 2*$m-recordinfo_margin_left;
         @extend .f-fl;
+
+        > label {
+            word-break:break-all;
+        }
 	}
 
 }

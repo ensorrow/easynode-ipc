@@ -82,33 +82,151 @@ describe('IspService',function() {
 
     it('isp_upload IP XZBA',function (done){
 
+        var iplys = [
+            {
+                qsip:1778535425,
+                zzip:1778536446,
+                lydw:1197,
+                bz:'',
+                area:'义桥',
+                net:'106.2.76.0/22',
+                status:0
+            },
+            {
+                qsip:1778534401,
+                zzip:1778535422,
+                lydw:1197,
+                bz:'',
+                area:'义桥',
+                net:'106.2.72.0/22',
+                status:0
+            },
+            {
+                qsip:1778537473,
+                zzip:1778538494,
+                lydw:1197,
+                bz:'',
+                area:'义桥',
+                net:'106.2.84.0/22',
+                status:0
+            },
+            {
+                qsip:1778545665,
+                zzip:1778546686,
+                lydw:1197,
+                bz:'',
+                area:'义桥',
+                net:'106.2.116.0/22',
+                status:0
+            },
+            {
+                qsip:1778546689,
+                zzip:1778547710,
+                lydw:1197,
+                bz:'',
+                area:'义桥',
+                net:'106.2.120.0/22',
+                status:0
+            },
+            {
+                qsip:3757891329,
+                zzip:3757891582,
+                lydw:1197,
+                bz:'',
+                area:'萧山',
+                net:'223.252.223.0/24'
+            },
+            {
+                qsip:1778541057,
+                zzip:1778541566,
+                lydw:1197,
+                bz:'',
+                area:'萧山',
+                net:'106.2.98.0/23',
+                status:0
+            },
+            {
+                qsip:1778531329,
+                zzip:1778531838,
+                lydw:1197,
+                bz:'',
+                area:'萧山',
+                net:'106.2.60.0/23',
+                status:0
+            },
+            {
+                qsip:1778544641,
+                zzip:1778545662,
+                lydw:1197,
+                bz:'',
+                area:'萧山',
+                net:'106.2.112.0/22',
+                status:0
+            },
+            {
+                qsip:1778541569,
+                zzip:1778542078,
+                lydw:1197,
+                bz:'',
+                area:'萧山',
+                net:'106.2.100.0/23',
+                status:0
+            },
+            {
+                qsip:1778543617,
+                zzip:1778544638,
+                lydw:1197,
+                bz:'',
+                area:'萧山',
+                net:'106.2.108.0/22',
+                status:0
+            },
+            {
+                qsip:1778547457,
+                zzip:1778547710,
+                lydw:1197,
+                bz:'',
+                area:'萧山',
+                net:'106.2.123.0/24',
+                status:0
+            }
+        ];
+
         co(function * () {
 
-            var beianInfo;
-            var args;
-            try{
-                beianInfo = yield ispService.genbeianInfo(json,ispService.IP_XZBA);
-                args = ispService.getUploadInitParam();
-                args.beianInfo  = beianInfo.beianInfo;
-                args.beianInfoHash = beianInfo.beianInfoHash;
-                console.log("dataSequence upload:",args.dataSequence);
+            var index = 0;
 
-            }catch(e){
-                EasyNode.DEBUG && logger.debug(` ${e}`);
+            var upload = function(json){
+                return function*(){
+                        var beianInfo;
+                        var args;
+                        try{
+                            beianInfo = yield ispService.genbeianInfo(json,ispService.IP_XZBA);
+                            args = ispService.getUploadInitParam();
+                            args.beianInfo  = beianInfo.beianInfo;
+                            args.beianInfoHash = beianInfo.beianInfoHash;
+                            console.log("dataSequence upload:",args.dataSequence);
+
+                        }catch(e){
+                            EasyNode.DEBUG && logger.debug(` ${e}`);
+                        }
+
+                        console.log("isp_upload......");
+                       var ret =  yield ispService.isp_upload(args);
+                        return ret;
+                }
             }
 
-            console.log("isp_upload......");
-            try{
-                ispService.isp_upload(args).then(function (result) {
-                    console.log("is_upload success",result);
-                    done();
-                }).catch(function (e,result) {
-                    console.log("x fail result",result);
-                    done(e);
-                });
-            }catch(e){
-                console.log(e.stack);
+
+            for( var index = 0; index < iplys.length; index++ ){
+                console.log("1:",index);
+                var ret = yield  upload(iplys[index]);
+                console.log("2:",index);
+                console.log("ret:",ret);
             }
+
+            done();
+
         });
 
     });
