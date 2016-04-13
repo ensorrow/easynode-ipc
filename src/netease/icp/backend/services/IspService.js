@@ -281,7 +281,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             this.XZJR = 2;
             this.HSJG = 3;
             this.IP_XZBA = 4;
-            this.dataSequence = 142;
+            this.dataSequence = 154;
          }
 
         /**
@@ -1001,19 +1001,18 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             return function * () {
                 if( json.DownloadData.hasOwnProperty('ICP') ){
                    return yield me.addressDownloadDataICP(json);
-                }else if(json.DownloadData.hasOwnProperty('IP')){
+                }
+                if(json.DownloadData.hasOwnProperty('IP')){
                    return yield me.addressDownloadDataIP(json);
                 }
-                else if(json.DownloadData.hasOwnProperty('YM')){
+                if(json.DownloadData.hasOwnProperty('YM')){
                     return yield me.addressDownloadDataYM(json);
                 }
-                else if(json.DownloadData.hasOwnProperty('JCDM')){
+                if(json.DownloadData.hasOwnProperty('JCDM')){
                     return yield me.addressDownloadDataJCDM(json);
                 }
-                else if(json.DownloadData.hasOwnProperty('SJTB')){
+                if(json.DownloadData.hasOwnProperty('SJTB')){
                     return yield me.addressDownloadDataSJTB(json);
-                }else{
-
                 }
                 return ret;
             }
@@ -1041,7 +1040,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                         yield me.addressDownloadDataICWBAWZLB(json);
                     }
                     if( json.DownloadData.ICP.hasOwnProperty('BAJG') ){
-                        yield yield me.addressDownloadDataICPBAJG(json);
+                        yield me.addressDownloadDataICPBAJG(json);
                     }
                     if( json.DownloadData.ICP.hasOwnProperty('HSRW') ){
                         yield me.addressDownloadDataICPHSRW(json);
