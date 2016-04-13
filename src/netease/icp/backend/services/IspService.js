@@ -281,7 +281,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             this.XZJR = 2;
             this.HSJG = 3;
             this.IP_XZBA = 4;
-            this.dataSequence = 154;
+            this.dataSequence = 209;
          }
 
         /**
@@ -1237,6 +1237,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
                         var assignedJson = XZBA_ASSIGN(json) ;
                         var xml2 = json2xml(assignedJson, { attributes_key: 'attr',header: true });
+                        fso.writeFileSync('/Users/hujiabao/Downloads/first.xml',xml2,'utf8');
                         var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
                         return ret;
                     }catch(e){

@@ -54,3 +54,4 @@ config.json
 bin/beianinfo.zip
 response.zip
 *.xml
+beianinfo.zip

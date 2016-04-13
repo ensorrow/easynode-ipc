@@ -11,6 +11,8 @@ var User = using('netease.icp.backend.models.User');
 var Company = using('netease.icp.backend.models.Company');
 var Website = using('netease.icp.backend.models.Website');
 var Record = using('netease.icp.backend.models.Record');
+var Iply = using('netease.icp.backend.models.Iply');
+
 var Sys = using('netease.icp.backend.models.Sys');
 var Nos = require('nenos');
 var utils = require('utility');
@@ -552,9 +554,11 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
 
                     r = yield conn.update(model);
                     var ret =  r.affectedRows + r.insertId > 0 ?  true : false;
+                    console.log("1.",ret)
                     if( ret ){
                         if( status == 7 ){//管局审核中
                             var ret = yield me.isp_upload(id);
+
                             EasyNode.DEBUG && logger.debug(` upload to GYB result:`, ret);
                             if( ret ){
                                 //yield ms.isp_upload_hsjg(id);//useless
@@ -1169,15 +1173,17 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
          isp_upload(id){
             var me = this;
             return function* (){
+                console.log("2");
                 var json = yield me.getRecordb(id);
-
+    console.log("3");
                 var beianInfo;
                 var args;
                 try{
                     var type = json.record.type == 0 ? me.app.ispService.FIRST :
                         json.record.type == 1 ? me.app.ispService.XZWZ : me.app.ispService.XZJR ;
+                    console.log("4");
                     beianInfo = yield me.app.ispService.genbeianInfo(json,type);
-
+console.log("5");
                     args = me.app.ispService.getUploadInitParam();
                     args.beianInfo  = beianInfo.beianInfo;
                     args.beianInfoHash = beianInfo.beianInfoHash;
@@ -1318,13 +1324,8 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
                     model = new Iply();
                     model.merge( Object.assign({},formData ));
 
-                    if( formData.companyinfo.hasOwnProperty("id") ){
-                        r = yield conn.update(model);
-                        id = formData.companyinfo.id;
-                    }else{
-                        r = yield conn.create(model);
-                        id = r.insertId;
-                    }
+                    r = yield conn.create(model);
+                    id = r.insertId;
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
                 }finally {

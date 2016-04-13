@@ -123,7 +123,7 @@ let RecordInfo = React.createClass({
                         <label>负责人证件类型:</label>
                     </div>
                     <div className="m-recordinfo-item-ctrl">
-                        <label>{this.getManagerIdType()}</label>
+                        <label>{this.getCompanyManagerIdType()}</label>
                     </div>
                 </div>
             );
@@ -316,12 +316,19 @@ let RecordInfo = React.createClass({
         }
         return lStr;
     },
-    getManagerIdType: function(){
+    getWebsiteManagerIdType: function(){
         return  __globals__.siteinfo.manageridtype == IDTYPE.GR_SFZ ? "身份证" :
                 __globals__.siteinfo.manageridtype == IDTYPE.GR_HZ ? "护照" :
                 __globals__.siteinfo.manageridtype == IDTYPE.GR_JGZ ? "军官证" :
                 __globals__.siteinfo.manageridtype == IDTYPE.GR_TBZ ? "台胞证" : "未知";
     },
+    getCompanyManagerIdType: function(){
+        return  __globals__.companyinfo.manageridtype == IDTYPE.GR_SFZ ? "身份证" :
+                __globals__.companyinfo.manageridtype == IDTYPE.GR_HZ ? "护照" :
+                __globals__.companyinfo.manageridtype == IDTYPE.GR_JGZ ? "军官证" :
+                __globals__.companyinfo.manageridtype == IDTYPE.GR_TBZ ? "台胞证" : "未知";
+    },
+
     getSiteRecordNumber: function(){
         return __globals__.companyinfo.recordnumber;
     },
@@ -555,7 +562,7 @@ let RecordInfo = React.createClass({
                                     <label>有效证件类型:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl">
-                                    <label>{this.getManagerIdType()}</label>
+                                    <label>{this.getWebsiteManagerIdType()}</label>
                                 </div>
                             </div>
                             <div className="m-recordinfo-item">

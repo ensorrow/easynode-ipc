@@ -1,18 +1,6 @@
 const fs = require('fs');
 
-var xzba = {
-    UploadData: {
-        ICP: {
-            XZBA:{
-                Baxx:[
 
-                ]
-            },
-            Qqdwid:0
-        }
-    },
-    attr: {version:"V.3.0"}
-};
 
 
 /*
@@ -87,6 +75,20 @@ var xzba = {
 */
 function XZBA_ASSIGN(json){
     "use strict";
+    var xzba = {
+        UploadData: {
+            ICP: {
+                XZBA:{
+                    Baxx:[
+
+                    ]
+                },
+                Qqdwid:0
+            }
+        },
+        attr: {version:"V.3.0"}
+    };
+
     var Baxx = {
         Zt_xx:{},
         Wz_xx:[],
