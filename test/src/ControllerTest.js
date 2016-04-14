@@ -39,6 +39,19 @@ describe('ControllerTest',function() {
     })
 
 
+   /* it('get tenants public ips ',function (done){
+
+        request.post('https://c.163.com/api/account/pubips')
+            .send({secret:'3soLEF67wx',tenantId:'b261f52d302b43ba821a6d731b17034c'})
+            .end(function(err,ret){
+                console.log("err",err);
+
+                console.log(ret.text);
+                done();
+            });
+
+    })*/
+
     it('Put /admin/record',function (done){
 
         //590-首次备案  603-新增网站 669-新增接入

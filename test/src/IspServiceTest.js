@@ -22,18 +22,35 @@ var ispService ;
 var url = 'http://icpdev.hzspeed.cn/admin/record/?id=590';
 var urlPic = 'http://apollodev.nos.netease.com/1457595670071';
 var json = {};
-var Nos = require('nenos');
+
+var config = require('../../config.json');
+
+
 
 describe('IspService',function() {
 
     before(function(done){
         console.log("IspService before");
         try{
-            ispService = new IspService();
+            ispService = new IspService(null,config);
             done();
         }catch(e){
             done(e);
         }
+    });
+
+    it('get tenant public ips',function (done){
+
+        co(function * () {
+             var ret = yield ispService.gettenantPubips('').then(function (result) {
+                return result;
+            }).catch(function (e) {
+            });
+
+            console.log(ret);
+            done();
+        });
+
     });
 
    /* it('getRecordJson',function (done){
@@ -65,8 +82,6 @@ describe('IspService',function() {
     //    });
     //
     //});
-
-
 
 
     it('createConnect',function (done){

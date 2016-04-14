@@ -607,3 +607,24 @@ http://help.bitscn.com/ip/
 
 
 98. 中文文件名URL需要编码,encodeURIComponent
+99.http://apollodev.nos.netease.com/1459339304947
+100.
+接口：
+POST https://c.163.com/api/account/pubips
+参数：
+secret=3soLEF67wx&tenantId=xxxxxxxx
+
+正确响应：
+{
+    "params": [
+        {
+            "pubIp": "60.191.83.166"
+        }
+    ],
+    "code": 200,
+    "msg": "succ"
+}
+
+错误响应：
+code : 413 secret(密码)不对。
+code:  401 账号不存在。

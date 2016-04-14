@@ -23,24 +23,14 @@ var fstream = require("fstream");
 var zlib = require('zlib');
 var AdmZip = require('adm-zip');
 var http = require("http");
+import request from 'superagent';
 var StoreService = using('netease.icp.backend.services.StoreService');
 
 (function () {
-    const ISPID = 110000000211;
-    const PASSWORD = 'a11111';
-    const KEY = 'XRDRUE7FFCRE1T7I';
-    const OFFSET = '7VU2H0LLBG8373LK';
-    const SEQ = 1;
-    const USERNAME = '杭州网易雷火科技有限公司';
+
     const HASHALGORITHM = 0; //0-MD5
     const ENCRYPTALGORITHM = 0;//0-不加密 1-AES加密算法，加密模式使用CBC模式，补码方式采用PKCS5Padding，密钥偏移量由部级系统、省局系统生成的字符串，如“0102030405060708”。
     const COMPRESSIONFORMAT = 0; //0-zip压缩格式
-
-    const REPORT_URL = 'http://122.224.213.98/ISPWebService/upDownLoad?wsdl';
-    const QUERY_URL = 'http://122.224.213.98/BeianStatusWebService/queryBeianStatus?wsdl';
-    const VERIFY_URL = 'http://zcaisp.miitbeian.gov.cn/BeianStatusWebService/verifyBamm?wsdl';
-
-    const URLS = [REPORT_URL,QUERY_URL,VERIFY_URL];
 
     var map = new Map([
         [ 0, '操作成功' ],
@@ -268,10 +258,13 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @since 0.1.0
          * @author allen.hu
          * */
-        constructor(app) {
+        constructor(app,config = {}) {
             super();
             //调用super()后再定义子类成员。
             this.app = app;
+            this.icp = config.icp;
+            this.tenantpubips = config.tenantpubips;
+            this.urls = [this.icp.REPORT_URL,this.icp.QUERY_URL,this.icp.VERIFY_URL];
             this.clientReport = null;
             this.clientQuery = null;
             this.clientVerify = null;
@@ -293,15 +286,15 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          */
         createConnect(){
             var me = this;
-            var ps  = URLS.map( (url)=> {
+            var ps  = me.urls.map( (url)=> {
                 return new Promise(function (res, rej) {
                     soap.createClient(url, function (err, client) {
                         if (err) {
                             EasyNode.DEBUG && logger.debug(`createConnect to ${url} failed`);
                             rej();
                         } else {
-                             url == REPORT_URL ? me.clientReport = client :
-                             url == QUERY_URL ? me.clientQuery = client : me.clientVerify = client;
+                             url == me.urls[0] ? me.clientReport = client :
+                             url == me.urls[1] ? me.clientQuery = client : me.clientVerify = client;
                             EasyNode.DEBUG && logger.debug(`createConnect to ${url} success ${client}`);
                             res();
                         }
@@ -794,10 +787,10 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiSuccess {String} hashAlgorithm( GBK.BINARY(PWD+RANDOM(20) )
          */
-        genPwdHash(random,pwd = PASSWORD,hashAlgorithm = HASHALGORITHM){
+        genPwdHash(random,pwd,hashAlgorithm){
             //2,3
             var tmp = iconv.encode(pwd+random,"GBK");
-            if( hashAlgorithm == HASHALGORITHM ){
+            if( hashAlgorithm == 0 ){
                 return crypto.createHash('md5').update(tmp).digest('base64');
             }else{
                 return crypto.createHash('md5').update(tmp).digest('base64');
@@ -1237,8 +1230,10 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
                         var assignedJson = XZBA_ASSIGN(json) ;
                         var xml2 = json2xml(assignedJson, { attributes_key: 'attr',header: true });
-                        fso.writeFileSync('/Users/hujiabao/Downloads/first.xml',xml2,'utf8');
+                        //xml2 = fso.readFileSync('/Users/hujiabao/Downloads/first.xml');
+                        fso.writeFileSync('/Users/hujiabao/Downloads/first.xml',iconv.encode(xml2,'GBK'),'utf8');
                         var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
+                        //var ret = yield me.encryptContent(xml2);
                         return ret;
                     }catch(e){
                         EasyNode.DEBUG && logger.debug(` ${e}`);
@@ -1348,7 +1343,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                     try{
                         var assignedJson = IP_XZBA_ASSIGN(json) ;
                         var xml2 = json2xml(assignedJson, { attributes_key: 'attr',header: true });
-                        fso.writeFileSync('/Users/hujiabao/Downloads/ip_xzba.xml',xml2,'utf8');
+                        //fso.writeFileSync('/Users/hujiabao/Downloads/ip_xzba.xml',xml2,'utf8');
                         var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
                         return ret;
                     }catch(e){
@@ -1362,22 +1357,22 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
         getUploadInitParam(){
             var randVal = utils.randomString(20, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-            var pwdHash = this.genPwdHash(randVal,PASSWORD, HASHALGORITHM);
-            return { ispID:ISPID,userName:USERNAME,randVal:randVal,pwdHash:pwdHash,beianInfo:'',beianInfoHash:'',dataSequence:this.dataSequence,encryptAlgorithm:ENCRYPTALGORITHM,hashAlgorithm:HASHALGORITHM,compressionFormat:COMPRESSIONFORMAT};
+            var pwdHash = this.genPwdHash(randVal,this.icp.PASSWORD, this.icp.HASHALGORITHM);
+            return { ispID:this.icp.ISPID,userName:this.icp.USERNAME,randVal:randVal,pwdHash:pwdHash,beianInfo:'',beianInfoHash:'',dataSequence:this.dataSequence,encryptAlgorithm:this.icp.ENCRYPTALGORITHM,hashAlgorithm:this.icp.HASHALGORITHM,compressionFormat:this.icp.COMPRESSIONFORMAT};
         }
 
         getInitParam(upcase=true){
             var randVal = utils.randomString(20, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-            var pwdHash = this.genPwdHash(randVal,PASSWORD, HASHALGORITHM);
+            var pwdHash = this.genPwdHash(randVal,this.icp.PASSWORD, this.icp.HASHALGORITHM);
             return upcase ?
-                { ispID:ISPID,userName:USERNAME,randVal:randVal,pwdHash:pwdHash,hashAlgorithm:HASHALGORITHM}:
-                { ispId:ISPID,userName:USERNAME,randVal:randVal,pwdHash:pwdHash,hashAlgorithm:HASHALGORITHM};
+                { ispID:this.icp.ISPID,userName:this.icp.USERNAME,randVal:randVal,pwdHash:pwdHash,hashAlgorithm:this.icp.HASHALGORITHM}:
+                { ispId:this.icp.ISPID,userName:this.icp.USERNAME,randVal:randVal,pwdHash:pwdHash,hashAlgorithm:this.icp.HASHALGORITHM};
         }
 
 
          encryption(data){
-            var key = KEY;
-            var iv = OFFSET;
+            var key = this.icp.KEY;
+            var iv = this.icp.OFFSET;
             var clearEncoding = 'utf8';
             var cipherEncoding = 'base64';
             var cipherChunks = [];
@@ -1392,8 +1387,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
         //data 是你的准备解密的字符串,key是你的密钥
          decryption(data) {
-            var key = KEY;
-            var iv = OFFSET;
+            var key = this.icp.KEY;
+            var iv = this.icp.OFFSET;
             var clearEncoding = 'binary';
             var cipherEncoding = 'base64';
             var decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
@@ -1462,6 +1457,31 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             }
         }
 
+
+        gettenantPubips(tenantId){
+            var me = this;
+            return  new Promise( function(res,rej) {
+                request.post(me.tenantpubips.urlPath)
+                    .send({secret:me.tenantpubips.secret,tenantId:tenantId})
+                    .end(function(err,ret){
+                        if( err ){
+                            rej();
+                        }else{
+                            res(ret.text);
+                        }
+                    });
+            });
+        }
+
+        validateIP(ip,ips) {
+            var pass = false;
+            ips.forEach(function (v, index) {
+                if (ip.includes(v.pubIp)) {
+                    pass = true;
+                }
+            });
+            return pass;
+        }
 
 
         getClassName() {

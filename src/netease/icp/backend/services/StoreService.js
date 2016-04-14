@@ -554,7 +554,6 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
 
                     r = yield conn.update(model);
                     var ret =  r.affectedRows + r.insertId > 0 ?  true : false;
-                    console.log("1.",ret)
                     if( ret ){
                         if( status == 7 ){//管局审核中
                             var ret = yield me.isp_upload(id);
@@ -1080,9 +1079,11 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
         * filename: 文件名
         * */
         uploadNos(key,filename){
+            var me = this;
+            var cfg = me.app.config.nos;
             return function* (){
-                var url = `http://apollodev.nos.netease.com/${key}`;
-                let nos = new Nos('c92f74b0d48f4fb39271a1109da74cc2','f200fad9c6b541d28f01159de8d9ecea','apollodev');
+                var url = `${cfg.urlPath}${key}`;
+                let nos = new Nos(cfg.accessKey,cfg.secretKey,cfg.bucket);
                 try{
                     yield nos.upload(key,filename);
                 }catch (e){
@@ -1098,9 +1099,12 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
         * filename: 文件名
         * */
         downloadNos(key){
+            var me = this;
+            var cfg = me.app.config.nos;
             return function* (){
-                var url = `http://apollodev.nos.netease.com/${key}`;
-                let nos = new Nos('c92f74b0d48f4fb39271a1109da74cc2','f200fad9c6b541d28f01159de8d9ecea','apollodev');
+                var url = `${cfg.urlPath}${key}`;
+                let nos = new Nos(cfg.accessKey,cfg.secretKey,cfg.bucket);
+
                 try{
                     var ret = yield nos.getObject(key);
                 }catch (e){
@@ -1173,17 +1177,13 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
          isp_upload(id){
             var me = this;
             return function* (){
-                console.log("2");
                 var json = yield me.getRecordb(id);
-    console.log("3");
                 var beianInfo;
                 var args;
                 try{
                     var type = json.record.type == 0 ? me.app.ispService.FIRST :
                         json.record.type == 1 ? me.app.ispService.XZWZ : me.app.ispService.XZJR ;
-                    console.log("4");
                     beianInfo = yield me.app.ispService.genbeianInfo(json,type);
-console.log("5");
                     args = me.app.ispService.getUploadInitParam();
                     args.beianInfo  = beianInfo.beianInfo;
                     args.beianInfoHash = beianInfo.beianInfoHash;

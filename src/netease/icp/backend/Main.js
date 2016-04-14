@@ -65,8 +65,9 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
 
             httpServer.ds = ds;
             httpServer.ds.conn = conn;
+            httpServer.config = config;
 
-            var ispService = new IspService(httpServer);
+            var ispService = new IspService(httpServer,config);
             yield ispService.createConnect();
             httpServer.ispService = ispService;
 
@@ -96,7 +97,6 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
                 }
             });
 
-            httpServer.config = config;
             httpServer.name = EasyNode.config('http.server.name','icp-Service');
             Routes.defineRoutes(httpServer);
 
@@ -121,6 +121,10 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
             var timerFunc =
             setInterval(function(){
                     co( function*(){
+
+                        if( !config.icp.QUERY ){
+                            return ;
+                        }
 
                         //1.下载数据
                         var args = ispService.getInitParam();
@@ -165,6 +169,26 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
                         var result = [];
                         var r = {};
                         try{
+                            var r1 = yield ispService.gettenantPubips(ret.record.tenantid).then(function (result) {
+                                return result;
+                            }).catch(function (e) {
+                                return null;
+                            });
+                            if( r1 ){
+                                r1 = JSON.parse(result);
+                                if( r1.code == 200 ){
+                                    if(  ispService.validateIP(ret.website.ip,r1.params) ){
+                                        result.push({return:{msg_code:0,msg:`用户IP${ret.website.ip} OK`}});
+                                    }else{
+                                        var tenantips = JSON.stringify(r1.params);
+                                        result.push({return:{msg_code:10200,msg:`用户IP${ret.website.ip} 非法,不在范围${tenantips}`}});
+                                    }
+                                }else{
+                                     result.push({return:{msg_code:r1.code+10000,msg:r1.msg}});
+                                }
+                            }
+
+
                             if( ret.website.domain ){
                                r =  yield storeService.isp_querybeianstatus(IDTYPE.DOMAIN,ret.website.domain);
                                 result.push(r);
