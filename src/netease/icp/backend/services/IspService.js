@@ -1209,17 +1209,12 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
                         var image = yield me.downloadNos(json.record.sitemanagerurl + clip);
                         json.record.sitemanagerurl = new Buffer(image).toString('base64');
-                        console.log("json.record.sitemanagerurl",json.record.sitemanagerurl.length);
 
-                        console.log("4");
                         image = yield me.downloadNos(json.record.checkedlisturl + clip);
                         json.record.checkedlisturl = new Buffer(image).toString('base64');
-                        console.log("json.record.checkedlisturl",json.record.checkedlisturl.length);
 
                         image = yield me.downloadNos(json.record.protocolurl1 + clip);
                         json.record.protocolurl1 = new Buffer(image).toString('base64');
-                        console.log("5")
-                        console.log("json.record.protocolurl1",json.record.protocolurl1.length);
 
                         image = yield me.downloadNos(json.record.protocolurl2 + clip);
                         json.record.protocolurl2 = new Buffer(image).toString('base64');
@@ -1489,7 +1484,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         gettenantPubips(tenantId){
             var me = this;
             return  new Promise( function(res,rej) {
-                request.post(me.tenantpubips.urlPath)
+                request.post(`me.tenantpubips.urlPath?secret=${me.tenantpubips.secret}&tenantId=${tenantId}`)
                     .send({secret:me.tenantpubips.secret,tenantId:tenantId})
                     .end(function(err,ret){
                         if( err ){

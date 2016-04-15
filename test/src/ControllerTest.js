@@ -40,7 +40,8 @@ describe('ControllerTest',function() {
 
     it('get tenants public ips ',function (done){
 
-        request.post('https://c.163.com/api/account/pubips?secret=3soLEF67wx&tenantid=b261f52d302b43ba821a6d731b17034c')
+        request.post('https://c.163.com/api/account/pubips?secret=3soLEF67wx&tenantId=b261f52d302b43ba821a6d731b17034c')
+            //.send({secret:'3soLEF67wx',tenantId:'b261f52d302b43ba821a6d731b17034c'})
             .end(function(err,ret){
                 console.log("err",err);
 
