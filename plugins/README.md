@@ -607,7 +607,9 @@ http://help.bitscn.com/ip/
 
 
 98. 中文文件名URL需要编码,encodeURIComponent
-99.http://apollodev.nos.netease.com/1459339304947
+99.
+http://apollodev.nos.netease.com/1459339304947
+http://apollodev.nos.netease.com/14606349336371459339304947
 100.
 接口：
 POST https://c.163.com/api/account/pubips
@@ -628,3 +630,19 @@ secret=3soLEF67wx&tenantId=xxxxxxxx
 错误响应：
 code : 413 secret(密码)不对。
 code:  401 账号不存在。
+
+通管局审[2016-04-15 15:10:04.686] [INFO] console - BAJG: { Jgxx:
+       [ { Jgdm: '1015',
+           Dmms: '无效身份证号码，请核实后再次报备。错误数据：101107197505270043' },
+         { Jgdm: '1015',
+           Dmms: '无效身份证号码，请核实后再次报备。网站名称：sitename.com，错误数据：330107197505270133' },
+         { Jgdm: '1010',
+           Dmms: '无效办公电话，请核实后再次报备。网站名称：sitename.com，错误数据：0571812312312' },
+         { Jgdm: '1041',
+           Dmms: '网站首页URL中必须包含域名中的其中一项，请核实后再次报备。网站名称：sitename.com' },
+         { Jgdm: '1004',
+           Dmms: '无效域名，请核实后再次报备。网站名称：sitename.com，错误数据：c.163.com' },
+         { Jgdm: '1063',
+           Dmms: 'ICP备案接入信息中所使用的IP地址与你单位IP地址备案中报备的IP信息不一致，请核实后再次提交' } ],
+      Czlx: '1',
+      Bs: '659' }

@@ -53,7 +53,7 @@ describe('IspService',function() {
 
     });
 
-   /* it('getRecordJson',function (done){
+    it('getRecordJson',function (done){
 
         request
             .get(url)
@@ -67,7 +67,7 @@ describe('IspService',function() {
                     done();
                 }
             });
-    });*/
+    });
 
     //it('download Picture',function (done){
     //
@@ -367,36 +367,38 @@ describe('IspService',function() {
     //
     //});
 
-    //it('isp_querypreviousupload',function (done){
-    //
-    //    co(function * (){
-    //        var args = ispService.getInitParam(false);
-    //        console.log(args);
-    //        var fileInfos =  yield ispService.isp_querypreviousupload(args).then(function(result){
-    //                return  result;
-    //        }).catch(function(e){
-    //                done(e);
-    //        });
-    //        //console.log("1",fileInfos);
-    //        //fs.writeFileSync("/Users/hujiabao/Downloads/response.text",JSON.stringify(fileInfos),'utf8');
-    //
-    //        var ret = yield ispService.decryptContent([fileInfos.return_FileName,fileInfos.beianInfo,fileInfos.beianInfoHash],fileInfos.compressionFormat,fileInfos.hashAlgorithm,fileInfos.encryptAlgorithm);
-    //
-    //        console.log(ret);
-    //
-    //        done();
-    //    });
-    //
-    //});
+    it('isp_querypreviousupload',function (done){
 
-    /*it('isp_upload',function (done){
+        co(function * (){
+            var args = ispService.getInitParam(false);
+            console.log(args);
+            var fileInfos =  yield ispService.isp_querypreviousupload(args).then(function(result){
+                    return  result;
+            }).catch(function(e){
+                    done(e);
+            });
+            //console.log("1",fileInfos);
+            fs.writeFileSync("/Users/hujiabao/Downloads/response.text",JSON.stringify(fileInfos),'utf8');
+
+            var ret = yield ispService.decryptContent([fileInfos.return_FileName,fileInfos.beianInfo,fileInfos.beianInfoHash],fileInfos.compressionFormat,fileInfos.hashAlgorithm,fileInfos.encryptAlgorithm);
+
+            console.log(ret);
+
+            done();
+        });
+
+    });
+
+   /* it('isp_upload',function (done){
 
         co(function * () {
 
             var beianInfo;
             var args;
             try{
+                console.log("1");
                  beianInfo = yield ispService.genbeianInfo(json,ispService.FIRST);
+                console.log("2");
                  console.log("1");
                  args = ispService.getUploadInitParam();
                  args.beianInfo  = beianInfo.beianInfo;
@@ -407,9 +409,9 @@ describe('IspService',function() {
                 EasyNode.DEBUG && logger.debug(` ${e}`);
             }
 
-            console.log("isp_upload......");
+            /!*console.log("isp_upload......");
             try{
-                ispService.isp_upload(args).then(function (result) {
+                yield ispService.isp_upload(args).then(function (result) {
                     console.log("is_upload success",result);
                     done();
                 }).catch(function (e,result) {
@@ -418,12 +420,12 @@ describe('IspService',function() {
                 });
             }catch(e){
                 console.log(e.stack);
-            }
+            }*!/
 
         });
 
-    });
-*/
+    });*/
+
     //it('isp_aes',function (done){
     //
     //    co(function * () {

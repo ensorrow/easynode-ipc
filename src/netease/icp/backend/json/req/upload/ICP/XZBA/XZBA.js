@@ -1,18 +1,6 @@
 const fs = require('fs');
 
-var xzba = {
-    UploadData: {
-        ICP: {
-            XZBA:{
-                Baxx:[
 
-                ]
-            },
-            Qqdwid:0
-        }
-    },
-    attr: {version:"V.3.0"}
-};
 
 
 /*
@@ -73,6 +61,7 @@ var xzba = {
      websiteid: 313,
      sitemanagerurl: 'http://apollodev.nos.netease.com/1457595670071',
      checklisturl: 'http://apollodev.nos.netease.com/1457595670071',
+     checkedlisturl: 'http://apollodev.nos.netease.com/1457595670071',
      protocolurl1: 'http://apollodev.nos.netease.com/1457595670071',
      protocolurl2: 'http://apollodev.nos.netease.com/1457595670071',
      securityurl1: 'http://apollodev.nos.netease.com/1457595670071',
@@ -87,6 +76,20 @@ var xzba = {
 */
 function XZBA_ASSIGN(json){
     "use strict";
+    var xzba = {
+        UploadData: {
+            ICP: {
+                XZBA:{
+                    Baxx:[
+
+                    ]
+                },
+                Qqdwid:0
+            }
+        },
+        attr: {version:"V.3.0"}
+    };
+
     var Baxx = {
         Zt_xx:{},
         Wz_xx:[],
@@ -126,9 +129,9 @@ function XZBA_ASSIGN(json){
     ztxx.Dwmc = json.company.name;
     ztxx.Dwxz = json.company.nature;//ToDo
     ztxx.Tzr = json.company.owner;
-    ztxx.Txdz.Shengid = 110000;//ToDo
-    ztxx.Txdz.Shiid = 110101;//ToDo
-    ztxx.Txdz.Xianid = 110102;//ToDo
+    ztxx.Txdz.Shengid = 330000;//ToDo
+    ztxx.Txdz.Shiid = 330100;//ToDo
+    ztxx.Txdz.Xianid = 330108;//ToDo
     ztxx.Txdz.Xxdz = json.company.commaddress;
     ztxx.Zj.Zjlx = json.company.idtype;//ToDo
     ztxx.Zj.Zjhm = json.company.idnumber;
@@ -157,10 +160,10 @@ function XZBA_ASSIGN(json){
             }
         },
         Fwnr:{
-            Fwnr_id:0
+            Fwnr_id:1
         },
         Yylb: {
-            Yylb_id: [0]
+            Yylb_id: [1]
         },
         Ym_xx:[
 
@@ -208,18 +211,18 @@ function XZBA_ASSIGN(json){
             Fbdd:[json.website.serverregion]
         },
         Wzjrfs:{
-            Jrfs:[1]
+            Jrfs:[2]
         },
         Ip_xx:[
             {
                 IspIpid:json.website.id,
-                Qsip:json.website.ip.ip1,
-                Zzip:json.website.ip.ip2
+                Qsip: 1778535426,
+                Zzip:1778535426
             }
         ]
     }); //ToDo
     wzxx.Wz_Fzr.Fzr_xm = json.website.managername;
-    wzxx.Wz_Fzr.Fzr_dhhm = '0571'+json.website.officephonenumber;//ToDo
+    wzxx.Wz_Fzr.Fzr_dhhm = json.website.officephoneregion+'-'+json.website.officephonenumber;//ToDo
     wzxx.Wz_Fzr.Fzr_sjhm = json.website.mobile;
     wzxx.Wz_Fzr.Fzr_dzyj = json.website.email;
     wzxx.Wz_Fzr.Msn = 'hujb2000@hotmail.com';//ToDo
@@ -230,14 +233,86 @@ function XZBA_ASSIGN(json){
     wzxx.Wz_Bz = json.website.remark.length <= 0 ? "remark empty" : json.website.remark ;//ToDo
     Baxx.Wz_xx.push(wzxx);
 
+    /*
+    fjwjgs:
+    1-jpg
+    2-png
+    附件用途类型ID:
+    1-网站备案信息真实性核验单
+    2-网站主办者单位有效证件电子件
+    3-备案主体负责人有效证件电子件
+    4-备案网站负责人有效证件电子件
+    5-网站负责人核验现场拍摄照片电子件
+    附件所属对象类型
+    1:主体
+    2:网站
+    * */
+
     var fj = {
         Fjxx:{
-            Fjwjgs:1,
+            Fjwjgs:2,
             Fjyt:1,
+            Fjnr:json.record.checkedlisturl,
+            Fjssdx:{
+                Ssdxlx:2,
+                Ssdxbs:json.website.id
+            },
+            Bz:'empty'
+        }
+    };//ToDo
+    Baxx.Fj.push(fj);
+
+    fj = {
+        Fjxx:{
+            Fjwjgs:2,
+            Fjyt:2,
+            Fjnr:json.record.sitemanagerurl,
+            Fjssdx:{
+                Ssdxlx:2,
+                Ssdxbs:json.website.id
+            },
+            Bz:'empty'
+        }
+    };//ToDo
+    Baxx.Fj.push(fj);
+
+    fj = {
+        Fjxx:{
+            Fjwjgs:2,
+            Fjyt:3,
             Fjnr:json.record.sitemanagerurl,
             Fjssdx:{
                 Ssdxlx:1,
                 Ssdxbs:json.company.id
+            },
+            Bz:'empty'
+        }
+    };//ToDo
+    Baxx.Fj.push(fj);
+
+
+    fj = {
+        Fjxx:{
+            Fjwjgs:2,
+            Fjyt:4,
+            Fjnr:json.record.sitemanagerurl,
+            Fjssdx:{
+                Ssdxlx:2,
+                Ssdxbs:json.website.id
+            },
+            Bz:'empty'
+        }
+    };//ToDo
+    Baxx.Fj.push(fj);
+
+    fj = {
+        Fjxx:{
+            Fjwjgs:2,
+            Fjyt:5,
+            Fjnr:json.record.curtainurl,
+            Fjssdx:{
+                Ssdxlx:2,
+                Ssdxbs:json.website.id
             },
             Bz:'empty'
         }
