@@ -61,6 +61,11 @@ function IP_XZBA_ASSIGN(json){
     };
 
 
+    ly.IspId = json.id;
+    ly.Qsip = json.qsip;
+    ly.Zzip = json.zzip;
+    ly.Lydw = json.lydw;
+    ly.Bz = json.area;
 
     var fpsy = {
         IspId:0,

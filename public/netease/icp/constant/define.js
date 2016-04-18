@@ -33,9 +33,25 @@
     "RS_COUNCIL_PASS":9
 }
 
+ /*
+ CHECKEDLIST: 核验单不超过150K
+ COMPANYIDSIZE: 单位有效证件类型不超过100K
+ COMPANYOWNERSIZE:单位负责人有效证件不超过100K
+ WEBSITEOWNERSIZE:网站负责人有效证件不超过100K
+ CHECKLISTSIZE:当面核验单不超过100K
+ * */
+const PhotoSizeLimit = {
+    "CHECKEDLISTSIZE": 150*1025,
+    "COMPANYIDSIZE":100*1024,
+    "COMPANYOWNERSIZE":100*1024,
+    "WEBSITEOWNERSIZE":100*1024,
+    "CHECKLISTSIZE":100*1024
+}
+
 
 module.exports = {
     RecordCheckStatus,
     RecordType,
-    IDTYPE
+    IDTYPE,
+    PhotoSizeLimit
 };

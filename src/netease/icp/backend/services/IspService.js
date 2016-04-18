@@ -13,6 +13,7 @@ const crypto = require('crypto');
 var fso = require('fs');
 var parser = require('xml2json');
 var json2xml = require('icp-json2xml');
+var js2xmlparser = require('js2xmlparser');
 import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
 import { XZWZ_ASSIGN } from '../json/req/upload/ICP/XZWZ/XZWZ';
 import { XZJR_ASSIGN } from '../json/req/upload/ICP/XZJR/XZJR';
@@ -25,6 +26,7 @@ var AdmZip = require('adm-zip');
 var http = require("http");
 import request from 'superagent';
 var StoreService = using('netease.icp.backend.services.StoreService');
+import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define';
 
 (function () {
 
@@ -274,7 +276,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             this.XZJR = 2;
             this.HSJG = 3;
             this.IP_XZBA = 4;
-            this.dataSequence = 209;
+            this.dataSequence = 309;
         }
 
         /**
@@ -1198,6 +1200,21 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             }
         }
 
+        getPhoto(url,quality, size){
+            var me = this;
+            return function*(){
+                var image = yield me.downloadNos(url+quality);
+                var image64 = new Buffer(image).toString('base64');
+                if( image64.length > size ){
+                    console.log("image64.length:",image64.length);
+                    console.log("image64 quarlity:",quality);
+                    return yield me.getPhoto(url,quality-1,size);
+                }
+                console.log("image64.length2:",image64.length);
+                return image64;
+            }
+        }
+
         genbeianInfo(json, type) {
 
             var me = this;
@@ -1206,9 +1223,12 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 if (type == me.FIRST) {
                     try {
                         var clip = '?imageView&quality=50';
+                        var c = '?imageView&quality=';
 
-                        var image = yield me.downloadNos(json.record.sitemanagerurl + clip);
-                        json.record.sitemanagerurl = new Buffer(image).toString('base64');
+                        //var image = yield me.downloadNos(json.record.sitemanagerurl + clip);
+                        //json.record.sitemanagerurl = new Buffer(image).toString('base64');
+
+                        json.record.sitemanagerurl  = yield me.getPhoto(json.record.sitemanagerurl+c,75,PhotoSizeLimit.WEBSITEOWNERSIZE);
 
                         image = yield me.downloadNos(json.record.checkedlisturl + clip);
                         json.record.checkedlisturl = new Buffer(image).toString('base64');
@@ -1228,11 +1248,9 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
 
                         var assignedJson = XZBA_ASSIGN(json);
-                        var xml2 = json2xml(assignedJson, {attributes_key: 'attr', header: true});
-                        //xml2 = fso.readFileSync('/Users/hujiabao/Downloads/first.xml');
+                        var xml2 = js2xmlparser('UploadData',assignedJson,{declaration:{encoding:'GBK'}});
                         fso.writeFileSync('/Users/hujiabao/Downloads/first.xml', iconv.encode(xml2, 'GBK'), 'utf8');
                         var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
-                        //var ret = yield me.encryptContent(xml2);
                         return ret;
                     } catch (e) {
                         EasyNode.DEBUG && logger.debug(` ${e}`);
@@ -1475,6 +1493,34 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
                     res.socket.on("error", function() {
                         console.log("err");
+                    });
+                });
+            });
+        }
+
+        getPage(url) {
+            var chunks = [];
+            var size = 0;
+            return new Promise(function (resq, rej) {
+                http.get(url, function (res) {
+                    res.on("data", function (chunk) {
+                        size += chunk.length;
+                        chunks.push(chunk);
+                    });
+
+                    res.on("end", function (err) {
+                        if (err) {
+                            console.log("down fail");
+                            rej();
+                        }
+                        console.log("down success");
+                        var data = Buffer.concat(chunks,size);
+                        resq(data);
+                    });
+
+                    res.socket.on("error", function() {
+                        console.log("err");
+                        rej();
                     });
                 });
             });

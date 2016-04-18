@@ -77,17 +77,17 @@ const fs = require('fs');
 function XZBA_ASSIGN(json){
     "use strict";
     var xzba = {
-        UploadData: {
-            ICP: {
-                XZBA:{
-                    Baxx:[
-
-                    ]
-                },
-                Qqdwid:0
-            }
+        "@": {
+            "version": "V.3.0"
         },
-        attr: {version:"V.3.0"}
+        ICP: {
+            XZBA:{
+                Baxx:[
+
+                ]
+            },
+            Qqdwid:0
+        }
     };
 
     var Baxx = {
@@ -248,80 +248,97 @@ function XZBA_ASSIGN(json){
     2:网站
     * */
 
-    var fj = {
-        Fjxx:{
-            Fjwjgs:2,
-            Fjyt:1,
-            Fjnr:json.record.checkedlisturl,
-            Fjssdx:{
-                Ssdxlx:2,
-                Ssdxbs:json.website.id
-            },
-            Bz:'empty'
-        }
-    };//ToDo
-    Baxx.Fj.push(fj);
+    //核验单
+    var fj = {};
+    if( json.record.sitemanagerurl.length > 0 ) {
+        fj = {
+            Fjxx:{
+                Fjwjgs:2,
+                Fjyt:1,
 
-    fj = {
-        Fjxx:{
-            Fjwjgs:2,
-            Fjyt:2,
-            Fjnr:json.record.sitemanagerurl,
-            Fjssdx:{
-                Ssdxlx:2,
-                Ssdxbs:json.website.id
-            },
-            Bz:'empty'
-        }
-    };//ToDo
-    Baxx.Fj.push(fj);
+                Fjnr:json.record.checkedlisturl,
+                Fjssdx:{
+                    Ssdxlx:2,
+                    Ssdxbs:json.website.id
+                },
+                Bz:'empty'
+            }
+        };//ToDo
+        Baxx.Fj.push(fj);
+    }
 
-    fj = {
-        Fjxx:{
-            Fjwjgs:2,
-            Fjyt:3,
-            Fjnr:json.record.sitemanagerurl,
-            Fjssdx:{
-                Ssdxlx:1,
-                Ssdxbs:json.company.id
-            },
-            Bz:'empty'
-        }
-    };//ToDo
-    Baxx.Fj.push(fj);
+    //主体负责人
+   if( json.record.sitemanagerurl.length > 0 ) {
+        fj = {
+            Fjxx: {
+                Fjwjgs: 2,
+                Fjyt: 3,
+                Fjnr: json.record.sitemanagerurl,
+                Fjssdx: {
+                    Ssdxlx: 1,
+                    Ssdxbs: json.company.id
+                },
+                Bz: 'empty'
+            }
+        };//ToDo
+        Baxx.Fj.push(fj);
+    }
+
+    /*
+    if( json.record.sitemanagerurl.length > 0 ) {
+        fj = {
+            Fjxx: {
+                Fjwjgs: 2,
+                Fjyt: 3,
+                Fjnr: json.record.sitemanagerurl,
+                Fjssdx: {
+                    Ssdxlx: 1,
+                    Ssdxbs: json.company.id
+                },
+                Bz: 'empty'
+            }
+        };//ToDo
+        Baxx.Fj.push(fj);
+    }
 
 
-    fj = {
-        Fjxx:{
-            Fjwjgs:2,
-            Fjyt:4,
-            Fjnr:json.record.sitemanagerurl,
-            Fjssdx:{
-                Ssdxlx:2,
-                Ssdxbs:json.website.id
-            },
-            Bz:'empty'
-        }
-    };//ToDo
-    Baxx.Fj.push(fj);
+    if( json.record.sitemanagerurl.length > 0 ) {
+        fj = {
+            Fjxx: {
+                Fjwjgs: 2,
+                Fjyt: 4,
+                Fjnr: json.record.sitemanagerurl,
+                Fjssdx: {
+                    Ssdxlx: 2,
+                    Ssdxbs: json.website.id
+                },
+                Bz: 'empty'
+            }
+        };//ToDo
+        Baxx.Fj.push(fj);
+    }
+    if( json.record.curtainurl.length > 0 ){
+        fj = {
+            Fjxx:{
+                Fjwjgs:2,
+                Fjyt:5,
+                Fjnr:json.record.curtainurl,
+                Fjssdx:{
+                    Ssdxlx:2,
+                    Ssdxbs:json.website.id
+                },
+                Bz:'empty'
+            }
+        };//ToDo
+        Baxx.Fj.push(fj);
+    }*/
 
-    fj = {
-        Fjxx:{
-            Fjwjgs:2,
-            Fjyt:5,
-            Fjnr:json.record.curtainurl,
-            Fjssdx:{
-                Ssdxlx:2,
-                Ssdxbs:json.website.id
-            },
-            Bz:'empty'
-        }
-    };//ToDo
-    Baxx.Fj.push(fj);
+
 
     console.log(xzba);
-    xzba.UploadData.ICP.XZBA.Baxx.push(Baxx);
-    xzba.UploadData.ICP.Qqdwid = 110000000211;
+    xzba.ICP.XZBA.Baxx.push(Baxx);
+    xzba.ICP.Qqdwid = 110000000211;
+    fs.writeFileSync('/Users/hujiabao/Downloads/first_json.json',JSON.stringify(xzba));
     return xzba;
 };
 
