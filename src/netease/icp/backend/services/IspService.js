@@ -19,6 +19,7 @@ import { XZWZ_ASSIGN } from '../json/req/upload/ICP/XZWZ/XZWZ';
 import { XZJR_ASSIGN } from '../json/req/upload/ICP/XZJR/XZJR';
 import { HSJG_ASSIGN } from '../json/req/upload/ICP/HSJG/HSJG';
 import { IP_XZBA_ASSIGN } from '../json/req/upload/IP/XZBA/XZBA';
+import { IP_SCBA_ASSIGN } from '../json/req/upload/IP/SCBA/SCBA';
 
 var fstream = require("fstream");
 var zlib = require('zlib');
@@ -276,7 +277,8 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
             this.XZJR = 2;
             this.HSJG = 3;
             this.IP_XZBA = 4;
-            this.dataSequence = 323;
+            this.IP_SCBA = 5;
+            this.dataSequence = 327;
         }
 
         /**
@@ -1359,6 +1361,18 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
                 else if (type == me.IP_XZBA) {
                     try {
                         var assignedJson = IP_XZBA_ASSIGN(json);
+                        var xml2 = json2xml(assignedJson, {attributes_key: 'attr', header: true});
+                        //fso.writeFileSync('/Users/hujiabao/Downloads/ip_xzba.xml',xml2,'utf8');
+                        var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
+                        return ret;
+                    } catch (e) {
+                        EasyNode.DEBUG && logger.debug(` ${e}`);
+                        return {beianInfo: '', beianInfoHash: ''};
+                    }
+                }
+                else if(type == me.IP_SCBA){
+                    try {
+                        var assignedJson = IP_SCBA_ASSIGN(json);
                         var xml2 = json2xml(assignedJson, {attributes_key: 'attr', header: true});
                         //fso.writeFileSync('/Users/hujiabao/Downloads/ip_xzba.xml',xml2,'utf8');
                         var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));

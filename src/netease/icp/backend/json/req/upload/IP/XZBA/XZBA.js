@@ -1,56 +1,21 @@
 const fs = require('fs');
 
-//var xzba = {
-//    UploadData: {
-//        IP: {
-//            XZBA:{
-//                Xzly:{
-//                    Ly:[]
-//                },
-//                Xzfp:{
-//                    Fpsy:[]
-//                },
-//                Xzgbjs:{
-//                    Jsxx:[]
-//                },
-//                Zdip:{
-//                    Zdxx:[]
-//                }
-//            },
-//            Qqdwid:0
-//        }
-//    },
-//    attr: {version:"V.3.0"}
-//};
-
-var xzba = {
-    UploadData: {
-        IP: {
-            XZBA:{
-                Xzly:{
-                    Ly:[]
-                }
-            },
-            Qqdwid:0
-        }
-    },
-    attr: {version:"V.3.0"}
-};
-
-/*{
-    id:0,
-    qsip:1778547457,
-        zzip:1778547710,
-    lydw:1197,
-    bz:'',
-    area:'萧山',
-    net:'106.2.123.0/24',
-    status:0
-}
-*/
-
 function IP_XZBA_ASSIGN(json){
     "use strict";
+
+    var xzba = {
+        UploadData: {
+            IP: {
+                XZBA:{
+                    Xzly:{
+                        Ly:[]
+                    }
+                },
+                Qqdwid:0
+            }
+        },
+        attr: {version:"V.3.0"}
+    };
 
     var ly = {
         IspId:1,

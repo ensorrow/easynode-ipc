@@ -1,66 +1,6 @@
-/*
-var scba = {
-    Scly:{
-        Ly:{
-            Id:0
-          }
-    },
-    Scfp:{
-        Fpsy:{
-            Id:0
-        }
-    },
-    Sczd:{
-      Zdxx:{
-          Id:0
-      }
-    },
-    Scgbjs:{
-        Jsxx:{
-            Id:0
-        }
-    }
-};
-
-var  ICP = {
-    SCBA:scba
-};
-
-var SCBA = {
-    UploadData: {
-        ICP: ICP
-    };
-}
-
-export { SCBA };
-*/
-
-
-
 const fs = require('fs');
 
-var scba = {
-    UploadData: {
-        IP: {
-            SCBA:{
-                Scly:{
-                    Ly:[]
-                },
-                Scfp:{
-                    Fpsy:[]
-                },
-                Sczd:{
-                    Zdxx:[]
-                },
-                Scgbjs:{
-                    Jsxx:[]
-                }
-            },
-            Qqdwid:0
-        }
-    },
-    attr: {version:"V.3.0"}
-};
+
 
 /*
 * { website:
@@ -132,17 +72,58 @@ var scba = {
      operatetime: 0,
      operator: '' } }
 */
-function SCBA_ASSIGN(json){
+/*
+  var scba = {
+        UploadData: {
+            IP: {
+                SCBA:{
+                    Scly:{
+                        Ly:[]
+                    },
+                    Scfp:{
+                        Fpsy:[]
+                    },
+                    Sczd:{
+                        Zdxx:[]
+                    },
+                    Scgbjs:{
+                        Jsxx:[]
+                    }
+                },
+                Qqdwid:0
+            }
+        },
+        attr: {version:"V.3.0"}
+    };
+* */
+function IP_SCBA_ASSIGN(json){
     "use strict";
 
-    scba.UploadData.IP.SCBA.Scly.Ly.push(0);//ToDo
-    scba.UploadData.IP.SCBA.Scfp.Fpsy.push(0);//ToDo
-    scba.UploadData.IP.SCBA.Sczd.Zdxx.push(0);//ToDo
-    scba.UploadData.IP.SCBA.Scgbjs.Jsxx.push(0);//ToDo
+    var scba = {
+        UploadData: {
+            IP: {
+                SCBA:{
+                    Scly:{
+                        Ly:[]
+                    }
+                },
+                Qqdwid:0
+            }
+        },
+        attr: {version:"V.3.0"}
+    };
+    var ly = {
+        id:0
+    };
+    ly.id = json.id;
+    scba.UploadData.IP.SCBA.Scly.Ly.push(ly);
+    //scba.UploadData.IP.SCBA.Scfp.Fpsy.push(0);//ToDo
+    //scba.UploadData.IP.SCBA.Sczd.Zdxx.push(0);//ToDo
+    //scba.UploadData.IP.SCBA.Scgbjs.Jsxx.push(0);//ToDo
     scba.UploadData.IP.Qqdwid = 110000000211;
 
     console.log(scba);
     return scba;
 };
 
-export { SCBA_ASSIGN };
+export { IP_SCBA_ASSIGN };

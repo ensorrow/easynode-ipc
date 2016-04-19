@@ -260,7 +260,57 @@ describe('IspService',function() {
 
     });
 
-    it('isp_querypreviousupload',function (done){
+    /*it('isp_upload IP SCBA',function (done){
+
+      var scips = [
+          {
+              id:110000007512
+          },
+          {
+              id:110000007499
+          }
+      ];
+
+      co(function * () {
+
+          var index = 0;
+
+          var upload = function(json){
+              return function*(){
+                      var beianInfo;
+                      var args;
+                      try{
+                          beianInfo = yield ispService.genbeianInfo(json,ispService.IP_SCBA);
+                          args = ispService.getUploadInitParam();
+                          args.beianInfo  = beianInfo.beianInfo;
+                          args.beianInfoHash = beianInfo.beianInfoHash;
+                          console.log("dataSequence upload:",args.dataSequence);
+
+                      }catch(e){
+                          EasyNode.DEBUG && logger.debug(` ${e}`);
+                      }
+
+                      console.log("isp_upload  scba......");
+                     var ret =  yield ispService.isp_upload(args);
+                      return ret;
+              }
+          }
+
+          for( var index = 0; index < scips.length; index++ ){
+              console.log("1:",index);
+              console.log(scips[index]);
+              var ret = yield  upload(scips[index]);
+              console.log("2:",index);
+              console.log("ret:",ret);
+          }
+
+          done();
+
+      });
+
+  });*/
+
+  /*  it('isp_querypreviousupload',function (done){
 
         co(function * (){
             var args = ispService.getInitParam(false);
@@ -281,7 +331,7 @@ describe('IspService',function() {
         });
 
     });
-
+*/
    /* it('isp_upload',function (done){
 
         co(function * () {
