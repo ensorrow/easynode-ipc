@@ -176,7 +176,7 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-siteinfo-item .item-ctrl >input[type="text"].item-ctrl-ip,.m-siteinfo-item .item-ctrl input[type="number"].item-ctrl-ip{width:71.75px;height:30px;}
 .m-siteinfo-item .item-ctrl >input[type="text"].item-ctrl-ip +.item-ctrl-ip,.m-siteinfo-item .item-ctrl input[type="number"].item-ctrl-ip +.item-ctrl-ip{margin-left:10px;}
 .m-siteinfo-item .item-ctrl >textarea{font-size:14px;word-wrap:break-word;line-height:18px;overflow-y:auto;overflow-x:hidden;outline:none;width:100%;height:80px;}
-.m-siteinfo-item .item-ctrl >select{width:100%;height:30px;}
+.m-siteinfo-item .item-ctrl >select{width:101%;height:34px;font-size:16px;}
 .m-siteinfo-item .item-ctrl .item-ctrl-in{float:none;position:relative;margin-top:5px;}
 .m-siteinfo-item .item-ctrl .item-ctrl-in .siteurl-delete{width:20px;height:20px;border:none;background:url("../assets/close.png");background-repeat:no-repeat;position:absolute;right:10px;top:5px;z-index:5;}
 .m-siteinfo-item .item-ctrl >input[type="button"],.m-siteinfo-item .item-ctrl button{margin-top:5px;background:#808080;width:140px;height:36px;font-size:14px;color:#fff;}

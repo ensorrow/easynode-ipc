@@ -5,6 +5,7 @@ var assign = assigner.getPolyfill();
 module.exports = {
 
     httpRequest: function( url, method, data, type, contentType, headers, succ, err){
+        console.log("11");
       reqwest({
           url: url,
           method: method,

@@ -156,8 +156,9 @@ $m-siteinfo_item_addsite_button_margin_left = $m-siteinfo_label_width + $m-sitei
         }
 
 		> select {
-			width: 100%;
-			height: $m-siteinfo_item_height;
+			width: 101%;
+			height: $m-siteinfo_item_height+4;
+			font-size:16px;
 		}
 
 		.item-ctrl-in{

@@ -16,6 +16,7 @@ var Area = using('netease.icp.backend.models.Area');
 var Sys = using('netease.icp.backend.models.Sys');
 var Nos = require('nenos');
 var utils = require('utility');
+//import request from 'superagent';
 import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/define';
 
 (function () {
@@ -42,10 +43,11 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
          * @since 0.1.0
          * @author allen.hu
          * */
-        constructor(app) {
+        constructor(app,config = {}) {
             super();
             //调用super()后再定义子类成员。
             this.app = app;
+            this.tenantpubips = config.tenantpubips;
         }
 
 
@@ -237,6 +239,48 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
         }
 
 
+        /**
+         * 接口：
+         POST https://c.163.com/api/account/pubips
+         参数：
+         secret=3soLEF67wx&tenantId=xxxxxxxx
+
+         正确响应：
+         {
+             "params": [
+                 {
+                     "pubIp": "60.191.83.166"
+                 }
+             ],
+             "code": 200,
+             "msg": "succ"
+         }
+
+         错误响应：
+         code : 413 secret(密码)不对。
+         code:  401 账号不存在。
+         * */
+      /*  gettenantPubips(){
+            var me = this;
+            return function *(){
+                console.log("sessin",this.session);
+                var tenantId = this.session.user.tenantid;
+                return  new Promise( function(res,rej) {
+                    console.log("tenantId",tenantId);
+                    var url = `${me.tenantpubips.urlPath}?secret=${me.tenantpubips.secret}&tenantId=${tenantId}`;
+                    console.log(url);
+                    request.post(url)
+                        .end(function(err,ret){
+                            if( err ){
+                                rej();
+                            }else{
+                                res(ret.text);
+                            }
+                        });
+                });
+            }
+        }
+*/
         getRecords(){
             var me = this;
             return function *(){
@@ -1362,6 +1406,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
                 }
             }
         }
+
 
 
         getClassName() {

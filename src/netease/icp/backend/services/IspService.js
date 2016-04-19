@@ -1541,11 +1541,31 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
         }
 
 
-        gettenantPubips(tenantId){
-            var me = this;
+        /**
+         * 接口：
+         POST https://c.163.com/api/account/pubips
+         参数：
+         secret=3soLEF67wx&tenantId=xxxxxxxx
+
+         正确响应：
+         {
+             "params": [
+                 {
+                     "pubIp": "60.191.83.166"
+                 }
+             ],
+             "code": 200,
+             "msg": "succ"
+         }
+
+         错误响应：
+         code : 413 secret(密码)不对。
+         code:  401 账号不存在。
+         * */
+        gettenantPubips(tenantId = 0 ){
+            /*var me = this;
             return  new Promise( function(res,rej) {
-                request.post(`me.tenantpubips.urlPath?secret=${me.tenantpubips.secret}&tenantId=${tenantId}`)
-                    .send({secret:me.tenantpubips.secret,tenantId:tenantId})
+                request.post(`${me.tenantpubips.urlPath}?secret=${me.tenantpubips.secret}&tenantId=${tenantId}`)
                     .end(function(err,ret){
                         if( err ){
                             rej();
@@ -1553,7 +1573,26 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
                             res(ret.text);
                         }
                     });
-            });
+            });*/
+
+            var me = this;
+            return function *(){
+                console.log("sessin",this.session);
+                var tenantId = tenantId > 0 ? tenantId : this.session.user.tenantid;
+                return  new Promise( function(res,rej) {
+                    console.log("tenantId",tenantId);
+                    var url = `${me.tenantpubips.urlPath}?secret=${me.tenantpubips.secret}&tenantId=${tenantId}`;
+                    console.log(url);
+                    request.post(url)
+                        .end(function(err,ret){
+                            if( err ){
+                                rej();
+                            }else{
+                                res(ret.text);
+                            }
+                        });
+                });
+            }
         }
 
         validateIP(ip,ips) {

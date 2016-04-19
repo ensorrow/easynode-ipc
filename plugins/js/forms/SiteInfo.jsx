@@ -48,6 +48,7 @@ let SiteInfo = React.createClass({
             processing: false,
             domains:[],
             sitesCount: 0,
+            tenantips:['请选择网站IP'],
             formError: {
                 id: {isBlank: false, checked: true},
                 name: {isBlank: false,focus: false},
@@ -343,6 +344,37 @@ let SiteInfo = React.createClass({
             this.setState( {siteInfo: assign( {},this.state.siteinfo,__globals__.siteinfo ) } );
             this.setState( {domains: __globals__.domains} );
         }
+        var ips = this.state.tenantips;
+        console.log("111111");
+      /*  {
+            "params": [
+            {
+                "pubIp": "60.191.83.166"
+            }
+        ],
+            "code": 200,
+            "msg": "succ"
+        }
+
+        错误响应：
+         code : 413 secret(密码)不对。
+         code:  401 账号不存在。*/
+        DataService.httpRequest('/pubips','get',{},'json','application/json',{},
+            function(resp){
+                console.log(resp);
+                if( resp.code == 200 ){
+                    resp.params.forEach(function (item, index) {
+                        ips.push(item);
+                    });
+                    console.log("get tenant pub ips ok");
+                }
+                if( typeof(succ) == 'function' ) succ();
+            },
+            function(err){
+                console.log("get tenant pub ips err");
+            }
+        );
+        this.setState( { tenantips:ips } );
     },
 
     componentWillUnmount: function(){
@@ -693,6 +725,63 @@ let SiteInfo = React.createClass({
             );
         }
     },
+    handleSelectIps: function(e){
+        "use strict";
+        e.preventDefault();
+
+        var siteInfo = this.state.siteInfo;
+
+        var tenantips = this.state.tenantips;
+        var ipStr = tenantips[parseInt(e.target.value)];
+        var ips = ipStr.split('.');
+        if(ips.length < 4){
+            siteInfo.ip.ip1 = '';
+            siteInfo.ip.ip2 = '';
+            siteInfo.ip.ip3 = '';
+            siteInfo.ip.ip4 = '';
+        }else{
+            for(var index=0; index<ips.length;index++ ){
+                if( this.checkIpField(ips[index]) ) {
+                    if( index == 0 ){
+                        siteInfo.ip.ip1 = ips[0];
+                    }else if( index == 1 ){
+                        siteInfo.ip.ip2 = ips[1];
+                    }else if( index == 2 ){
+                        siteInfo.ip.ip3 = ips[2];
+                    }else if( index == 3 ){
+                        siteInfo.ip.ip4 = ips[3];
+                    }
+                    this.setState({siteInfo: siteInfo});
+                }
+            }
+        }
+    },
+    getSelectedIpIndex: function(ips,ip){
+        "use strict";
+        var index = -1;
+        ips.map(function(item,idx){
+            if( item == ip ){
+                index =  idx;
+            }
+        });
+        return index;
+    },
+    getSelectIps: function(){
+        "use strict";
+        var ips = this.state.tenantips;
+        var ipOpts = ips.map(function(item,index){
+            return (
+            <option value={index} key={index}>{item}</option>
+            );
+        });
+        var ip = this.state.siteInfo.ip;
+        var index = this.getSelectedIpIndex(ips,ip.ip1+'.'+ip.ip2+'.'+ip.ip3+'.'+ip.ip4);
+        return (
+            <select name="selectIP" id="selectIP" onChange={this.handleSelectIps} value={index}>
+                {ipOpts}
+            </select>
+        );
+    },
     render: function () {
         var me = this;
         return (
@@ -911,11 +1000,8 @@ let SiteInfo = React.createClass({
                                     <span className="red f-fr">*</span>
                                 </div>
                                 <div className="item-ctrl">
-                                    <input type="text" min="1" max="255" name="npidentity" className="item-ctrl-ip" onChange={this.handleIp1} value={this.state.siteInfo.ip.ip1}/>
-                                    <input type="text" min="1" max="255"  name="npidentity" className="item-ctrl-ip" onChange={this.handleIp2} value={this.state.siteInfo.ip.ip2}/>
-                                    <input type="text" min="1" max="255"  name="npidentity" className="item-ctrl-ip" onChange={this.handleIp3} value={this.state.siteInfo.ip.ip3}/>
-                                    <input type="text" min="1" max="255"  name="npidentity" className="item-ctrl-ip" onChange={this.handleIp4} value={this.state.siteInfo.ip.ip4}/>
-                                    <span className={this.enableIpTips()  ? "u-popover" : "u-popover hidden" }>请输入IP地址</span>
+                                    {this.getSelectIps()}
+                                    <span className={this.enableIpTips()  ? "u-popover" : "u-popover hidden" }>请选择IP地址,若无IP先去蜂巢购买虚拟机或容器服务</span>
                                 </div>
                             </div>
                             <div className="m-siteinfo-item">

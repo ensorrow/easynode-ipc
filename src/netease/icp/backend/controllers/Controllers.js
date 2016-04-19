@@ -425,6 +425,49 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             }
         }
 
+
+        /**
+         * @api {get} /pubips 获得租户IPS
+         * @apiName getPubips
+         * @apiGroup User
+         * @apiPermission admin or self
+         * @apiVersion 0.0.3
+         * @apiDescription 登陆租户获取租户IPS
+         *
+         *
+         * @apiSampleRequest http://icp.hzspeed.cn/pubips/
+         *
+         * @apiSuccess {Object} 租户外网IPS
+         *  {
+            "params": [
+                {
+                "pubIp": "60.191.83.166"
+                }
+               ],
+            "code": 200,
+            "msg": "succ"
+            }
+        错误响应：
+             code : 413 secret(密码)不对。
+            code:  401 账号不存在
+
+         * @apiUse EmptyRecord
+         */
+        static getPubips(app){
+            var me = this;
+            return function *(){
+                var ret = {};
+
+
+                //var storeService = new StoreService(app,app.config);
+                //ret =  yield storeService.gettenantPubips();
+                ret = yield app.ispService.gettenantPubips();
+
+                this.type = 'json';
+                this.body = ret;
+            }
+        }
+
         /**
          * @api {get} /admin/record 获取记录详情
          * @apiName getRecordb

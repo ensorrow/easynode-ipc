@@ -58,6 +58,7 @@ import bodyParse from 'koa-body';
             httpServer.addRoute('get','/record',Controllers.getRecord(httpServer));
             httpServer.addRoute('put','/record',Controllers.putRecord(httpServer));
             httpServer.addRoute('put','/user',Controllers.putUser(httpServer));
+            httpServer.addRoute('get','/pubips',Controllers.getPubips(httpServer));
 
             //to op(whitelist)
             httpServer.addRoute('put','/admin/curtain',Controllers.putCurtainb(httpServer));
