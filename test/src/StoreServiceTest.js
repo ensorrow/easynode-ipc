@@ -1,7 +1,6 @@
-/*
-/!**
+/**
  * Created by hujiabao on 9/21/15.
- *!/
+ */
 
 'use strict';
 
@@ -33,20 +32,19 @@ describe('StoreService',function() {
         }
     });
 
-    //it('readDatasequence',function (done){
-    //
-    //    co(function * () {
-    //        var ds = yield storeService.readDatasequence();
-    //        console.log("datasequence:",ds);
-    //    });
-    //
-    //});
+    /*it('readDatasequence',function (done){
 
+        co(function * () {
+            var ds = yield storeService.readDatasequence();
+            console.log("datasequence:",ds);
+        });
 
+    });
+*/
 
     after(function(done){
         console.log("StoreService after");
         done();
     });
 
-});*/
+});

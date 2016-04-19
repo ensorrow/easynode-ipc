@@ -1239,6 +1239,39 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         }
 
 
+        /**
+         * @api {put} /admin/area 创建区域表
+         * @apiName putWebsiteb
+         * @apiGroup IP
+         * @apiPermission whitelist
+         * @apiVersion 0.0.2
+         * @apiDescription 通过白名单管理权限
+         *
+         * @apiSampleRequest http://icp.hzspeed.cn/admin/area
+         *
+         * @apiParam {Object} area 区域对象
+         * @apiParam {String} area.code 区域编码
+         * @apiParam {String} area.name 省市县名称
+         * @apiParam {String} area.level 属性(省/直辖市,地级市,县)
+
+         @apiSuccess {Object} ret { ret: {id:id} }
+         */
+        static createArea(app){
+            var me = this;
+            return function *(){
+                var ret = {};
+
+                var pass = Controllers.passWhitelist(this.remoteAddress,app);
+                if( pass ) {
+                    var storeService = new StoreService(app);
+                    ret = yield storeService.createArea();
+                }
+
+                this.type = 'json';
+                this.body = {ret: ret};
+            }
+        }
+
         static passWhitelist( ip,app ){
             var pass = false;
             const ips = app.config.whiteips;

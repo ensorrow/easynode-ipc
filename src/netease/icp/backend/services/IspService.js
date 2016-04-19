@@ -276,7 +276,7 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
             this.XZJR = 2;
             this.HSJG = 3;
             this.IP_XZBA = 4;
-            this.dataSequence = 309;
+            this.dataSequence = 323;
         }
 
         /**

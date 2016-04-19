@@ -12,7 +12,7 @@ var Company = using('netease.icp.backend.models.Company');
 var Website = using('netease.icp.backend.models.Website');
 var Record = using('netease.icp.backend.models.Record');
 var Iply = using('netease.icp.backend.models.Iply');
-
+var Area = using('netease.icp.backend.models.Area');
 var Sys = using('netease.icp.backend.models.Sys');
 var Nos = require('nenos');
 var utils = require('utility');
@@ -1334,6 +1334,35 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
                 }
             }
         }
+
+
+        createArea(){
+            var me = this;
+            return function *(){
+
+                var model = null
+                var r = null;
+                var conn = null;
+                var formData = this.request.body;
+                var id;
+
+                try{
+                    conn = yield  me.app.ds.getConnection();
+
+                    model = new Area();
+                    model.merge( Object.assign({},formData,{updatetime:Date.now(),createtime:Date.now()} ));
+
+                    r = yield conn.create(model);
+                    id = r.insertId;
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                    return { id: id };
+                }
+            }
+        }
+
 
         getClassName() {
             return EasyNode.namespace(__filename);

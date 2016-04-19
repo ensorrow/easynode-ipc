@@ -95,7 +95,7 @@ describe('IspService',function() {
     });
 
 
-    /* it('isp_upload IP XZBA',function (done){
+     it('isp_upload IP XZBA',function (done){
 
         var iplys = [
             {
@@ -258,7 +258,7 @@ describe('IspService',function() {
 
         });
 
-    });*/
+    });
 
     it('isp_querypreviousupload',function (done){
 

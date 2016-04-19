@@ -75,6 +75,7 @@ import bodyParse from 'koa-body';
             httpServer.addRoute('get','/admin/icp/querybeianstatus',Controllers.querybeianstatus(httpServer));
 
             httpServer.addRoute('post','/admin/ip/iply',Controllers.createIply(httpServer));
+            httpServer.addRoute('post','/admin/area/',Controllers.createArea(httpServer));
 
         }
 

@@ -38,7 +38,31 @@ describe('ControllerTest',function() {
         done();
     })
 
-    it('get tenants public ips ',function (done){
+    /*it('Put /admin/area',function (done){
+
+        request.post('http://icpdev.hzspeed.cn/admin/area')
+            .send({code:'111',name:'test',level:'县'})
+            .end(done);
+    });*/
+
+    /*it('get area code',function (done){
+
+        var opts = {
+            "page.pageSize":"20",
+            "pageNo":"3"
+        };//Not work, post with ? param can work
+        request.post('http://www.miitbeian.gov.cn/basecode/query/showareacode.action?page.pageSize=20&pageNo=3')
+            .send(opts)
+            .end(function(err,ret){
+                console.log("err",err);
+
+                console.log(ret.text);
+                done();
+            });
+
+    })*/
+
+   /* it('get tenants public ips ',function (done){
 
         request.post('https://c.163.com/api/account/pubips?secret=3soLEF67wx&tenantId=b261f52d302b43ba821a6d731b17034c')
             //.send({secret:'3soLEF67wx',tenantId:'b261f52d302b43ba821a6d731b17034c'})
@@ -67,7 +91,7 @@ describe('ControllerTest',function() {
             .send({id:684,status:1,reasons:'passed',tenantid:'cffbc4146a7941f9ad443ad650518ff1'})
             .end(done);
     });
-
+*/
 
     //it('Get /admin/records',function (done){
     //
