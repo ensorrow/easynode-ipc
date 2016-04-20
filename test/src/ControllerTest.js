@@ -38,13 +38,13 @@ describe('ControllerTest',function() {
         done();
     });
 
-    //it('Put /admin/record',function (done){
-    //
-    //    //590-首次备案  603-新增网站 669-新增接入
-    //    request.put('http://icpdev.hzspeed.cn/admin/record')
-    //        .send({id:724,status:7,reasons:'passed',checkedlisturl:'http://apollodev.nos.netease.com/1460686622187%E7%99%BB%E5%BD%952.png'})
-    //        .end(done);
-    //});
+    it('Put /admin/record',function (done){
+
+        //590-首次备案  603-新增网站 669-新增接入
+        request.put('http://icpdev.hzspeed.cn/admin/record')
+            .send({id:724,status:7,reasons:'passed',checkedlisturl:'http://apollodev.nos.netease.com/1460686622187%E7%99%BB%E5%BD%952.png'})
+            .end(done);
+    });
 
 
     /*it('Put /admin/area',function (done){

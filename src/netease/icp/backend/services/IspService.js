@@ -278,6 +278,8 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
             this.HSJG = 3;
             this.IP_XZBA = 4;
             this.IP_SCBA = 5;
+            this.MIN = 2;
+            this.MAX =  98;
             this.dataSequence = 327;
         }
 
@@ -1202,15 +1204,25 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
             }
         }
 
-        getPhoto(url,quality, size){
+        getPhoto(url,size,min,max,cur){
             var me = this;
+            console.log(url);
             return function*(){
-                var image = yield me.downloadNos(url+quality);
+                var image = yield me.downloadNos(url+cur);
                 var image64 = new Buffer(image).toString('base64');
+                console.log("min:",min);
+                console.log("max:",max);
+                console.log("cur:",cur);
                 if( image64.length > size ){
                     console.log("image64.length:",image64.length);
-                    console.log("image64 quarlity:",quality);
-                    return yield me.getPhoto(url,quality-1,size);
+                    console.log("image64 quarlity:",cur);
+                    return yield me.getPhoto(url,size,min,cur,parseInt((cur-min)/2));
+                }else{
+                    console.log("image64.length:",image64.length);
+                    console.log("image64 quarlity:",cur);
+                    if(parseInt((max-cur)/2) != 1){
+                        return yield me.getPhoto(url,size,cur,max,parseInt((max+cur)/2));
+                    }
                 }
                 console.log("image64.length2:",image64.length);
                 return image64;
@@ -1230,7 +1242,7 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
                         //var image = yield me.downloadNos(json.record.sitemanagerurl + clip);
                         //json.record.sitemanagerurl = new Buffer(image).toString('base64');
 
-                        json.record.sitemanagerurl  = yield me.getPhoto(json.record.sitemanagerurl+c,75,PhotoSizeLimit.WEBSITEOWNERSIZE);
+                        json.record.sitemanagerurl  = yield me.getPhoto(json.record.sitemanagerurl+c,PhotoSizeLimit.WEBSITEOWNERSIZE,me.MIN,me.MAX,(me.MAX-me.MIN)/2);
 
                         image = yield me.downloadNos(json.record.checkedlisturl + clip);
                         json.record.checkedlisturl = new Buffer(image).toString('base64');
