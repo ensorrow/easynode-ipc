@@ -359,13 +359,16 @@ let SiteInfo = React.createClass({
         错误响应：
          code : 413 secret(密码)不对。
          code:  401 账号不存在。*/
+        var me = this;
         DataService.httpRequest('/pubips','get',{},'json','application/json',{},
             function(resp){
                 console.log(resp);
                 if( resp.code == 200 ){
                     resp.params.forEach(function (item, index) {
-                        ips.push(item);
+                        console.log(item);
+                        ips.push(item.pubIp);
                     });
+                    me.setState( { tenantips:ips } );
                     console.log("get tenant pub ips ok");
                 }
                 if( typeof(succ) == 'function' ) succ();
@@ -374,7 +377,7 @@ let SiteInfo = React.createClass({
                 console.log("get tenant pub ips err");
             }
         );
-        this.setState( { tenantips:ips } );
+
     },
 
     componentWillUnmount: function(){
