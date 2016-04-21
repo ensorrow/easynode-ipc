@@ -1466,6 +1466,24 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
             return enc;
         }
 
+        //data 是你的准备解密的字符串,key是你的密钥
+        decryption(data) {
+            var key = KEY;
+            key = iconv.encode(key,"GBK");
+            var iv = OFFSET;
+            iv = iconv.encode(iv,"GBK");
+            var clearEncoding = 'binary';
+            var cipherEncoding = 'base64';
+            var cipherChunks = [];
+            var decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
+            decipher.setAutoPadding(true);
+
+            cipherChunks.push(decipher.update(data, cipherEncoding, clearEncoding));
+            cipherChunks.push(decipher.final(clearEncoding));
+
+            return cipherChunks.join('');
+        }
+
         base64_encode(file) {
             var bitmap = fso.readFileSync(file);
             return new Buffer(bitmap).toString('base64');

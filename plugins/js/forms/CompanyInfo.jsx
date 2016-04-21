@@ -196,7 +196,7 @@ let CompanyInfo = React.createClass({
         }
     },
     getRecordPassword: function(){
-        if( __globals__.baseinfo && __globals__.baseinfo.type > 1  ){
+        if( __globals__.baseinfo && __globals__.baseinfo.type > 0  ){
             this.state.formError.recordpassword.checked = false;
             return (
                 <div className="m-companyinfo-item">
