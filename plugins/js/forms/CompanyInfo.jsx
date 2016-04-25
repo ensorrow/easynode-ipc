@@ -151,7 +151,7 @@ let CompanyInfo = React.createClass({
                     me.setState({
                         formError: formError
                     });
-                },50);
+                },400);
         }else{
             this.setState({
                 formError: formError

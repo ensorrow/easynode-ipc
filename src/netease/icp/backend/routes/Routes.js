@@ -41,6 +41,7 @@ import bodyParse from 'koa-body';
             httpServer.addMiddleware(bodyParse());
             httpServer.addWebDirs('plugins');
             httpServer.addWebDirs('plugins/build');
+            httpServer.addWebDirs('plugins/assets');
             httpServer.addTemplateDirs('plugins/views');
         }
 
