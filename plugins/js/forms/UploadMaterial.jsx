@@ -47,8 +47,8 @@ let UploadMaterial = React.createClass({
           sample:{
               sitemanagerurl: 'http://apollodev.nos.netease.com/1459492803511',
               checklisturl: 'http://apollodev.nos.netease.com/1459493043170',
-              protocolurl1: 'http://apollodev.nos.netease.com/1459493125947',
-              protocolurl2: 'http://apollodev.nos.netease.com/1459493125947',
+              protocolurl1: 'http://apollodev.nos.netease.com/146157007813512.png',
+              protocolurl2: 'http://apollodev.nos.netease.com/146157007813512.png',
               securityurl1: 'http://apollodev.nos.netease.com/1459493107645',
               securityurl2: 'http://apollodev.nos.netease.com/1459493107645'
           }
