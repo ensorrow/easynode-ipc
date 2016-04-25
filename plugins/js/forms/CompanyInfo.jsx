@@ -146,12 +146,12 @@ let CompanyInfo = React.createClass({
         }
         if( id == FT.RECORDPASSWORD ){
                 var me = this;
-              /*  setTimeout(function(){
+                setTimeout(function(){
                     "use strict";
                     me.setState({
                         formError: formError
                     });
-                },400);*/
+                },300);
         }else{
             this.setState({
                 formError: formError
