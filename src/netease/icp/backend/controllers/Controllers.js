@@ -218,20 +218,15 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiParam {String} comapny.province 省
          * @apiParam {String} comapny.city 市
          * @apiParam {String} comapny.area 区
-         * @apiSuapiParamccess {Number} comapny.nature 性质 \n1-军队\n2-政府机关\n3-事业单位\n4-企业\n5-个人\n6-社会团体
-         * @apiParam {Number} comapny.idtype 证件类型: nature=1时:5=军队代码,
-         *                                              nature=2时:9=组织机构代码证书
-         *                                              nature=3时:3=组织机构代码证书,4=事业法人证书
-         *                                              nature=4时:1=工商营业执照,12=组织机构代码证书
-         *                                              nature=5时:2=身份证,7=护照,8=军官证,11=台胞证
-         *                                              nature=6时:6=社团法人证书,10=组织机构代码证书
+         * @apiSuapiParamccess {Number} comapny.nature 性质 参见http://www.miitbeian.gov.cn/publish/query/indexFirst.action
+         * @apiParam {Number} comapny.idtype 证件类型:
          * @apiParam {String} comapny.idnumber 证件号码
          * @apiParam {String} comapny.name 名称
          * @apiParam {String} comapny.liveaddress 居住地址
          * @apiParam {String} comapny.commaddress 通讯地址
          * @apiParam {String} comapny.owner 投资人或主管单位名称
          * @apiParam {String} comapny.managername 负责人姓名
-         * @apiParam {Number} comapny.manageridtype 负责人证件类型1-身分证 2-护照 3-军官证 4-台胞证
+         * @apiParam {Number} comapny.manageridtype 负责人证件类型
          * @apiParam {String} comapny.manageridnumber 负责人证件号码
          * @apiParam {String} comapny.managermanager 负责人居住地址
          * @apiParam {String} comapny.officephoneregion 办公室电话区号
@@ -281,7 +276,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiParam {String} website.serverregion 服务器放置地
          *
          * @apiParam {String} website.managername 负责人姓名
-         * @apiParam {Number} website.manageridtype 证件类型：1-身分证 2-护照 3-军官证 4-台胞证
+         * @apiParam {Number} website.manageridtype 证件类型：
          * @apiParam {String} website.manageridnumber 证件号码
          * @apiParam {String} website.officephoneregion 办公室电话区号
          * @apiParam {String} website.officephonenumber 办公室电话号码
@@ -332,7 +327,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} record.securityurl1 信息安全管理责任书第一页图片URL
          * @apiSuccess {String} record.securityurl2 信息安全管理责任书第二页图片URL
          * @apiSuccess {String} record.code 备案号
-         * @apiSuccess {Number} record.status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-未知状态\n
+         * @apiSuccess {Number} record.status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-待核实-\n11-未知状态\n
          * @apiSuccess {String} record.tenantid 租户ID
          * @apiSuccess {String} record.curtainurl 帘布照片URL
          * @apiSuccess {Number} record.updatetime 记录更新时间
@@ -343,15 +338,15 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} comapny.province 省
          * @apiSuccess {String} comapny.city 市
          * @apiSuccess {String} comapny.area 区
-         * @apiSuccess {Number} comapny.nature 性质 \n1-军队\n2-政府机关\n3-事业单位\n4-企业\n5-个人\n
-         * @apiSuccess {Number} comapny.idtype 证件类型\n1-工商执照\n2-组织机构代码
+         * @apiSuccess {Number} comapny.nature 性质 参见:http://www.miitbeian.gov.cn/publish/query/indexFirst.action
+         * @apiSuccess {Number} comapny.idtype 证件类型
          * @apiSuccess {String} comapny.idnumber 证件号码
          * @apiSuccess {String} comapny.name 名称
          * @apiSuccess {String} comapny.liveaddress 居住地址
          * @apiSuccess {String} comapny.commaddress 通讯地址
          * @apiSuccess {String} comapny.owner 投资人或主管单位名称
          * @apiSuccess {String} comapny.managername 负责人姓名
-         * @apiSuccess {Number} comapny.manageridtype 负责人证件类型1-身分证 2-护照 3-军官证 4-台胞证
+         * @apiSuccess {Number} comapny.manageridtype 负责人证件类型
          * @apiSuccess {String} comapny.manageridnumber 负责人证件号码
          * @apiSuccess {String} comapny.manageraddress 负责人居住地址
          * @apiSuccess {String} comapny.officephoneregion 办公室电话区号
@@ -396,14 +391,14 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} website.serverregion 服务器放置地
          *
          * @apiSuccess {String} website.managername 负责人姓名
-         * @apiSuccess {Number} website.manageridtype 证件类型：1-身分证 2-护照 3-军官证 4-台胞证
+         * @apiSuccess {Number} website.manageridtype 证件类型：
          * @apiSuccess {String} website.manageridnumber 证件号码
          * @apiSuccess {String} website.officephoneregion 办公室电话区号
          * @apiSuccess {String} website.officephonenumber 办公室电话号码
          * @apiSuccess {String} website.mobile 手机号码
          * @apiSuccess {String} website.email 电子邮箱
          * @apiSuccess {String} website.qq qq号码
-         * @apiSuccess {Number} website.prechecktype 前置审批类型 0-暂无 1-新闻 2-出版 3-教育 4-医疗保健 5-药品和医疗器械 6-电子公告服务 7-文化 8-广播电视节目
+         * @apiSuccess {Number} website.prechecktype 前置审批类型 0-暂无 http://www.miitbeian.gov.cn/publish/query/indexFirst.action
          * @apiSuccess {String} website.checknumber optional 前置审批号
          * @apiSuccess {String} website.checkfileurl optional 前置审批文件
          * @apiSuccess {String} website.remark optional 备注
@@ -494,7 +489,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} record.securityurl1 信息安全管理责任书第一页图片URL
          * @apiSuccess {String} record.securityurl2 信息安全管理责任书第二页图片URL
          * @apiSuccess {String} record.code 备案号
-         * @apiSuccess {Number} record.status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-未知状态\n
+         * @apiSuccess {Number} record.status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-待核实-\n11-未知状态\n
          * @apiSuccess {String} record.tenantid 租户ID
          * @apiSuccess {Number} record.operatetime 操作时间
          * @apiSuccess {String} record.operator 操作员
@@ -532,15 +527,15 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} comapny.province 省
          * @apiSuccess {String} comapny.city 市
          * @apiSuccess {String} comapny.area 区
-         * @apiSuccess {Number} comapny.nature 性质 \n1-军队\n2-政府机关\n3-事业单位\n4-企业\n5-个人\n
-         * @apiSuccess {Number} comapny.idtype 证件类型\n1-工商执照\n2-组织机构代码
+         * @apiSuccess {Number} comapny.nature 性质
+         * @apiSuccess {Number} comapny.idtype 证件类型
          * @apiSuccess {String} comapny.idnumber 证件号码
          * @apiSuccess {String} comapny.name 名称
          * @apiSuccess {String} comapny.liveaddress 居住地址
          * @apiSuccess {String} comapny.commaddress 通讯地址
          * @apiSuccess {String} comapny.owner 投资人或主管单位名称
          * @apiSuccess {String} comapny.managername 负责人姓名
-         * @apiSuccess {Number} comapny.manageridtype 负责人证件类型\n 1-身分证 2-护照 3-军官证 4-台胞证
+         * @apiSuccess {Number} comapny.manageridtype 负责人证件类型\n
          * @apiSuccess {String} comapny.manageridnumber 负责人证件号码
          * @apiSuccess {String} comapny.manageraddress 负责人居住地址
          * @apiSuccess {String} comapny.officephoneregion 办公室电话区号
@@ -585,14 +580,14 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} website.serverregion 服务器放置地
          *
          * @apiSuccess {String} website.managername 负责人姓名
-         * @apiSuccess {Number} website.manageridtype 证件类型：1-身分证 2-护照 3-军官证 4-台胞证
+         * @apiSuccess {Number} website.manageridtype 证件类型：
          * @apiSuccess {String} website.manageridnumber 证件号码
          * @apiSuccess {String} website.officephoneregion 办公室电话区号
          * @apiSuccess {String} website.officephonenumber 办公室电话号码
          * @apiSuccess {String} website.mobile 手机号码
          * @apiSuccess {String} website.email 电子邮箱
          * @apiSuccess {String} website.qq qq号码
-         * @apiSuccess {Number} website.prechecktype record.type=2时才会有前置审批类型,前置审批类型 0-暂无 1-新闻 2-出版 3-教育 4-医疗保健 5-药品和医疗器械 6-电子公告服务 7-文化 8-广播电视节目
+         * @apiSuccess {Number} website.prechecktype record.type=2时才会有前置审批类型,前置审批类型
          * @apiSuccess {String} website.checknumber optional 前置审批号
          * @apiSuccess {String} website.checkfileurl optional 前置审批文件
          * @apiSuccess {String} website.remark optional 备注
@@ -626,7 +621,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSampleRequest http://icp.hzspeed.cn/record/
          *
          * @apiParam {Number} id 记录ID
-         * @apiParam {Number} status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-未知状态\n
+         * @apiParam {Number} status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-待核实-\n11-未知状态\n
          * @apiParam {String} reasons 通过则为备注,拒绝则为理由(多条用p标签分隔)
          * @apiParam {String} [curtainurl] 帘布照片URL
          *
@@ -688,7 +683,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSampleRequest http://icp.hzspeed.cn/admin/record
          *
          * @apiParam {Number} id 记录ID
-         * @apiParam {Number} status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-未知状态\n
+         * @apiParam {Number} status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-待核实-\n11-未知状态\n
          * @apiParam {String} reasons 通过则为备注,拒绝则为理由(多条用p标签分隔)
          * @apiParam {String} [curtainurl] 帘布照片URL
          * @apiParam {String} [checkedlisturl] 校验过的核验单URL,当status=7时必须有该以该参娄
@@ -866,7 +861,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {Number} data.websiteid 网站id
          * @apiSuccess {String} data.tenantid 租户id
          * @apiSuccess {Number} data.type  备案类型: 0-首次备案, 1-新增网站, 2-新增接入
-         * @apiSuccess {Number} data.status 备案状态: 0-草稿,1-初审中,2-初审未通过,3-初审已通过,4-照片审核中,5-照片审核未通过,6-照片审核已通过,7-通管局审核中,8-通管局审核未通过,9-通管局审核已通过,10-未知状态
+         * @apiSuccess {Number} data.status 备案状态: 0-草稿,1-初审中,2-初审未通过,3-初审已通过,4-照片审核中,5-照片审核未通过,6-照片审核已通过,7-通管局审核中,8-通管局审核未通过,9-通管局审核已通过,10-待核实,11-未知状态
          * @apiSuccess {String} data.code 备案编号
          * @apiSuccess {Number} data.updatetime 记录更新时间
          * @apiSuccess {Number} data.createtime 记录创建时间
@@ -920,7 +915,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {Number} data.websiteid 网站id
          * @apiSuccess {String} data.tenantid 租户id
          * @apiSuccess {Number} data.type  备案类型: 0-首次备案, 1-新增网站, 2-新增接入
-         * @apiSuccess {Number} data.status 备案状态: 0-草稿,1-初审中,2-初审未通过,3-初审已通过,4-照片审核中,5-照片审核未通过,6-照片审核已通过,7-通管局审核中,8-通管局审核未通过,9-通管局审核已通过,10-未知状态
+         * @apiSuccess {Number} data.status 备案状态: 0-草稿,1-初审中,2-初审未通过,3-初审已通过,4-照片审核中,5-照片审核未通过,6-照片审核已通过,7-通管局审核中,8-通管局审核未通过,9-通管局审核已通过,10-待核实,11-未知状态
          * @apiSuccess {String} data.code 备案编号
          * @apiSuccess {Number} data.operatetime 操作时间
          * @apiSuccess {String} data.operator 操作员
@@ -976,7 +971,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {Number} data.websiteid 网站id
          * @apiSuccess {String} data.tenantid 租户id
          * @apiSuccess {Number} data.type  备案类型: 0-首次备案, 1-新增网站, 2-新增接入
-         * @apiSuccess {Number} data.status 备案状态: 0-草稿,1-初审中,2-初审未通过,3-初审已通过,4-照片审核中,5-照片审核未通过,6-照片审核已通过,7-通管局审核中,8-通管局审核未通过,9-通管局审核已通过,10-未知状态
+         * @apiSuccess {Number} data.status 备案状态: 0-草稿,1-初审中,2-初审未通过,3-初审已通过,4-照片审核中,5-照片审核未通过,6-照片审核已通过,7-通管局审核中,8-通管局审核未通过,9-通管局审核已通过,10-待核实,11-未知状态
          * @apiSuccess {String} data.code 备案编号
          * @apiSuccess {Number} data.operatetime 操作时间
          * @apiSuccess {String} data.operator 操作员

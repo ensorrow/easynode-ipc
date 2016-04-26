@@ -85,9 +85,14 @@ let Operation = React.createClass({
                 <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresultcouncilnopass") } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/returntobase") } value="修改"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
             );
         }
-        else {
+        else if( prg == 9) {
             return (
                 <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresultcouncilpass") } value="审核结果"></input>  <input type="button" onClick={this.handleDelete} value="删除"></input></td>
+            );
+        }
+        else if( prg == 10){
+            return (
+                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
             );
         }
     }
