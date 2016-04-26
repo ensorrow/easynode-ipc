@@ -366,6 +366,34 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
             }
         }
 
+        getRecordsbByStatus(){
+            var me = this;
+            return function *(){
+
+                var conn = null;
+                var form = this.request.body;
+                console.log("form",form);
+                var filter = form.filter;
+                var page = parseInt(form.page);
+                var rpp = parseInt(form.rpp);
+                var ret = { rows:0, pages:0, page:0, rpp:0, data:[] };
+
+                try{
+                    var model = new Record().merge( { } );
+
+                    conn = yield  me.app.ds.getConnection();
+
+                    ret =  yield conn.list(model,{ status: { exp:'in',value:filter } },{ page: page,rpp: rpp },['updatetime DESC']);
+
+                } catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                    return ret;
+                }
+            }
+        }
+
         getCurtainsb(){
             var me = this;
             return function *(){
