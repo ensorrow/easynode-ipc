@@ -646,3 +646,19 @@ code:  401 账号不存在。
            Dmms: 'ICP备案接入信息中所使用的IP地址与你单位IP地址备案中报备的IP信息不一致，请核实后再次提交' } ],
       Czlx: '1',
       Bs: '659' }
+
+101. chrome://apps
+postman
+
+RAW JSON(Application/json)
+{
+    "filter":[1],
+    "rpp":20,
+    "page":0
+}
+
+101. npm init之后,npm publish
+
+102. npm install -g easynode-watch
+supervisor -w ../src -spid /var/tmp/icp.pid  sh dev_start.sh
+在supervisor上增加-spid参数,spid在etc/EasyNode.conf中配置easynode.app.pid = /var/tmp/icp.pid

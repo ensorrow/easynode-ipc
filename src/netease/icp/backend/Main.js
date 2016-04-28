@@ -68,12 +68,17 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
                 auth_pass: '1122334455'
             });
 
+            var pid = S(EasyNode.config('easynode.app.pid','/var/tmp/icp.pid')).toString();
+            var fs = require('fs');
+            console.log("pid",pid);
+            fs.writeFileSync(pid,process.pid);
+
             httpServer.ds = ds;
             httpServer.ds.conn = conn;
             httpServer.config = config;
 
             var ispService = new IspService(httpServer,config);
-            yield ispService.createConnect();
+            //yield ispService.createConnect();
             httpServer.ispService = ispService;
 
             //设置ContextHook,
@@ -123,7 +128,7 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
             //
             //    });
             //});
-            var timerFunc =
+           /* var timerFunc =
             setInterval(function(){
                     co( function*(){
 
@@ -228,7 +233,7 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
 
 
                     });
-            },10000);
+            },10000);*/
         }
 
         getClassName()

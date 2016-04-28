@@ -432,8 +432,9 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiSampleRequest http://icp.hzspeed.cn/pubips/
          *
-         * @apiSuccess {Object} 租户外网IPS
-         *  {
+         * @apiSuccess {Object} res 租户外网IPS
+         *
+         * {
             "params": [
                 {
                 "pubIp": "60.191.83.166"

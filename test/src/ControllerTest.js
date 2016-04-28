@@ -49,12 +49,17 @@ describe('ControllerTest',function() {
     it('Post /admin/recordsbystatus',function (done){
 
         request.post('http://icpdev.hzspeed.cn/admin/recordsbystatus')
-            .send({filter:[1,2,3],rpp:20,page:0})
+            .send({filter:[1],rpp:20,page:0})
             .accept('json')
             .end(function(err, res){
                 // Do something
 
                 console.log(res.text);
+                var datas = JSON.parse(res.text);
+                datas = datas.data;
+                for( var index=0; index< datas.length; index++){
+                    console.log(datas[index].status);
+                }
                 done();
             });
     });

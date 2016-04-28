@@ -17,7 +17,5 @@ $m-recordinfo_background = #FFF;
 .m-recordinfo {
     background: $m-recordinfo_background;
 	width: 	$m-recordinfo_width;
-	height: $m-recordinfo_height;
-
 
 }

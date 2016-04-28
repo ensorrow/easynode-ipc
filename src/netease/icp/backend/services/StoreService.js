@@ -373,9 +373,9 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
                 var conn = null;
                 var form = this.request.body;
                 console.log("form",form);
-                var filter = form.filter;
-                var page = parseInt(form.page);
-                var rpp = parseInt(form.rpp);
+                var filter = form.filter || [];
+                var page = parseInt(form.page || 0) ;
+                var rpp = parseInt(form.rpp || 0);
                 var ret = { rows:0, pages:0, page:0, rpp:0, data:[] };
 
                 try{
