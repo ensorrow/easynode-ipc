@@ -22,19 +22,13 @@
 
         <% if (config.env == 'DEVELOP') { %>
            <script src="../build/bundle.js"></script>
-            <script>
-                var g = localStorage.getItem('global');
-                __globals__ = JSON.parse(g);
+            <script type="text/javascript">
                 __globals__.surl="../assets/";
-                localStorage.setItem('global',JSON.stringify(__globals__));
             </script>
         <% } else { %>
             <script src=<%- config.surl %>bundle.js></script>
             <script>
-                var g = localStorage.getItem('global');
-                __globals__ = JSON.parse(g);
                 __globals__.surl="<%- config.surl %>";
-                localStorage.setItem('global',JSON.stringify(__globals__));
             </script>
         <% } %>
     <% } %>
