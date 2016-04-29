@@ -19,13 +19,14 @@ $m-applycurtain_ctrl__onethird_width = 120px;
 
 
 .m-applycurtain {
-	outline: #F8F8F8 solid 1px;
-
-	position: fixed;
-    left: 15%;
-    top: 66px;
-    text-align: center;
-    display: block;
+	outline: #f8f8f8 solid 1px;
+    position: absolute;
+    left: 50%;
+    top: 150px;
+    transform: translateX(-50%);
+    border-style: solid;
+    border-color: #444;
+    border-width: 1px;
 }
 
 

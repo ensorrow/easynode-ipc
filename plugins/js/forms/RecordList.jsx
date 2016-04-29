@@ -47,52 +47,52 @@ let Operation = React.createClass({
         }
         else if( prg == 1){
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
+                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> </td>
             );
         }
         else if( prg == 2){
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresulttrialnopass") } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/returntobase") } value="修改"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
+                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresulttrialnopass") } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/returntobase") } value="修改"></input> </td>
             );
         }
         else if( prg == 3){
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button"  onClick={ me.handleResult.bind(me,"#/checkresulttrialpass") } value="审核结果"></input> <input type="button"  onClick={ me.handleResult.bind(me,"#/uploadphoto") } value="上传照片"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
+                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button"  onClick={ me.handleResult.bind(me,"#/checkresulttrialpass") } value="审核结果"></input> <input type="button"  onClick={ me.handleResult.bind(me,"#/uploadphoto") } value="上传照片"></input> </td>
             );
         }
         else if( prg == 4){
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
+                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> </td>
             );
         }
         else if( prg == 5){
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresultphotonopass") } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/uploadphoto") } value="上传照片"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
+                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresultphotonopass") } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/uploadphoto") } value="上传照片"></input> </td>
             );
         }
         else if( prg == 6){
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresultphotopass") } value="审核结果"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
+                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresultphotopass") } value="审核结果"></input> </td>
             );
         }
         else if( prg == 7){
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
+                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> </td>
             );
         }
         else if( prg == 8){
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresultcouncilnopass") } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/returntobase") } value="修改"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
+                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresultcouncilnopass") } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/returntobase") } value="修改"></input> </td>
             );
         }
         else if( prg == 9) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresultcouncilpass") } value="审核结果"></input>  <input type="button" onClick={this.handleDelete} value="删除"></input></td>
+                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresultcouncilpass") } value="审核结果"></input>  </td>
             );
         }
         else if( prg == 10){
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
+                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> </td>
             );
         }
     }
@@ -143,15 +143,22 @@ let Records = React.createClass({
             let prg = record.status;
             var prgStr =
                         prg == 0 ? '草稿' :
-                        prg == 1 ? '初审中' :
-                        prg == 2 ? '初审未通过':
+                        prg == 1 ? '信息初审中' :
+                        prg == 2 ? '初审未通过' :
                         prg == 3 ? '初审已通过' :
                         prg == 4 ? '照片审核中' :
-                        prg == 5 ? '照片审核未通过' :
-                        prg == 6 ? '照片审核已通过' :
-                        prg == 7 ? '通管局审核中' :
-                        prg == 8 ? '通管局审核未通过' :
-                        prg == 9 ? '通管局审核已通过' : "未知状态";
+                        prg == 5 ? '照片未通过' :
+                        prg == 6 ? '照片已通过' :
+                        prg == 7 ? '已提交管局' :
+                        prg == 8 ? '被管局退回' :
+                        prg == 9 ? '备案已成功' : "未知状态";
+            if( prg == 3 ){
+                prgStr =
+                    __globals__.user.applycurtainstatus == 0 ? '初审已通过' :
+                    __globals__.user.applycurtainstatus == 1 ? '幕布申请中' :
+                    __globals__.user.applycurtainstatus == 2 ? '幕布已寄送' : '初审已通过';
+            }
+
             var status =
                         prg == 0 ? 'draft' :
                         prg == 1 ? 'checking' :

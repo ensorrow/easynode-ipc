@@ -20,7 +20,6 @@
 }
 
 .g-ft {
-	bottom: -60px;
 	left: 0px;
 	height: 60px;
 	width: 100%;
