@@ -32,7 +32,7 @@ let SubmitCheckSuccess = React.createClass({
         return (
             <div className="m-submitchecksuccess">
                 <div className="tip-label">
-                    <img src="../assets/selected.png" alt="" className="tip-icon"/>
+                    <img src={__globals__.surl + "selected.png"} alt="" className="tip-icon"/>
                 </div>
                 <div className="tip">
                     <p className="tip-header">照片提交成功，审核需要1-2个工作日，请耐心等待！</p>

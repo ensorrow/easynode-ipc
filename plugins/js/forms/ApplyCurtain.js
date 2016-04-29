@@ -166,7 +166,7 @@ let ApplyCurtain = React.createClass({
 
         return (
             <div className="m-applycurtain">
-                <div className="m-applycurtain-header"><label>申请幕布</label><img src="../assets/close.png" onClick={this.handleCancel}></img></div>
+                <div className="m-applycurtain-header"><label>申请幕布</label><img src={__globals__.surl + "close.png"} onClick={this.handleCancel}></img></div>
                 <div className="m-applycurtain-bd">
                     <div className="m-applycurtain-bd-tip">
                         <img src="../assets/yellowexclamationmark.png"></img>

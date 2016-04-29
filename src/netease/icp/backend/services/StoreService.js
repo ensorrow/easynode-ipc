@@ -1436,6 +1436,46 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
         }
 
 
+        createResources(){
+            var me = this;
+            return function *(){
+
+                var formData = this.request.body;
+                var version = formData.version;
+                var localurl =  formData.localurl;
+
+                var fileList = [];
+
+                function walk(path){
+                    var dirList = f.readdirSync(path);
+                    dirList.forEach(function(item){
+                        if(f.statSync(path + '/' + item).isDirectory()){
+                            walk(path + '/' + item);
+                        }else{
+                            fileList.push(path + '/' + item);
+                        }
+                    });
+                }
+
+                walk(localurl);
+
+                console.log(fileList);
+
+                for( var index =  0; index <  fileList.length; index++ ){
+                    var fileName = fileList[index];
+                    var pos = fileName.lastIndexOf('/') + 1;
+                    fileName = fileName.substr(pos,(fileName.length - pos));
+                    console.log(fileName);
+                    var key = version+'_'+fileName;
+                    var url = yield me.uploadNos(key,fileList[index]);
+                    console.log(url);
+                }
+
+               return {ret:true};
+            }
+        }
+
+
 
         getClassName() {
             return EasyNode.namespace(__filename);

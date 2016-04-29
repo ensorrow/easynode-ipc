@@ -31,7 +31,7 @@ export default{
         {
             path: '/',
             getComponent: (location,cb) => {
-                console.log("aaa")
+                console.log("index")
                 if(!auth.loggedIn()){
                     return require.ensure([],(require)=>{
                             cb(null,require('./forms/Login.jsx'))

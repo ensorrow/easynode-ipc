@@ -19,7 +19,7 @@ let CheckCouncilPass = React.createClass({
         return (
             <div className="m-checkcouncilnopass">
                 <div className="tip-label">
-                    <img src="../assets/icon-err.png" alt="" className="tip-icon"/>
+                    <img src={__globals__.surl +"icon-err.png"} alt="" className="tip-icon"/>
                 </div>
                 <div className="tip">
                     <p className="tip-header">通管局审核未通过，请根据下列提示信息，修改备案申请！</p>

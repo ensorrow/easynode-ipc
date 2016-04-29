@@ -1635,7 +1635,6 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
             return pass;
         }
 
-
         getClassName() {
             return EasyNode.namespace(__filename);
         }

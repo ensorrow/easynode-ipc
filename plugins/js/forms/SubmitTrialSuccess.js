@@ -32,7 +32,7 @@ let SubmitTrialSuccess = React.createClass({
                 <ReturnWidget/>
                 <div className="m-submittrialsuccess">
                     <div className="tip-label">
-                        <img src="../assets/selected.png" alt="" className="tip-icon"/>
+                        <img src={__globals__.surl + "selected.png"} alt="" className="tip-icon"/>
                     </div>
                     <div className="tip">
                         <p className="tip-header">备案信息提交成功,初审需要1-2个工作日,请耐心等待!</p>

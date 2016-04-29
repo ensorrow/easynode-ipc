@@ -52,7 +52,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         static home(app){
             return function *(){
                 var user = this.session.user || undefined;
-                yield this.render('index',{user:user,loginCallback:app.config.loginCallback});
+                yield this.render('index',{user:user,loginCallback:app.config.loginCallback,config:{surl:app.config.resources.static,env:process.env.ENV}});
             }
         }
 
@@ -102,7 +102,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             return function *(){
                 this.session.user = null;
 
-                yield this.render('index',{user:{},loginCallback:app.config.loginCallback});
+                yield this.render('index',{user:{},loginCallback:app.config.loginCallback,config:{surl:app.config.resources.static,env:process.env.ENV}});
             }
         }
 
@@ -1366,6 +1366,40 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 this.body = {ret: ret};
             }
         }
+
+
+        /**
+         * @api {put} /admin/resources 创建区域表
+         * @apiName creaeResouces
+         * @apiGroup IP
+         * @apiPermission whitelist
+         * @apiVersion 0.0.2
+         * @apiDescription 通过白名单管理权限
+         *
+         * @apiSampleRequest http://icp.hzspeed.cn/admin/resources
+         *
+         * @apiParam {Object} deploy 部署对象
+         * @apiParam {String} deploy.version  部署版本号
+         * @apiParam {String} deploy.localurl  需部署的本地目录
+
+         @apiSuccess {NUmber} ret { ret: true | false }
+         */
+        static createResources(app){
+            var me = this;
+            return function *(){
+                var ret = {};
+
+                var pass = Controllers.passWhitelist(this.remoteAddress,app);
+                if( pass ) {
+                    var storeService = new StoreService(app);
+                    ret = yield storeService.createResources();
+                }
+
+                this.type = 'json';
+                this.body = {ret: ret};
+            }
+        }
+
 
         static passWhitelist( ip,app ){
             var pass = false;

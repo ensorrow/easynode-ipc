@@ -225,7 +225,7 @@ let UploadMaterial = React.createClass({
                     id == FT.PROTOCOLURL2 ? this.state.materials.protocolurl2 :
                     id == FT.SECURITYURL1 ? this.state.materials.securityurl1 :
                     id == FT.SECURITYURL2 ? this.state.materials.securityurl2 : '';
-        return url.length > 0 ? <img className="m-uploadmaterial-delete" src="../assets/close.png" onClick={this.handleDelete.bind(this,id)}></img>
+        return url.length > 0 ? <img className="m-uploadmaterial-delete" src={__globals__.surl + "close.png"} onClick={this.handleDelete.bind(this,id)}></img>
             : ''
     },
     handleDelete: function(id){

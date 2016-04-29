@@ -10,7 +10,7 @@ let ReturnWidget = React.createClass({
         if( __globals__.user && __globals__.user.recordnumber > 0 ){
             return (
                 <div className="u-goback">
-                    <a className="u-goback" href=""><img src="../assets/return.png" />返回列表</a>
+                    <a className="u-goback" href=""><img src={__globals__.surl +"return.png"}/>返回列表</a>
                 </div>
             );
         }else {

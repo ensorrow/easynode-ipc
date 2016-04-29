@@ -29,7 +29,7 @@ let CheckCouncilPass = React.createClass({
         return (
             <div className="m-checkcouncilpass">
                 <div className="tip-label">
-                    <img src="../assets/selected.png" alt="" className="tip-icon"/>
+                    <img src={__globals__.surl +"selected.png"} alt="" className="tip-icon"/>
                 </div>
                 <div className="tip">
                     <p className="tip-header">备案信息初审已通过，请点击列表中的上传照片，完成后续步骤！</p>

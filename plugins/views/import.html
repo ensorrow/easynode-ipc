@@ -1,7 +1,5 @@
 <script>
-
-    var __globals__ = {
-        };
+    var __globals__ = {};
 
     <% if (user) { %>
         __globals__.user = <%- JSON.stringify(user) %>
@@ -11,3 +9,5 @@
         __globals__.loginCallback =  <%- JSON.stringify(loginCallback) %>
     <% } %>
 </script>
+
+

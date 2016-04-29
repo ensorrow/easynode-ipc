@@ -38,6 +38,27 @@ describe('ControllerTest',function() {
         done();
     });
 
+    it('deploy resouces',function (done){
+
+        request.post('http://icpdev.hzspeed.cn/admin/resources')
+            .send({version:'0.0.4',localurl:'/Users/hujiabao/workspace_docker/icp/easynode-ipc/plugins/assets'})
+            .accept('json')
+            .end(function(err, res){
+                // Do something
+                console.log(res.text);
+            });
+
+        request.post('http://icpdev.hzspeed.cn/admin/resources')
+            .send({version:'0.0.4',localurl:'/Users/hujiabao/workspace_docker/icp/easynode-ipc/plugins/build'})
+            .accept('json')
+            .end(function(err, res){
+                // Do something
+                console.log(res.text);
+            });
+
+        done();
+    });
+
    /* it('Put /admin/record',function (done){
 
         //590-首次备案  603-新增网站 669-新增接入
@@ -46,7 +67,7 @@ describe('ControllerTest',function() {
             .end(done);
     });*/
 
-    it('Post /admin/recordsbystatus',function (done){
+  /*  it('Post /admin/recordsbystatus',function (done){
 
         request.post('http://icpdev.hzspeed.cn/admin/recordsbystatus')
             .send({filter:[1],rpp:20,page:0})
@@ -63,7 +84,7 @@ describe('ControllerTest',function() {
                 done();
             });
     });
-
+*/
     /*it('Put /admin/area',function (done){
 
         request.post('http://icpdev.hzspeed.cn/admin/area')

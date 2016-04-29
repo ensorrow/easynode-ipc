@@ -34,7 +34,7 @@ let ViewPhoto = React.createClass({
                     <img src={this.props.url} onDoubleClick={this.handleDoubleClick}></img>
                 </div>
                 <a className="m-viewphoto-close">
-                    <img src="../assets/close2.png" alt="Icon shot x light" onClick={this.handleClose}></img>
+                    <img src={__globals__.surl +"close2.png"} alt="Icon shot x light" onClick={this.handleClose}></img>
                 </a>
             </div>
         );

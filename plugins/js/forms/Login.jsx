@@ -42,7 +42,7 @@ let Login = React.createClass({
         return (
             <div>
                 <div className="m-login-hd">
-                    <img src="../assets/icp.png" alt=""/>
+                    <img src={__globals__.surl + "icp.png"} alt=""/>
                 </div>
                 <div className="m-login">
                     <form method="POST" action="https://auth.c.163.com/rest/login/callback">

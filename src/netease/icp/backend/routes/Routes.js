@@ -81,6 +81,8 @@ import bodyParse from 'koa-body';
             httpServer.addRoute('post','/admin/ip/iply',Controllers.createIply(httpServer));
             httpServer.addRoute('post','/admin/area/',Controllers.createArea(httpServer));
 
+            httpServer.addRoute('post','/admin/resources',Controllers.createResources(httpServer));
+
         }
 
         getClassName()

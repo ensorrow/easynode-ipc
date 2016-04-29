@@ -30,7 +30,7 @@ let CheckPhotoPass = React.createClass({
         return (
             <div className="m-checkphotopass">
                 <div className="tip-label">
-                    <img src="../assets/selected.png" alt="" className="tip-icon"/>
+                    <img src={__globals__.surl +"selected.png"} alt="" className="tip-icon"/>
                 </div>
                 <div className="tip">
                     <p className="tip-header">照片审核已通过，将在1个工作日内将您的备案信息提交至省通信管理局审核！</p>

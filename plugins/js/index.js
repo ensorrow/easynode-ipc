@@ -8,7 +8,6 @@ import Global from './utils/globals';
 window.onbeforeunload = function(){
     console.log("onbeforeunload");
     Global.set('global',__globals__);
-
 }
 
 window.onload  = function(){

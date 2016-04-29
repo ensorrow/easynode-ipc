@@ -33,11 +33,11 @@ let DeleteRecord = React.createClass({
             <div className="m-deleterecord">
                 <div className="m-deleterecord-header">
                     <label>确认删除</label>
-                    <img src="../assets/close.png" onClick={this.handleCancel}/>
+                    <img src={__globals__.surl + "close.png"} onClick={this.handleCancel}/>
                 </div>
                 <div className="m-deleterecord-bd">
                     <div className="m-deleterecord-icon">
-                        <img src="../assets/mark.png" alt="" className="tip-icon" />
+                        <img src={__globals__.surl + "mark.png"} alt="" className="tip-icon" />
                     </div>
                     <div className="m-deleterecord-tip">
                         <p className="tip-bd">备案信息将被删除</p>

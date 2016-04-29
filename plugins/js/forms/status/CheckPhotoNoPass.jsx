@@ -19,7 +19,7 @@ let CheckPhotoNoPass = React.createClass({
         return (
             <div className="m-checkphotonopass">
                 <div className="tip-label">
-                    <img src="../assets/icon-err.png" alt="" className="tip-icon"/>
+                    <img src={__globals__.surl +"selected.png"} alt="" className="tip-icon"/>
                 </div>
                 <div className="tip">
                     <p className="tip-header">照片审核未通过，请根据下列提示信息，修改备案申请！</p>
