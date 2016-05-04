@@ -588,7 +588,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} website.mobile 手机号码
          * @apiSuccess {String} website.email 电子邮箱
          * @apiSuccess {String} website.qq qq号码
-         * @apiSuccess {Number} website.prechecktype record.type=2时才会有前置审批类型,前置审批类型
+         * @apiSuccess {Number} website.prechecktype  前置审批类型 0-暂无 http://www.miitbeian.gov.cn/publish/query/indexFirst.action
          * @apiSuccess {String} website.checknumber optional 前置审批号
          * @apiSuccess {String} website.checkfileurl optional 前置审批文件
          * @apiSuccess {String} website.remark optional 备注

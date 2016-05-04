@@ -662,3 +662,13 @@ RAW JSON(Application/json)
 102. npm install -g easynode-watch
 supervisor -w ../src -spid /var/tmp/icp.pid  sh dev_start.sh
 在supervisor上增加-spid参数,spid在etc/EasyNode.conf中配置easynode.app.pid = /var/tmp/icp.pid
+
+103. npm test , node>4.0.0, v0.12.4 不行, upgrade to v6.0.0 不行
+EasyNode-Icp: V5.9.0 OK,
+EasyNode-ICP:V6.0.0 ??
+Error: Module version mismatch. Expected 47, got 45
+104. echo $?
+105. 在设置Jenkins URL底下有一个文本框System Admin e-mail address，这里要设置发送者的邮箱地址
+106. Error: Module version mismatch. Expected 47, got 45  , rm node_modules, node update
+
+
