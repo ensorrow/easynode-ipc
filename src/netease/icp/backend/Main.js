@@ -107,6 +107,7 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
                 }
             });
 
+
             httpServer.name = EasyNode.config('http.server.name','icp-Service');
             Routes.defineRoutes(httpServer);
 
