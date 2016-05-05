@@ -670,5 +670,4 @@ Error: Module version mismatch. Expected 47, got 45
 104. echo $?
 105. 在设置Jenkins URL底下有一个文本框System Admin e-mail address，这里要设置发送者的邮箱地址
 106. Error: Module version mismatch. Expected 47, got 45  , rm node_modules, node update
-
-
+107. 修改.dockerignore 不会触发CI构建
