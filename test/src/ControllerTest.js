@@ -35,7 +35,7 @@ describe('ControllerTest',function() {
     });
 
     it('upload',function (done){
-        done(e);
+        done();
     });
 
     it('deploy resouces',function (done){
