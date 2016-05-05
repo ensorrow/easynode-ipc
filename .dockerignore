@@ -1,7 +1,6 @@
 datas
 logs/*
 node_modules/
-test/
 *.md
 README.md
 docker-compose.yml
