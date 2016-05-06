@@ -152,12 +152,12 @@ let Records = React.createClass({
                         prg == 7 ? '已提交管局' :
                         prg == 8 ? '被管局退回' :
                         prg == 9 ? '备案已成功' : "未知状态";
-            if( prg == 3 ){
+           /* if( prg == 3 ){
                 prgStr =
                     __globals__.user.applycurtainstatus == 0 ? '初审已通过' :
                     __globals__.user.applycurtainstatus == 1 ? '幕布申请中' :
                     __globals__.user.applycurtainstatus == 2 ? '幕布已寄送' : '初审已通过';
-            }
+            }*/
 
             var status =
                         prg == 0 ? 'draft' :
