@@ -53,10 +53,10 @@ describe('OpenApiServiceTest',function() {
 
 
 
-    it('get repositories list',function (done){
+     it('get images list',function (done){
         request.get(url+'/api/v1/repositories')
-            .set('Authorization', 'Token ' + token.token)
             .send({limit:20,offset:0})
+            .set('Authorization', 'Token ' + token.token)
             .accept('json')
             .end(function(err, res){
                 // Do something
@@ -68,21 +68,53 @@ describe('OpenApiServiceTest',function() {
             });
     });
 
-    //icp repo_id=424
-    it('get images  token',function (done){
+    it('get image\'s tags list',function (done){
         request.get(url+'/api/v1/repositories/424')
             .set('Authorization', 'Token ' + token.token)
             .accept('json')
             .end(function(err, res){
                 // Do something
-                token = JSON.parse(res.text);
-                console.log(token.token);
+                var json = JSON.parse(res.text);
+                console.log(res.text);
                 done();
             });
     });
 
+    /*
+        it('create image\'s tag',function (done){
+            request.post(url+'/api/v1/repositories/icp/tags/0.0.36/actions/build')
+                .set('Authorization', 'Token ' + token.token)
+                .send({repo_name:'icp','tag':'0.0.36'})
+                .attach('docker_file','/Users/hujiabao/workspace_docker/icp/easynode-ipc/Dockerfile')
+                .accept('json')
+                .end(function(err, res){
+                    // Do something
+                    console.log(res.ok);
+                    console.log(res.text);
+                    done();
+                });
+        });*/
 
-    it('get contains list',function (done){
+    /* var tags = {"tags":[{"name":"0.0.35","size":0,"status":2},{"name":"0.0.34","size":0,"status":2},{"name":"0.0.33","size":0,"status":2},{"name":"0.0.32","size":0,"status":2},{"name":"0.0.31","size":0,"status":2},{"name":"0.0.30","size":0,"status":2},{"name":"0.0.29","size":0,"status":2},{"name":"0.0.28","size":0,"status":2},{"name":"0.0.27","size":0,"status":2},{"name":"0.0.26","size":0,"status":2},{"name":"0.0.25","size":0,"status":2},{"name":"0.0.24","size":0,"status":2},{"name":"0.0.23","size":0,"status":2},{"name":"0.0.21","size":0,"status":2},{"name":"0.0.20","size":0,"status":2},{"name":"0.0.19","size":0,"status":2},{"name":"0.0.16","size":0,"status":2},{"name":"0.0.15","size":0,"status":2},{"name":"0.0.14","size":0,"status":2},{"name":"0.0.13","size":0,"status":2},{"name":"0.0.12","size":0,"status":2},{"name":"0.0.11","size":0,"status":2},{"name":"0.0.10","size":0,"status":2},{"name":"0.0.9","size":0,"status":2},{"name":"0.0.8","size":0,"status":2},{"name":"0.0.7","size":0,"status":2},{"name":"0.0.4","size":838386207,"status":2},{"name":"0.0.3","size":841825961,"status":2},{"name":"0.0.6","size":0,"status":2},{"name":"0.0.5","size":855271019,"status":2}],"repo_id":424,"user_name":"hujb2000","repo_name":"icp","open_level":0,"base_desc":null,"detail_desc":null,"tag_count":30,"download_url":"hub.c.163.com/hujb2000/icp:0.0.35","created_at":"2016-01-28T17:50:45Z","updated_at":"2016-05-06T01:51:29Z"};
+
+         tags.tags.forEach((cur,index)=>{
+         it('delete image\'s tags',function (done){
+             console.log(cur);
+
+             request.delete(url+`/api/v1/repositories/icp/tags/${cur.name}`)
+                 .set('Authorization', 'Token ' + token.token)
+                 .accept('json')
+                 .end(function(err, res){
+                     // Do something
+                     //var json = JSON.parse(res.text);
+                     console.log(res.text);
+                     done();
+                 });
+         });
+     })
+ */
+
+   /* it('get contains list',function (done){
         request.get(url+'/api/v1/containers')
             .send({limit:20,offset:0})
             .set('Authorization', 'Token ' + token.token)
@@ -94,7 +126,7 @@ describe('OpenApiServiceTest',function() {
                 done();
             });
     });
-
+*/
 
     it('get apps list',function (done){
         request.get(url+'/api/v1/apps')
@@ -110,208 +142,86 @@ describe('OpenApiServiceTest',function() {
             });
     });
 
-
-    /* it('generate api token',function (done){
-         request.post(url+'/api/v1/containers')
-             .set('Authorization', 'Token ' + token.token)
-             .set('Content-Type','application/json;charset=utf-8')
-             .send({
-                 "charge_type": 1,
-                 "spec_id": 1,
-                 "image_type": 1,
-                 "image_id": 2,
-                 "name": "name",
-                 "desc": "desc",
-                 "ssh_key_ids": [
-                     1,
-                     2
-                 ],
-                 "env_var": {
-                     "key": "value"
-                 },
-                 "use_public_network": 1,
-                 "network_charge_type": 1,
-                 "bandwidth": 100
-             })
-             .accept('json')
-             .end(function(err, res){
-                 // Do something
-                 console.log(res.text);
-                 done();
-             });
-     });*/
-
-   /* it('Put /admin/record',function (done){
-
-        //590-首次备案  603-新增网站 669-新增接入
-        request.put('http://icpdev.hzspeed.cn/admin/record')
-            .send({id:724,status:7,reasons:'passed',checkedlisturl:'http://apollodev.nos.netease.com/1460686622187%E7%99%BB%E5%BD%952.png'})
-            .end(done);
-    });*/
-
-  /*  it('Post /admin/recordsbystatus',function (done){
-
-        request.post('http://icpdev.hzspeed.cn/admin/recordsbystatus')
-            .send({filter:[1],rpp:20,page:0})
+    //icp4=92405  icp2=92399
+    it('get app detail',function (done){
+        request.get(url+'/api/v1/apps/92405')
+            .set('Authorization', 'Token ' + token.token)
             .accept('json')
             .end(function(err, res){
                 // Do something
-
+                var json = JSON.parse(res.text);
                 console.log(res.text);
-                var datas = JSON.parse(res.text);
-                datas = datas.data;
-                for( var index=0; index< datas.length; index++){
-                    console.log(datas[index].status);
+                done();
+            });
+    });
+
+    it('resize replicas',function (done){
+        request.put(url+'/api/v1/apps/92399/replications/2/actions/resize')
+            .set('Authorization', 'Token ' + token.token)
+            .accept('json')
+            .end(function(err, res){
+                // Do something
+                console.log(res.ok);
+                console.log(res.text);
+                done();
+            });
+    });
+
+    var newapp = {
+        "name": "icp3",
+        "desc": "",
+        "domain": "",
+        "image_type": 2,
+        "image_id": 29047,
+        "spec_id": 10,
+        "replicas": 1,
+        "env_var": {
+            "ENV": "PRODUCTION",
+            "PORT": "81",
+            "CONFIG_URL": "http://apollodev.nos.netease.com/146192995136214606349336371459339304947"
+        },
+        "version_control": {
+            "type": "git",
+            "path": "",
+            "subdir": "",
+            "branch": "master",
+            "version": "",
+            "account": "",
+            "password": ""
+        },
+        "docker_file_type":2,
+        "custom_docker_file": "",
+        "use_load_balance": 1,
+        "load_balance": {
+            "bandwidth": 1,
+            "port_map": [
+                {
+                    "protocol": "HTTP",
+                    "source_port": 80,
+                    "destination_port": 81
                 }
+            ],
+            "charge_type": 1
+        },
+        "log_dirs":[]
+    };
+
+    it('create new app',function (done){
+        request.post(url+'/api/v1/apps')
+            .set('Authorization', 'Token ' + token.token)
+            .set('Content-Type','application/json;charset=utf-8')
+            .send(newapp)
+            .accept('json')
+            .end(function(err, res){
+                // Do something
+                console.log(res.ok);
+                console.log(res.text);
                 done();
             });
     });
-*/
-    /*it('Put /admin/area',function (done){
 
-        request.post('http://icpdev.hzspeed.cn/admin/area')
-            .send({code:'111',name:'test',level:'县'})
-            .end(done);
-    });*/
-
-    /*it('get area code',function (done){
-
-        var opts = {
-            "page.pageSize":"20",
-            "pageNo":"3"
-        };//Not work, post with ? param can work
-        request.post('http://www.miitbeian.gov.cn/basecode/query/showareacode.action?page.pageSize=20&pageNo=3')
-            .send(opts)
-            .end(function(err,ret){
-                console.log("err",err);
-
-                console.log(ret.text);
-                done();
-            });
-
-    })*/
-
-   /* it('get tenants public ips ',function (done){
-
-        request.post('https://c.163.com/api/account/pubips?secret=3soLEF67wx&tenantId=b261f52d302b43ba821a6d731b17034c')
-            //.send({secret:'3soLEF67wx',tenantId:'b261f52d302b43ba821a6d731b17034c'})
-            .end(function(err,ret){
-                console.log("err",err);
-
-                console.log(ret.text);
-                done();
-            });
-
-    })
-
-
-
-    it('Put /record',function (done){
-
-        //590-首次备案  603-新增网站 669-新增接入
-        request.put('http://icpdev.hzspeed.cn/record')
-            .send({id:684,status:1,reasons:'passed',tenantid:'cffbc4146a7941f9ad443ad650518ff1'})
-            .end(done);
-    });
-*/
-
-    //it('Get /admin/records',function (done){
-    //
-    //    request.get('http://icpdev.hzspeed.cn/admin/records')
-    //        .query({filter:6,rpp:20,page:0})
-    //        .accept('json')
-    //        .end(function(err, res){
-    //            // Do something
-    //
-    //            console.log(res.text);
-    //            //var ret = JSON.parse(res.text);
-    //            //dataSequence = ret.ret;
-    //            done();
-    //        });
-    //});
-
-    //it('Get /admin/rest/sys',function (done){
-    //
-    //    request.get('http://icpdev.hzspeed.cn/admin/rest/sys')
-    //        .query({id:1,key:1})
-    //        .accept('json')
-    //        .end(function(err, res){
-    //            // Do something
-    //
-    //            console.log(res.text);
-    //            //var ret = JSON.parse(res.text);
-    //            //dataSequence = ret.ret;
-    //            done();
-    //        });
-    //});
-    //
-    //it('Get /admin/icp/verifybamm',function (done){
-    //
-    //    request.get('http://icpdev.hzspeed.cn/admin/icp/verifybamm')
-    //        .query({baxh:"浙ICP备14001515号",bamm:"EZM123"})
-    //        .accept('json')
-    //        .end(function(err, res){
-    //            // Do something
-    //
-    //            console.log(res.text);
-    //            done();
-    //        });
-    //});
-
-    //it('Get /admin/icp/querybeianstatus identity',function (done){
-    //
-    //    request.get('http://icpdev.hzspeed.cn/admin/icp/querybeianstatus')
-    //        .query({queryConditionType:2,queryCondition:""})
-    //        .accept('json')
-    //        .end(function(err, res){
-    //            // Do something
-    //
-    //            console.log(res.text);
-    //            done();
-    //        });
-    //});
-    //
-    //
-    //it('Get /admin/icp/querybeianstatus 163.com',function (done){
-    //
-    //    request.get('http://icpdev.hzspeed.cn/admin/icp/querybeianstatus')
-    //        .query({queryConditionType:0,queryCondition:"163.com"})
-    //        .accept('json')
-    //        .end(function(err, res){
-    //            // Do something
-    //
-    //            console.log(res.text);
-    //            done();
-    //        });
-    //});
-    //
-    //it('Get /admin/icp/querybeianstatus aaa163.com',function (done){
-    //
-    //    request.get('http://icpdev.hzspeed.cn/admin/icp/querybeianstatus')
-    //        .query({queryConditionType:0,queryCondition:"aaa163.com"})
-    //        .accept('json')
-    //        .end(function(err, res){
-    //            // Do something
-    //
-    //            console.log(res.text);
-    //            done();
-    //        });
-    //});
-
-    //it('Put /rest/sys',function (done){
-    //
-    //    request.put('http://icpdev.hzspeed.cn/rest/sys')
-    //        .send({id:1,key:1,value:dataSequence+""})
-    //        .accept('json')
-    //        .end(function(err, res){
-    //            // Do something
-    //
-    //            console.log(res.text);
-    //            done();
-    //        });
-    //});
-
-
+    //icp4 hook:
+    //icp2 hook: https://open.c.163.com/api/v1/hooks/app/5a560695727647cbb0a10eceb4964a40
     after(function(done){
         console.log("OpenApiServiceTest after");
         done();
