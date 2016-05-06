@@ -104,7 +104,8 @@ let ApplyCurtain = React.createClass({
             mailingaddress: this.state.contactinfo.mailingaddress,
             recipient: this.state.contactinfo.recipient,
             recipientmobile: this.state.contactinfo.recipientmobile,
-            companyname: this.state.contactinfo.companyname
+            companyname: this.state.contactinfo.companyname,
+            recordid:this.props.recordid
         };
 
         var me = this;

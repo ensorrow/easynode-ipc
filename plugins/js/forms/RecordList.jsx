@@ -8,7 +8,7 @@ import Global from '../utils/globals';
 import DataService from '../services/DataService.js';
 import reqwest from 'reqwest';
 import DeleteRecord from './DeleteRecord.jsx';
-import ApplyCurtain from './ApplyCurtain.js';
+
 
 
 let Operation = React.createClass({
@@ -151,13 +151,10 @@ let Records = React.createClass({
                         prg == 6 ? '照片已通过' :
                         prg == 7 ? '已提交管局' :
                         prg == 8 ? '被管局退回' :
-                        prg == 9 ? '备案已成功' : "未知状态";
-           /* if( prg == 3 ){
-                prgStr =
-                    __globals__.user.applycurtainstatus == 0 ? '初审已通过' :
-                    __globals__.user.applycurtainstatus == 1 ? '幕布申请中' :
-                    __globals__.user.applycurtainstatus == 2 ? '幕布已寄送' : '初审已通过';
-            }*/
+                        prg == 9 ? '备案已成功' :
+                        prg == 10? '待核实' :
+                        prg == 11? '幕布申请中' :
+                        prg == 12? '幕布已寄送' : '未知状态';
 
             var status =
                         prg == 0 ? 'draft' :
@@ -169,7 +166,10 @@ let Records = React.createClass({
                         prg == 6 ? 'passed' :
                         prg == 7 ? 'checking' :
                         prg == 8 ? 'nopass' :
-                        prg == 9 ? 'passed' : "draft";
+                        prg == 9 ? 'passed' :
+                        prg == 10 ? 'checking' :
+                        prg == 11 ? 'checking' :
+                        prg == 12 ? 'passed' : "draft";
 
            return  (
                    <tr className="" key={record.id}>

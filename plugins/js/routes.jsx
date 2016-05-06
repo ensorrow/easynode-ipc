@@ -8,7 +8,6 @@ import UploadMaterial from './forms/UploadMaterial.jsx';
 import SubmitTrialSuccess from './forms/SubmitTrialSuccess'
 import RecordList from './forms/RecordList.jsx';
 import RecordInfo from './forms/RecordInfo.jsx';
-import ApplyCurtain from './forms/ApplyCurtain';
 import SubmitCheckSuccess from './forms/SubmitCheckSuccess';
 import UploadPhoto from './forms/UploadPhoto.jsx';
 

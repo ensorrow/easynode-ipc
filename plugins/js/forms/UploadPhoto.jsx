@@ -91,7 +91,7 @@ let UploadPhoto = React.createClass({
         var applyAddr = '';
         var address = __globals__.user.mailingaddress || '';
         if( this.state.showApplyCurt ){
-            curtain = <ApplyCurtain onHidden={this.onHidden}/>
+            curtain = <ApplyCurtain onHidden={this.onHidden} recordid={__globals__.record.id}/>
         }
 
         applyAddr = address.trim().length <= 0  ?

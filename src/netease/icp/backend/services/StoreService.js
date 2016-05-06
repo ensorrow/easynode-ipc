@@ -427,6 +427,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
             }
         }
 
+
         getRecord(){
             var me = this;
             return function *(){
@@ -536,6 +537,8 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
                 }
             }
         }
+
+
 
         putRecord(){
             var me = this;
@@ -830,6 +833,31 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
             }
         }
 
+        putCurtainb2(){
+            var me = this;
+            return function *(){
+                var r = null;
+                var conn = null;
+                var model = new Record();
+                var form = this.request.body;
+                var id = form.id;
+                var operatetime = form.operatetime;
+                var operator = form.operator;
+
+                try{
+                    conn = yield me.app.ds.getConnection();
+                    model.merge( Object.assign({}, { id: id, status:12,operatetime: operatetime, operator:operator} ));
+                    r = yield conn.update(model);
+                    return r.affectedRows + r.insertId > 0 ?  true : false;
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                    return false;
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
         putUser(){
             var me = this;
             return function *(){
@@ -845,6 +873,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
                 var recipient = form.recipient;
                 var recipientmobile = form.recipientmobile;
                 var companyname = form.companyname;
+                var id = form.recordid;
 
                 try{
                     conn = yield me.app.ds.getConnection();
@@ -863,6 +892,9 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
                     }
 
                     r = yield conn.update(model);
+
+                    yield storeService.putRecord2(id,11);
+
                     return r.affectedRows + r.insertId > 0 ?  true : false;
                 }catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);

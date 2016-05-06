@@ -327,7 +327,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} record.securityurl1 信息安全管理责任书第一页图片URL
          * @apiSuccess {String} record.securityurl2 信息安全管理责任书第二页图片URL
          * @apiSuccess {String} record.code 备案号
-         * @apiSuccess {Number} record.status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-待核实-\n11-未知状态\n
+         * @apiSuccess {Number} record.status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-待核实
+         * \n11-幕布申请中\n12-幕布已寄送\n13-未知
          * @apiSuccess {String} record.tenantid 租户ID
          * @apiSuccess {String} record.curtainurl 帘布照片URL
          * @apiSuccess {Number} record.updatetime 记录更新时间
@@ -490,7 +491,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} record.securityurl1 信息安全管理责任书第一页图片URL
          * @apiSuccess {String} record.securityurl2 信息安全管理责任书第二页图片URL
          * @apiSuccess {String} record.code 备案号
-         * @apiSuccess {Number} record.status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-待核实-\n11-未知状态\n
+         * @apiSuccess {Number} record.status \n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-待核实
+         * \n11-幕布申请中\n12-幕布已寄送\n13-未知
          * @apiSuccess {String} record.tenantid 租户ID
          * @apiSuccess {Number} record.operatetime 操作时间
          * @apiSuccess {String} record.operator 操作员
@@ -622,7 +624,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSampleRequest http://icp.hzspeed.cn/record/
          *
          * @apiParam {Number} id 记录ID
-         * @apiParam {Number} status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-待核实-\n11-未知状态\n
+         * @apiParam {Number} status \n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-待核实
+         * \n11-幕布申请中\n12-幕布已寄送\n13-未知
          * @apiParam {String} reasons 通过则为备注,拒绝则为理由(多条用p标签分隔)
          * @apiParam {String} [curtainurl] 帘布照片URL
          *
@@ -656,6 +659,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiParam {String} recipient 收件人
          * @apiParam {String} recipientmobile 收件人手机号
          * @apiParam {String} [companyname] 公司名称
+         * @apiParam {Number} recordid 申请记录id
          *
          * @apiSuccess {Number} ret true:成功,false:失败
          */
@@ -684,7 +688,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSampleRequest http://icp.hzspeed.cn/admin/record
          *
          * @apiParam {Number} id 记录ID
-         * @apiParam {Number} status 备案申请状态\n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-待核实-\n11-未知状态\n
+         * @apiParam {Number} status \n0-草稿\n1-初审中\n2-初审未通过\n3-初审已通过\n4-照片审核中\n5-照片审核未通过\n6-照片审核已通过\n7-通管局审核中\n8-通管局审核未通过\n9-通管局审核已通过\n10-待核实
+         * \n11-幕布申请中\n12-幕布已寄送\n13-未知
          * @apiParam {String} reasons 通过则为备注,拒绝则为理由(多条用p标签分隔)
          * @apiParam {String} [curtainurl] 帘布照片URL
          * @apiParam {String} [checkedlisturl] 校验过的核验单URL,当status=7时必须有该以该参娄
@@ -835,6 +840,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 this.body = {ret: ret};
             }
         }
+
 
         /**
          * @api {get} /records 获取记录列表
@@ -1048,6 +1054,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
                 this.body = ret;
             }
         }
+
+
 
         static deleteRecord(app){
             var me = this;
