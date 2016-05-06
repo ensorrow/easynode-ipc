@@ -671,3 +671,6 @@ Error: Module version mismatch. Expected 47, got 45
 105. 在设置Jenkins URL底下有一个文本框System Admin e-mail address，这里要设置发送者的邮箱地址
 106. Error: Module version mismatch. Expected 47, got 45  , rm node_modules, node update
 107. 修改.dockerignore 不会触发CI构建
+108. config.json里需要修改staticresource中的版本号,然后ControllerTest.js里修改上传的staticresource静态版本号,sudo sh dev_start.sh
+执行上传静态资源文件.
+NOS同名key能覆盖,浏览器下载缓存了.

@@ -41,7 +41,7 @@ describe('ControllerTest',function() {
     it('deploy resouces',function (done){
 
         request.post('http://icpdev.hzspeed.cn/admin/resources')
-            .send({version:'0.0.4',localurl:'/Users/hujiabao/workspace_docker/icp/easynode-ipc/plugins/assets'})
+            .send({version:'0.0.5',localurl:'/Users/hujiabao/workspace_docker/icp/easynode-ipc/plugins/assets'})
             .accept('json')
             .end(function(err, res){
                 // Do something
@@ -49,7 +49,7 @@ describe('ControllerTest',function() {
             });
 
         request.post('http://icpdev.hzspeed.cn/admin/resources')
-            .send({version:'0.0.4',localurl:'/Users/hujiabao/workspace_docker/icp/easynode-ipc/plugins/build'})
+            .send({version:'0.0.5',localurl:'/Users/hujiabao/workspace_docker/icp/easynode-ipc/plugins/build'})
             .accept('json')
             .end(function(err, res){
                 // Do something

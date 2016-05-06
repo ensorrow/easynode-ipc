@@ -1,7 +1,6 @@
-/*
-/!**
+/**
  * Created by hujiabao on 9/21/15.
- *!/
+ */
 
 'use strict';
 
@@ -37,8 +36,8 @@ describe('NosTest',function() {
 
     it('Nos load test',function (done){
 
-        var key = Date.now();
-        var filename = '/Users/hujiabao/workspace_docker/icp/easynode-ipc/config.json';
+        var key = '146192995136214606349336371459339304947';
+        var filename = '/Users/hujiabao/Downloads/146192995136214606349336371459339304947';
         var cfg = {
             "urlPath":"http://apollodev.nos.netease.com/",
             "accessKey":"c92f74b0d48f4fb39271a1109da74cc2",
@@ -62,11 +61,13 @@ describe('NosTest',function() {
             nos = null;
 
             console.log('url', url);
+
+            done();
         });
 
 
 
-        done();
+
     })
 
     after(function(done){
@@ -76,4 +77,3 @@ describe('NosTest',function() {
     });
 
 });
-*/
