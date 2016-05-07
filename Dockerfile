@@ -1,8 +1,6 @@
-FROM node:5.5.0-wheezy
+FROM node:5.11.1-wheezy
 
 MAINTAINER hujb
-
-RUN npm cache clean
 
 RUN npm install -g cnpm --registry=https://r.cnpmjs.org
 
@@ -18,7 +16,7 @@ COPY package.json /usr/src/app
 
 WORKDIR /usr/src/app
 
-RUN npm install
+RUN cnpm install
 
 COPY . /usr/src/app
 

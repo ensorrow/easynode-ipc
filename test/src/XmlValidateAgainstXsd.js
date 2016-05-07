@@ -21,7 +21,7 @@ EasyNode.addArg('easynode-home',process.cwd());
 EasyNode.addSourceDirectory('/node_modules/easynode/src');
 const logger = using('easynode.framework.Logger').getLogger();
 var parser = require('xml2json');
-var libxml = require('libxmljs');
+var libxml = require('libxmljs');// libxml不态成熟已经被删除
 
 describe('XmlValidateAgainstXsd',function() {
 
