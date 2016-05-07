@@ -2,7 +2,11 @@ FROM node:5.5.0-wheezy
 
 MAINTAINER hujb
 
+RUN npm cache clean
+
 RUN npm install -g cnpm --registry=https://r.cnpmjs.org
+
+RUN npm install -g node-gyp
 
 RUN npm install -g babel-cli
 
@@ -14,7 +18,7 @@ COPY package.json /usr/src/app
 
 WORKDIR /usr/src/app
 
-RUN cnpm install
+RUN npm install
 
 COPY . /usr/src/app
 

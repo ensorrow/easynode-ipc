@@ -674,3 +674,4 @@ Error: Module version mismatch. Expected 47, got 45
 108. config.json里需要修改staticresource中的版本号,然后ControllerTest.js里修改上传的staticresource静态版本号,sudo sh dev_start.sh
 执行上传静态资源文件.
 NOS同名key能覆盖,浏览器下载缓存了.
+109..dockerignore文件的修改能触发web_hook URL

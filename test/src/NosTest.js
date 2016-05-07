@@ -21,8 +21,6 @@ const logger = using('easynode.framework.Logger').getLogger();
 var iconv = require('iconv-lite');
 var Nos = require('nenos');
 
-var config = require('../../config.json');
-
 describe('NosTest',function() {
 
     before(function(done){
