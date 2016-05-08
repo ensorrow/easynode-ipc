@@ -43,6 +43,11 @@ module.exports = {
                 warnings:false
             }
         }),
+        new webpack.DefinePlugin({
+            "process.env": {
+                NODE_ENV: JSON.stringify("production")
+            }
+        })
        /* new HtmlwebpackPlugin({
             title: 'webpack-demos'
         }),*/

@@ -21,10 +21,10 @@
         <script src="http://apollodev.nos.netease.com/1461231408225es6-es5-shim.min.js"></script>
 
         <% if (config.env == 'DEVELOP') { %>
-           <script src="../build/bundle.js"></script>
+            <script src="../build/bundle.js"></script>
             <script type="text/javascript">
                 __globals__.surl="../assets/";
-                console.log("****")
+                 console.log("****")
             </script>
         <% } else { %>
             <script src=<%- config.surl %>bundle.js></script>
