@@ -52,6 +52,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         static home(app){
             return function *(){
                 var user = this.session.user || undefined;
+                console.log("app.conifg.resouces.static",app.config.resources.static);
                 yield this.render('index',{user:user,loginCallback:app.config.loginCallback,config:{surl:app.config.resources.static,env:process.env.ENV}});
             }
         }

@@ -1,7 +1,7 @@
 import auth from './utils/auth';
 import Global from './utils/globals';
 import App from './App.jsx';
-import BaseInfo from './forms/BaseInfo';
+import BaseInfo from './forms/BaseInfo.jsx';
 import CompanyInfo from './forms/CompanyInfo.jsx';
 import SiteInfo from './forms/SiteInfo.jsx';
 import UploadMaterial from './forms/UploadMaterial.jsx';
@@ -30,7 +30,6 @@ export default{
         {
             path: '/',
             getComponent: (location,cb) => {
-                console.log("index")
                 if(!auth.loggedIn()){
                     return require.ensure([],(require)=>{
                             cb(null,require('./forms/Login.jsx'))
@@ -42,8 +41,7 @@ export default{
                             cb(null,require('./forms/RecordList.jsx'));
                         });
                     } else {
-                        cb(null,require('./forms/BaseInfo' +
-                        ''));
+                        cb(null,require('./forms/BaseInfo.jsx'));
                     }
                 })
             }
@@ -69,7 +67,7 @@ export default{
             path:'/modify',
             getComponent: (location,cb) => {
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/BaseInfo'));
+                    cb(null,require('./forms/BaseInfo.jsx'));
                 });
             }
         },
@@ -190,12 +188,13 @@ export default{
         {
             path:'/returntobase',
             getComponent: (location,cb) => {
+                console.log("2")
                 var a = Global.get('global');
                 if (a.hasOwnProperty('companyinfo.jsx') ){
                     __globals__ = a;
                 }
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/BaseInfo'));
+                    cb(null,require('./forms/BaseInfo.jsx'));
                 });
             }
         },

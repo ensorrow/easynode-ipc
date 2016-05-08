@@ -10,7 +10,6 @@ import reqwest from 'reqwest';
 import DeleteRecord from './DeleteRecord.jsx';
 
 
-
 let Operation = React.createClass({
     propTypes:{
         record: React.PropTypes.object.isRequired
@@ -23,8 +22,10 @@ let Operation = React.createClass({
         onShow && onShow(this.props.record);
     },
     handleResult: function(to){
+        var me = this;
         DataService.getRecord(this.props.record.id,
             function(){
+                console.log("1");
                 Global.set('global',__globals__);
                 location.href = to;
             },
@@ -47,7 +48,7 @@ let Operation = React.createClass({
         }
         else if( prg == 1){
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> </td>
+                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail")}  value="备案详情"></input> </td>
             );
         }
         else if( prg == 2){
