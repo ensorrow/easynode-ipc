@@ -18,8 +18,7 @@
     "co": "~4.5.4",
     "co-fs": "~1.2.0",
     "co-multipart": "~0.2.0",
-    "co-redis": "~1.1.1ls
-    ",
+    "co-redis": "~1.1.1",
     "date-utils": "~1.2.16",
     "easynode": "~0.1.13",
     "ejs": "~1.0.0",
