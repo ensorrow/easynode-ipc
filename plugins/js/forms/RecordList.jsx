@@ -164,7 +164,7 @@ let Records = React.createClass({
                         prg == 3 ? 'passed' :
                         prg == 4 ? 'checking' :
                         prg == 5 ? 'nopass' :
-                        prg == 6 ? 'passed' :
+                        prg == 6 ? 'checking' :
                         prg == 7 ? 'checking' :
                         prg == 8 ? 'nopass' :
                         prg == 9 ? 'passed' :

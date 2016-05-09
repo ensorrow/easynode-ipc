@@ -16,6 +16,7 @@ var Area = using('netease.icp.backend.models.Area');
 var Sys = using('netease.icp.backend.models.Sys');
 var Nos = require('nenos');
 var utils = require('utility');
+var SqlUtil = using('easynode.framework.util.SqlUtil');
 //import request from 'superagent';
 import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/define';
 
@@ -436,10 +437,13 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
                 var page = parseInt(this.parameter.param('page'));
                 var rpp = parseInt(this.parameter.param('rpp'));
                 var ret = { rows:0, pages:0, page:0, rpp:0, data:[] };
+                var datas = {};
+                var total = 0;
 
                 var offset = page*rpp;
                 var limit = rpp;
                 var sql = '';
+                var sqlCount = '';
 
                 try{
                     conn = yield  me.app.ds.getConnection();
@@ -448,16 +452,43 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
                     const FILTER_CONDITION_CHECKING = 1;
                     const FILTER_CONDITION_PASSED = 2;
                     if( filter ==  FILTER_CONDITION_ALL ){
-                        sql = `select u.id,u.tenantid,u.email,u.username,u.mailingaddress,u.recipient,u.recipientmobile,u.companyname,r.operatetime,r.operator from user as u, record as r  where u.tenantid = r.tenantid and r.status in (11,12) limit ${limit} offset ${offset}`;
-                        ret = yield conn.execQuery(sql);
+                        sqlCount = `select count(u.id) as total from user as u, record as r  where u.tenantid = r.tenantid and r.status in (11,12)`;
+                        datas = yield conn.execQuery(sqlCount);
+                        ret.rows = datas[0].total || 0;
+                        if( ret.rows > 0 ){
+                            ret.pages = SqlUtil.calculatePages(ret.rows, rpp);
+                            ret.page = page;
+                            ret.rpp = rpp;
+                            sql = `select u.id,u.tenantid,u.email,u.username,u.mailingaddress,u.recipient,u.recipientmobile,u.companyname,r.operatetime,r.operator from user as u, record as r  where u.tenantid = r.tenantid and r.status in (11,12) limit ${limit} offset ${offset}`;
+                            datas = yield conn.execQuery(sql);
+                            ret.data = datas;
+                        }
                     }
                     if( filter ==  FILTER_CONDITION_CHECKING ){
-                        sql = `select u.id,u.tenantid,u.email,u.username,u.mailingaddress,u.recipient,u.recipientmobile,u.companyname,r.operatetime,r.operator from user as u, record as r  where u.tenantid = r.tenantid and r.status in (11) limit ${limit} offset ${offset}`;
-                        ret = yield conn.execQuery(sql);
+                        sqlCount = `select count(u.id) as total from user as u, record as r  where u.tenantid = r.tenantid and r.status in (11)`;
+                        datas = yield conn.execQuery(sqlCount);
+                        ret.rows = datas[0].total || 0;
+                        if( ret.rows > 0 ){
+                            ret.pages = SqlUtil.calculatePages(ret.rows, rpp);
+                            ret.page = page;
+                            ret.rpp = rpp;
+                            sql = `select u.id,u.tenantid,u.email,u.username,u.mailingaddress,u.recipient,u.recipientmobile,u.companyname,r.operatetime,r.operator from user as u, record as r  where u.tenantid = r.tenantid and r.status in (11) limit ${limit} offset ${offset}`;
+                            datas = yield conn.execQuery(sql);
+                            ret.data = datas;
+                        }
                     }
                     if( filter ==  FILTER_CONDITION_PASSED ){
-                        sql = `select u.id,u.tenantid,u.email,u.username,u.mailingaddress,u.recipient,u.recipientmobile,u.companyname,r.operatetime,r.operator from user as u, record as r  where u.tenantid = r.tenantid and r.status in (12) limit ${limit} offset ${offset}`;
-                        ret = yield conn.execQuery(sql);
+                        sqlCount = `select count(u.id) as total from user as u, record as r  where u.tenantid = r.tenantid and r.status in (12)`;
+                        datas = yield conn.execQuery(sqlCount);
+                        ret.rows = datas[0].total || 0;
+                        if( ret.rows > 0 ){
+                            ret.pages = SqlUtil.calculatePages(ret.rows, rpp);
+                            ret.page = page;
+                            ret.rpp = rpp;
+                            sql = `select u.id,u.tenantid,u.email,u.username,u.mailingaddress,u.recipient,u.recipientmobile,u.companyname,r.operatetime,r.operator from user as u, record as r  where u.tenantid = r.tenantid and r.status in (12) limit ${limit} offset ${offset}`;
+                            datas = yield conn.execQuery(sql);
+                            ret.data = datas;
+                        }
                     }
                 } catch(e){
                     EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
