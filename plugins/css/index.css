@@ -418,7 +418,7 @@ table.gridtable td >a{font-family:MicrosoftYaHei;font-size:10.6px;color:#38abd0;
 a:hover{text-decoration:none;}
 .g-hd{position:static;left:0;right:0;top:0;z-index:5;height:54px;background:#252b33;}
 .g-bd{padding-bottom:50px;}
-.app{position:relative;width:100%;min-height:900px;}
-.g-ft{left:0px;height:60px;width:100%;background:#ededed;position:absolute;}
+.app{width:100%;position:relative;}
+.g-ft{left:0px;height:60px;width:100%;position:absolute;background:#ededed;}
 .g-bd-return{width:960px;height:54px;margin-left:52px;test-align:center;background:#fdfdfd;}
 .g-progress{background:#ededed;width:100%;}
