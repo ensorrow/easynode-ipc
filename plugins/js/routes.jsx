@@ -137,7 +137,8 @@ export default{
         {
             path:'/delete',
             getComponent: (location,cb) => {
-                 require.ensure([],(require) => {
+
+                require.ensure([],(require) => {
                     //ToDo ,execute delete operation
                     //cb(null,require('./forms/CompanyInfo.jsx'));
                 });

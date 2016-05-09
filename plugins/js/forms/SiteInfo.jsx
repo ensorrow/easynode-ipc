@@ -393,6 +393,8 @@ let SiteInfo = React.createClass({
             siteInfo: siteInfo
         });
 
+        var me = this;
+        var id = ee.target.id;
         upload({
             url: '/upl2',
             name: file.name,
@@ -404,7 +406,7 @@ let SiteInfo = React.createClass({
             },
             onLoad: (e) =>{
                 var resp = JSON.parse(e.currentTarget.responseText);
-                this.assignUrl(ee.target.id,resp.url);
+                me.assignUrl(id,resp.url);
             },
             onError: (e)=>{
                 console.log("file upload error");
