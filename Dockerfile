@@ -8,6 +8,8 @@ RUN npm install -g node-gyp
 
 RUN npm install -g babel-cli
 
+RUN npm install apidoc -g
+
 RUN npm install -g webpack
 
 RUN mkdir -p /usr/src/app
