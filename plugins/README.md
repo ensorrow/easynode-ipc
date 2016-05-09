@@ -675,3 +675,6 @@ Error: Module version mismatch. Expected 47, got 45
 执行上传静态资源文件.
 NOS同名key能覆盖,浏览器下载缓存了.
 109..dockerignore文件的修改能触发web_hook URL
+110. 由于js/index.js文件中help, CheckTrialNoPass, CheckTrialPass, CheckPhotoNoPass, CheckPhotoPass, CheckConcilPass, CheckConcilNoPass,是在cb(中被require),所以出现了
+like [1~7].. 目录名称.
+

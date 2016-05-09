@@ -10,7 +10,14 @@ import RecordList from './forms/RecordList.jsx';
 import RecordInfo from './forms/RecordInfo.jsx';
 import SubmitCheckSuccess from './forms/SubmitCheckSuccess';
 import UploadPhoto from './forms/UploadPhoto.jsx';
-
+import Help from './forms/Help.jsx';
+import Login from './forms/Login.jsx';
+import CheckTrialNoPass from './forms/status/CheckTrialNoPass.jsx';
+import CheckTrialPass from './forms/status/CheckTrialPass.jsx';
+import CheckPhotoNoPass from './forms/status/CheckPhotoNoPass.jsx';
+import CheckPhotoPass from './forms/status/CheckPhotoPass.jsx';
+import CheckCouncilPass from './forms/status/CheckCouncilPass.jsx';
+import CheckCouncilNoPass from './forms/status/CheckCouncilNoPass.jsx';
 
 function redirectToLogin(nextState, replaceState){
     if(!auth.loggedIn()){
@@ -32,16 +39,16 @@ export default{
             getComponent: (location,cb) => {
                 if(!auth.loggedIn()){
                     return require.ensure([],(require)=>{
-                            cb(null,require('./forms/Login.jsx'))
+                            cb(null,Login)
                         });
                 }
                 return require.ensure([],(require) =>{
                     if( __globals__.user && __globals__.user.recordnumber > 0 ) {
                         require.ensure([],(require) => {
-                            cb(null,require('./forms/RecordList.jsx'));
+                            cb(null,RecordList);
                         });
                     } else {
-                        cb(null,require('./forms/BaseInfo.jsx'));
+                        cb(null,BaseInfo);
                     }
                 })
             }
@@ -50,7 +57,7 @@ export default{
             path:'/help',
             getComponent: (location,cb) => {
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/Help.jsx'));
+                    cb(null,Help);
                 });
             }
         },
@@ -59,7 +66,7 @@ export default{
             getComponent: (location,cb) => {
                 require.ensure([],(require) => {
                     auth.logout();
-                    cb(null,require('./forms/Login.jsx'));
+                    cb(null,Login);
                 });
             }
         },
@@ -67,99 +74,70 @@ export default{
             path:'/modify',
             getComponent: (location,cb) => {
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/BaseInfo.jsx'));
+                    cb(null,BaseInfo);
                 });
             }
         },
         {
             path:'/detail',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/CompanyInfo.jsx'));
+                    cb(null,CompanyInfo);
                 });
             }
         },
         {
             path:'/checkresulttrialnopass',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/status/CheckTrialNoPass.jsx'));
+                    cb(null,CheckTrialNoPass);
                 });
             }
         },
         {
             path:'/checkresulttrialpass',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/status/CheckTrialPass.jsx'));
+                    cb(null,CheckTrialPass);
                 });
             }
         },
         {
             path:'/checkresultphotonopass',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/status/CheckPhotoNoPass.jsx'));
+                    cb(null,CheckPhotoNoPass);
                 });
             }
         },
         {
             path:'/checkresultphotopass',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/status/CheckPhotoPass.jsx'));
+                    cb(null,CheckPhotoPass);
                 });
             }
         },
         {
             path:'/checkresultcouncilpass',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/status/CheckCouncilPass.jsx'));
+                    cb(null,CheckCouncilPass);
                 });
             }
         },
         {
             path:'/checkresultcouncilnopass',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/status/CheckCouncilNoPass.jsx'));
+                    cb(null,CheckCouncilNoPass);
                 });
             }
         },
         {
             path:'/delete',
             getComponent: (location,cb) => {
-
-                require.ensure([],(require) => {
+                 require.ensure([],(require) => {
                     //ToDo ,execute delete operation
                     //cb(null,require('./forms/CompanyInfo.jsx'));
                 });
@@ -168,12 +146,8 @@ export default{
         {
             path:'/fillcompanyinfo',
                 getComponent: (location,cb) => {
-                    var a = Global.get('global');
-                    if (a.hasOwnProperty('companyinfo.jsx') ){
-                        __globals__ = a;
-                    }
                     require.ensure([],(require) => {
-                        cb(null,require('./forms/CompanyInfo.jsx'));
+                        cb(null,CompanyInfo);
                 });
             }
         },
@@ -181,32 +155,23 @@ export default{
             path:'/savetodraft',
             getComponent: (location,cb) => {
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/CompanyInfo.jsx'));
+                    cb(null,CompanyInfo);
                 });
             }
         },
         {
             path:'/returntobase',
             getComponent: (location,cb) => {
-                console.log("2")
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo.jsx') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/BaseInfo.jsx'));
+                    cb(null,BaseInfo);
                 });
             }
         },
         {
             path:'/fillsiteinfo',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo.jsx') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/SiteInfo.jsx'));
+                    cb(null,SiteInfo);
                 });
             }
         },
@@ -214,7 +179,7 @@ export default{
             path:'/uploadmaterial',
             getComponent: (location,cb) => {
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/UploadMaterial.jsx'));
+                    cb(null,UploadMaterial);
                 });
             }
         },
@@ -222,31 +187,23 @@ export default{
             path:'/submittrialsuccess',
             getComponent: (location,cb) => {
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/SubmitTrialSuccess'));
+                    cb(null,SubmitTrialSuccess);
                 });
             }
         },
         {
             path:'/submitchecksuccess',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/SubmitCheckSuccess'));
+                    cb(null,SubmitCheckSuccess);
                 });
             }
         },
         {
             path:'/reviewrecorddetail',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/RecordInfo.jsx'));
+                    cb(null,RecordInfo);
                 });
             }
         },
@@ -254,19 +211,15 @@ export default{
             path:'/recordlist',
             getComponent: (location,cb) => {
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/RecordList.jsx'));
+                    cb(null,RecordList);
                 });
             }
         },
         {
             path:'/uploadphoto',
             getComponent: (location,cb) => {
-                var a = Global.get('global');
-                if (a.hasOwnProperty('companyinfo') ){
-                    __globals__ = a;
-                }
                 require.ensure([],(require) => {
-                    cb(null,require('./forms/UploadPhoto.jsx'));
+                    cb(null,UploadPhoto);
                 });
             }
         }

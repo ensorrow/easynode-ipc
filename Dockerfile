@@ -24,6 +24,10 @@ WORKDIR /usr/src/app/plugins
 
 RUN webpack --config webpack.prod.config.js
 
+WORKDIR /usr/src/app/plugins/apidoc
+
+RUN sh apidoc.sh
+
 WORKDIR /usr/src/app/bin
 
 CMD ["./start.sh"]

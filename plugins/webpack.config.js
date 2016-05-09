@@ -22,6 +22,7 @@ module.exports = {
         './js/index.js'
     ],
     output: {
+        path：'./build',
         filename: './build/bundle.js'
     },
     module: {

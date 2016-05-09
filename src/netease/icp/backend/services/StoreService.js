@@ -427,6 +427,46 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
             }
         }
 
+        getCurtainsb2(){
+            var me = this;
+            return function *(){
+
+                var conn = null;
+                var filter = parseInt(this.parameter.param('filter'));
+                var page = parseInt(this.parameter.param('page'));
+                var rpp = parseInt(this.parameter.param('rpp'));
+                var ret = { rows:0, pages:0, page:0, rpp:0, data:[] };
+
+                var offset = page*rpp;
+                var limit = rpp;
+                var sql = '';
+
+                try{
+                    conn = yield  me.app.ds.getConnection();
+
+                    const FILTER_CONDITION_ALL = 3;
+                    const FILTER_CONDITION_CHECKING = 1;
+                    const FILTER_CONDITION_PASSED = 2;
+                    if( filter ==  FILTER_CONDITION_ALL ){
+                        sql = `select u.id,u.tenantid,u.email,u.username,u.mailingaddress,u.recipient,u.recipientmobile,u.companyname,r.operatetime,r.operator from user as u, record as r  where u.tenantid = r.tenantid and r.status in (11,12) limit ${limit} offset ${offset}`;
+                        ret = yield conn.execQuery(sql);
+                    }
+                    if( filter ==  FILTER_CONDITION_CHECKING ){
+                        sql = `select u.id,u.tenantid,u.email,u.username,u.mailingaddress,u.recipient,u.recipientmobile,u.companyname,r.operatetime,r.operator from user as u, record as r  where u.tenantid = r.tenantid and r.status in (11) limit ${limit} offset ${offset}`;
+                        ret = yield conn.execQuery(sql);
+                    }
+                    if( filter ==  FILTER_CONDITION_PASSED ){
+                        sql = `select u.id,u.tenantid,u.email,u.username,u.mailingaddress,u.recipient,u.recipientmobile,u.companyname,r.operatetime,r.operator from user as u, record as r  where u.tenantid = r.tenantid and r.status in (12) limit ${limit} offset ${offset}`;
+                        ret = yield conn.execQuery(sql);
+                    }
+                } catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e} ${e.stack}`);
+                }finally{
+                    yield me.app.ds.releaseConnection(conn);
+                    return ret;
+                }
+            }
+        }
 
         getRecord(){
             var me = this;

@@ -54,18 +54,35 @@ describe('ControllerTest',function() {
             .end(function(err, res){
                 // Do something
                 console.log(res.text);
+                done();
             });
 
-        done();
+
     });
 
-   /* it('Put /admin/record',function (done){
+    it('get curtains',function (done){
 
-        //590-首次备案  603-新增网站 669-新增接入
-        request.put('http://icpdev.hzspeed.cn/admin/record')
-            .send({id:724,status:7,reasons:'passed',checkedlisturl:'http://apollodev.nos.netease.com/1460686622187%E7%99%BB%E5%BD%952.png'})
-            .end(done);
-    });*/
+        //.send({filter:3,page:0,rpp:2})->query
+        request.get('http://icpdev.hzspeed.cn/admin/curtains2')
+            .query({filter:3,page:0,rpp:2})
+            .accept('json')
+            .end(function(err, res){
+                // Do something
+                console.log(res.text);
+                done();
+            });
+
+
+    });
+
+
+    /* it('Put /admin/record',function (done){
+
+         //590-首次备案  603-新增网站 669-新增接入
+         request.put('http://icpdev.hzspeed.cn/admin/record')
+             .send({id:724,status:7,reasons:'passed',checkedlisturl:'http://apollodev.nos.netease.com/1460686622187%E7%99%BB%E5%BD%952.png'})
+             .end(done);
+     });*/
 
   /*  it('Post /admin/recordsbystatus',function (done){
 
