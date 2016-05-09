@@ -440,7 +440,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
                 var datas = {};
                 var total = 0;
 
-                var offset = page*rpp;
+                var offset = (page-1)*rpp;
                 var limit = rpp;
                 var sql = '';
                 var sqlCount = '';
