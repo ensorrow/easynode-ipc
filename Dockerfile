@@ -4,6 +4,8 @@ MAINTAINER hujb
 
 RUN npm install -g cnpm --registry=https://r.cnpmjs.org
 
+RUN npm install -g easynode-watch
+
 RUN npm install -g node-gyp
 
 RUN npm install -g babel-cli
