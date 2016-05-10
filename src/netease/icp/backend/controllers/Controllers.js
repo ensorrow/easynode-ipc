@@ -1072,7 +1072,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSampleRequest http://icp.hzspeed.cn/admin/curtains2
          *
          * @apiSuccess {Object[]} data 记录列表
-         * @apiSuccess {Number} data.id 用户ID
+         * @apiSuccess {Number} data.id 记录ID
          * @apiSuccess {Number} data.tenantid 租户ID
          * @apiSuccess {String} data.email 租户Email
          * @apiSuccess {String} data.username 租户名称
