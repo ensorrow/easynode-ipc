@@ -17,13 +17,10 @@ var query = {
 var filter = 'babel?' + JSON.stringify(query);
 module.exports = {
     entry: [
-        //'webpack/hot/dev-server',
-        //'webpack-dev-server/client?http://localhost',
         './js/index.js'
     ],
     output: {
-        filename: './build/bundle.js',
-        publicPath: 'http://apollodev.nos.netease.com/0.0.5_'
+        filename: './build/bundle.js'
     },
     module: {
         loaders:[
@@ -32,36 +29,14 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                        // es3ify required for IE8
+                // es3ify required for IE8
                 loaders: ['es3ify', filter],
                 include: path.join(__dirname,'.')
             }
         ]
     },
     plugins:[
-        new uglifyJsPlugin({
-            compress:{
-                warnings:false
-            }
-        }),
-        new webpack.DefinePlugin({
-            "process.env": {
-                NODE_ENV: JSON.stringify("production")
-            }
-        })
-       /* new HtmlwebpackPlugin({
-            title: 'webpack-demos'
-        }),*/
-        //new OpenBrowserPlugin({
-        //    url:'http://localhost/index.html'
-        //}),
-        //devFlagPlugin,
-        /*new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery",
-            "window.jQuery":"jquery"
-        }),*/
-        //new webpack.HotModuleReplacementPlugin()
-    ]//,
-   // devtool:"source-map"
+
+    ],
+    devtool:"source-map"
 }

@@ -23,6 +23,13 @@ const logger = using('easynode.framework.Logger').getLogger();
 var storeService ;
 var dataSequence = 0;
 
+var env = process.env.ENV;
+const BASE_URI = env == 'PRODUCTION' ? 'http://icp.c.163.com' :
+                 env == 'TEST' ? 'http://icp.hzspeed.cn' : 'http://icpdev.hzspeed.cn';
+const LOCAL_URI = env == 'PRODUCTION' ? '/usr/src/app' :
+                  env == 'TEST' ? '/usr/src/app' : '/Users/hujiabao/workspace_docker/icp/easynode-ipc';
+const VERSION = '0.0.5';
+
 describe('ControllerTest',function() {
 
     before(function(done){
@@ -40,32 +47,49 @@ describe('ControllerTest',function() {
 
     it('deploy resouces',function (done){
 
-        request.post('http://icpdev.hzspeed.cn/admin/resources')
-            .send({version:'0.0.5',localurl:'/Users/hujiabao/workspace_docker/icp/easynode-ipc/plugins/assets'})
+        request.post(`${BASE_URI}/admin/resources`)
+            .send({version:VERSION,localurl:`${LOCAL_URI}/plugins/assets`})
             .accept('json')
             .end(function(err, res){
                 // Do something
                 console.log(res.text);
             });
 
-        request.post('http://icpdev.hzspeed.cn/admin/resources')
-            .send({version:'0.0.5',localurl:'/Users/hujiabao/workspace_docker/icp/easynode-ipc/plugins/build'})
+        request.post(`${BASE_URI}/admin/resources`)
+            .send({version:VERSION,localurl:`${LOCAL_URI}/plugins/build`})
             .accept('json')
             .end(function(err, res){
                 // Do something
                 console.log(res.text);
+                done();
             });
 
-        done();
+
     });
 
-   /* it('Put /admin/record',function (done){
+    it('get curtains',function (done){
 
-        //590-首次备案  603-新增网站 669-新增接入
-        request.put('http://icpdev.hzspeed.cn/admin/record')
-            .send({id:724,status:7,reasons:'passed',checkedlisturl:'http://apollodev.nos.netease.com/1460686622187%E7%99%BB%E5%BD%952.png'})
-            .end(done);
-    });*/
+        //.send({filter:3,page:0,rpp:2})->query
+        request.get(`${BASE_URI}/admin/curtains2`)
+            .query({filter:3,page:1,rpp:2})
+            .accept('json')
+            .end(function(err, res){
+                // Do something
+                console.log(res.text);
+                done();
+            });
+
+
+    });
+
+
+    /* it('Put /admin/record',function (done){
+
+         //590-首次备案  603-新增网站 669-新增接入
+         request.put('http://icpdev.hzspeed.cn/admin/record')
+             .send({id:724,status:7,reasons:'passed',checkedlisturl:'http://apollodev.nos.netease.com/1460686622187%E7%99%BB%E5%BD%952.png'})
+             .end(done);
+     });*/
 
   /*  it('Post /admin/recordsbystatus',function (done){
 

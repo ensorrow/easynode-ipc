@@ -38,6 +38,7 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
         
 }
 
+
         static * main(){
             //load config
             var configUrl = process.env.CONFIG_URL;

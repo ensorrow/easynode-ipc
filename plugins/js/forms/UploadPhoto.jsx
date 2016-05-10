@@ -25,6 +25,8 @@ let UploadPhoto = React.createClass({
     onChange: function(ee){
         var file = ee.target.files[0];
         console.log(ee);
+        var me = this;
+        var id = ee.target.id;
         upload({
             url: '/upl',
             name: file.name||'temp123',
@@ -36,7 +38,7 @@ let UploadPhoto = React.createClass({
             },
             onLoad: (e) =>{
                 var resp = JSON.parse(e.currentTarget.responseText);
-                this.assignUrl(ee.target.id,resp.url);
+                me.assignUrl(id,resp.url);
             },
             onError: (e)=>{
                 console.log("file upload error");

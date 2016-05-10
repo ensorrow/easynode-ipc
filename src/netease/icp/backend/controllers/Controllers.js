@@ -816,7 +816,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiGroup Ops
          * @apiPermission whitelist
          * @apiVersion 0.0.2
-         * @apiDescription 通过白名单管理权限
+         * @apiDescription 通过白名单管理权限(废弃的,通过put '/admin/record'来设置)
          *
          * @apiSampleRequest http://icp.hzspeed.cn/admin/curtain
          *
@@ -1014,7 +1014,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiGroup Ops
          * @apiPermission whitelist
          * @apiVersion 0.0.2
-         * @apiDescription 权限通过白名单管理
+         * @apiDescription 权限通过白名单管理(废弃的,改用/admin/curtains2)
          *
          * @apiParam {Number} filter 查询状态过滤条件 1-正在申请幕布状态 2-已寄送幕布  3-正在申请+已寄送幕布用户
          * @apiParam {Number} page 页号.
@@ -1057,6 +1057,53 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         }
 
 
+        /**
+         * @api {get} /admin/curtains2 获取幕布寄送任务
+         * @apiName getCurtainsb
+         * @apiGroup Ops
+         * @apiPermission whitelist
+         * @apiVersion 0.0.2
+         * @apiDescription 权限通过白名单管理
+         *
+         * @apiParam {Number} filter 查询状态过滤条件 1-正在申请幕布状态 2-已寄送幕布  3-正在申请+已寄送幕布用户
+         * @apiParam {Number} page 页号.
+         * @apiParam {Number} rpp  每页记录数.
+         *
+         * @apiSampleRequest http://icp.hzspeed.cn/admin/curtains2
+         *
+         * @apiSuccess {Object[]} data 记录列表
+         * @apiSuccess {Number} data.id 记录ID
+         * @apiSuccess {Number} data.tenantid 租户ID
+         * @apiSuccess {String} data.email 租户Email
+         * @apiSuccess {String} data.username 租户名称
+         * @apiSuccess {String} data.mailingaddress 幕布邮寄地址
+         * @apiSuccess {String} data.recipient  幕布接收人
+         * @apiSuccess {String} data.recipientmobile 幕布接收人电话
+         * @apiSuccess {String} [data.companyname] 幕布接收人公司
+         * @apiSuccess {Number} data.operatetime 操作时间
+         * @apiSuccess {String} data.operator 操作员
+         * @apiSuccess {Number} page 页号
+         * @apiSuccess {Number} pages 总页数
+         * @apiSuccess {Number} rows 总记录数
+         * @apiSuccess {Number} rpp 每页显示数
+         *
+         * @apiUse  EmptyRecord
+         */
+        static getCurtainsb2(app){
+            var me = this;
+            return function *(){
+                var ret = {};
+
+                var pass = Controllers.passWhitelist(this.remoteAddress,app);
+                if( pass ) {
+                    var storeService = new StoreService(app)
+                    ret = yield storeService.getCurtainsb2();
+                }
+
+                this.type = 'json';
+                this.body = ret;
+            }
+        }
 
         static deleteRecord(app){
             var me = this;

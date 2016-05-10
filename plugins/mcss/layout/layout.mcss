@@ -14,18 +14,18 @@
 }
 
 .app{
-	position:relative;
 	width:100%;
-	min-height:900px;
+	position: relative;
 }
 
 .g-ft {
 	left: 0px;
 	height: 60px;
 	width: 100%;
-	background: $m-footer_background;
-	position:absolute;
+	position: absolute;
+	background: #ededed;
 }
+
 
 
 .g-bd-return {

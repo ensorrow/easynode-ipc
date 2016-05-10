@@ -300,7 +300,7 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-recordinfo-item .m-recordinfo-item-ctrl{width:430px;margin-left:40px;}
 .m-recordinfo-item .m-recordinfo-item-ctrl >label{word-break:break-all;}
 .m-recordinfo-item2{width:140px;margin-left:80px;}
-.m-recordinfo-item2 .m-recordinfo-item-icon{margin-top:21px;width:140px;height:140px;background:#f5f5f5;border:1px solid #ddd;line-height:140px;text-align:center;}
+.m-recordinfo-item2 .m-recordinfo-item-icon{margin-top:21px;width:140px;height:140px;max-width:140px;background:#f5f5f5;border:1px solid #ddd;line-height:140px;text-align:center;overflow:hidden;}
 .m-recordinfo-item2 .m-recordinfo-item-icon-title{display:block;width:140px;text-align:center;font-size:12px;}
 .m-login{background:#fff;width:420px;height:340px;}
 .m-login-hd{width:420px;margin:10px auto;margin-top:150px;}
@@ -418,7 +418,7 @@ table.gridtable td >a{font-family:MicrosoftYaHei;font-size:10.6px;color:#38abd0;
 a:hover{text-decoration:none;}
 .g-hd{position:static;left:0;right:0;top:0;z-index:5;height:54px;background:#252b33;}
 .g-bd{padding-bottom:50px;}
-.app{position:relative;width:100%;min-height:900px;}
-.g-ft{left:0px;height:60px;width:100%;background:#ededed;position:absolute;}
+.app{width:100%;position:relative;}
+.g-ft{left:0px;height:60px;width:100%;position:absolute;background:#ededed;}
 .g-bd-return{width:960px;height:54px;margin-left:52px;test-align:center;background:#fdfdfd;}
 .g-progress{background:#ededed;width:100%;}
