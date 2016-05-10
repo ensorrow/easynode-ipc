@@ -52,8 +52,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
         static home(app){
             return function *(){
                 var user = this.session.user || undefined;
-                console.log("app.conifg.resouces.static",app.config.resources.static);
-                yield this.render('index',{user:user,loginCallback:app.config.loginCallback,config:{surl:app.config.resources.static,env:process.env.ENV}});
+                var surl = `${app.config.resources.static}${process.env.ENV}_`;
+                yield this.render('index',{user:user,loginCallback:app.config.loginCallback,config:{surl:surl,env:process.env.ENV}});
             }
         }
 
@@ -103,7 +103,8 @@ var StoreService = using('netease.icp.backend.services.StoreService');
             return function *(){
                 this.session.user = null;
 
-                yield this.render('index',{user:{},loginCallback:app.config.loginCallback,config:{surl:app.config.resources.static,env:process.env.ENV}});
+                var surl = `${app.config.resources.static}${process.env.ENV}_`;
+                yield this.render('index',{user:{},loginCallback:app.config.loginCallback,config:{surl:surl,env:process.env.ENV}});
             }
         }
 

@@ -46,8 +46,9 @@ describe('ControllerTest',function() {
     });
 
     it('deploy resouces',function (done){
-
-        request.post(`${BASE_URI}/admin/resources`)
+        var url = `${BASE_URI}/admin/resources`;
+        console.log(url);
+        request.post(url)
             .send({version:VERSION,localurl:`${LOCAL_URI}/plugins/assets`})
             .accept('json')
             .end(function(err, res){
@@ -55,7 +56,9 @@ describe('ControllerTest',function() {
                 console.log(res.text);
             });
 
-        request.post(`${BASE_URI}/admin/resources`)
+        var url = `${BASE_URI}/admin/resources`;
+        console.log(url);
+        request.post(url)
             .send({version:VERSION,localurl:`${LOCAL_URI}/plugins/build`})
             .accept('json')
             .end(function(err, res){
