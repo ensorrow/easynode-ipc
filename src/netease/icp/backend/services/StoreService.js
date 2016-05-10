@@ -1569,7 +1569,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
                     var pos = fileName.lastIndexOf('/') + 1;
                     fileName = fileName.substr(pos,(fileName.length - pos));
                     console.log(fileName);
-                    var key = version+'_'+fileName;
+                    var key = version+'_' + process.env.ENV + '_'+fileName;
                     var url = yield me.uploadNos(key,fileList[index]);
                     console.log(url);
                 }

@@ -23,6 +23,13 @@ const logger = using('easynode.framework.Logger').getLogger();
 var storeService ;
 var dataSequence = 0;
 
+var env = process.env.ENV;
+const BASE_URI = env == 'PRODUCTION' ? 'http://icp.c.163.com' :
+                 env == 'TEST' ? 'http://icp.hzspeed.cn' : 'http://icpdev.hzspeed.cn';
+const LOCAL_URI = env == 'PRODUCTION' ? '/usr/src/app' :
+                  env == 'TEST' ? '/usr/src/app' : '/Users/hujiabao/workspace_docker/icp/easynode-ipc';
+const VERSION = '0.0.5';
+
 describe('ControllerTest',function() {
 
     before(function(done){
@@ -40,16 +47,16 @@ describe('ControllerTest',function() {
 
     it('deploy resouces',function (done){
 
-        request.post('http://icpdev.hzspeed.cn/admin/resources')
-            .send({version:'0.0.5',localurl:'/Users/hujiabao/workspace_docker/icp/easynode-ipc/plugins/assets'})
+        request.post(`${BASE_URI}/admin/resources`)
+            .send({version:VERSION,localurl:`${LOCAL_URI}/plugins/assets`})
             .accept('json')
             .end(function(err, res){
                 // Do something
                 console.log(res.text);
             });
 
-        request.post('http://icpdev.hzspeed.cn/admin/resources')
-            .send({version:'0.0.5',localurl:'/Users/hujiabao/workspace_docker/icp/easynode-ipc/plugins/build'})
+        request.post(`${BASE_URI}/admin/resources`)
+            .send({version:VERSION,localurl:`${LOCAL_URI}/plugins/build`})
             .accept('json')
             .end(function(err, res){
                 // Do something
@@ -63,8 +70,8 @@ describe('ControllerTest',function() {
     it('get curtains',function (done){
 
         //.send({filter:3,page:0,rpp:2})->query
-        request.get('http://icpdev.hzspeed.cn/admin/curtains2')
-            .query({filter:3,page:0,rpp:2})
+        request.get(`${BASE_URI}/admin/curtains2`)
+            .query({filter:3,page:1,rpp:2})
             .accept('json')
             .end(function(err, res){
                 // Do something
