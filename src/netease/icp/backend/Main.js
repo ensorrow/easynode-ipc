@@ -37,6 +37,7 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
             //调用super()后再定义子类成员。
         }
 
+
         static * main(){
             //load config
             var configUrl = process.env.CONFIG_URL;
