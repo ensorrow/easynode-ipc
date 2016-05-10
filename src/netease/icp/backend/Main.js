@@ -35,7 +35,8 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
         {
             super();
             //调用super()后再定义子类成员。
-        }
+        
+}
 
         static * main(){
             //load config
@@ -232,6 +233,7 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
                             return false;
                         }
                         //查询备案状态结束
+
 
 
                     });
