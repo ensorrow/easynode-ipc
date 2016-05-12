@@ -167,7 +167,7 @@ describe('OpenApiServiceTest',function() {
             });
     });
 
-    var newapp = {
+  /*  var newapp = {
         "name": "icp3",
         "desc": "",
         "domain": "",
@@ -219,6 +219,7 @@ describe('OpenApiServiceTest',function() {
                 done();
             });
     });
+    */
 
     //icp4 hook:
     //icp2 hook: https://open.c.163.com/api/v1/hooks/app/5a560695727647cbb0a10eceb4964a40
