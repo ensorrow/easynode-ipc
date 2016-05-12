@@ -668,8 +668,8 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
                 var r = null;
                 var conn = null;
                 var model = new Record();
-                var id = id;
-                var status = status;
+                var recordid = id;
+                var recordstatusstatus = status;
 
                 var arr = [];
                 var sql = ``;
@@ -678,13 +678,13 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
                     conn = yield me.app.ds.getConnection();
 
                     sql = `SELECT id FROM record WHERE id = #id#`;
-                    arr =  yield conn.execQuery(sql,{ id:id });
+                    arr =  yield conn.execQuery(sql,{ id:recordid });
                     if( arr.length <= 0 )
                         return false;
 
-                    model.merge( Object.assign({}, { id: id } ));
+                    model.merge( Object.assign({}, { id: recordid } ));
                     if( status ){
-                        model.merge( Object.assign({}, { status: status } ));
+                        model.merge( Object.assign({}, { status: recordstatusstatus } ));
                     }
 
                     r = yield conn.update(model);
@@ -976,7 +976,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
 
                 console.log(form);
                 console.log(this.session.user);
-                var userid = this.session.user.id;
+                var userid = form.userid || this.session.user.id;
                 var mailingaddress = form.mailingaddress;
                 var recipient = form.recipient;
                 var recipientmobile = form.recipientmobile;
@@ -1001,7 +1001,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
 
                     r = yield conn.update(model);
 
-                    yield storeService.putRecord2(recordid,11);
+                    yield me.putRecord2(recordid,11);
 
                     return r.affectedRows + r.insertId > 0 ?  true : false;
                 }catch(e){

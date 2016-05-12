@@ -85,6 +85,20 @@ describe('ControllerTest',function() {
 
     });
 
+    it('putt curtains',function (done){
+
+        //.send({filter:3,page:0,rpp:2})->query
+        request.put(`${BASE_URI}/user`)
+            .send({mailingaddress:'hujb2000@163.com',recipient:'胡家宝',recipientmobile:'18657105763',recordid:860,userid:165})
+            .accept('json')
+            .end(function(err, res){
+                // Do something
+                console.log(res.text);
+                done();
+            });
+
+
+    });
 
     /* it('Put /admin/record',function (done){
 
