@@ -1,5 +1,4 @@
 'use strict';
-require("babel-polyfill");
 require('easynode');
 var util = require('util');
 var co = require('co');
