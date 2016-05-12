@@ -459,7 +459,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
                             ret.pages = SqlUtil.calculatePages(ret.rows, rpp);
                             ret.page = page;
                             ret.rpp = rpp;
-                            sql = `select r.id,u.tenantid,u.email,u.username,u.mailingaddress,u.recipient,u.recipientmobile,u.companyname,r.operatetime,r.operator from user as u, record as r  where u.tenantid = r.tenantid and r.status in (11,12) limit ${limit} offset ${offset}`;
+                            sql = `select r.id,u.tenantid,u.email,u.username,u.mailingaddress,u.recipient,u.recipientmobile,u.companyname,r.operatetime,r.operator from user as u, record as r  where u.tenantid = r.tenantid and r.status in (11,12) order by r.operatetime DESC limit ${limit} offset ${offset}`;
                             datas = yield conn.execQuery(sql);
                             ret.data = datas;
                         }
@@ -472,7 +472,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
                             ret.pages = SqlUtil.calculatePages(ret.rows, rpp);
                             ret.page = page;
                             ret.rpp = rpp;
-                            sql = `select r.id,u.tenantid,u.email,u.username,u.mailingaddress,u.recipient,u.recipientmobile,u.companyname,r.operatetime,r.operator from user as u, record as r  where u.tenantid = r.tenantid and r.status in (11) limit ${limit} offset ${offset}`;
+                            sql = `select r.id,u.tenantid,u.email,u.username,u.mailingaddress,u.recipient,u.recipientmobile,u.companyname,r.operatetime,r.operator from user as u, record as r  where u.tenantid = r.tenantid and r.status in (11)  order by r.operatetime DESC limit ${limit} offset ${offset}`;
                             datas = yield conn.execQuery(sql);
                             ret.data = datas;
                         }
@@ -485,7 +485,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
                             ret.pages = SqlUtil.calculatePages(ret.rows, rpp);
                             ret.page = page;
                             ret.rpp = rpp;
-                            sql = `select r.id,u.tenantid,u.email,u.username,u.mailingaddress,u.recipient,u.recipientmobile,u.companyname,r.operatetime,r.operator from user as u, record as r  where u.tenantid = r.tenantid and r.status in (12) limit ${limit} offset ${offset}`;
+                            sql = `select r.id,u.tenantid,u.email,u.username,u.mailingaddress,u.recipient,u.recipientmobile,u.companyname,r.operatetime,r.operator from user as u, record as r  where u.tenantid = r.tenantid and r.status in (12) order by r.operatetime DESC limit ${limit} offset ${offset}`;
                             datas = yield conn.execQuery(sql);
                             ret.data = datas;
                         }

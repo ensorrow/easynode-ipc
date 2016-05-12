@@ -66,8 +66,6 @@ describe('ControllerTest',function() {
                 console.log(res.text);
                 done();
             });
-
-
     });
 
     it('get curtains',function (done){
@@ -96,8 +94,6 @@ describe('ControllerTest',function() {
                 console.log(res.text);
                 done();
             });
-
-
     });
 
     /* it('Put /admin/record',function (done){
