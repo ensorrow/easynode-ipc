@@ -167,6 +167,7 @@ let Records = React.createClass({
                         prg == 11? '幕布申请中' :
                         prg == 12? '幕布已寄送' : '未知状态';
 
+
             var status =
                         prg == 0 ? 'draft' :
                         prg == 1 ? 'checking' :
