@@ -7,7 +7,7 @@ var hcjg = {
         Yjqsip:0,
         Yjzzip:0,
         Bz
-    }
+    },
     Ct:{
         Qsip1:0,
         Zzip1:0,
@@ -31,8 +31,9 @@ var  ICP = {
 };
 
 var HCJG = {
-    DownloadData:{
+    DownloadData: {
         ICP: ICP
-    };
+    }
+}
 
 export { HCJG };

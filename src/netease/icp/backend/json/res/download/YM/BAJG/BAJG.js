@@ -16,8 +16,9 @@ var  ICP = {
 };
 
 var BAJG = {
-    DownloadData:{
+    DownloadData: {
         ICP: ICP
-    };
+    }
+}
 
 export { BAJG };

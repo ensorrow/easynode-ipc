@@ -15,8 +15,9 @@ var  ICP = {
 };
 
 var FFJRHMD = {
-    DownloadData:{
+    DownloadData: {
         ICP: ICP
-    };
+    }
+}
 
 export { FFJRHMD };

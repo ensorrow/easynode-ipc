@@ -11,8 +11,8 @@ var  ICP = {
 };
 
 var ZXSJ = {
-    DownloadData:{
+    DownloadData: {
         ICP: ICP
-    };
-
+    }
+}
 export { ZXSJ };

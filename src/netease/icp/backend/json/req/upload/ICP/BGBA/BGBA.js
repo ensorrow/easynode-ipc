@@ -96,7 +96,7 @@ function BGBA_ASSIGN(json){
     var ztxx = {
         Ztid:0,
         Dwmc:'',
-        Baxh:''
+        Baxh:'',
         Dwxz:0,
         Tzr:'',
         Txdz:{

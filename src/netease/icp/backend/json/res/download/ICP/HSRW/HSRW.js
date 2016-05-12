@@ -32,7 +32,7 @@ var hsrw = {
             Bz:''
         },
         Wz_xx:{
-            Wzid:0
+            Wzid:0,
             Wzmc:'',
             Nrlx:{
                 Nrlx_xx:{
@@ -95,8 +95,9 @@ var  ICP = {
 };
 
 var HSRW = {
-    DownloadData:{
+    DownloadData: {
         ICP: ICP
-    };
+    }
+}
 
 export { HSRW };

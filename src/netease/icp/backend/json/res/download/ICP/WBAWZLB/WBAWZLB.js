@@ -4,7 +4,7 @@ var wbawz_xx = {
         Wzym_mc:'',
         Yylb:{
             Yylb_id:[]
-        }
+        },
         IP:0,
         Dqjcsj:'',
         Jccs:'',
@@ -21,8 +21,9 @@ var  ICP = {
 };
 
 var WBAWZLB = {
-    DownloadData:{
+    DownloadData: {
         ICP: ICP
-    };
+    }
+}
 
 export { WBAWZLB };

@@ -678,3 +678,13 @@ NOS同名key能覆盖,浏览器下载缓存了.
 110. 由于js/index.js文件中help, CheckTrialNoPass, CheckTrialPass, CheckPhotoNoPass, CheckPhotoPass, CheckConcilPass, CheckConcilNoPass,是在cb(中被require),所以出现了
 like [1~7].. 目录名称.
 111. curl ifconfig.me 获取出口IP
+112. 转成es5运行
+babel main.js --out-file main.min.js
+babel src --out-dir lib
+mv src srcbackup
+mv lib src
+113. RegeneratorRuntime is not defined
+npm install babel-polyfill --save
+Then insert the following require statement towards the top of the affected module to obtain required(generator) behaviour:
+require('babel-polyfill');
+

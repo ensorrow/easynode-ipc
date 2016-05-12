@@ -10,7 +10,7 @@ var Baxx = {
                 Shengid:0,
                 Shiid:0,
                 Xianid:0,
-                Xxdz,''
+                Xxdz:''
             },
             Zj:{
                 Zjlx:0,
@@ -41,7 +41,7 @@ var Baxx = {
         },
         Wz_xx:{
             IspWzid:0,
-            Wzid:0
+            Wzid:0,
             Wzmc:'',
             Nrlx:{
                 Nrlx_xx:{
@@ -94,19 +94,19 @@ var Baxx = {
                 Zjxgsj:'',
                 Baxh:''
             }
-        }
         },
         Bz:''
     }
-};
+}
 
 var  ICP = {
     BASJ:Baxx
 };
 
 var BASJ = {
-    DownloadData:{
+    DownloadData: {
         ICP: ICP
-};
+    }
+}
 
 export { BASJ };

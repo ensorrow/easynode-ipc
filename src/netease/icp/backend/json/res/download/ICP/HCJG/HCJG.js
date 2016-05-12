@@ -42,8 +42,9 @@ var  ICP = {
 };
 
 var HCJG = {
-    DownloadData:{
+    DownloadData: {
         ICP: ICP
-    };
+    }
+}
 
 export { HCJG };

@@ -662,6 +662,43 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
             }
         }
 
+        putRecord2(id,status){
+            var me = this;
+            return function *(){
+                var r = null;
+                var conn = null;
+                var model = new Record();
+                var id = id;
+                var status = status;
+
+                var arr = [];
+                var sql = ``;
+
+                try{
+                    conn = yield me.app.ds.getConnection();
+
+                    sql = `SELECT id FROM record WHERE id = #id#`;
+                    arr =  yield conn.execQuery(sql,{ id:id });
+                    if( arr.length <= 0 )
+                        return false;
+
+                    model.merge( Object.assign({}, { id: id } ));
+                    if( status ){
+                        model.merge( Object.assign({}, { status: status } ));
+                    }
+
+                    r = yield conn.update(model);
+                    var ret =  r.affectedRows + r.insertId > 0 ?  true : false;
+                    return ret;
+                }catch(e){
+                    EasyNode.DEBUG && logger.debug(` ${e},${e.stack}`);
+                    return false;
+                }finally {
+                    yield me.app.ds.releaseConnection(conn);
+                }
+            }
+        }
+
         putRecordb(){
             var me = this;
             return function *(){
@@ -939,16 +976,16 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
 
                 console.log(form);
                 console.log(this.session.user);
-                var id = this.session.user.id;
+                var userid = this.session.user.id;
                 var mailingaddress = form.mailingaddress;
                 var recipient = form.recipient;
                 var recipientmobile = form.recipientmobile;
                 var companyname = form.companyname;
-                var id = form.recordid;
+                var recordid = form.recordid;
 
                 try{
                     conn = yield me.app.ds.getConnection();
-                    model.merge( Object.assign({}, { id: id, applycurtainstatus: 1 } ));
+                    model.merge( Object.assign({}, { id: userid, applycurtainstatus: 1 } ));
                     if( mailingaddress ){
                         model.merge( Object.assign({}, { mailingaddress: mailingaddress } ));
                     }
@@ -964,7 +1001,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
 
                     r = yield conn.update(model);
 
-                    yield storeService.putRecord2(id,11);
+                    yield storeService.putRecord2(recordid,11);
 
                     return r.affectedRows + r.insertId > 0 ?  true : false;
                 }catch(e){

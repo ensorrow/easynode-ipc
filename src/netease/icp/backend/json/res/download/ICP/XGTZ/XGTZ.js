@@ -13,8 +13,9 @@ var  ICP = {
 };
 
 var XGTZ = {
-    DownloadData:{
+    DownloadData: {
         ICP: ICP
-    };
+    }
+}
 
 export { XGTZ };

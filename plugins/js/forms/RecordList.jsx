@@ -96,6 +96,16 @@ let Operation = React.createClass({
                 <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> </td>
             );
         }
+        else if( prg == 11){
+            return (
+                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> </td>
+            );
+        }
+        else if( prg == 12){
+            return (
+                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> </td>
+            );
+        }
     }
 });
 

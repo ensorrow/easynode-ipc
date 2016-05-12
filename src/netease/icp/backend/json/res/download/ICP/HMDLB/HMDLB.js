@@ -28,8 +28,9 @@ var  ICP = {
 };
 
 var HMDLB = {
-    DownloadData:{
+    DownloadData: {
         ICP: ICP
-    };
+    }
+}
 
 export { HMDLB };

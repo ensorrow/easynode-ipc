@@ -8,7 +8,7 @@ var Baxx = {
                 Shengid:0,
                     Shiid:0,
                     Xianid:0,
-                    Xxdz,''
+                    Xxdz:''
             },
             Zj:{
                 Zjlx:0,
