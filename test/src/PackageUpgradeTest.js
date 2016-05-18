@@ -24,7 +24,7 @@ const logger = using('easynode.framework.Logger').getLogger();
 var iconv = require('iconv-lite');
 
 
-var pkgPath = '/Users/hujiabao/workspace_docker/icp/easynode-ipc/node_modules/easynode/package.json';
+var pkgPath = '../../node_modules/easynode/package.json';
 var pkg = require(pkgPath);
 
 
