@@ -1,6 +1,6 @@
 FROM node:6.1.0-wheezy
 
-MAINTAINER hujiabao
+MAINTAINER hujb
 
 RUN npm install -g cnpm --registry=https://r.cnpmjs.org
 
