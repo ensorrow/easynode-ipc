@@ -20,7 +20,7 @@ COPY package.json /usr/src/app
 
 WORKDIR /usr/src/app
 
-RUN cnpm install
+RUN npm install
 
 COPY . /usr/src/app
 
@@ -33,8 +33,6 @@ WORKDIR /usr/src/app/plugins/apidoc
 RUN sh apidoc.sh
 
 WORKDIR /usr/src/app
-
-RUN babel src -d lib
 
 WORKDIR /usr/src/app/bin
 
