@@ -1,3 +1,4 @@
+/*
 //插入ip备 案信息到数据表iply
 'use strict';
 
@@ -102,3 +103,4 @@ describe('PortScanTest',function() {
 
 });
 
+*/
