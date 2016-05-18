@@ -1,3 +1,4 @@
+/*
 //插入ip备 案信息到数据表iply
 'use strict';
 
@@ -13,7 +14,7 @@ import fs from 'fs';
 
 require('easynode');
 EasyNode.addArg('easynode-home',process.cwd());
-EasyNode.addSourceDirectory('/node_modules/easynode/src');
+EasyNode.addSourceDirectory('/node_modules/easynode/lib');
 const logger = using('easynode.framework.Logger').getLogger();
 
 var PortScanService = using('netease.icp.backend.services.PortScanService');
@@ -102,3 +103,4 @@ describe('PortScanTest',function() {
 
 });
 
+*/

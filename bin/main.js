@@ -4,7 +4,7 @@ var util = require('util');
 var co = require('co');
 var fs = require('fs');
 
-EasyNode.addSourceDirectory('node_modules/easynode/src');
+EasyNode.addSourceDirectory('node_modules/easynode/lib');
 
 const logger = using('easynode.framework.Logger').getLogger();
 

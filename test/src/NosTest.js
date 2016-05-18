@@ -16,7 +16,7 @@ var md5 = crypto.createHash('md5');
 import fs from 'fs';
 require('easynode');
 EasyNode.addArg('easynode-home',process.cwd());
-EasyNode.addSourceDirectory('/node_modules/easynode/src');
+EasyNode.addSourceDirectory('/node_modules/easynode/lib');
 const logger = using('easynode.framework.Logger').getLogger();
 var iconv = require('iconv-lite');
 var Nos = require('nenos');

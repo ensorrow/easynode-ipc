@@ -6,7 +6,7 @@
 startService() {
         echo "starting  service [$1],  HTTP port: [$2]"
 
-        nohup babel-node --harmony main.js --debug-output=true --http.server.port=$2 --src-dirs=src --main-class=netease.icp.backend.Main --config-files=config/service.conf  --easynode.app.id=$1 &
+        nohup node main.min.js --debug-output=true --http.server.port=$2 --src-dirs=src --main-class=netease.icp.backend.Main --config-files=config/service.conf  --easynode.app.id=$1 &
 }
 
 echo 'starting icp servers...'

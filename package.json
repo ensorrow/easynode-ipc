@@ -14,13 +14,15 @@
     "babel-runtime": "^5.8.20",
     "babelify": "^7.2.0",
     "chai": "^3.5.0",
-    "cheerio": "^0.20.0",
+    "cheerio": "^0.20pwd
+    pwd
+    .0",
     "co": "~4.5.4",
     "co-fs": "~1.2.0",
     "co-multipart": "~0.2.0",
     "co-redis": "~1.1.1",
     "date-utils": "~1.2.16",
-    "easynode": "~0.1.13",
+    "easynode": "~0.1.18",
     "ejs": "~1.0.0",
     "es5-shim": "^4.4.1",
     "fstream": "^1.0.8",
