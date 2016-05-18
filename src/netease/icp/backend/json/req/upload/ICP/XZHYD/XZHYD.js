@@ -1,21 +1,19 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var fs = require('fs');
+const fs = require('fs');
 
 var xzhyd = {
     UploadData: {
         ICP: {
-            XZHYD: {
-                Fjxx: []
+            XZHYD:{
+                Fjxx:[
+
+                ]
             },
-            Qqdwid: 0
+            Qqdwid:0
         }
     },
-    attr: { version: "V.3.0" }
+    attr: {version:"V.3.0"}
 };
+
 
 /*
 * { website:
@@ -87,21 +85,20 @@ var xzhyd = {
      operatetime: 0,
      operator: '' } }
 */
-function XZHYD_ASSIGN(json) {
+function XZHYD_ASSIGN(json){
     "use strict";
-
     var fjxx = {
-        Fjwjgs: 0,
-        Fjyt: 0,
-        Fjnr: '',
-        Fjssdx: {
-            Ssdxlx: 1,
-            Ssdxbs: {
-                Jlid: 0,
-                Baxh: ''
+        Fjwjgs:0,
+        Fjyt:0,
+        Fjnr:'',
+        Fjssdx:{
+        Ssdxlx:1,
+            Ssdxbs:{
+                Jlid:0,
+                Baxh:''
             }
         },
-        Bz: ''
+        Bz:''
     };
 
     console.log(xzhyd);
@@ -110,4 +107,5 @@ function XZHYD_ASSIGN(json) {
     return xzhyd;
 };
 
-exports.XZHYD_ASSIGN = XZHYD_ASSIGN;
+export { XZHYD_ASSIGN };
+

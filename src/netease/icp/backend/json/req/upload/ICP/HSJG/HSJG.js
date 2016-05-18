@@ -1,21 +1,19 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var fs = require('fs');
+const fs = require('fs');
 
 var hsjg = {
     UploadData: {
         ICP: {
-            HSJG: {
-                Hsjgxx: []
+            HSJG:{
+                Hsjgxx:[
+
+                ]
             },
-            Qqdwid: 0
+            Qqdwid:0
         }
     },
-    attr: { version: "V.3.0" }
+    attr: {version:"V.3.0"}
 };
+
 
 /*
 * { website:
@@ -87,21 +85,24 @@ var hsjg = {
      operatetime: 0,
      operator: '' } }
 */
-function HSJG_ASSIGN(json) {
+function HSJG_ASSIGN(json){
     "use strict";
-
     var cur = new Date();
-    var hssj = cur.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+    var hssj = cur.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
     var hsjgxx = {
-        Hsjg: 0,
-        Hsrxm: '胡家宝',
-        Hssj: hssj,
-        Bbdw: 110000000211,
-        Hsyj: '核实通过',
-        Cwxx: '无',
-        Baxx: {
-            Zt_xx: {},
-            Wz_xx: []
+        Hsjg:0,
+        Hsrxm:'胡家宝',
+        Hssj:hssj,
+        Bbdw:110000000211,
+        Hsyj:'核实通过',
+        Cwxx:'无',
+        Baxx:{
+            Zt_xx:{
+
+            },
+            Wz_xx:[
+
+            ]
         }
     };
 
@@ -121,7 +122,7 @@ function HSJG_ASSIGN(json) {
             Shengid: 0,
             Shiid: 0,
             xianid: 0,
-            Xxdz: ''
+            Xxdz: '',
         },
         Zj: {
             Zjlx: 0,
@@ -153,10 +154,12 @@ function HSJG_ASSIGN(json) {
         Fwnr: {
             Fwnr_id: []
         },
-        Ym_xx: [{
-            Ymid: 0,
-            Ym: ''
-        }],
+        Ym_xx: [
+            {
+                Ymid: 0,
+                Ym: ''
+            }
+        ],
         Jr_xx: {
             Jrid: 0,
             Wzfb: {
@@ -165,13 +168,15 @@ function HSJG_ASSIGN(json) {
             Wzjrfs: {
                 Jrfs: []
             },
-            Ip_xx: [{
-                IspIpid: 0,
-                Ipid: 0,
-                Qsip: 0,
-                Zzip: 0
-            }],
-            Bbfs: 1
+            Ip_xx: [
+                {
+                    IspIpid: 0,
+                    Ipid: 0,
+                    Qsip: 0,
+                    Zzip: 0
+                }
+            ],
+            Bbfs:1
         },
         Wz_Fzr: {
             Fzr_xm: '',
@@ -196,4 +201,4 @@ function HSJG_ASSIGN(json) {
     return hsjg;
 };
 
-exports.HSJG_ASSIGN = HSJG_ASSIGN;
+export { HSJG_ASSIGN };

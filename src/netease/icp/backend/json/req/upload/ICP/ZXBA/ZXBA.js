@@ -1,21 +1,19 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var fs = require('fs');
+const fs = require('fs');
 
 var zxba = {
     UploadData: {
         ICP: {
-            ZXBA: {
-                Zx_xx: []
+            ZXBA:{
+                Zx_xx:[
+
+                ]
             },
-            Qqdwid: 0
+            Qqdwid:0
         }
     },
-    attr: { version: "V.3.0" }
+    attr: {version:"V.3.0"}
 };
+
 
 /*
 * { website:
@@ -87,22 +85,22 @@ var zxba = {
      operatetime: 0,
      operator: '' } }
 */
-function ZXBA_ASSIGN(json) {
+function ZXBA_ASSIGN(json){
     "use strict";
-
     var zxxx = {
-        Zxlb: 0,
-        Jlid: 0,
-        Zxly: 0,
-        Zxlybz: '',
-        ICPmm: ''
+        Zxlb:0,
+        Jlid:0,
+        Zxly:0,
+        Zxlybz:'',
+        ICPmm:''
     };
 
     zxxx.Zxlb = json.record.type;
-    zxxx.Jlid = 0; //ToDo
+    zxxx.Jlid = 0;//ToDo
     zxxx.Zxly = '';
     zxxx.Zxlybz = '';
     zxxx.ICPmm = json.company.recordpassword;
+
 
     console.log("zxba.....");
     console.log(xzwz);
@@ -111,4 +109,4 @@ function ZXBA_ASSIGN(json) {
     return zxba;
 };
 
-exports.ZXBA_ASSIGN = ZXBA_ASSIGN;
+export { ZXBA_ASSIGN };

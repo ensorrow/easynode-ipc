@@ -1,8 +1,3 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 /*
 var xgba = {
     Xgly:{
@@ -92,35 +87,37 @@ var XGBA = {
 export { XGBA };
 */
 
-var fs = require('fs');
+
+
+const fs = require('fs');
 
 var xgba = {
     UploadData: {
         IP: {
-            XGBA: {
-                Xgly: {
-                    Ly_xx: {
-                        Id: 0,
-                        Qsip: 0,
-                        Zzip: 0,
-                        Lydw: '',
-                        Bz: ''
+            XGBA:{
+                Xgly:{
+                    Ly_xx:{
+                        Id:0,
+                        Qsip:0,
+                        Zzip:0,
+                        Lydw:'',
+                        Bz:''
                     }
                 },
-                Xgfp: {
-                    Fpsy: []
+                Xgfp:{
+                    Fpsy:[]
                 },
-                XgZd: {
-                    Zdxx: []
+                XgZd:{
+                    Zdxx:[]
                 },
-                Xggbjs: {
-                    Jsxx: []
+                Xggbjs:{
+                    Jsxx:[]
                 }
             },
-            Qqdwid: 0
+            Qqdwid:0
         }
     },
-    attr: { version: "V.3.0" }
+    attr: {version:"V.3.0"}
 };
 
 /*
@@ -193,70 +190,71 @@ var xgba = {
      operatetime: 0,
      operator: '' } }
 */
-function XGBA_ASSIGN(json) {
+function XGBA_ASSIGN(json){
     "use strict";
 
     var fpsy = {
-        Id: 0,
-        Qsip: 0,
-        Zzip: 0,
-        Fpfs: 0,
-        Fpdx: 0,
-        Syfs: 0,
-        Fprq: '',
-        Sfymtz: '',
-        Dwmc: '',
-        Dwxz: 0,
-        Dwfl: 0,
-        Dwhyfl: 0,
-        Shengid: 0,
-        Shiid: 0,
-        Xianid: 0,
-        Xxdz: '',
-        Lxrxm: '',
-        Lxrdh: '',
-        Lxrdzyj: '',
-        Wgip: 0,
-        Wgdz: '',
-        Bz: ''
+        Id:0,
+        Qsip:0,
+        Zzip:0,
+        Fpfs:0,
+        Fpdx:0,
+        Syfs:0,
+        Fprq:'',
+        Sfymtz:'',
+        Dwmc:'',
+        Dwxz:0,
+        Dwfl:0,
+        Dwhyfl:0,
+        Shengid:0,
+        Shiid:0,
+        Xianid:0,
+        Xxdz:'',
+        Lxrxm:'',
+        Lxrdh:'',
+        Lxrdzyj:'',
+        Wgip:0,
+        Wgdz:'',
+        Bz:''
     };
 
-    var zdxx = {
-        Id: 0,
-        Qsip: 0,
-        Zzip: 0,
-        Sfymtz: 0,
-        Syfs: 1,
-        Fprq: '',
-        Dwmc: '',
-        Dwxz: '',
-        Shengid: 0,
-        Shiid: 0,
-        Xianid: 0,
-        Xxdz: '',
-        Lxrxm: '',
-        Lxrdh: '',
-        Lxrdzyj: '',
-        Wgip: 0,
-        Wgdz: '',
-        Bz: '',
-        Ly_dwlx: 0,
-        Lydw: {
-            Ly_dwmc: '',
-            Ly_dwid: 0
+    var zdxx =  {
+        Id:0,
+        Qsip:0,
+        Zzip:0,
+        Sfymtz:0,
+        Syfs:1,
+        Fprq:'',
+        Dwmc:'',
+        Dwxz:'',
+        Shengid:0,
+        Shiid:0,
+        Xianid:0,
+        Xxdz:'',
+        Lxrxm:'',
+        Lxrdh:'',
+        Lxrdzyj:'',
+        Wgip:0,
+        Wgdz:'',
+        Bz:'',
+        Ly_dwlx:0,
+        Lydw:{
+            Ly_dwmc:'',
+            Ly_dwid:0
         }
     };
 
+
     var jsxx = {
-        Id: 0,
-        Gbdw: 0,
-        Sqdw: 0,
-        Qsip: 0,
-        Zzip: 0,
-        Bz: ''
+        Id:0,
+        Gbdw:0,
+        Sqdw:0,
+        Qsip:0,
+        Zzip:0,
+        Bz:''
     };
 
-    xgba.UploadData.IP.XGBA.Xgly.Ly_xx.Id = 0; //ToDo
+    xgba.UploadData.IP.XGBA.Xgly.Ly_xx.Id = 0;//ToDo
     xgba.UploadData.IP.XGBA.Xgly.Ly_xx.Qsip = 0;
     xgba.UploadData.IP.XGBA.Xgly.Ly_xx.Zzip = 0;
     xgba.UploadData.IP.XGBA.Xgly.Ly_xx.Lydw = 0;
@@ -271,4 +269,5 @@ function XGBA_ASSIGN(json) {
     return xgba;
 };
 
-exports.XGBA_ASSIGN = XGBA_ASSIGN;
+export { XGBA_ASSIGN };
+

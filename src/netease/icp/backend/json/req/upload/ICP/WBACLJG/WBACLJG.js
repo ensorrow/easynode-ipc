@@ -1,8 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 /*
 var clxx = {
     Clxx: {
@@ -33,19 +28,22 @@ var WBACLJG = {
 export { WBACLJG };
 */
 
-var fs = require('fs');
+const fs = require('fs');
 
 var wbacljg = {
     UploadData: {
         ICP: {
-            WBACLJG: {
-                Clxx: []
+            WBACLJG:{
+                Clxx:[
+
+                ]
             },
-            Qqdwid: 0
+            Qqdwid:0
         }
     },
-    attr: { version: "V.3.0" }
+    attr: {version:"V.3.0"}
 };
+
 
 /*
 * { website:
@@ -117,23 +115,24 @@ var wbacljg = {
      operatetime: 0,
      operator: '' } }
 */
-function WBACLJG_ASSIGN(json) {
+function WBACLJG_ASSIGN(json){
     "use strict";
-
     var clxx = {
-        Ym: '',
-        IP: 0,
-        Yys: 0,
-        Jrs: 0,
-        Shengid: 0,
-        Cljg: 0,
-        Clyj: '',
-        Rbsj: '',
-        Clsx: '',
-        Sbrxm: '',
-        Sbrdh: '',
-        Sbrdzyj: ''
+        Ym:'',
+        IP:0,
+        Yys:0,
+        Jrs:0,
+        Shengid:0,
+        Cljg:0,
+        Clyj:'',
+        Rbsj:'',
+        Clsx:'',
+        Sbrxm:'',
+        Sbrdh:'',
+        Sbrdzyj:''
     };
+
+
 
     console.log("clxx.....");
     console.log(wbacljg);
@@ -142,4 +141,4 @@ function WBACLJG_ASSIGN(json) {
     return hsjg;
 };
 
-exports.HSJG_ASSIGN = HSJG_ASSIGN;
+export { HSJG_ASSIGN };

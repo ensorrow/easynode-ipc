@@ -1,21 +1,19 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var fs = require('fs');
+const fs = require('fs');
 
 var xzjr = {
     UploadData: {
         ICP: {
-            XZJR: {
-                Xzxx: []
+            XZJR:{
+                Xzxx:[
+
+                ]
             },
-            Qqdwid: 0
+            Qqdwid:0
         }
     },
-    attr: { version: "V.3.0" }
+    attr: {version:"V.3.0"}
 };
+
 
 /*
 * { website:
@@ -87,55 +85,56 @@ var xzjr = {
      operatetime: 0,
      operator: '' } }
 */
-function XZJR_ASSIGN(json) {
+function XZJR_ASSIGN(json){
     "use strict";
-
-    var Xzjr = {
-        Wz_xx: {
-            Wzbah: '',
-            Wzid: ''
+    var Xzjr  = {
+        Wz_xx:{
+            Wzbah:'',
+            Wzid:''
         },
-        IspJrid: 0,
-        Wzfb: {
-            Fbdd: []
+        IspJrid:0,
+        Wzfb:{
+            Fbdd:[]
         },
-        Wzjrfs: {
-            Jrfs: [1]
+        Wzjrfs:{
+            Jrfs:[1]
         },
-        Ip_xx: [{
-            IspIpid: json.website.id,
-            Qsip: json.website.ip.ip1,
-            Zzip: json.website.ip.ip2
-        }],
-        Fj: [],
-        ICPmm: ''
+        Ip_xx:[
+            {
+                IspIpid:json.website.id,
+                Qsip:json.website.ip.ip1,
+                Zzip:json.website.ip.ip2
+            }
+        ],
+        Fj:[],
+        ICPmm:''
     };
 
     Xzjr.Wz_xx.Wzbah = json.company.recordnumber;
-    Xzjr.Wz_xx.Wzid = json.website.id; //ToDo
+    Xzjr.Wz_xx.Wzid = json.website.id;//ToDo
     Xzjr.IspJrid = json.website.id;
     Xzjr.Wzfb.Fbdd.push(json.website.serverregion);
     Xzjr.Ip_xx.push({
-        IspIpid: json.website.id,
-        Qsip: json.website.ip.ip1,
-        Zzip: json.website.ip.ip2
-    }); //ToDo
+        IspIpid:json.website.id,
+        Qsip:json.website.ip.ip1,
+        Zzip:json.website.ip.ip2
+    });//ToDo
 
     var fj = {
-        Fjxx: {
-            Fjwjgs: 1,
-            Fjyt: 1,
-            Fjnr: json.record.sitemanagerurl,
-            Fjssdx: {
-                Ssdxlx: 1,
-                Ssdxbs: {
-                    Jlid: 0,
-                    Baxh: ''
+        Fjxx:{
+            Fjwjgs:1,
+            Fjyt:1,
+            Fjnr:json.record.sitemanagerurl,
+            Fjssdx:{
+                Ssdxlx:1,
+                Ssdxbs:{
+                    Jlid:0,
+                    Baxh:''
                 }
             },
-            Bz: 'empty'
+            Bz:'empty'
         }
-    }; //ToDo
+    };//ToDo
     Xzjr.Fj.push(fj);
     Xzjr.ICPmm = json.company.recordpassword;
 
@@ -146,4 +145,4 @@ function XZJR_ASSIGN(json) {
     return xzjr;
 };
 
-exports.XZJR_ASSIGN = XZJR_ASSIGN;
+export { XZJR_ASSIGN };

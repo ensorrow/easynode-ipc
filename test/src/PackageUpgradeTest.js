@@ -1,7 +1,6 @@
-/*
-/!**
+/**
  * Created by hujiabao on 9/21/15.
- *!/
+ */
 
 'use strict';
 
@@ -28,10 +27,10 @@ var ispService ;
 
 var config = require('../../config.json');
 
-describe('CheerioTest',function() {
+describe('PackageUpgradeTest',function() {
 
     before(function(done){
-        console.log("CheerioTest before");
+        console.log("PackageUpgradeTest before");
         try{
             ispService = new IspService(null,config);
             done();
@@ -81,7 +80,7 @@ describe('CheerioTest',function() {
         done();
     })
 
-    /!*for( var j=0; j<100; j++ ){
+    /*for( var j=0; j<100; j++ ){
         console.log('jj:',j);
         it('for circle test',function (done){
 
@@ -89,10 +88,10 @@ describe('CheerioTest',function() {
 
             done();
         })
-    }*!/
+    }*/
 
 
-    /!*
+    /*
     URL:http://www.miitbeian.gov.cn/publish/query/indexFirst.action
     Real URL: http://www.miitbeian.gov.cn/basecode/query/showareacode.action
     change path action: showareacode.action
@@ -107,7 +106,7 @@ describe('CheerioTest',function() {
     }
     page structure: document.querySelector('.a >table > tbody')
                      document.querySelectorAll('.a >table > tbody >tr')
-    * *!/
+    * */
     it('cheerio load page',function (done){
 
         co(function * () {
@@ -154,10 +153,9 @@ describe('CheerioTest',function() {
 
 
     after(function(done){
-        console.log("CheerioTest after");
+        console.log("PackageUpgradeTest after");
         done();
 
     });
 
 });
-*/

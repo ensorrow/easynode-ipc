@@ -1,8 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 /*
 var scba = {
     Scxx:{
@@ -24,18 +19,19 @@ var SCBA = {
 export { SCBA };
 */
 
-var fs = require('fs');
+
+const fs = require('fs');
 
 var scba = {
     UploadData: {
         YM: {
-            SCBA: {
-                Scxx: []
+            SCBA:{
+                Scxx:[]
             },
-            Qqdwid: 0
+            Qqdwid:0
         }
     },
-    attr: { version: "V.3.0" }
+    attr: {version:"V.3.0"}
 };
 
 /*
@@ -108,19 +104,19 @@ var scba = {
      operatetime: 0,
      operator: '' } }
 */
-function SCBA_ASSIGN(json) {
+function SCBA_ASSIGN(json){
     "use strict";
 
     var scxx = {
-        Id: 0,
-        Ym: ''
+        Id:0,
+        Ym:''
     };
 
-    scba.UploadData.YM.SCBA.Scxx.push(scxx); //ToDo
+    scba.UploadData.YM.SCBA.Scxx.push(scxx);//ToDo
     scba.UploadData.YM.Qqdwid = 110000000211;
 
     console.log(scba);
     return scba;
 };
 
-exports.SCBA_ASSIGN = SCBA_ASSIGN;
+export { SCBA_ASSIGN };

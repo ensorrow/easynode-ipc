@@ -1,39 +1,34 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 var bajg = {
-    Jg_xx: {
-        Jgxx: {
-            Jgdm: 0,
-            Dmms: ''
+    Jg_xx:{
+        Jgxx:{
+            Jgdm:0,
+            Dmms:''
         },
-        Czlx: 0,
-        Bs: '',
-        Bz: ''
+        Czlx:0,
+        Bs:'',
+        Bz:''
     },
-    GJSHS: {
-        Gjsh: {
-            Shrxm: '',
-            Shr_dhhm: '',
-            Shsj: '',
-            Shyj: '',
-            Shjg: 0,
-            Czlx: 0,
-            Jlid: 0
+    GJSHS:{
+        Gjsh:{
+            Shrxm:'',
+            Shr_dhhm:'',
+            Shsj:'',
+            Shyj:'',
+            Shjg:0,
+            Czlx:0,
+            Jlid:0
         }
     }
 };
 
-var ICP = {
-    BAJG: bajg
+var  ICP = {
+    BAJG:bajg
 };
 
 var BAJG = {
     DownloadData: {
         ICP: ICP
     }
-};
+}
 
-exports.BAJG = BAJG;
+export { BAJG };

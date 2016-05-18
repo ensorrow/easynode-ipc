@@ -1,8 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 /*
 var xgba = {
     Xzxx:{
@@ -50,18 +45,21 @@ var XGBA = {
 export { XGBA };
 */
 
-var fs = require('fs');
+
+
+
+const fs = require('fs');
 
 var xgba = {
     UploadData: {
         IP: {
-            XGBA: {
-                Xzxx: []
+            XGBA:{
+                Xzxx:[]
             },
-            Qqdwid: 0
+            Qqdwid:0
         }
     },
-    attr: { version: "V.3.0" }
+    attr: {version:"V.3.0"}
 };
 
 /*
@@ -134,38 +132,38 @@ var xgba = {
      operatetime: 0,
      operator: '' } }
 */
-function XGBA_ASSIGN(json) {
+function XGBA_ASSIGN(json){
     "use strict";
 
     var xzxx = {
-        Id: 0,
-        Ym: '',
-        Ymlx: 0,
-        Zcsj: '',
-        Zcr_mc: '',
-        Zcr_zz: '',
-        Zcr_txdz: '',
-        Zcr_shengid: 0,
-        Zcr_shiid: 0,
-        Zcr_dzyj: '',
-        Zcr_dhhm: '',
-        Gly_mz: '',
-        Gly_zz: '',
-        Gly_dz: '',
-        Gly_shengid: '',
-        Gly_shiid: '',
-        Gly_dzyj: '',
-        Gly_dh: '',
-        Jfr_mz: '',
-        Jfr_zz: '',
-        Jfr_dz: '',
-        Jfr_shengid: '',
-        Jfr_shiid: '',
-        Jfr_dzyj: '',
-        Jfr_dh: '',
-        Ym_zcs: '',
-        Ym_fwq: '',
-        Yxrq: ''
+        Id:0,
+        Ym:'',
+        Ymlx:0,
+        Zcsj:'',
+        Zcr_mc:'',
+        Zcr_zz:'',
+        Zcr_txdz:'',
+        Zcr_shengid:0,
+        Zcr_shiid:0,
+        Zcr_dzyj:'',
+        Zcr_dhhm:'',
+        Gly_mz:'',
+        Gly_zz:'',
+        Gly_dz:'',
+        Gly_shengid:'',
+        Gly_shiid:'',
+        Gly_dzyj:'',
+        Gly_dh:'',
+        Jfr_mz:'',
+        Jfr_zz:'',
+        Jfr_dz:'',
+        Jfr_shengid:'',
+        Jfr_shiid:'',
+        Jfr_dzyj:'',
+        Jfr_dh:'',
+        Ym_zcs:'',
+        Ym_fwq:'',
+        Yxrq:''
     };
 
     xgba.UploadData.YM.XGBA.Xzxx.push(xzxx);
@@ -175,4 +173,5 @@ function XGBA_ASSIGN(json) {
     return xgba;
 };
 
-exports.XGBA_ASSIGN = XGBA_ASSIGN;
+export { XGBA_ASSIGN };
+

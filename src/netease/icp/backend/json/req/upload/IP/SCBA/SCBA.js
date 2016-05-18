@@ -1,9 +1,6 @@
-"use strict";
+const fs = require('fs');
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var fs = require('fs');
+
 
 /*
 * { website:
@@ -99,24 +96,24 @@ var fs = require('fs');
         attr: {version:"V.3.0"}
     };
 * */
-function IP_SCBA_ASSIGN(json) {
+function IP_SCBA_ASSIGN(json){
     "use strict";
 
     var scba = {
         UploadData: {
             IP: {
-                SCBA: {
-                    Scly: {
-                        Ly: []
+                SCBA:{
+                    Scly:{
+                        Ly:[]
                     }
                 },
-                Qqdwid: 0
+                Qqdwid:0
             }
         },
-        attr: { version: "V.3.0" }
+        attr: {version:"V.3.0"}
     };
     var ly = {
-        id: 0
+        id:0
     };
     ly.id = json.id;
     scba.UploadData.IP.SCBA.Scly.Ly.push(ly);
@@ -129,4 +126,4 @@ function IP_SCBA_ASSIGN(json) {
     return scba;
 };
 
-exports.IP_SCBA_ASSIGN = IP_SCBA_ASSIGN;
+export { IP_SCBA_ASSIGN };
