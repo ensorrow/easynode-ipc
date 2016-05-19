@@ -30,3 +30,4 @@ bin/stop_servers.sh
 dataSequence.bin
 
 test/src/NosTest.js
+plugins/README.md
