@@ -15,6 +15,7 @@ var request = require('superagent');
 import fs from 'fs';
 
 require('easynode');
+EasyNode.ENV('DEVELOP');
 EasyNode.addArg('easynode-home',process.cwd());
 EasyNode.addSourceDirectory('/node_modules/easynode/lib');
 const logger = using('easynode.framework.Logger').getLogger();

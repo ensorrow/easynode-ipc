@@ -688,3 +688,11 @@ npm install babel-polyfill --save
 Then insert the following require statement towards the top of the affected module to obtain required(generator) behaviour:
 require('babel-polyfill');
 
+114. test script
+
+EasyNode.ENV('DEVELOP');
+EasyNode.addArg('easynode-home',process.cwd());
+EasyNode.addSourceDirectory('/node_modules/easynode/lib');
+
+
+ENV='DEVELOP' npm test
