@@ -1,4 +1,4 @@
-FROM node:6.1.0-wheezy
+FROM node:6.2.0-jessie
 
 MAINTAINER hujb
 
