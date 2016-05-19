@@ -5,4 +5,4 @@ var DK = {
     }
 };
 
-export { DK };
+module.exports = DK;

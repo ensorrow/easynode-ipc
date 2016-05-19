@@ -11,7 +11,7 @@ var hsjg = {
             Qqdwid:0
         }
     },
-    attr: {version:"V.3.0"}
+    attr: {version:'V.3.0'}
 };
 
 
@@ -85,10 +85,10 @@ var hsjg = {
      operatetime: 0,
      operator: '' } }
 */
-function HSJG_ASSIGN(json){
-    "use strict";
+var HSJG_ASSIGN = function (json) {
+    'use strict';
     var cur = new Date();
-    var hssj = cur.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+    var hssj = cur.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
     var hsjgxx = {
         Hsjg:0,
         Hsrxm:'胡家宝',
@@ -194,11 +194,12 @@ function HSJG_ASSIGN(json){
     hsjgxx.Baxx.Zt_xx = ztxx;
     hsjgxx.Baxx.Wz_xx.push(wzxx);
 
-    console.log("jskg.....");
+    console.log('jskg.....');
     console.log(hsjg);
     hsjg.UploadData.ICP.HSJG.hsjgxx.push(hsjgxx);
     hsjg.UploadData.ICP.Qqdwid = 110000000211;
     return hsjg;
 };
 
-export { HSJG_ASSIGN };
+module.exports = HSJG_ASSIGN;
+

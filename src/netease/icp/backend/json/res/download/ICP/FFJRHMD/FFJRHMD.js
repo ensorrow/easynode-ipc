@@ -10,7 +10,7 @@ var ffjrhmd = {
     }
 };
 
-var  ICP = {
+var ICP = {
     HMDLB:ffjrhmd
 };
 
@@ -18,6 +18,7 @@ var FFJRHMD = {
     DownloadData: {
         ICP: ICP
     }
-}
+};
 
-export { FFJRHMD };
+module.exports = FFJRHMD;
+

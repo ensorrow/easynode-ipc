@@ -44,10 +44,6 @@ var XGBA = {
 
 export { XGBA };
 */
-
-
-
-
 const fs = require('fs');
 
 var xgba = {
@@ -59,7 +55,7 @@ var xgba = {
             Qqdwid:0
         }
     },
-    attr: {version:"V.3.0"}
+    attr: {version:'V.3.0'}
 };
 
 /*
@@ -132,8 +128,8 @@ var xgba = {
      operatetime: 0,
      operator: '' } }
 */
-function XGBA_ASSIGN(json){
-    "use strict";
+var XGBA_ASSIGN = function (json) {
+    'use strict';
 
     var xzxx = {
         Id:0,
@@ -173,5 +169,6 @@ function XGBA_ASSIGN(json){
     return xgba;
 };
 
-export { XGBA_ASSIGN };
+module.exports = XGBA_ASSIGN;
+
 

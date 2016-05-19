@@ -44,9 +44,6 @@ var XZBA = {
 
 export { XZBA };
 */
-
-
-
 const fs = require('fs');
 
 var xzba = {
@@ -58,7 +55,7 @@ var xzba = {
             Qqdwid:0
         }
     },
-    attr: {version:"V.3.0"}
+    attr: {version:'V.3.0'}
 };
 
 /*
@@ -131,8 +128,8 @@ var xzba = {
      operatetime: 0,
      operator: '' } }
 */
-function XZBA_ASSIGN(json){
-    "use strict";
+var XZBA_ASSIGN = function (json) {
+    'use strict';
 
     var xzxx = {
         IspId:0,
@@ -172,4 +169,4 @@ function XZBA_ASSIGN(json){
     return xzba;
 };
 
-export { XZBA_ASSIGN };
+module.exports = XZBA_ASSIGN;

@@ -1,8 +1,5 @@
 const fs = require('fs');
 
-
-
-
 /*
 * { website:
    { id: 313,
@@ -74,11 +71,11 @@ const fs = require('fs');
      operatetime: 0,
      operator: '' } }
 */
-function XZBA_ASSIGN(json){
-    "use strict";
+var XZBA_ASSIGN = function (json) {
+    'use strict';
     var xzba = {
-        "@": {
-            "version": "V.3.0"
+        '@': {
+            'version': 'V.3.0'
         },
         ICP: {
             XZBA:{
@@ -192,18 +189,18 @@ function XZBA_ASSIGN(json){
     wzxx.Nrlx.Nrlx_xx.Spwj = json.website.checkfileurl;
     wzxx.Fwnr.Fwnr_id = json.website.servicecontent;//ToDo
     wzxx.Yylb.Yylb_id = [1];//json.website.languages;//ToDo
-    wzxx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain});
-    if( json.website.domain1.length > 0 ){
-        wzxx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain1});
+    wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain});
+    if ( json.website.domain1.length > 0 ) {
+        wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain1});
     }
-    if( json.website.domain2.length > 0 ){
-        wzxx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain2});
+    if ( json.website.domain2.length > 0 ) {
+        wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain2});
     }
-    if( json.website.domain3.length > 0 ){
-        wzxx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain3});
+    if ( json.website.domain3.length > 0 ) {
+        wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain3});
     }
-    if( json.website.domain4.length > 0 ){
-        wzxx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain4});
+    if ( json.website.domain4.length > 0 ) {
+        wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain4});
     }
     wzxx.Jr_xx.push({
         IspJrid:json.website.id,
@@ -230,7 +227,7 @@ function XZBA_ASSIGN(json){
     wzxx.Wz_Fzr.Fzr_zjlx = json.website.manageridtype;
     wzxx.Wz_Fzr.Fzr_zjhm = json.website.manageridnumber;
     wzxx.Syurl = json.website.homeurl;
-    wzxx.Wz_Bz = json.website.remark.length <= 0 ? "remark empty" : json.website.remark ;//ToDo
+    wzxx.Wz_Bz = json.website.remark.length <= 0 ? 'remark empty' : json.website.remark;//ToDo
     Baxx.Wz_xx.push(wzxx);
 
     /*
@@ -250,7 +247,7 @@ function XZBA_ASSIGN(json){
 
     //核验单
     var fj = {};
-    if( json.record.sitemanagerurl.length > 0 ) {
+    if ( json.record.sitemanagerurl.length > 0 ) {
         fj = {
             Fjxx:{
                 Fjwjgs:2,
@@ -268,7 +265,7 @@ function XZBA_ASSIGN(json){
     }
 
     //主体负责人
-   if( json.record.sitemanagerurl.length > 0 ) {
+    if ( json.record.sitemanagerurl.length > 0 ) {
         fj = {
             Fjxx: {
                 Fjwjgs: 2,
@@ -333,13 +330,11 @@ function XZBA_ASSIGN(json){
         Baxx.Fj.push(fj);
     }*/
 
-
-
     console.log(xzba);
     xzba.ICP.XZBA.Baxx.push(Baxx);
     xzba.ICP.Qqdwid = 110000000211;
-    fs.writeFileSync('/Users/hujiabao/Downloads/first_json.json',JSON.stringify(xzba));
+    //fs.writeFileSync('/Users/hujiabao/Downloads/first_json.json',JSON.stringify(xzba));
     return xzba;
 };
 
-export { XZBA_ASSIGN };
+module.exports = XZBA_ASSIGN;

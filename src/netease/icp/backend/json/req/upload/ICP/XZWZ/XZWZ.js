@@ -11,7 +11,7 @@ var xzwz = {
             Qqdwid:0
         }
     },
-    attr: {version:"V.3.0"}
+    attr: {version:'V.3.0'}
 };
 
 
@@ -85,8 +85,9 @@ var xzwz = {
      operatetime: 0,
      operator: '' } }
 */
-function XZWZ_ASSIGN(json){
-    "use strict";
+
+var XZWZ_ASSIGN = function (json) {
+    'use strict';
     var Xzxx = {
         Zt_xx:{},
         Wz_xx:[],
@@ -146,18 +147,18 @@ function XZWZ_ASSIGN(json){
     wzxx.Nrlx.Nrlx_xx.Spwj = json.website.checkfileurl;
     wzxx.Fwnr.Fwnr_id = json.website.servicecontent;//ToDo
     wzxx.Yylb.Yylb_id = [1];//json.website.languages;//ToDo
-    wzxx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain});
-    if( json.website.domain1.length > 0 ){
-        wzxx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain1});
+    wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain});
+    if ( json.website.domain1.length > 0 ) {
+        wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain1});
     }
-    if( json.website.domain2.length > 0 ){
-        wzxx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain2});
+    if ( json.website.domain2.length > 0 ) {
+        wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain2});
     }
-    if( json.website.domain3.length > 0 ){
-        wzxx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain3});
+    if ( json.website.domain3.length > 0 ) {
+        wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain3});
     }
-    if( json.website.domain4.length > 0 ){
-        wzxx.Ym_xx.push({IspYmid:json.website.id,Ym:json.website.domain4});
+    if ( json.website.domain4.length > 0 ) {
+        wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain4});
     }
     wzxx.Jr_xx.push({
         IspJrid:json.website.id,
@@ -184,7 +185,7 @@ function XZWZ_ASSIGN(json){
     wzxx.Wz_Fzr.Fzr_zjlx = json.website.manageridtype;
     wzxx.Wz_Fzr.Fzr_zjhm = json.website.manageridnumber;
     wzxx.Syurl = json.website.homeurl;
-    wzxx.Wz_Bz = json.website.remark.length <= 0 ? "remark empty" : json.website.remark ;//ToDo
+    wzxx.Wz_Bz = json.website.remark.length <= 0 ? 'remark empty' : json.website.remark;//ToDo
     Xzxx.Wz_xx.push(wzxx);
 
     var fj = {
@@ -204,11 +205,12 @@ function XZWZ_ASSIGN(json){
     };//ToDo
     Xzxx.Fj.push(fj);
 
-    console.log("Xzwz.....");
+    console.log('Xzwz.....');
     console.log(xzwz);
     xzwz.UploadData.ICP.XZWZ.Xzxx.push(Xzxx);
     xzwz.UploadData.ICP.Qqdwid = 110000000211;
     return xzwz;
 };
 
-export { XZWZ_ASSIGN };
+module.exports = XZWZ_ASSIGN;
+

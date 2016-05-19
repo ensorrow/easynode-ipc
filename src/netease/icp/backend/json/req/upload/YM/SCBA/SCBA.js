@@ -31,7 +31,7 @@ var scba = {
             Qqdwid:0
         }
     },
-    attr: {version:"V.3.0"}
+    attr: {version:'V.3.0'}
 };
 
 /*
@@ -104,8 +104,8 @@ var scba = {
      operatetime: 0,
      operator: '' } }
 */
-function SCBA_ASSIGN(json){
-    "use strict";
+var SCBA_ASSIGN = function (json) {
+    'use strict';
 
     var scxx = {
         Id:0,
@@ -119,4 +119,6 @@ function SCBA_ASSIGN(json){
     return scba;
 };
 
-export { SCBA_ASSIGN };
+
+module.exports = SCBA_ASSIGN;
+

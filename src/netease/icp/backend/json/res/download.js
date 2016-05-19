@@ -13,4 +13,4 @@ var D = {
     }
 };
 
-export { D };
+module.exports = D;

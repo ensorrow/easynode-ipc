@@ -29,7 +29,6 @@ var Baxx = {
             },
             Baxh:'',
             Bbyhlx:1,
-            Tzr:'',
             Scbbsj:'',
             Zjxgsj:'',
             Zsyxq:'',
@@ -97,9 +96,9 @@ var Baxx = {
         },
         Bz:''
     }
-}
+};
 
-var  ICP = {
+var ICP = {
     BASJ:Baxx
 };
 
@@ -107,6 +106,7 @@ var BASJ = {
     DownloadData: {
         ICP: ICP
     }
-}
+};
 
-export { BASJ };
+module.exports = BASJ;
+

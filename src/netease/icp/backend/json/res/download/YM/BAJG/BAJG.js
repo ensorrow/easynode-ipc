@@ -11,7 +11,7 @@ var bajg = {
     }
 };
 
-var  ICP = {
+var ICP = {
     BAJG:bajg
 };
 
@@ -19,6 +19,7 @@ var BAJG = {
     DownloadData: {
         ICP: ICP
     }
-}
+};
 
-export { BAJG };
+module.exports = BAJG;
+

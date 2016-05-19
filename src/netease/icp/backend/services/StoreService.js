@@ -1,3 +1,4 @@
+"use strict";
 var assert = require('assert');
 var logger = using('easynode.framework.Logger').forFile(__filename);
 var GenericObject = using('easynode.GenericObject');
@@ -14,6 +15,7 @@ var Record = using('netease.icp.backend.models.Record');
 var Iply = using('netease.icp.backend.models.Iply');
 var Area = using('netease.icp.backend.models.Area');
 var Sys = using('netease.icp.backend.models.Sys');
+console.log(Sys);
 var Nos = require('nenos');
 var utils = require('utility');
 var SqlUtil = using('easynode.framework.util.SqlUtil');
@@ -1367,8 +1369,9 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
                 var key = k > 0 ? k : (this.parameter.param('key') || 0);
                 console.log("key:",key);
                 try{
-                    var model = new Sys();
                     conn = yield  me.app.ds.getConnection();
+                    var model =  new Sys();
+
 
                     sql = `SELECT value FROM sys WHERE k = #key#`;
                     arr =  yield conn.execQuery(sql,{key:key});
@@ -1626,3 +1629,4 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
 
     module.exports = StoreService;
 })();
+

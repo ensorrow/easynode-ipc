@@ -1,3 +1,4 @@
+'use strict';
 var assert = require('assert');
 var logger = using('easynode.framework.Logger').forFile(__filename);
 var GenericObject = using('easynode.GenericObject');
@@ -20,8 +21,8 @@ var Model = using('easynode.framework.mvc.Model');
          * @since 0.1.0
          * @author allen.hu
          * */
-        constructor() {
-            super('company', 'SELECT * FROM company')
+        constructor () {
+            super('company', 'SELECT * FROM company');
             //调用super()后再定义子类成员。
         }
 
@@ -62,10 +63,11 @@ var Model = using('easynode.framework.mvc.Model');
         }
 
 
-        getClassName() {
+        getClassName () {
             return EasyNode.namespace(__filename);
         }
     }
 
     module.exports = Company;
 })();
+

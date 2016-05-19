@@ -41,7 +41,7 @@ var wbacljg = {
             Qqdwid:0
         }
     },
-    attr: {version:"V.3.0"}
+    attr: {version:'V.3.0'}
 };
 
 
@@ -115,8 +115,8 @@ var wbacljg = {
      operatetime: 0,
      operator: '' } }
 */
-function WBACLJG_ASSIGN(json){
-    "use strict";
+var WBACLJG_ASSIGN = function (json) {
+    'use strict';
     var clxx = {
         Ym:'',
         IP:0,
@@ -132,13 +132,12 @@ function WBACLJG_ASSIGN(json){
         Sbrdzyj:''
     };
 
-
-
-    console.log("clxx.....");
+    console.log('clxx.....');
     console.log(wbacljg);
     wbacljg.UploadData.ICP.WBACLJG.Clxx.push(clxx);
     wbacljg.UploadData.ICP.Qqdwid = 110000000211;
     return hsjg;
 };
 
-export { HSJG_ASSIGN };
+module.exports = WBACLJG_ASSIGN;
+

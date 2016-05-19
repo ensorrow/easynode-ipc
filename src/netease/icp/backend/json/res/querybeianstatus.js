@@ -13,4 +13,4 @@ var Q = {
     }
 };
 
-export { Q };
+module.exports = Q;

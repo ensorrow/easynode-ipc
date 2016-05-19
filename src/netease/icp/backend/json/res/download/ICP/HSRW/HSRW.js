@@ -90,7 +90,7 @@ var hsrw = {
     }
 };
 
-var  ICP = {
+var ICP = {
     HMDLB:hsrw
 };
 
@@ -98,6 +98,7 @@ var HSRW = {
     DownloadData: {
         ICP: ICP
     }
-}
+};
 
-export { HSRW };
+module.exports = HSRW;
+

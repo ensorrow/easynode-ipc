@@ -16,7 +16,7 @@ var wbawz_xx = {
     }
 };
 
-var  ICP = {
+var ICP = {
     WBAWZLB:wbawz_xx
 };
 
@@ -24,6 +24,7 @@ var WBAWZLB = {
     DownloadData: {
         ICP: ICP
     }
-}
+};
 
-export { WBAWZLB };
+module.exports = WBAWZLB;
+

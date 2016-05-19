@@ -11,7 +11,7 @@ var zxba = {
             Qqdwid:0
         }
     },
-    attr: {version:"V.3.0"}
+    attr: {version:'V.3.0'}
 };
 
 
@@ -85,8 +85,8 @@ var zxba = {
      operatetime: 0,
      operator: '' } }
 */
-function ZXBA_ASSIGN(json){
-    "use strict";
+var ZXBA_ASSIGN = function (json) {
+    'use strict';
     var zxxx = {
         Zxlb:0,
         Jlid:0,
@@ -102,11 +102,12 @@ function ZXBA_ASSIGN(json){
     zxxx.ICPmm = json.company.recordpassword;
 
 
-    console.log("zxba.....");
+    console.log('zxba.....');
     console.log(xzwz);
     zxba.UploadData.ICP.ZXBA.Zx_xx.push(zxxx);
     zxba.UploadData.ICP.Qqdwid = 110000000211;
     return zxba;
 };
 
-export { ZXBA_ASSIGN };
+module.exports = ZXBA_ASSIGN;
+

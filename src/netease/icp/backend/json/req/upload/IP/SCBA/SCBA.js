@@ -1,7 +1,5 @@
 const fs = require('fs');
 
-
-
 /*
 * { website:
    { id: 313,
@@ -96,8 +94,8 @@ const fs = require('fs');
         attr: {version:"V.3.0"}
     };
 * */
-function IP_SCBA_ASSIGN(json){
-    "use strict";
+var IP_SCBA_ASSIGN = function (json) {
+    'use strict';
 
     var scba = {
         UploadData: {
@@ -110,7 +108,7 @@ function IP_SCBA_ASSIGN(json){
                 Qqdwid:0
             }
         },
-        attr: {version:"V.3.0"}
+        attr: {version:'V.3.0'}
     };
     var ly = {
         id:0
@@ -126,4 +124,5 @@ function IP_SCBA_ASSIGN(json){
     return scba;
 };
 
-export { IP_SCBA_ASSIGN };
+module.exports = IP_SCBA_ASSIGN;
+

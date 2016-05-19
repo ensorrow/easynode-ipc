@@ -11,7 +11,7 @@ var bgba = {
             Qqdwid:0
         }
     },
-    attr: {version:"V.3.0"}
+    attr: {version:'V.3.0'}
 };
 
 
@@ -85,8 +85,8 @@ var bgba = {
      operatetime: 0,
      operator: '' } }
 */
-function BGBA_ASSIGN(json){
-    "use strict";
+var BGBA_ASSIGN = function (json) {
+    'use strict';
     var Baxx = {
         Zt_xx:{},
         Wz_xx:[],
@@ -190,18 +190,18 @@ function BGBA_ASSIGN(json){
     wzxx.Nrlx.Nrlx_xx.Spwj = json.website.checkfileurl;
     wzxx.Fwnr.Fwnr_id = json.website.servicecontent;//ToDo
     wzxx.Yylb.Yylb_id = [1];//json.website.languages;//ToDo
-    wzxx.Ym_xx.push({IspYmid:json.website.id,Ymid:0,Ym:json.website.domain});
-    if( json.website.domain1.length > 0 ){
-        wzxx.Ym_xx.push({IspYmid:json.website.id,Ymid:0,Ym:json.website.domain1});
+    wzxx.Ym_xx.push({IspYmid:json.website.id, Ymid:0, Ym:json.website.domain});
+    if ( json.website.domain1.length > 0 ) {
+        wzxx.Ym_xx.push({IspYmid:json.website.id, Ymid:0, Ym:json.website.domain1});
     }
-    if( json.website.domain2.length > 0 ){
-        wzxx.Ym_xx.push({IspYmid:json.website.id,Ymid:0,Ym:json.website.domain2});
+    if ( json.website.domain2.length > 0 ) {
+        wzxx.Ym_xx.push({IspYmid:json.website.id, Ymid:0, Ym:json.website.domain2});
     }
-    if( json.website.domain3.length > 0 ){
-        wzxx.Ym_xx.push({IspYmid:json.website.id,Ymid:0,Ym:json.website.domain3});
+    if ( json.website.domain3.length > 0 ) {
+        wzxx.Ym_xx.push({IspYmid:json.website.id, Ymid:0, Ym:json.website.domain3});
     }
-    if( json.website.domain4.length > 0 ){
-        wzxx.Ym_xx.push({IspYmid:json.website.id,Ymid:0,Ym:json.website.domain4});
+    if ( json.website.domain4.length > 0 ) {
+        wzxx.Ym_xx.push({IspYmid:json.website.id, Ymid:0, Ym:json.website.domain4});
     }
     wzxx.Jr_xx.push({
         Jrid:json.website.id,
@@ -230,7 +230,7 @@ function BGBA_ASSIGN(json){
     wzxx.Wz_Fzr.Fzr_zjhm = json.website.manageridnumber;
     wzxx.Baxh = json.company.recordpassword;
     wzxx.Syurl = json.website.homeurl;
-    wzxx.Wz_Bz = json.website.remark.length <= 0 ? "remark empty" : json.website.remark ;//ToDo
+    wzxx.Wz_Bz = json.website.remark.length <= 0 ? 'remark empty' : json.website.remark;//ToDo
     Baxx.Wz_xx.push(wzxx);
 
     var fj = {
@@ -256,4 +256,5 @@ function BGBA_ASSIGN(json){
     return bgba;
 };
 
-export { BGBA_ASSIGN };
+module.exports = BGBA_ASSIGN;
+

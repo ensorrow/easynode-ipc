@@ -1,15 +1,15 @@
 var bajg = {
     Lyjg:{
         Jgxx:{
-             Jgdm:0,
-             Dmms:'',
-             Xgsj:{
+            Jgdm:0,
+            Dmms:'',
+            Xgsj:{
                 Id:0,
                 IspId:0,
                 Qsip:0,
                 Zzip:0,
                 Bz:''
-             }
+            }
         },
         Id:0,
         Czlx:1,
@@ -69,7 +69,7 @@ var bajg = {
     }
 };
 
-var  ICP = {
+var ICP = {
     BAJG:bajg
 };
 
@@ -77,6 +77,7 @@ var BAJG = {
     DownloadData: {
         ICP: ICP
     }
-}
+};
 
-export { BAJG };
+module.exports = BAJG;
+

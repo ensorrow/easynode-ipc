@@ -11,7 +11,7 @@ var xzhyd = {
             Qqdwid:0
         }
     },
-    attr: {version:"V.3.0"}
+    attr: {version:'V.3.0'}
 };
 
 
@@ -85,14 +85,14 @@ var xzhyd = {
      operatetime: 0,
      operator: '' } }
 */
-function XZHYD_ASSIGN(json){
-    "use strict";
+var XZHYD_ASSIGN = function (json) {
+    'use strict';
     var fjxx = {
         Fjwjgs:0,
         Fjyt:0,
         Fjnr:'',
         Fjssdx:{
-        Ssdxlx:1,
+            Ssdxlx:1,
             Ssdxbs:{
                 Jlid:0,
                 Baxh:''
@@ -107,5 +107,6 @@ function XZHYD_ASSIGN(json){
     return xzhyd;
 };
 
-export { XZHYD_ASSIGN };
+module.exports = XZHYD_ASSIGN;
+
 

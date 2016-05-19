@@ -1,3 +1,4 @@
+"use strict";
 import co from 'co';
 var assert = require('assert');
 var logger = using('easynode.framework.Logger').forFile(__filename);
@@ -1642,3 +1643,4 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
 
     module.exports = IspService;
 })();
+

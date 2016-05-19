@@ -1,7 +1,7 @@
 const fs = require('fs');
 
-function IP_XZBA_ASSIGN(json){
-    "use strict";
+var IP_XZBA_ASSIGN = function (json) {
+    'use strict';
 
     var xzba = {
         UploadData: {
@@ -14,7 +14,7 @@ function IP_XZBA_ASSIGN(json){
                 Qqdwid:0
             }
         },
-        attr: {version:"V.3.0"}
+        attr: {version:'V.3.0'}
     };
 
     var ly = {
@@ -67,7 +67,7 @@ function IP_XZBA_ASSIGN(json){
         Bz:''
     };
 
-    var zdxx =  {
+    var zdxx = {
         IspId:0,
         Qsip:0,
         Zzip:0,
@@ -103,4 +103,5 @@ function IP_XZBA_ASSIGN(json){
     return xzba;
 };
 
-export { IP_XZBA_ASSIGN };
+module.exports = IP_XZBA_ASSIGN;
+

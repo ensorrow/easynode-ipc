@@ -6,4 +6,4 @@ var U = {
     }
 };
 
-export { U };
+module.exports = U;

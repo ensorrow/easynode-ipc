@@ -4,6 +4,7 @@ Reference:[OpenApi](https://c.163.com/wiki/index.php?title=OpenAPI%E4%BB%8B%E7%B
 APP key: daaf3fdb307f4a38844211325116b72c
 APP Secret: bc12d62d47344a31b3c21a8693e2498d
 */
+"use strict";
 import co from 'co';
 var assert = require('assert');
 var logger = using('easynode.framework.Logger').forFile(__filename);
@@ -1443,3 +1444,4 @@ var utils = require('utility');
 
     module.exports = OpenApiService;
 })();
+

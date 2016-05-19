@@ -11,7 +11,7 @@ var xzjr = {
             Qqdwid:0
         }
     },
-    attr: {version:"V.3.0"}
+    attr: {version:'V.3.0'}
 };
 
 
@@ -85,9 +85,9 @@ var xzjr = {
      operatetime: 0,
      operator: '' } }
 */
-function XZJR_ASSIGN(json){
-    "use strict";
-    var Xzjr  = {
+var XZJR_ASSIGN = function (json) {
+    'use strict';
+    var Xzjr = {
         Wz_xx:{
             Wzbah:'',
             Wzid:''
@@ -138,11 +138,12 @@ function XZJR_ASSIGN(json){
     Xzjr.Fj.push(fj);
     Xzjr.ICPmm = json.company.recordpassword;
 
-    console.log("Xzjr.....");
+    console.log('Xzjr.....');
     console.log(Xzjr);
     xzjr.UploadData.ICP.XZJR.Xzxx.push(Xzjr);
     xzjr.UploadData.ICP.Qqdwid = 110000000211;
     return xzjr;
 };
 
-export { XZJR_ASSIGN };
+module.exports = XZJR_ASSIGN;
+

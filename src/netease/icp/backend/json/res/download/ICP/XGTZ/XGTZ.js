@@ -8,7 +8,7 @@ var xgtz = {
     }
 };
 
-var  ICP = {
+var ICP = {
     HMDLB:xgtz
 };
 
@@ -16,6 +16,7 @@ var XGTZ = {
     DownloadData: {
         ICP: ICP
     }
-}
+};
 
-export { XGTZ };
+module.exports = XGTZ;
+

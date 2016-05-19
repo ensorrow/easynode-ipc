@@ -26,7 +26,7 @@ var hcjg = {
     }
 };
 
-var  ICP = {
+var ICP = {
     HCJG:hcjg
 };
 
@@ -34,6 +34,7 @@ var HCJG = {
     DownloadData: {
         ICP: ICP
     }
-}
+};
 
-export { HCJG };
+module.exports = HCJG;
+

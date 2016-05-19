@@ -23,7 +23,7 @@ var hmdlb = {
     }
 };
 
-var  ICP = {
+var ICP = {
     HMDLB:hmdlb
 };
 
@@ -31,6 +31,7 @@ var HMDLB = {
     DownloadData: {
         ICP: ICP
     }
-}
+};
 
-export { HMDLB };
+module.exports = HMDLB;
+
