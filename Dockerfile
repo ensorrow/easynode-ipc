@@ -36,6 +36,8 @@ WORKDIR /usr/src/app
 
 RUN babel src -d lib
 
+RUN rm -rf src
+
 WORKDIR /usr/src/app/bin
 
 CMD ["./start.sh"]
