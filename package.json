@@ -7,7 +7,7 @@
     "test": "mocha --compilers js:babel-register"
   },
   "dependencies": {
-    "easynode": "^0.1.23"
+    "easynode": "^0.1.24"
   },
   "author": "allen.hu",
   "license": "ISC",
