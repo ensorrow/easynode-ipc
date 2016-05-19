@@ -1,4 +1,4 @@
-FROM node:6.2.0-jessie
+FROM hub.c.163.com/hujb2000/node:6.2.0-jessie
 
 MAINTAINER hujb
 
