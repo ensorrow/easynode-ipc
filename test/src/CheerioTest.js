@@ -16,7 +16,7 @@ const crypto = require('crypto');
 var md5 = crypto.createHash('md5');
 import fs from 'fs';
 require('easynode');
-EasyNode.ENV('DEVELOP');
+EasyNode.ENV(process.env.ENV);
 EasyNode.addArg('easynode-home',process.cwd());
 EasyNode.addSourceDirectory('/node_modules/easynode/lib');
 const logger = using('easynode.framework.Logger').getLogger();

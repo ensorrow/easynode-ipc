@@ -13,23 +13,20 @@ const assert = chai.assert;
 
 require('easynode');
 
-EasyNode.ENV('DEVELOP');
+var env = process.env.ENV;
+const BASE_URI = env == 'PRODUCTION' ? 'http://icp.c.163.com' :
+    env == 'TEST' ? 'http://icp.hzspeed.cn' : 'http://icpdev.hzspeed.cn';
+const LOCAL_URI = env == 'PRODUCTION' ? '/usr/src/app' :
+    env == 'TEST' ? '/usr/src/app' : '/Users/hujiabao/workspace_docker/icp/easynode-ipc';
+const VERSION = '0.0.5';
+
+EasyNode.ENV(env);
 EasyNode.addArg('easynode-home',process.cwd());
 EasyNode.addSourceDirectory('/node_modules/easynode/lib');
 
 
 const logger = using('easynode.framework.Logger').getLogger();
 
-
-var storeService ;
-var dataSequence = 0;
-
-var env = process.env.ENV;
-const BASE_URI = env == 'PRODUCTION' ? 'http://icp.c.163.com' :
-                 env == 'TEST' ? 'http://icp.hzspeed.cn' : 'http://icpdev.hzspeed.cn';
-const LOCAL_URI = env == 'PRODUCTION' ? '/usr/src/app' :
-                  env == 'TEST' ? '/usr/src/app' : '/Users/hujiabao/workspace_docker/icp/easynode-ipc';
-const VERSION = '0.0.5';
 
 describe('ControllerTest',function() {
 
