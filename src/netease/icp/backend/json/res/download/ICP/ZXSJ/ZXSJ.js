@@ -1,19 +1,19 @@
 var zxsj = {
-    Zxxxx:{
-        Zxlb:0,
-        Jlid:0,
-        Bz:''
-    }
+  Zxxxx:{
+    Zxlb:0,
+    Jlid:0,
+    Bz:''
+  }
 };
 
 var ICP = {
-    ZXSJ:zxsj
+  ZXSJ:zxsj
 };
 
 var ZXSJ = {
-    DownloadData: {
-        ICP: ICP
-    }
+  DownloadData: {
+    ICP: ICP
+  }
 };
 
 module.exports = ZXSJ;

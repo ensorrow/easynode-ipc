@@ -4,7 +4,7 @@ var logger = using('easynode.framework.Logger').forFile(__filename);
 var GenericObject = using('easynode.GenericObject');
 var Model = using('easynode.framework.mvc.Model');
 
-(function () {
+(function() {
     /**
      * Class Area
      *
@@ -13,7 +13,7 @@ var Model = using('easynode.framework.mvc.Model');
      * @since 0.1.0
      * @author allen.hu
      * */
-    class Area extends Model {
+  class Area extends Model {
         /**
          * 构造函数。
          *
@@ -21,10 +21,10 @@ var Model = using('easynode.framework.mvc.Model');
          * @since 0.1.0
          * @author allen.hu
          * */
-        constructor () {
-            super('area', 'SELECT * FROM area');
-            //调用super()后再定义子类成员。
-        }
+    constructor() {
+      super('area', 'SELECT * FROM area');
+            // 调用super()后再定义子类成员。
+    }
 
         /**
          * 定义模型字段
@@ -33,8 +33,8 @@ var Model = using('easynode.framework.mvc.Model');
          * @since 0.1.0
          * @author allen.hu
          * */
-        defineFields () {
-            this
+    defineFields() {
+      this
                 .defineField('id', 'int')
                 .defineField('code', 'string')
                 .defineField('name', 'string')
@@ -42,14 +42,14 @@ var Model = using('easynode.framework.mvc.Model');
                 .defineField('updatetime', 'int')
                 .defineField('createtime', 'int')
             ;
-        }
-
-
-        getClassName () {
-            return EasyNode.namespace(__filename);
-        }
     }
 
-    module.exports = Area;
+
+    getClassName() {
+      return EasyNode.namespace(__filename);
+    }
+    }
+
+  module.exports = Area;
 })();
 

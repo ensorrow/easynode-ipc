@@ -94,34 +94,34 @@ const fs = require('fs');
         attr: {version:"V.3.0"}
     };
 * */
-var IP_SCBA_ASSIGN = function (json) {
-    'use strict';
+var IP_SCBA_ASSIGN = function(json) {
+  'use strict';
 
-    var scba = {
-        UploadData: {
-            IP: {
-                SCBA:{
-                    Scly:{
-                        Ly:[]
-                    }
-                },
-                Qqdwid:0
-            }
+  var scba = {
+    UploadData: {
+      IP: {
+        SCBA:{
+          Scly:{
+            Ly:[]
+          }
         },
-        attr: {version:'V.3.0'}
-    };
-    var ly = {
-        id:0
-    };
-    ly.id = json.id;
-    scba.UploadData.IP.SCBA.Scly.Ly.push(ly);
-    //scba.UploadData.IP.SCBA.Scfp.Fpsy.push(0);//ToDo
-    //scba.UploadData.IP.SCBA.Sczd.Zdxx.push(0);//ToDo
-    //scba.UploadData.IP.SCBA.Scgbjs.Jsxx.push(0);//ToDo
-    scba.UploadData.IP.Qqdwid = 110000000211;
+        Qqdwid:0
+      }
+    },
+    attr: {version:'V.3.0'}
+  };
+  var ly = {
+    id:0
+  };
+  ly.id = json.id;
+  scba.UploadData.IP.SCBA.Scly.Ly.push(ly);
+    // scba.UploadData.IP.SCBA.Scfp.Fpsy.push(0);//ToDo
+    // scba.UploadData.IP.SCBA.Sczd.Zdxx.push(0);//ToDo
+    // scba.UploadData.IP.SCBA.Scgbjs.Jsxx.push(0);//ToDo
+  scba.UploadData.IP.Qqdwid = 110000000211;
 
-    console.log(scba);
-    return scba;
+  console.log(scba);
+  return scba;
 };
 
 module.exports = IP_SCBA_ASSIGN;

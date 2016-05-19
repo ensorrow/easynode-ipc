@@ -4,7 +4,7 @@ var logger = using('easynode.framework.Logger').forFile(__filename);
 var GenericObject = using('easynode.GenericObject');
 var Model = using('easynode.framework.mvc.Model');
 
-(function () {
+(function() {
     /**
      * Class User
      *
@@ -13,7 +13,7 @@ var Model = using('easynode.framework.mvc.Model');
      * @since 0.1.0
      * @author allen.hu
      * */
-    class User extends Model {
+  class User extends Model {
         /**
          * 构造函数。
          *
@@ -21,10 +21,10 @@ var Model = using('easynode.framework.mvc.Model');
          * @since 0.1.0
          * @author allen.hu
          * */
-        constructor () {
-            super('user', 'SELECT * FROM user');
-            //调用super()后再定义子类成员。
-        }
+    constructor() {
+      super('user', 'SELECT * FROM user');
+            // 调用super()后再定义子类成员。
+    }
 
         /**
          * 定义模型字段
@@ -33,8 +33,8 @@ var Model = using('easynode.framework.mvc.Model');
          * @since 0.1.0
          * @author allen.hu
          * */
-        defineFields () {
-            this
+    defineFields() {
+      this
                 .defineField('id', 'int')
                 .defineField('tenantid', 'string')
                 .defineField('logintype', 'int')
@@ -52,14 +52,14 @@ var Model = using('easynode.framework.mvc.Model');
                 .defineField('lastlogintime', 'int')
                 .defineField('createtime', 'int')
             ;
-        }
-
-
-        getClassName () {
-            return EasyNode.namespace(__filename);
-        }
     }
 
-    module.exports = User;
+
+    getClassName() {
+      return EasyNode.namespace(__filename);
+    }
+    }
+
+  module.exports = User;
 })();
 

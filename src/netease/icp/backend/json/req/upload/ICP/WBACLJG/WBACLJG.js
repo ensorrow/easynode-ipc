@@ -31,17 +31,17 @@ export { WBACLJG };
 const fs = require('fs');
 
 var wbacljg = {
-    UploadData: {
-        ICP: {
-            WBACLJG:{
-                Clxx:[
+  UploadData: {
+    ICP: {
+      WBACLJG:{
+        Clxx:[
 
-                ]
-            },
-            Qqdwid:0
-        }
-    },
-    attr: {version:'V.3.0'}
+        ]
+      },
+      Qqdwid:0
+    }
+  },
+  attr: {version:'V.3.0'}
 };
 
 
@@ -115,28 +115,28 @@ var wbacljg = {
      operatetime: 0,
      operator: '' } }
 */
-var WBACLJG_ASSIGN = function (json) {
-    'use strict';
-    var clxx = {
-        Ym:'',
-        IP:0,
-        Yys:0,
-        Jrs:0,
-        Shengid:0,
-        Cljg:0,
-        Clyj:'',
-        Rbsj:'',
-        Clsx:'',
-        Sbrxm:'',
-        Sbrdh:'',
-        Sbrdzyj:''
-    };
+var WBACLJG_ASSIGN = function(json) {
+  'use strict';
+  var clxx = {
+    Ym:'',
+    IP:0,
+    Yys:0,
+    Jrs:0,
+    Shengid:0,
+    Cljg:0,
+    Clyj:'',
+    Rbsj:'',
+    Clsx:'',
+    Sbrxm:'',
+    Sbrdh:'',
+    Sbrdzyj:''
+  };
 
-    console.log('clxx.....');
-    console.log(wbacljg);
-    wbacljg.UploadData.ICP.WBACLJG.Clxx.push(clxx);
-    wbacljg.UploadData.ICP.Qqdwid = 110000000211;
-    return hsjg;
+  console.log('clxx.....');
+  console.log(wbacljg);
+  wbacljg.UploadData.ICP.WBACLJG.Clxx.push(clxx);
+  wbacljg.UploadData.ICP.Qqdwid = 110000000211;
+  return hsjg;
 };
 
 module.exports = WBACLJG_ASSIGN;

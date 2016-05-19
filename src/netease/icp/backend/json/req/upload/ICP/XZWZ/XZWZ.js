@@ -1,17 +1,17 @@
 const fs = require('fs');
 
 var xzwz = {
-    UploadData: {
-        ICP: {
-            XZWZ:{
-                Xzxx:[
+  UploadData: {
+    ICP: {
+      XZWZ:{
+        Xzxx:[
 
-                ]
-            },
-            Qqdwid:0
-        }
-    },
-    attr: {version:'V.3.0'}
+        ]
+      },
+      Qqdwid:0
+    }
+  },
+  attr: {version:'V.3.0'}
 };
 
 
@@ -86,130 +86,130 @@ var xzwz = {
      operator: '' } }
 */
 
-var XZWZ_ASSIGN = function (json) {
-    'use strict';
-    var Xzxx = {
-        Zt_xx:{},
-        Wz_xx:[],
-        Fj:[],
-        ICPmm:''
-    };
-    var ztxx = {
-        Ztid:0,
-        Ztbah:''
-    };
+var XZWZ_ASSIGN = function(json) {
+  'use strict';
+  var Xzxx = {
+    Zt_xx:{},
+    Wz_xx:[],
+    Fj:[],
+    ICPmm:''
+  };
+  var ztxx = {
+    Ztid:0,
+    Ztbah:''
+  };
 
-    ztxx.Ztid = json.company.id;//ToDo
-    ztxx.Ztbah = json.company.recordnumber;
+  ztxx.Ztid = json.company.id;// ToDo
+  ztxx.Ztbah = json.company.recordnumber;
 
-    Xzxx.Zt_xx = ztxx;
+  Xzxx.Zt_xx = ztxx;
 
-    var wzxx = {
-        IspWzid:0,
-        Wzmc:'',
-        Nrlx:{
-            Nrlx_xx:{
-                Nrlx_id:0,
-                Qzsph:'',
-                Spwj:['']
-            }
-        },
-        Fwnr:{
-            Fwnr_id:0
-        },
-        Yylb: {
-            Yylb_id: [0]
-        },
-        Ym_xx:[
+  var wzxx = {
+    IspWzid:0,
+    Wzmc:'',
+    Nrlx:{
+      Nrlx_xx:{
+        Nrlx_id:0,
+        Qzsph:'',
+        Spwj:['']
+      }
+    },
+    Fwnr:{
+      Fwnr_id:0
+    },
+    Yylb: {
+      Yylb_id: [0]
+    },
+    Ym_xx:[
 
-        ],
-        Jr_xx:[
+    ],
+    Jr_xx:[
 
-        ],
-        Wz_Fzr:{
-            Fzr_xm:'',
-            Fzr_dhhm:'',
-            Fzr_sjhm:'',
-            Fzr_dzyj:'',
-            Msn:'',
-            Qq:'',
-            Fzr_zjlx:0,
-            Fzr_zjhm:''
-        },
-        Syurl:'',
-        Wz_Bz:''
-    };
+    ],
+    Wz_Fzr:{
+      Fzr_xm:'',
+      Fzr_dhhm:'',
+      Fzr_sjhm:'',
+      Fzr_dzyj:'',
+      Msn:'',
+      Qq:'',
+      Fzr_zjlx:0,
+      Fzr_zjhm:''
+    },
+    Syurl:'',
+    Wz_Bz:''
+  };
 
-    wzxx.IspWzid = json.website.id;
-    wzxx.Wzmc = json.website.name;
-    wzxx.Nrlx.Nrlx_xx.Nrlx_id = json.website.prechecktype;//ToDo
-    wzxx.Nrlx.Nrlx_xx.Qzsph = json.website.checknumber;
-    wzxx.Nrlx.Nrlx_xx.Spwj = json.website.checkfileurl;
-    wzxx.Fwnr.Fwnr_id = json.website.servicecontent;//ToDo
-    wzxx.Yylb.Yylb_id = [1];//json.website.languages;//ToDo
-    wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain});
-    if ( json.website.domain1.length > 0 ) {
-        wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain1});
-    }
-    if ( json.website.domain2.length > 0 ) {
-        wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain2});
-    }
-    if ( json.website.domain3.length > 0 ) {
-        wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain3});
-    }
-    if ( json.website.domain4.length > 0 ) {
-        wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain4});
-    }
-    wzxx.Jr_xx.push({
-        IspJrid:json.website.id,
-        Wzfb:{
-            Fbdd:[json.website.serverregion]
-        },
-        Wzjrfs:{
-            Jrfs:[1]
-        },
-        Ip_xx:[
-            {
-                IspIpid:json.website.id,
-                Qsip:json.website.ip.ip1,
-                Zzip:json.website.ip.ip2
-            }
-        ]
-    }); //ToDo
-    wzxx.Wz_Fzr.Fzr_xm = json.website.managername;
-    wzxx.Wz_Fzr.Fzr_dhhm = (json.website.officephoneregion || '0000' )+json.website.officephonenumber;//ToDo
-    wzxx.Wz_Fzr.Fzr_sjhm = json.website.mobile;
-    wzxx.Wz_Fzr.Fzr_dzyj = json.website.email;
-    wzxx.Wz_Fzr.Msn = 'hujb2000@hotmail.com';//ToDo
-    wzxx.Wz_Fzr.Qq = json.website.qq;
-    wzxx.Wz_Fzr.Fzr_zjlx = json.website.manageridtype;
-    wzxx.Wz_Fzr.Fzr_zjhm = json.website.manageridnumber;
-    wzxx.Syurl = json.website.homeurl;
-    wzxx.Wz_Bz = json.website.remark.length <= 0 ? 'remark empty' : json.website.remark;//ToDo
-    Xzxx.Wz_xx.push(wzxx);
+  wzxx.IspWzid = json.website.id;
+  wzxx.Wzmc = json.website.name;
+  wzxx.Nrlx.Nrlx_xx.Nrlx_id = json.website.prechecktype;// ToDo
+  wzxx.Nrlx.Nrlx_xx.Qzsph = json.website.checknumber;
+  wzxx.Nrlx.Nrlx_xx.Spwj = json.website.checkfileurl;
+  wzxx.Fwnr.Fwnr_id = json.website.servicecontent;// ToDo
+  wzxx.Yylb.Yylb_id = [1];// json.website.languages;//ToDo
+  wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain});
+  if (json.website.domain1.length > 0) {
+    wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain1});
+  }
+  if (json.website.domain2.length > 0) {
+    wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain2});
+  }
+  if (json.website.domain3.length > 0) {
+    wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain3});
+  }
+  if (json.website.domain4.length > 0) {
+    wzxx.Ym_xx.push({IspYmid:json.website.id, Ym:json.website.domain4});
+  }
+  wzxx.Jr_xx.push({
+    IspJrid:json.website.id,
+    Wzfb:{
+      Fbdd:[json.website.serverregion]
+    },
+    Wzjrfs:{
+      Jrfs:[1]
+    },
+    Ip_xx:[
+      {
+        IspIpid:json.website.id,
+        Qsip:json.website.ip.ip1,
+        Zzip:json.website.ip.ip2
+      }
+    ]
+  }); // ToDo
+  wzxx.Wz_Fzr.Fzr_xm = json.website.managername;
+  wzxx.Wz_Fzr.Fzr_dhhm = (json.website.officephoneregion || '0000') + json.website.officephonenumber;// ToDo
+  wzxx.Wz_Fzr.Fzr_sjhm = json.website.mobile;
+  wzxx.Wz_Fzr.Fzr_dzyj = json.website.email;
+  wzxx.Wz_Fzr.Msn = 'hujb2000@hotmail.com';// ToDo
+  wzxx.Wz_Fzr.Qq = json.website.qq;
+  wzxx.Wz_Fzr.Fzr_zjlx = json.website.manageridtype;
+  wzxx.Wz_Fzr.Fzr_zjhm = json.website.manageridnumber;
+  wzxx.Syurl = json.website.homeurl;
+  wzxx.Wz_Bz = json.website.remark.length <= 0 ? 'remark empty' : json.website.remark;// ToDo
+  Xzxx.Wz_xx.push(wzxx);
 
-    var fj = {
-        Fjxx:{
-            Fjwjgs:1,
-            Fjyt:1,
-            Fjnr:json.record.sitemanagerurl,
-            Fjssdx:{
-                Ssdxlx:1,
-                Ssdxbs:{
-                    Jlid:json.company.id,
-                    Baxh:json.company.recordnumber
-                }
-            },
-            Bz:'empty'
+  var fj = {
+    Fjxx:{
+      Fjwjgs:1,
+      Fjyt:1,
+      Fjnr:json.record.sitemanagerurl,
+      Fjssdx:{
+        Ssdxlx:1,
+        Ssdxbs:{
+          Jlid:json.company.id,
+          Baxh:json.company.recordnumber
         }
-    };//ToDo
-    Xzxx.Fj.push(fj);
+      },
+      Bz:'empty'
+    }
+  };// ToDo
+  Xzxx.Fj.push(fj);
 
-    console.log('Xzwz.....');
-    console.log(xzwz);
-    xzwz.UploadData.ICP.XZWZ.Xzxx.push(Xzxx);
-    xzwz.UploadData.ICP.Qqdwid = 110000000211;
-    return xzwz;
+  console.log('Xzwz.....');
+  console.log(xzwz);
+  xzwz.UploadData.ICP.XZWZ.Xzxx.push(Xzxx);
+  xzwz.UploadData.ICP.Qqdwid = 110000000211;
+  return xzwz;
 };
 
 module.exports = XZWZ_ASSIGN;

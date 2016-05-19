@@ -1,24 +1,24 @@
 var bajg = {
-    Jg_xx:{
-        Jgxx:{
-            Jgdm:0,
-            Dmms:''
-        },
-        Id:0,
-        Czlx:0,
-        IspId:'',
-        Bz:''
-    }
+  Jg_xx:{
+    Jgxx:{
+      Jgdm:0,
+      Dmms:''
+    },
+    Id:0,
+    Czlx:0,
+    IspId:'',
+    Bz:''
+  }
 };
 
 var ICP = {
-    BAJG:bajg
+  BAJG:bajg
 };
 
 var BAJG = {
-    DownloadData: {
-        ICP: ICP
-    }
+  DownloadData: {
+    ICP: ICP
+  }
 };
 
 module.exports = BAJG;

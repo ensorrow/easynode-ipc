@@ -1,34 +1,34 @@
 var bajg = {
-    Jg_xx:{
-        Jgxx:{
-            Jgdm:0,
-            Dmms:''
-        },
-        Czlx:0,
-        Bs:'',
-        Bz:''
+  Jg_xx:{
+    Jgxx:{
+      Jgdm:0,
+      Dmms:''
     },
-    GJSHS:{
-        Gjsh:{
-            Shrxm:'',
-            Shr_dhhm:'',
-            Shsj:'',
-            Shyj:'',
-            Shjg:0,
-            Czlx:0,
-            Jlid:0
-        }
+    Czlx:0,
+    Bs:'',
+    Bz:''
+  },
+  GJSHS:{
+    Gjsh:{
+      Shrxm:'',
+      Shr_dhhm:'',
+      Shsj:'',
+      Shyj:'',
+      Shjg:0,
+      Czlx:0,
+      Jlid:0
     }
+  }
 };
 
 var ICP = {
-    BAJG:bajg
+  BAJG:bajg
 };
 
 var BAJG = {
-    DownloadData: {
-        ICP: ICP
-    }
+  DownloadData: {
+    ICP: ICP
+  }
 };
 
 module.exports = BAJG;

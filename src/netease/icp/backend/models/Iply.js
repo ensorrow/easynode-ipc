@@ -4,7 +4,7 @@ var logger = using('easynode.framework.Logger').forFile(__filename);
 var GenericObject = using('easynode.GenericObject');
 var Model = using('easynode.framework.mvc.Model');
 
-(function () {
+(function() {
     /**
      * Class Company
      *
@@ -13,7 +13,7 @@ var Model = using('easynode.framework.mvc.Model');
      * @since 0.1.0
      * @author allen.hu
      * */
-    class Iply extends Model {
+  class Iply extends Model {
         /**
          * 构造函数。
          *
@@ -21,10 +21,10 @@ var Model = using('easynode.framework.mvc.Model');
          * @since 0.1.0
          * @author allen.hu
          * */
-        constructor () {
-            super('iply', 'SELECT * FROM iply');
-            //调用super()后再定义子类成员。
-        }
+    constructor() {
+      super('iply', 'SELECT * FROM iply');
+            // 调用super()后再定义子类成员。
+    }
 
         /**
          * 定义模型字段
@@ -33,8 +33,8 @@ var Model = using('easynode.framework.mvc.Model');
          * @since 0.1.0
          * @author allen.hu
          * */
-        defineFields () {
-            this
+    defineFields() {
+      this
                 .defineField('id', 'int')
                 .defineField('qsip', 'int')
                 .defineField('zzip', 'int')
@@ -44,14 +44,14 @@ var Model = using('easynode.framework.mvc.Model');
                 .defineField('net', 'string')
                 .defineField('status', 'int')
             ;
-        }
-
-
-        getClassName () {
-            return EasyNode.namespace(__filename);
-        }
     }
 
-    module.exports = Iply;
+
+    getClassName() {
+      return EasyNode.namespace(__filename);
+    }
+    }
+
+  module.exports = Iply;
 })();
 

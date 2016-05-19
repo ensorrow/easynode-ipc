@@ -1,95 +1,95 @@
 var Baxx = {
-    Baxx:{
-        Zt_xx:{
-            Dwmc:'',
-            Dwxz:0,
-            Tzr:'',
-            Txdz:{
-                Shengid:0,
-                Shiid:0,
-                Xianid:0,
-                Xxdz:''
-            },
-            Zj:{
-                Zjlx:0,
-                Zjhm:'',
-                Zjzs:''
-            },
-            Fzr:{
-                Fzr_xm:'',
-                Fzr_dhhm:'',
-                Fzr_sjhm:'',
-                Fzr_dzyj:'',
-                Msn:'',
-                Qq:'',
-                Fzr_zjlx:0,
-                Fzr_zjhm:''
-            },
-            Bbfs:1,
-            Bz:''
-        },
-        Wz_xx:{
+  Baxx:{
+    Zt_xx:{
+      Dwmc:'',
+      Dwxz:0,
+      Tzr:'',
+      Txdz:{
+        Shengid:0,
+        Shiid:0,
+        Xianid:0,
+        Xxdz:''
+      },
+      Zj:{
+        Zjlx:0,
+        Zjhm:'',
+        Zjzs:''
+      },
+      Fzr:{
+        Fzr_xm:'',
+        Fzr_dhhm:'',
+        Fzr_sjhm:'',
+        Fzr_dzyj:'',
+        Msn:'',
+        Qq:'',
+        Fzr_zjlx:0,
+        Fzr_zjhm:''
+      },
+      Bbfs:1,
+      Bz:''
+    },
+    Wz_xx:{
 
-        },
-        Bz:''
-    }
+    },
+    Bz:''
+  }
 };
 
 var ICP = {
-    BASJ:Baxx,
-    ZXSJ:{
+  BASJ:Baxx,
+  ZXSJ:{
 
-    },
-    HMDLB:{
+  },
+  HMDLB:{
 
-    },
-    FFJRHMD:{
+  },
+  FFJRHMD:{
 
-    },
-    WBAWZLB:{
+  },
+  WBAWZLB:{
 
-    },
-    BAJG:{
+  },
+  BAJG:{
 
-    },
-    HSRW:{
+  },
+  HSRW:{
 
-    },
-    HCJR:{
+  },
+  HCJR:{
 
-    },
-    XGTZ:{
+  },
+  XGTZ:{
 
-    }
+  }
 };
 
 var DC = {
-    DownloadData:{
-        ICP: ICP,
-        IP:{
+  DownloadData:{
+    ICP: ICP,
+    IP:{
 
-        },
-        YM:{
+    },
+    YM:{
 
-        },
-        JCDM:{
+    },
+    JCDM:{
 
-        },
-        SJTB:{
-            ICP:{
+    },
+    SJTB:{
+      ICP:{
 
-            },
-            IP:{
+      },
+      IP:{
 
-            },
-            YM:{
+      },
+      YM:{
 
-            },
-            JCDM:{
+      },
+      JCDM:{
 
-            }
-        }
+      }
     }
+  }
 };
 
 module.exports = DC;

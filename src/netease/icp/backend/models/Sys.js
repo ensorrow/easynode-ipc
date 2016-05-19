@@ -4,7 +4,7 @@ var logger = using('easynode.framework.Logger').forFile(__filename);
 var GenericObject = using('easynode.GenericObject');
 var Model = using('easynode.framework.mvc.Model');
 
-(function () {
+(function() {
     /**
      * Class Sys
      *
@@ -13,7 +13,7 @@ var Model = using('easynode.framework.mvc.Model');
      * @since 0.1.0
      * @author allen.hu
      * */
-    class Sys extends Model {
+  class Sys extends Model {
         /**
          * 构造函数。
          *
@@ -21,10 +21,10 @@ var Model = using('easynode.framework.mvc.Model');
          * @since 0.1.0
          * @author allen.hu
          * */
-        constructor () {
-            super('sys', 'SELECT * FROM sys');
-            //调用super()后再定义子类成员。
-        }
+    constructor() {
+      super('sys', 'SELECT * FROM sys');
+            // 调用super()后再定义子类成员。
+    }
 
         /**
          * 定义模型字段
@@ -33,20 +33,20 @@ var Model = using('easynode.framework.mvc.Model');
          * @since 0.1.0
          * @author allen.hu
          * */
-        defineFields () {
-            this
+    defineFields() {
+      this
                 .defineField('id', 'int')
                 .defineField('k', 'int')
                 .defineField('value', 'string')
             ;
-        }
-
-
-        getClassName () {
-            return EasyNode.namespace(__filename);
-        }
     }
 
-    module.exports = Sys;
+
+    getClassName() {
+      return EasyNode.namespace(__filename);
+    }
+    }
+
+  module.exports = Sys;
 })();
 

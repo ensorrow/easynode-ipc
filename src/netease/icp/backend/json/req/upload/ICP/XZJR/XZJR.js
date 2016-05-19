@@ -1,17 +1,17 @@
 const fs = require('fs');
 
 var xzjr = {
-    UploadData: {
-        ICP: {
-            XZJR:{
-                Xzxx:[
+  UploadData: {
+    ICP: {
+      XZJR:{
+        Xzxx:[
 
-                ]
-            },
-            Qqdwid:0
-        }
-    },
-    attr: {version:'V.3.0'}
+        ]
+      },
+      Qqdwid:0
+    }
+  },
+  attr: {version:'V.3.0'}
 };
 
 
@@ -85,64 +85,64 @@ var xzjr = {
      operatetime: 0,
      operator: '' } }
 */
-var XZJR_ASSIGN = function (json) {
-    'use strict';
-    var Xzjr = {
-        Wz_xx:{
-            Wzbah:'',
-            Wzid:''
-        },
-        IspJrid:0,
-        Wzfb:{
-            Fbdd:[]
-        },
-        Wzjrfs:{
-            Jrfs:[1]
-        },
-        Ip_xx:[
-            {
-                IspIpid:json.website.id,
-                Qsip:json.website.ip.ip1,
-                Zzip:json.website.ip.ip2
-            }
-        ],
-        Fj:[],
-        ICPmm:''
-    };
-
-    Xzjr.Wz_xx.Wzbah = json.company.recordnumber;
-    Xzjr.Wz_xx.Wzid = json.website.id;//ToDo
-    Xzjr.IspJrid = json.website.id;
-    Xzjr.Wzfb.Fbdd.push(json.website.serverregion);
-    Xzjr.Ip_xx.push({
+var XZJR_ASSIGN = function(json) {
+  'use strict';
+  var Xzjr = {
+    Wz_xx:{
+      Wzbah:'',
+      Wzid:''
+    },
+    IspJrid:0,
+    Wzfb:{
+      Fbdd:[]
+    },
+    Wzjrfs:{
+      Jrfs:[1]
+    },
+    Ip_xx:[
+      {
         IspIpid:json.website.id,
         Qsip:json.website.ip.ip1,
         Zzip:json.website.ip.ip2
-    });//ToDo
+      }
+    ],
+    Fj:[],
+    ICPmm:''
+  };
 
-    var fj = {
-        Fjxx:{
-            Fjwjgs:1,
-            Fjyt:1,
-            Fjnr:json.record.sitemanagerurl,
-            Fjssdx:{
-                Ssdxlx:1,
-                Ssdxbs:{
-                    Jlid:0,
-                    Baxh:''
-                }
-            },
-            Bz:'empty'
+  Xzjr.Wz_xx.Wzbah = json.company.recordnumber;
+  Xzjr.Wz_xx.Wzid = json.website.id;// ToDo
+  Xzjr.IspJrid = json.website.id;
+  Xzjr.Wzfb.Fbdd.push(json.website.serverregion);
+  Xzjr.Ip_xx.push({
+    IspIpid:json.website.id,
+    Qsip:json.website.ip.ip1,
+    Zzip:json.website.ip.ip2
+  });// ToDo
+
+  var fj = {
+    Fjxx:{
+      Fjwjgs:1,
+      Fjyt:1,
+      Fjnr:json.record.sitemanagerurl,
+      Fjssdx:{
+        Ssdxlx:1,
+        Ssdxbs:{
+          Jlid:0,
+          Baxh:''
         }
-    };//ToDo
-    Xzjr.Fj.push(fj);
-    Xzjr.ICPmm = json.company.recordpassword;
+      },
+      Bz:'empty'
+    }
+  };// ToDo
+  Xzjr.Fj.push(fj);
+  Xzjr.ICPmm = json.company.recordpassword;
 
-    console.log('Xzjr.....');
-    console.log(Xzjr);
-    xzjr.UploadData.ICP.XZJR.Xzxx.push(Xzjr);
-    xzjr.UploadData.ICP.Qqdwid = 110000000211;
-    return xzjr;
+  console.log('Xzjr.....');
+  console.log(Xzjr);
+  xzjr.UploadData.ICP.XZJR.Xzxx.push(Xzjr);
+  xzjr.UploadData.ICP.Qqdwid = 110000000211;
+  return xzjr;
 };
 
 module.exports = XZJR_ASSIGN;

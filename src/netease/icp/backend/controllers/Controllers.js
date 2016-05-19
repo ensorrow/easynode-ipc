@@ -11,11 +11,11 @@ var LoginService = using('netease.icp.backend.services.LoginService');
 var FileService = using('easynode.framework.util.FileService');
 var StoreService = using('netease.icp.backend.services.StoreService');
 
-(function () {
+(function() {
 
     // Myself result code
-    const LOGIN_OK = 200;
-    const LOGIN_ERR = 201;
+  const LOGIN_OK = 200;
+  const LOGIN_ERR = 201;
 
     /**
      * Class Controllers
@@ -25,7 +25,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
      * @since 0.1.0
      * @author allen.hu
      * */
-    class Controllers extends GenericObject
+  class Controllers extends GenericObject
     {
         /**
          * 构造函数。
@@ -34,10 +34,11 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @since 0.1.0
          * @author allen.hu
          * */
-        constructor () {
-            super();
-            //调用super()后再定义子类成员。
-        }
+    constructor() {
+      super();
+      // 调用super()后再定义子类成员
+      this.noused = 1;
+    }
 
         /**
          * @apiDefine EmptyRecord
@@ -49,13 +50,13 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          */
 
-        static home (app) {
-            return function *() {
-                var user = this.session.user || undefined;
-                var surl = `${app.config.resources.static}${process.env.ENV}_`;
-                yield this.render('index', {user:user, loginCallback:app.config.loginCallback, config:{surl:surl, env:process.env.ENV}});
-            };
-        }
+    static home(app) {
+      return function *() {
+        var user = this.session.user || undefined;
+        var surl = `${app.config.resources.static}${process.env.ENV}_`;
+        yield this.render('index', {user:user, loginCallback:app.config.loginCallback, config:{surl:surl, env:process.env.ENV}});
+      };
+    }
 
         /**
          * @api {get} /login/callback 登录回调函数
@@ -75,19 +76,19 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiSuccess  store session, and forward to '/'
          */
-        static loginCallback (app) {
-            return function *() {
-                var loginService = new LoginService(app);
-                var result = yield loginService.login(this.query);
+    static loginCallback(app) {
+      return function *() {
+        var loginService = new LoginService(app);
+        var result = yield loginService.login(this.query);
 
-                if ( result.hasOwnProperty('user') ) {
-                    this.session.user = result.user;
-                } else {
-                    this.session.user = result;
-                }
-                this.redirect('/');
-            };
+        if (result.hasOwnProperty('user')) {
+          this.session.user = result.user;
+        } else {
+          this.session.user = result;
         }
+        this.redirect('/');
+      };
+    }
 
         /**
          * @api {get} /logout/ 退出登录
@@ -99,14 +100,14 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiSuccess  clean session, and forward to '/'
          */
-        static logout (app) {
-            return function *() {
-                this.session.user = null;
+    static logout(app) {
+      return function *() {
+        this.session.user = null;
 
-                var surl = `${app.config.resources.static}${process.env.ENV}_`;
-                yield this.render('index', {user:{}, loginCallback:app.config.loginCallback, config:{surl:surl, env:process.env.ENV}});
-            };
-        }
+        var surl = `${app.config.resources.static}${process.env.ENV}_`;
+        yield this.render('index', {user:{}, loginCallback:app.config.loginCallback, config:{surl:surl, env:process.env.ENV}});
+      };
+    }
 
         /**
          * @api {get} /comment/ 测试
@@ -117,25 +118,25 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiDescription 测试
          *
          */
-        static comment (app) {
-            return function *() {
+    static comment(app) {
+      return function *() {
 
-                var parts = yield* multipart(this);
-                console.dir(parts);
+        var parts = yield* multipart(this);
+        console.dir(parts);
 
-                let profile = this.request.body;
-                console.log(profile);
-                console.log( this.parameter );
-                console.log( this.body );
-                console.log( this.query );
+        const profile = this.request.body;
+        console.log(profile);
+        console.log(this.parameter);
+        console.log(this.body);
+        console.log(this.query);
 
-                this.type = 'json';
-                this.body = [
+        this.type = 'json';
+        this.body = [
                     {'author': 'Pete Hunt', 'text': 'This is one comment'},
                     {'author': 'Jordan Walke', 'text': 'This is *another* comment'}
-                ];
-            };
-        }
+        ];
+      };
+    }
 
         /**
          * @api {post} /savedraft 保存草稿
@@ -176,20 +177,20 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {Number} ret.drafttype 草稿类型
          * @apiSuccess {Number} ret.id 记录ID
          */
-        static savedraft (app) {
-            var me = this;
-            return function *() {
-                var session = this.session;
+    static savedraft(app) {
+      var me = this;
+      return function *() {
+        var session = this.session;
 
-                var ret = {};
+        var ret = {};
 
-                var storeService = new StoreService(app);
-                ret = yield storeService.savedraft();
+        var storeService = new StoreService(app);
+        ret = yield storeService.savedraft();
 
-                this.type = 'json';
-                this.body = {ret: ret};
-            };
-        }
+        this.type = 'json';
+        this.body = {ret: ret};
+      };
+    }
 
 
         /**
@@ -288,20 +289,20 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiUse EmptyRecord
          */
-        static createRecord (app) {
-            var me = this;
-            return function *() {
+    static createRecord(app) {
+      var me = this;
+      return function *() {
 
-                var ret = {};
-                var session = this.session;
+        var ret = {};
+        var session = this.session;
 
-                var storeService = new StoreService(app);
-                ret = yield storeService.createRecord();
+        var storeService = new StoreService(app);
+        ret = yield storeService.createRecord();
 
-                this.type = 'json';
-                this.body = {ret: ret};
-            };
-        }
+        this.type = 'json';
+        this.body = {ret: ret};
+      };
+    }
 
         /**
          * @api {get} /record 获取记录详情
@@ -409,19 +410,19 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiUse EmptyRecord
          */
-        static getRecord (app) {
-            var me = this;
-            return function *() {
-                var session = this.session;
-                var ret = {};
+    static getRecord(app) {
+      var me = this;
+      return function *() {
+        var session = this.session;
+        var ret = {};
 
-                var storeService = new StoreService(app);
-                ret = yield storeService.getRecord();
+        var storeService = new StoreService(app);
+        ret = yield storeService.getRecord();
 
-                this.type = 'json';
-                this.body = ret;
-            };
-        }
+        this.type = 'json';
+        this.body = ret;
+      };
+    }
 
 
         /**
@@ -452,20 +453,20 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
          * @apiUse EmptyRecord
          */
-        static getPubips (app) {
-            var me = this;
-            return function *() {
-                var ret = {};
+    static getPubips(app) {
+      var me = this;
+      return function *() {
+        var ret = {};
 
 
-                //var storeService = new StoreService(app,app.config);
-                //ret =  yield storeService.gettenantPubips();
-                ret = yield app.ispService.gettenantPubips();
+                // var storeService = new StoreService(app,app.config);
+                // ret =  yield storeService.gettenantPubips();
+        ret = yield app.ispService.gettenantPubips();
 
-                this.type = 'json';
-                this.body = ret;
-            };
-        }
+        this.type = 'json';
+        this.body = ret;
+      };
+    }
 
         /**
          * @api {get} /admin/record 获取记录详情
@@ -599,21 +600,21 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiUse EmptyRecord
          */
-        static getRecordb (app) {
-            var me = this;
-            return function *() {
-                var ret = {};
+    static getRecordb(app) {
+      var me = this;
+      return function *() {
+        var ret = {};
 
-                var pass = Controllers.passWhitelist(this.remoteAddress, app);
-                if ( pass ) {
-                    var storeService = new StoreService(app);
-                    ret = yield storeService.getRecordb();
-                }
-
-                this.type = 'json';
-                this.body = ret;
-            };
+        var pass = Controllers.passWhitelist(this.remoteAddress, app);
+        if (pass) {
+          var storeService = new StoreService(app);
+          ret = yield storeService.getRecordb();
         }
+
+        this.type = 'json';
+        this.body = ret;
+      };
+    }
 
         /**
          * @api {put} /record 审核
@@ -633,19 +634,19 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiSuccess {Number} ret true:成功,false:失败
          */
-        static putRecord (app) {
-            var me = this;
-            return function *() {
-                var session = this.session;
-                var ret = {};
+    static putRecord(app) {
+      var me = this;
+      return function *() {
+        var session = this.session;
+        var ret = {};
 
-                var storeService = new StoreService(app);
-                ret = yield storeService.putRecord();
+        var storeService = new StoreService(app);
+        ret = yield storeService.putRecord();
 
-                this.type = 'json';
-                this.body = {ret: ret};
-            };
-        }
+        this.type = 'json';
+        this.body = {ret: ret};
+      };
+    }
 
         /**
          * @api {put} /user
@@ -665,19 +666,19 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiSuccess {Number} ret true:成功,false:失败
          */
-        static putUser (app) {
-            var me = this;
-            return function *() {
-                var session = this.session;
-                var ret = {};
+    static putUser(app) {
+      var me = this;
+      return function *() {
+        var session = this.session;
+        var ret = {};
 
-                var storeService = new StoreService(app);
-                ret = yield storeService.putUser();
+        var storeService = new StoreService(app);
+        ret = yield storeService.putUser();
 
-                this.type = 'json';
-                this.body = {ret: ret};
-            };
-        }
+        this.type = 'json';
+        this.body = {ret: ret};
+      };
+    }
 
         /**
          * @api {put} /admin/record 审核
@@ -727,21 +728,21 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiSuccess {Number} ret true:成功,false:失败
          */
-        static putRecordb (app) {
-            var me = this;
-            return function *() {
-                var ret = {};
+    static putRecordb(app) {
+      var me = this;
+      return function *() {
+        var ret = {};
 
-                var pass = Controllers.passWhitelist(this.remoteAddress, app);
-                if ( pass ) {
-                    var storeService = new StoreService(app);
-                    ret = yield storeService.putRecordb();
-                }
-
-                this.type = 'json';
-                this.body = {ret: ret};
-            };
+        var pass = Controllers.passWhitelist(this.remoteAddress, app);
+        if (pass) {
+          var storeService = new StoreService(app);
+          ret = yield storeService.putRecordb();
         }
+
+        this.type = 'json';
+        this.body = {ret: ret};
+      };
+    }
 
         /**
          * @api {put} /admin/company 修改企业信息
@@ -761,21 +762,21 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
          * @apiSuccess {Number} ret true:成功,false:失败
          */
-        static putCompanyb (app) {
-            var me = this;
-            return function *() {
-                var ret = {};
+    static putCompanyb(app) {
+      var me = this;
+      return function *() {
+        var ret = {};
 
-                var pass = Controllers.passWhitelist(this.remoteAddress, app);
-                if ( pass ) {
-                    var storeService = new StoreService(app);
-                    ret = yield storeService.putCompanyb();
-                }
-
-                this.type = 'json';
-                this.body = {ret: ret};
-            };
+        var pass = Controllers.passWhitelist(this.remoteAddress, app);
+        if (pass) {
+          var storeService = new StoreService(app);
+          ret = yield storeService.putCompanyb();
         }
+
+        this.type = 'json';
+        this.body = {ret: ret};
+      };
+    }
 
         /**
          * @api {put} /admin/website website信息
@@ -805,21 +806,21 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
          * @apiSuccess {Number} ret true:成功,false:失败
          */
-        static putWebsiteb (app) {
-            var me = this;
-            return function *() {
-                var ret = {};
+    static putWebsiteb(app) {
+      var me = this;
+      return function *() {
+        var ret = {};
 
-                var pass = Controllers.passWhitelist(this.remoteAddress, app);
-                if ( pass ) {
-                    var storeService = new StoreService(app);
-                    ret = yield storeService.putWebsiteb();
-                }
-
-                this.type = 'json';
-                this.body = {ret: ret};
-            };
+        var pass = Controllers.passWhitelist(this.remoteAddress, app);
+        if (pass) {
+          var storeService = new StoreService(app);
+          ret = yield storeService.putWebsiteb();
         }
+
+        this.type = 'json';
+        this.body = {ret: ret};
+      };
+    }
 
 
         /**
@@ -838,21 +839,21 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiSuccess {Number} ret true:成功,false:失败
          */
-        static putCurtainb (app) {
-            var me = this;
-            return function *() {
-                var ret = {};
+    static putCurtainb(app) {
+      var me = this;
+      return function *() {
+        var ret = {};
 
-                var pass = Controllers.passWhitelist(this.remoteAddress, app);
-                if ( pass ) {
-                    var storeService = new StoreService(app);
-                    ret = yield storeService.putCurtainb();
-                }
-
-                this.type = 'json';
-                this.body = {ret: ret};
-            };
+        var pass = Controllers.passWhitelist(this.remoteAddress, app);
+        if (pass) {
+          var storeService = new StoreService(app);
+          ret = yield storeService.putCurtainb();
         }
+
+        this.type = 'json';
+        this.body = {ret: ret};
+      };
+    }
 
 
         /**
@@ -892,22 +893,22 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiUse  EmptyRecord
         */
-        static getRecords (app) {
-            var me = this;
-            return function *() {
-                var session = this.session;
-                var ret = {};
+    static getRecords(app) {
+      var me = this;
+      return function *() {
+        var session = this.session;
+        var ret = {};
 
-                //测试环境：10.241.20.112   10.160.252.98    10.180.2.58
-                //线上环境：10.166.3.39
-                var pass = Controllers.passWhitelist(this.remoteAddress, app);
-                var storeService = new StoreService(app);
-                ret = yield storeService.getRecords();
+                // 测试环境：10.241.20.112   10.160.252.98    10.180.2.58
+                // 线上环境：10.166.3.39
+        var pass = Controllers.passWhitelist(this.remoteAddress, app);
+        var storeService = new StoreService(app);
+        ret = yield storeService.getRecords();
 
-                this.type = 'json';
-                this.body = ret;
-            };
-        }
+        this.type = 'json';
+        this.body = ret;
+      };
+    }
 
         /**
          * @api {get} /admin/records 获取记录列表
@@ -948,21 +949,21 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiUse  EmptyRecord
          */
-        static getRecordsb (app) {
-            var me = this;
-            return function *() {
-                var ret = {};
+    static getRecordsb(app) {
+      var me = this;
+      return function *() {
+        var ret = {};
 
-                var pass = Controllers.passWhitelist(this.remoteAddress, app);
-                if ( pass ) {
-                    var storeService = new StoreService(app);
-                    ret = yield storeService.getRecordsb();
-                }
-
-                this.type = 'json';
-                this.body = ret;
-            };
+        var pass = Controllers.passWhitelist(this.remoteAddress, app);
+        if (pass) {
+          var storeService = new StoreService(app);
+          ret = yield storeService.getRecordsb();
         }
+
+        this.type = 'json';
+        this.body = ret;
+      };
+    }
 
         /**
          * @api {post} /admin/recordsbystatus 获取记录列表
@@ -1004,21 +1005,21 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiUse  EmptyRecord
          */
-        static getRecordsbByStatus (app) {
-            var me = this;
-            return function *() {
-                var ret = {};
+    static getRecordsbByStatus(app) {
+      var me = this;
+      return function *() {
+        var ret = {};
 
-                var pass = Controllers.passWhitelist(this.remoteAddress, app);
-                if ( pass ) {
-                    var storeService = new StoreService(app);
-                    ret = yield storeService.getRecordsbByStatus();
-                }
-
-                this.type = 'json';
-                this.body = ret;
-            };
+        var pass = Controllers.passWhitelist(this.remoteAddress, app);
+        if (pass) {
+          var storeService = new StoreService(app);
+          ret = yield storeService.getRecordsbByStatus();
         }
+
+        this.type = 'json';
+        this.body = ret;
+      };
+    }
 
         /**
          * @api {get} /admin/curtains 获取幕布寄送任务
@@ -1052,21 +1053,21 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiUse  EmptyRecord
          */
-        static getCurtainsb (app) {
-            var me = this;
-            return function *() {
-                var ret = {};
+    static getCurtainsb(app) {
+      var me = this;
+      return function *() {
+        var ret = {};
 
-                var pass = Controllers.passWhitelist(this.remoteAddress, app);
-                if ( pass ) {
-                    var storeService = new StoreService(app);
-                    ret = yield storeService.getCurtainsb();
-                }
-
-                this.type = 'json';
-                this.body = ret;
-            };
+        var pass = Controllers.passWhitelist(this.remoteAddress, app);
+        if (pass) {
+          var storeService = new StoreService(app);
+          ret = yield storeService.getCurtainsb();
         }
+
+        this.type = 'json';
+        this.body = ret;
+      };
+    }
 
 
         /**
@@ -1101,106 +1102,106 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiUse  EmptyRecord
          */
-        static getCurtainsb2 (app) {
-            var me = this;
-            return function *() {
-                var ret = {};
+    static getCurtainsb2(app) {
+      var me = this;
+      return function *() {
+        var ret = {};
 
-                var pass = Controllers.passWhitelist(this.remoteAddress, app);
-                if ( pass ) {
-                    var storeService = new StoreService(app);
-                    ret = yield storeService.getCurtainsb2();
-                }
-
-                this.type = 'json';
-                this.body = ret;
-            };
+        var pass = Controllers.passWhitelist(this.remoteAddress, app);
+        if (pass) {
+          var storeService = new StoreService(app);
+          ret = yield storeService.getCurtainsb2();
         }
 
-        static deleteRecord (app) {
-            var me = this;
-            return function *(page) {
-                var session = this.session;
-                var ret = {};
+        this.type = 'json';
+        this.body = ret;
+      };
+    }
 
-                var storeService = new StoreService(app);
-                ret = yield storeService.deleteRecord();
+    static deleteRecord(app) {
+      var me = this;
+      return function *(page) {
+        var session = this.session;
+        var ret = {};
 
-                this.type = 'json';
-                this.body = {ret: ret};
-            };
-        }
+        var storeService = new StoreService(app);
+        ret = yield storeService.deleteRecord();
 
-        static upload (app) {
-            var supportFileTypes = '^.*.(?:jpg|png|gif)$';
-            var regEx = new RegExp(supportFileTypes);
+        this.type = 'json';
+        this.body = {ret: ret};
+      };
+    }
 
-            return function *() {
-                console.dir(this.cookies.get('koa.sid'));
-                var session = this.session;
-                //if( session.hasOwnProperty('firms') ){
+    static upload(app) {
+      var supportFileTypes = '^.*.(?:jpg|png|gif)$';
+      var regEx = new RegExp(supportFileTypes);
+
+      return function *() {
+        console.dir(this.cookies.get('koa.sid'));
+        var session = this.session;
+                // if( session.hasOwnProperty('firms') ){
                 //    delete session.firms;
-                //}
-                this.state.upload=0;
-                if (this.method.toLocaleLowerCase() == 'post') {
-                    var hasError = false;
-                    var filename = '';
-                    var url = '';
-                    var parts = yield* multipart(this);
-                    for (let file of parts.files) {
-                        if (file.filename.match(regEx)) {
-                            var storeService = new StoreService(app);
-                            url = yield storeService.uploadNos(Date.now()+encodeURIComponent(file.filename), file.path);
-                            filename = file.filename;
-                        } else {
-                            parts.dispose();
-                            this.status = 403;
-                            this.body = `403 Forbidden : Unsupported type of upload file [${file.filename}]`;
-                            hasError = true;                //ignore downstream middleware
-                        }
-                    }
-                    parts.dispose();
+                // }
+        this.state.upload = 0;
+        if (this.method.toLocaleLowerCase() == 'post') {
+          var hasError = false;
+          var filename = '';
+          var url = '';
+          var parts = yield* multipart(this);
+          for (const file of parts.files) {
+            if (file.filename.match(regEx)) {
+              var storeService = new StoreService(app);
+              url = yield storeService.uploadNos(Date.now() + encodeURIComponent(file.filename), file.path);
+              filename = file.filename;
+            } else {
+              parts.dispose();
+              this.status = 403;
+              this.body = `403 Forbidden : Unsupported type of upload file [${file.filename}]`;
+              hasError = true;                // ignore downstream middleware
+            }
+          }
+          parts.dispose();
 
 
-                    this.type = 'json';
-                    this.body = {url:url};
-                } else {
-                    EasyNode.DEBUG && logger.debug('multipart must post');
-                }
-            };
+          this.type = 'json';
+          this.body = {url:url};
+        } else {
+          EasyNode.DEBUG && logger.debug('multipart must post');
         }
+      };
+    }
 
         /*
         * 没有文件类型限制*/
-        static upload2 (app) {
+    static upload2(app) {
 
-            return function *() {
-                console.dir(this.cookies.get('koa.sid'));
-                var session = this.session;
-                //if( session.hasOwnProperty('firms') ){
+      return function *() {
+        console.dir(this.cookies.get('koa.sid'));
+        var session = this.session;
+                // if( session.hasOwnProperty('firms') ){
                 //    delete session.firms;
-                //}
-                this.state.upload=0;
-                if (this.method.toLocaleLowerCase() == 'post') {
-                    var hasError = false;
-                    var filename = '';
-                    var url = '';
-                    var parts = yield* multipart(this);
-                    for (let file of parts.files) {
-                        var storeService = new StoreService(app);
-                        url = yield storeService.uploadNos(Date.now()+encodeURIComponent(file.filename), file.path);
-                        filename = file.filename;
-                    }
-                    parts.dispose();
+                // }
+        this.state.upload = 0;
+        if (this.method.toLocaleLowerCase() == 'post') {
+          var hasError = false;
+          var filename = '';
+          var url = '';
+          var parts = yield* multipart(this);
+          for (const file of parts.files) {
+            var storeService = new StoreService(app);
+            url = yield storeService.uploadNos(Date.now() + encodeURIComponent(file.filename), file.path);
+            filename = file.filename;
+          }
+          parts.dispose();
 
 
-                    this.type = 'json';
-                    this.body = {url:url};
-                } else {
-                    EasyNode.DEBUG && logger.debug('multipart must post');
-                }
-            };
+          this.type = 'json';
+          this.body = {url:url};
+        } else {
+          EasyNode.DEBUG && logger.debug('multipart must post');
         }
+      };
+    }
 
 
         /**
@@ -1217,21 +1218,21 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiSuccess {String} value value
          */
-        static getSys (app) {
-            var me = this;
-            return function *() {
-                var ret = {};
+    static getSys(app) {
+      var me = this;
+      return function *() {
+        var ret = {};
 
-                var pass = Controllers.passWhitelist(this.remoteAddress, app);
-                if ( pass ) {
-                    var storeService = new StoreService(app);
-                    ret = yield storeService.getSys();
-                }
-
-                this.type = 'json';
-                this.body = {ret: ret};
-            };
+        var pass = Controllers.passWhitelist(this.remoteAddress, app);
+        if (pass) {
+          var storeService = new StoreService(app);
+          ret = yield storeService.getSys();
         }
+
+        this.type = 'json';
+        this.body = {ret: ret};
+      };
+    }
 
         /**
          * @api {put} /rest/sys 修改sys信息
@@ -1248,21 +1249,21 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
          * @apiSuccess {Number} ret true:成功,false:失败
          */
-        static putSys (app) {
-            var me = this;
-            return function *() {
-                var ret = {};
+    static putSys(app) {
+      var me = this;
+      return function *() {
+        var ret = {};
 
-                var pass = Controllers.passWhitelist(this.remoteAddress, app);
-                if ( pass ) {
-                    var storeService = new StoreService(app);
-                    ret = yield storeService.putSys();
-                }
-
-                this.type = 'json';
-                this.body = {ret: ret};
-            };
+        var pass = Controllers.passWhitelist(this.remoteAddress, app);
+        if (pass) {
+          var storeService = new StoreService(app);
+          ret = yield storeService.putSys();
         }
+
+        this.type = 'json';
+        this.body = {ret: ret};
+      };
+    }
 
         /**
          * @api {put} /admin/icp/verifybamm 检查备案密码
@@ -1279,21 +1280,21 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
          * @apiSuccess {Object} ret { ret:true|false,msg:''}
          */
-        static checkBamm (app) {
-            var me = this;
-            return function *() {
-                var ret = {};
+    static checkBamm(app) {
+      var me = this;
+      return function *() {
+        var ret = {};
 
-                var pass = Controllers.passWhitelist(this.remoteAddress, app);
-                if ( pass ) {
-                    var storeService = new StoreService(app);
-                    ret = yield storeService.isp_verifybamm();
-                }
-
-                this.type = 'json';
-                this.body = {ret: ret};
-            };
+        var pass = Controllers.passWhitelist(this.remoteAddress, app);
+        if (pass) {
+          var storeService = new StoreService(app);
+          ret = yield storeService.isp_verifybamm();
         }
+
+        this.type = 'json';
+        this.body = {ret: ret};
+      };
+    }
 
         /**
          * @api {put} /admin/icp/querybeianstatus 查询备案状态
@@ -1342,21 +1343,21 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          </StatusInfo>
          * 当ret=false时, StatusInfo:{}
          */
-        static querybeianstatus (app) {
-            var me = this;
-            return function *() {
-                var ret = {};
+    static querybeianstatus(app) {
+      var me = this;
+      return function *() {
+        var ret = {};
 
-                var pass = Controllers.passWhitelist(this.remoteAddress, app);
-                if ( pass ) {
-                    var storeService = new StoreService(app);
-                    ret = yield storeService.isp_querybeianstatus();
-                }
-
-                this.type = 'json';
-                this.body = {ret: ret};
-            };
+        var pass = Controllers.passWhitelist(this.remoteAddress, app);
+        if (pass) {
+          var storeService = new StoreService(app);
+          ret = yield storeService.isp_querybeianstatus();
         }
+
+        this.type = 'json';
+        this.body = {ret: ret};
+      };
+    }
 
 
         /**
@@ -1379,21 +1380,21 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
          @apiSuccess {Object} ret { ret: {id:id} }
          */
-        static createIply (app) {
-            var me = this;
-            return function *() {
-                var ret = {};
+    static createIply(app) {
+      var me = this;
+      return function *() {
+        var ret = {};
 
-                var pass = Controllers.passWhitelist(this.remoteAddress, app);
-                if ( pass ) {
-                    var storeService = new StoreService(app);
-                    ret = yield storeService.createIply();
-                }
-
-                this.type = 'json';
-                this.body = {ret: ret};
-            };
+        var pass = Controllers.passWhitelist(this.remoteAddress, app);
+        if (pass) {
+          var storeService = new StoreService(app);
+          ret = yield storeService.createIply();
         }
+
+        this.type = 'json';
+        this.body = {ret: ret};
+      };
+    }
 
 
         /**
@@ -1413,21 +1414,21 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
          @apiSuccess {Object} ret { ret: {id:id} }
          */
-        static createArea (app) {
-            var me = this;
-            return function *() {
-                var ret = {};
+    static createArea(app) {
+      var me = this;
+      return function *() {
+        var ret = {};
 
-                var pass = Controllers.passWhitelist(this.remoteAddress, app);
-                if ( pass ) {
-                    var storeService = new StoreService(app);
-                    ret = yield storeService.createArea();
-                }
-
-                this.type = 'json';
-                this.body = {ret: ret};
-            };
+        var pass = Controllers.passWhitelist(this.remoteAddress, app);
+        if (pass) {
+          var storeService = new StoreService(app);
+          ret = yield storeService.createArea();
         }
+
+        this.type = 'json';
+        this.body = {ret: ret};
+      };
+    }
 
 
         /**
@@ -1446,40 +1447,40 @@ var StoreService = using('netease.icp.backend.services.StoreService');
 
          @apiSuccess {NUmber} ret { ret: true | false }
          */
-        static createResources (app) {
-            var me = this;
-            return function *() {
-                var ret = {};
+    static createResources(app) {
+      var me = this;
+      return function *() {
+        var ret = {};
 
-                var pass = Controllers.passWhitelist(this.remoteAddress, app);
-                if ( pass ) {
-                    var storeService = new StoreService(app);
-                    ret = yield storeService.createResources();
-                }
-
-                this.type = 'json';
-                this.body = {ret: ret};
-            };
+        var pass = Controllers.passWhitelist(this.remoteAddress, app);
+        if (pass) {
+          var storeService = new StoreService(app);
+          ret = yield storeService.createResources();
         }
 
-
-        static passWhitelist ( ip, app ) {
-            var pass = false;
-            const ips = app.config.whiteips;
-            ips.forEach(function (v, index) {
-                if ( ip.includes(v) ) {
-                    pass = true;
-                }
-            });
-            console.log('pass:', pass);
-            console.log('remoteAddress:', ip);
-            return pass;
-        }
-
-        getClassName () {
-            return EasyNode.namespace(__filename);
-        }
+        this.type = 'json';
+        this.body = {ret: ret};
+      };
     }
 
-    module.exports = Controllers;
+
+    static passWhitelist(ip, app) {
+      var pass = false;
+      const ips = app.config.whiteips;
+      ips.forEach(function(v, index) {
+        if (ip.includes(v)) {
+          pass = true;
+        }
+      });
+      console.log('pass:', pass);
+      console.log('remoteAddress:', ip);
+      return pass;
+    }
+
+    getClassName() {
+      return EasyNode.namespace(__filename);
+    }
+    }
+
+  module.exports = Controllers;
 })();

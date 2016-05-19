@@ -1,17 +1,17 @@
 const fs = require('fs');
 
 var xzhyd = {
-    UploadData: {
-        ICP: {
-            XZHYD:{
-                Fjxx:[
+  UploadData: {
+    ICP: {
+      XZHYD:{
+        Fjxx:[
 
-                ]
-            },
-            Qqdwid:0
-        }
-    },
-    attr: {version:'V.3.0'}
+        ]
+      },
+      Qqdwid:0
+    }
+  },
+  attr: {version:'V.3.0'}
 };
 
 
@@ -85,26 +85,26 @@ var xzhyd = {
      operatetime: 0,
      operator: '' } }
 */
-var XZHYD_ASSIGN = function (json) {
-    'use strict';
-    var fjxx = {
-        Fjwjgs:0,
-        Fjyt:0,
-        Fjnr:'',
-        Fjssdx:{
-            Ssdxlx:1,
-            Ssdxbs:{
-                Jlid:0,
-                Baxh:''
-            }
-        },
-        Bz:''
-    };
+var XZHYD_ASSIGN = function(json) {
+  'use strict';
+  var fjxx = {
+    Fjwjgs:0,
+    Fjyt:0,
+    Fjnr:'',
+    Fjssdx:{
+      Ssdxlx:1,
+      Ssdxbs:{
+        Jlid:0,
+        Baxh:''
+      }
+    },
+    Bz:''
+  };
 
-    console.log(xzhyd);
-    xzhyd.UploadData.ICP.XZHYD.Fjxx.push(fjxx);
-    xzhyd.UploadData.ICP.Qqdwid = 110000000211;
-    return xzhyd;
+  console.log(xzhyd);
+  xzhyd.UploadData.ICP.XZHYD.Fjxx.push(fjxx);
+  xzhyd.UploadData.ICP.Qqdwid = 110000000211;
+  return xzhyd;
 };
 
 module.exports = XZHYD_ASSIGN;

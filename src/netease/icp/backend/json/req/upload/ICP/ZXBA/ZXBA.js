@@ -1,17 +1,17 @@
 const fs = require('fs');
 
 var zxba = {
-    UploadData: {
-        ICP: {
-            ZXBA:{
-                Zx_xx:[
+  UploadData: {
+    ICP: {
+      ZXBA:{
+        Zx_xx:[
 
-                ]
-            },
-            Qqdwid:0
-        }
-    },
-    attr: {version:'V.3.0'}
+        ]
+      },
+      Qqdwid:0
+    }
+  },
+  attr: {version:'V.3.0'}
 };
 
 
@@ -85,28 +85,28 @@ var zxba = {
      operatetime: 0,
      operator: '' } }
 */
-var ZXBA_ASSIGN = function (json) {
-    'use strict';
-    var zxxx = {
-        Zxlb:0,
-        Jlid:0,
-        Zxly:0,
-        Zxlybz:'',
-        ICPmm:''
-    };
+var ZXBA_ASSIGN = function(json) {
+  'use strict';
+  var zxxx = {
+    Zxlb:0,
+    Jlid:0,
+    Zxly:0,
+    Zxlybz:'',
+    ICPmm:''
+  };
 
-    zxxx.Zxlb = json.record.type;
-    zxxx.Jlid = 0;//ToDo
-    zxxx.Zxly = '';
-    zxxx.Zxlybz = '';
-    zxxx.ICPmm = json.company.recordpassword;
+  zxxx.Zxlb = json.record.type;
+  zxxx.Jlid = 0;// ToDo
+  zxxx.Zxly = '';
+  zxxx.Zxlybz = '';
+  zxxx.ICPmm = json.company.recordpassword;
 
 
-    console.log('zxba.....');
-    console.log(xzwz);
-    zxba.UploadData.ICP.ZXBA.Zx_xx.push(zxxx);
-    zxba.UploadData.ICP.Qqdwid = 110000000211;
-    return zxba;
+  console.log('zxba.....');
+  console.log(xzwz);
+  zxba.UploadData.ICP.ZXBA.Zx_xx.push(zxxx);
+  zxba.UploadData.ICP.Qqdwid = 110000000211;
+  return zxba;
 };
 
 module.exports = ZXBA_ASSIGN;

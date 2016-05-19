@@ -7,7 +7,7 @@ var net = require('net');
 var Socket = net.Socket;
 
 
-(function () {
+(function() {
 
 
     /**
@@ -19,7 +19,7 @@ var Socket = net.Socket;
      * @author allen.hu
      * @description
      * */
-    class PortScanService extends GenericObject {
+  class PortScanService extends GenericObject {
         /**
          * 构造函数。
          *
@@ -27,66 +27,68 @@ var Socket = net.Socket;
          * @since 0.1.0
          * @author allen.hu
          * */
-        constructor () {
-            super();
-            //调用super()后再定义子类成员。
-        }
+    constructor() {
+      super();
+      // 调用super()后再定义子类成员。
+      this.host = '127.0.0.1';
+      this.port = 80;
+    }
 
-        scan (host, port) {
-            return new Promise(function (res, rej) {
-                var status = '';
-                var timeout = 400;
-                var error = null;
-                var connectionRefused = false;
+    scan(host, port) {
+      return new Promise(function(res, rej) {
+        var status = '';
+        var timeout = 400;
+        var error = null;
+        var connectionRefused = false;
 
-                var socket = new Socket();
+        var socket = new Socket();
 
                 // Socket connection established, port is open
-                socket.on('connect', function () {
-                    status = 'open';
-                    socket.destroy();
-                    res({host : host, port : port});
-                });
+        socket.on('connect', function() {
+          status = 'open';
+          socket.destroy();
+          res({h: host, p: port});
+        });
 
                 // If no response, assume port is not listening
-                socket.setTimeout(timeout);
-                socket.on('timeout', function () {
-                    status = 'closed';
-                    socket.destroy();
-                    rej();
-                });
+        socket.setTimeout(timeout);
+        socket.on('timeout', function() {
+          status = 'closed';
+          socket.destroy();
+          rej();
+        });
 
                 // Assuming the port is not open if an error. May need to refine based on
                 // exception
-                socket.on('error', function (exception) {
-                    if (exception.code === 'ECONNREFUSED') {
-                        connectionRefused = true;
-                    } else {
-                        connectionRefused = false;
-                    }
-                    status = 'closed';
-                    rej();
-                });
+        socket.on('error', function(exception) {
+          if (exception.code === 'ECONNREFUSED') {
+            connectionRefused = true;
+          } else {
+            connectionRefused = false;
+          }
+          status = 'closed';
+          rej();
+        });
 
                 // Return after the socket has closed
-                socket.on('close', function (exception) {
-                    if (exception && !connectionRefused) {
-                        error = error || exception;
-                    } else {
-                        error = null;
-                    }
-                    rej();
-                });
-                socket.connect( port, host );
-            });
-        }
+        socket.on('close', function(exception) {
+          if (exception && !connectionRefused) {
+            error = error || exception;
+          } else {
+            error = null;
+          }
+          rej();
+        });
+        socket.connect(port, host);
+      });
+    }
 
-        getClassName () {
-            return EasyNode.namespace(__filename);
-        }
+    getClassName() {
+      return EasyNode.namespace(__filename);
+    }
 
     }
 
-    module.exports = PortScanService;
+  module.exports = PortScanService;
 })();
 

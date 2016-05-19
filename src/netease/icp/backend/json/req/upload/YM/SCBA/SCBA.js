@@ -23,15 +23,15 @@ export { SCBA };
 const fs = require('fs');
 
 var scba = {
-    UploadData: {
-        YM: {
-            SCBA:{
-                Scxx:[]
-            },
-            Qqdwid:0
-        }
-    },
-    attr: {version:'V.3.0'}
+  UploadData: {
+    YM: {
+      SCBA:{
+        Scxx:[]
+      },
+      Qqdwid:0
+    }
+  },
+  attr: {version:'V.3.0'}
 };
 
 /*
@@ -104,19 +104,19 @@ var scba = {
      operatetime: 0,
      operator: '' } }
 */
-var SCBA_ASSIGN = function (json) {
-    'use strict';
+var SCBA_ASSIGN = function(json) {
+  'use strict';
 
-    var scxx = {
-        Id:0,
-        Ym:''
-    };
+  var scxx = {
+    Id:0,
+    Ym:''
+  };
 
-    scba.UploadData.YM.SCBA.Scxx.push(scxx);//ToDo
-    scba.UploadData.YM.Qqdwid = 110000000211;
+  scba.UploadData.YM.SCBA.Scxx.push(scxx);// ToDo
+  scba.UploadData.YM.Qqdwid = 110000000211;
 
-    console.log(scba);
-    return scba;
+  console.log(scba);
+  return scba;
 };
 
 

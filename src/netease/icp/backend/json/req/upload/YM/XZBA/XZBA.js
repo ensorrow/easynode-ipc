@@ -47,15 +47,15 @@ export { XZBA };
 const fs = require('fs');
 
 var xzba = {
-    UploadData: {
-        YM: {
-            XZBA:{
-                Xzxx:[]
-            },
-            Qqdwid:0
-        }
-    },
-    attr: {version:'V.3.0'}
+  UploadData: {
+    YM: {
+      XZBA:{
+        Xzxx:[]
+      },
+      Qqdwid:0
+    }
+  },
+  attr: {version:'V.3.0'}
 };
 
 /*
@@ -128,45 +128,45 @@ var xzba = {
      operatetime: 0,
      operator: '' } }
 */
-var XZBA_ASSIGN = function (json) {
-    'use strict';
+var XZBA_ASSIGN = function(json) {
+  'use strict';
 
-    var xzxx = {
-        IspId:0,
-        Ym:'',
-        Ymlx:0,
-        Zcsj:'',
-        Zcr_mc:'',
-        Zcr_zz:'',
-        Zcr_txdz:'',
-        Zcr_shengid:0,
-        Zcr_shiid:0,
-        Zcr_dzyj:'',
-        Zcr_dhhm:'',
-        Gly_mz:'',
-        Gly_zz:'',
-        Gly_dz:'',
-        Gly_shengid:'',
-        Gly_shiid:'',
-        Gly_dzyj:'',
-        Gly_dh:'',
-        Jfr_mz:'',
-        Jfr_zz:'',
-        Jfr_dz:'',
-        Jfr_shengid:'',
-        Jfr_shiid:'',
-        Jfr_dzyj:'',
-        Jfr_dh:'',
-        Ym_zcs:'',
-        Ym_fwq:'',
-        Yxrq:''
-    };
+  var xzxx = {
+    IspId:0,
+    Ym:'',
+    Ymlx:0,
+    Zcsj:'',
+    Zcr_mc:'',
+    Zcr_zz:'',
+    Zcr_txdz:'',
+    Zcr_shengid:0,
+    Zcr_shiid:0,
+    Zcr_dzyj:'',
+    Zcr_dhhm:'',
+    Gly_mz:'',
+    Gly_zz:'',
+    Gly_dz:'',
+    Gly_shengid:'',
+    Gly_shiid:'',
+    Gly_dzyj:'',
+    Gly_dh:'',
+    Jfr_mz:'',
+    Jfr_zz:'',
+    Jfr_dz:'',
+    Jfr_shengid:'',
+    Jfr_shiid:'',
+    Jfr_dzyj:'',
+    Jfr_dh:'',
+    Ym_zcs:'',
+    Ym_fwq:'',
+    Yxrq:''
+  };
 
-    xzba.UploadData.YM.XZBA.Xzxx.push(xzxx);//ToDO
-    xzba.UploadData.IP.Qqdwid = 110000000211;
+  xzba.UploadData.YM.XZBA.Xzxx.push(xzxx);// ToDO
+  xzba.UploadData.IP.Qqdwid = 110000000211;
 
-    console.log(xzba);
-    return xzba;
+  console.log(xzba);
+  return xzba;
 };
 
 module.exports = XZBA_ASSIGN;

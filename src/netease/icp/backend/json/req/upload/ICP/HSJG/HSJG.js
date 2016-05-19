@@ -1,17 +1,17 @@
 const fs = require('fs');
 
 var hsjg = {
-    UploadData: {
-        ICP: {
-            HSJG:{
-                Hsjgxx:[
+  UploadData: {
+    ICP: {
+      HSJG:{
+        Hsjgxx:[
 
-                ]
-            },
-            Qqdwid:0
-        }
-    },
-    attr: {version:'V.3.0'}
+        ]
+      },
+      Qqdwid:0
+    }
+  },
+  attr: {version:'V.3.0'}
 };
 
 
@@ -85,120 +85,120 @@ var hsjg = {
      operatetime: 0,
      operator: '' } }
 */
-var HSJG_ASSIGN = function (json) {
-    'use strict';
-    var cur = new Date();
-    var hssj = cur.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
-    var hsjgxx = {
-        Hsjg:0,
-        Hsrxm:'胡家宝',
-        Hssj:hssj,
-        Bbdw:110000000211,
-        Hsyj:'核实通过',
-        Cwxx:'无',
-        Baxx:{
-            Zt_xx:{
+var HSJG_ASSIGN = function(json) {
+  'use strict';
+  var cur = new Date();
+  var hssj = `${cur.getFullYear()}-${d.getMonth() + 1}${d.getDate()}`;
+  var hsjgxx = {
+    Hsjg:0,
+    Hsrxm:'胡家宝',
+    Hssj:hssj,
+    Bbdw:110000000211,
+    Hsyj:'核实通过',
+    Cwxx:'无',
+    Baxx:{
+      Zt_xx:{
 
-            },
-            Wz_xx:[
+      },
+      Wz_xx:[
 
-            ]
+      ]
+    }
+  };
+
+  hsjgxx.Hsjg = 0;
+  hsjgxx.Hsrxm = '胡家宝';
+  Hsrxm.Hssj = hssj;
+  Hsrxm.Bddw = 110000000211;
+  Hsrxm.Hsyj = '核实通过';
+  Hsrxm.Cwxx = '无';
+
+  var ztxx = {
+    Ztid: 0,
+    Dwmc: '',
+    Dwxz: 0,
+    Tzr: '',
+    Txdz: {
+      Shengid: 0,
+      Shiid: 0,
+      xianid: 0,
+      Xxdz: '',
+    },
+    Zj: {
+      Zjlx: 0,
+      Zjhm: '',
+      Zjzs: ''
+    },
+    Fzr: {
+      Fzr_xm: '',
+      Fzr_dhhm: '',
+      sjhm: '',
+      Fzr_dzyj: '',
+      Msn: '',
+      Qq: '',
+      Fzr_zjlx: 0,
+      Fzr_zjhm: ''
+    },
+    Bz: ''
+  };
+  var wzxx = {
+    Wzid: 0,
+    Wzmc: '',
+    Nrlx: {
+      Nrlx_xx: {
+        Nrlx_id: 0,
+        Qzsph: '',
+        Spwj: ['']
+      }
+    },
+    Fwnr: {
+      Fwnr_id: []
+    },
+    Ym_xx: [
+      {
+        Ymid: 0,
+        Ym: ''
+      }
+    ],
+    Jr_xx: {
+      Jrid: 0,
+      Wzfb: {
+        Fbdd: []
+      },
+      Wzjrfs: {
+        Jrfs: []
+      },
+      Ip_xx: [
+        {
+          IspIpid: 0,
+          Ipid: 0,
+          Qsip: 0,
+          Zzip: 0
         }
-    };
+      ],
+      Bbfs:1
+    },
+    Wz_Fzr: {
+      Fzr_xm: '',
+      Fzr_dhhm: '',
+      sjhm: '',
+      Fzr_dzyj: '',
+      Msn: '',
+      Qq: '',
+      Fzr_zjlx: '',
+      Fzr_zjhm: ''
+    },
+    Syurl: '',
+    Wz_Bz: ''
+  };
+  hsjgxx.Baxx.Zt_xx = ztxx;
+  hsjgxx.Baxx.Wz_xx.push(wzxx);
 
-    hsjgxx.Hsjg = 0;
-    hsjgxx.Hsrxm = '胡家宝';
-    Hsrxm.Hssj = hssj;
-    Hsrxm.Bddw = 110000000211;
-    Hsrxm.Hsyj = '核实通过';
-    Hsrxm.Cwxx = '无';
-
-    var ztxx = {
-        Ztid: 0,
-        Dwmc: '',
-        Dwxz: 0,
-        Tzr: '',
-        Txdz: {
-            Shengid: 0,
-            Shiid: 0,
-            xianid: 0,
-            Xxdz: '',
-        },
-        Zj: {
-            Zjlx: 0,
-            Zjhm: '',
-            Zjzs: ''
-        },
-        Fzr: {
-            Fzr_xm: '',
-            Fzr_dhhm: '',
-            sjhm: '',
-            Fzr_dzyj: '',
-            Msn: '',
-            Qq: '',
-            Fzr_zjlx: 0,
-            Fzr_zjhm: ''
-        },
-        Bz: ''
-    };
-    var wzxx = {
-        Wzid: 0,
-        Wzmc: '',
-        Nrlx: {
-            Nrlx_xx: {
-                Nrlx_id: 0,
-                Qzsph: '',
-                Spwj: ['']
-            }
-        },
-        Fwnr: {
-            Fwnr_id: []
-        },
-        Ym_xx: [
-            {
-                Ymid: 0,
-                Ym: ''
-            }
-        ],
-        Jr_xx: {
-            Jrid: 0,
-            Wzfb: {
-                Fbdd: []
-            },
-            Wzjrfs: {
-                Jrfs: []
-            },
-            Ip_xx: [
-                {
-                    IspIpid: 0,
-                    Ipid: 0,
-                    Qsip: 0,
-                    Zzip: 0
-                }
-            ],
-            Bbfs:1
-        },
-        Wz_Fzr: {
-            Fzr_xm: '',
-            Fzr_dhhm: '',
-            sjhm: '',
-            Fzr_dzyj: '',
-            Msn: '',
-            Qq: '',
-            Fzr_zjlx: '',
-            Fzr_zjhm: ''
-        },
-        Syurl: '',
-        Wz_Bz: ''
-    };
-    hsjgxx.Baxx.Zt_xx = ztxx;
-    hsjgxx.Baxx.Wz_xx.push(wzxx);
-
-    console.log('jskg.....');
-    console.log(hsjg);
-    hsjg.UploadData.ICP.HSJG.hsjgxx.push(hsjgxx);
-    hsjg.UploadData.ICP.Qqdwid = 110000000211;
-    return hsjg;
+  console.log('jskg.....');
+  console.log(hsjg);
+  hsjg.UploadData.ICP.HSJG.hsjgxx.push(hsjgxx);
+  hsjg.UploadData.ICP.Qqdwid = 110000000211;
+  return hsjg;
 };
 
 module.exports = HSJG_ASSIGN;
