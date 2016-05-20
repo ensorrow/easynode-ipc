@@ -38,6 +38,8 @@ RUN babel src -d lib
 
 RUN rm -rf src plugins/webpack.prod.config.js  plugins/apidoc plugins/css plugins/js
 
+COPY plugins/js/index.js plugins/js/.
+
 WORKDIR /usr/src/app/bin
 
 CMD ["./start.sh"]
