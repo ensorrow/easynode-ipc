@@ -31,3 +31,20 @@ dataSequence.bin
 
 test/src/NosTest.js
 plugins/README.md
+plugins/apidoc
+plugins/css
+plugins/js
+plugins/mcss
+plugins/test
+plugins/yuidoc
+plugins/webpack.config.js
+plugins/mcss.json
+bin/dev_start80.sh
+bin/main.js
+bin/resolved-namespaces.js
+bin/start_dev.sh
+bin/dev_start_node.sh
+bin/start_dev_servers_node.sh
+reg.sh
+npm-debug.log.1005219642
+
