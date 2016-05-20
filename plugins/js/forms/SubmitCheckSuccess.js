@@ -2,7 +2,7 @@ import '../../css/index.css';
 import React from 'react';
 import DataService from '../services/DataService.js';
 import Global from '../utils/globals';
-var _g = window._g;
+
 
 let SubmitCheckSuccess = React.createClass({
     handleSubmit: function (e) {

@@ -1,7 +1,7 @@
 
 import Global from './globals';
 import DataSerice from '../services/DataService';
-var _g = window._g;
+
 
 
 function pretendRequest (email, pass, cb) {

@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute } from 'react-router';
 import Utility from '../../utils/Utility';
-var _g = window._g;
+
 
 let CheckTrialNoPass = React.createClass({
 

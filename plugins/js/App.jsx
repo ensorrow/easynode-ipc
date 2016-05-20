@@ -3,7 +3,7 @@ import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import Login from './forms/Login.jsx';
-var _g = window._g;
+
 
 var App = React.createClass({
 

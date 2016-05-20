@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute } from 'react-router';
 import DataService from '../../services/DataService.js';
 import Global from '../../utils/globals';
-var _g = window._g;
+
 
 let CheckPhotoPass = React.createClass({
 

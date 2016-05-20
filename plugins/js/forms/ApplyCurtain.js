@@ -5,7 +5,7 @@ import DataService from '../services/DataService.js';
 import FormValidator from '../utils/FormValidator';
 import assigner from 'object.assign';
 var assign = assigner.getPolyfill();
-var _g = window._g;
+
 
 let ApplyCurtain = React.createClass({
 

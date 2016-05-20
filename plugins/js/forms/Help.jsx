@@ -1,7 +1,7 @@
 import '../../css/index.css';
 import React from 'react';
 import ProgressBar from './ProgressBar.jsx';
-var _g = window._g;
+
 
 let Help = React.createClass({
     render: function () {

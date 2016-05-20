@@ -3,7 +3,7 @@ import React from 'react';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 import DataService from '../services/DataService.js';
 import Global from '../utils/globals';
-var _g = window._g;
+
 
 let SubmitTrialSuccess = React.createClass({
 

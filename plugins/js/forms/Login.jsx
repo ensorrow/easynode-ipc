@@ -1,6 +1,6 @@
 import '../../css/index.css';
 import React from 'react';
-var _g = window._g;
+
 
 var LOGINTYPE_CLOUND = '0';
 var LOGINTYPE_URL = '1';

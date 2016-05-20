@@ -3,7 +3,6 @@ import React from 'react';
 import ProgressBar from './ProgressBar.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 import {IDTYPE, NATURE} from '../constants/define';
-var _g = window._g;
 
 let RecordInfo = React.createClass({
 

@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 var assert = require('assert');
 var logger = using('easynode.framework.Logger').forFile(__filename);
 var GenericObject = using('easynode.GenericObject');
 import child_process from 'child_process';
 
-(function () {
+(function() {
 
 
     /**
@@ -16,7 +16,7 @@ import child_process from 'child_process';
      * @author allen.hu
      * @description
      * */
-    class PackageUpgradeService extends GenericObject {
+  class PackageUpgradeService extends GenericObject {
         /**
          * 构造函数。
          *
@@ -24,32 +24,32 @@ import child_process from 'child_process';
          * @since 0.1.0
          * @author allen.hu
          * */
-        constructor() {
-            super();
-            //调用super()后再定义子类成员。
-        }
+    constructor() {
+      super();
+            // 调用super()后再定义子类成员。
+    }
 
-        exec(command){
-            console.log(command);
-            return new Promise((resolve, reject) => {
-                child_process.exec.call(null, command, (err, stdout, stderr) => {
-                    if(err){
-                        reject(stderr);
-                    }else{
-                        resolve(stdout);
-                    }
-                });
-            });
-        }
+    exec(command) {
+      console.log(command);
+      return new Promise((resolve, reject) => {
+        child_process.exec(command, (err, stdout, stderr) => {
+          if (err) {
+            reject(stderr);
+          } else {
+            resolve(stdout);
+          }
+        });
+      });
+    }
 
 
-        getClassName() {
-            return EasyNode.namespace(__filename);
-        }
+    getClassName() {
+      return EasyNode.namespace(__filename);
+    }
 
 
     }
 
-    module.exports = PackageUpgradeService;
+  module.exports = PackageUpgradeService;
 })();
 

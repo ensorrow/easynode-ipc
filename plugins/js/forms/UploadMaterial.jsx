@@ -9,7 +9,7 @@ import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 import ViewPhoto from './ViewPhoto.js';
 import Global from '../utils/globals';
-var _g = window._g;
+
 
 const FT = {
     'SITEMANAGERURL': 0,

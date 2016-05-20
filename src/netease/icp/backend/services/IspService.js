@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 import co from 'co';
 var assert = require('assert');
 var logger = using('easynode.framework.Logger').forFile(__filename);
@@ -15,236 +15,233 @@ var fso = require('fs');
 var parser = require('xml2json');
 var json2xml = require('icp-json2xml');
 var js2xmlparser = require('js2xmlparser');
-import { XZBA_ASSIGN } from '../json/req/upload/ICP/XZBA/XZBA';
-import { XZWZ_ASSIGN } from '../json/req/upload/ICP/XZWZ/XZWZ';
-import { XZJR_ASSIGN } from '../json/req/upload/ICP/XZJR/XZJR';
-import { HSJG_ASSIGN } from '../json/req/upload/ICP/HSJG/HSJG';
-import { IP_XZBA_ASSIGN } from '../json/req/upload/IP/XZBA/XZBA';
-import { IP_SCBA_ASSIGN } from '../json/req/upload/IP/SCBA/SCBA';
+import hsjgAssign from '../json/req/upload/ICP/HSJG/HSJG';
+import xzbaAssign from '../json/req/upload/ICP/XZBA/XZBA';
+import xzwzAssign from '../json/req/upload/ICP/XZWZ/XZWZ';
+import xzjrAssign from '../json/req/upload/ICP/XZJR/XZJR';
+import ipxzbaAssign from '../json/req/upload/IP/XZBA/XZBA';
+import ipscbaAssign from '../json/req/upload/IP/SCBA/SCBA';
 
-var fstream = require("fstream");
+var fstream = require('fstream');
 var zlib = require('zlib');
 var AdmZip = require('adm-zip');
-var http = require("http");
+var http = require('http');
 import request from 'superagent';
 var StoreService = using('netease.icp.backend.services.StoreService');
 import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define';
 
-(function () {
+(function() {
 
-    const HASHALGORITHM = 0; //0-MD5
-    const ENCRYPTALGORITHM = 0;//0-不加密 1-AES加密算法，加密模式使用CBC模式，补码方式采用PKCS5Padding，密钥偏移量由部级系统、省局系统生成的字符串，如“0102030405060708”。
-    const COMPRESSIONFORMAT = 0; //0-zip压缩格式
+  const HASHALGORITHM = 0; // 0-MD5
+  const ENCRYPTALGORITHM = 0;// 0-不加密 1-AES加密算法，加密模式使用CBC模式，补码方式采用PKCS5Padding，密钥偏移量由部级系统、省局系统生成的字符串，如“0102030405060708”。
+  const COMPRESSIONFORMAT = 0; // 0-zip压缩格式
 
-    var map = new Map([
-        [ 0, '操作成功' ],
-        [ 1, '操作成功，数据已经下载完毕' ],
-        [ 2, '目前服务器端没有可以下载的数据' ],
-        [ 3, '服务器端数据需要下载，请继续调用本接口进行下载' ],
-        [ 4, '用户名错误' ],
-        [ 5, '密码错误' ],
-        [ 6, '解密失败' ],
-        [ 7, '哈希值验证未通过' ],
-        [ 8, '解压缩失败' ],
-        [ 9, '加密算法类型错误' ],
-        [ 10, 'Hash算法类型错误' ],
-        [ 11, '压缩格式错误' ],
-        [ 12, '认证信息错误，服务器拒绝响应' ],
-        [ 13, '非本省ISP，服务器拒绝响应' ],
-        [ 14, '本次上载没有受理，请首先上载漏报的数据，然后再上载本次数据' ],
-        [ 15, '本次上载没有受理，已上报的数据文件已超过最大受理数量，请稍后再提交' ],
-        [ 16, '认证错误，随机数小于20个字符，服务器拒绝响应' ],
-        [ 17, '您上报的备案数据文件数量不符合要求（每次必须上报1个文件），服务器拒绝受理，请调整后重新上报' ],
-        [ 18, '上报的备案数据文件过大，服务器拒绝响应，请将上报的备案数据文件调整为50MB内并重新上报' ],
-        [ 19, '您的报备权限未开放，请联系所在省通信管理局' ],
-        [ 20, '请您在规定的时间段内进行报备，报备时间为：' ],
-        [ 21, '回调响应文件名称不能为空，请核实后继续调用' ],
-        [ 22, '备案密码校验超过X次，请仔细核对备案密码' ],
-        [ 901, '系统正在维护中，您的报备请求未被受理，请稍后重新报备' ],
-        [ 902, '系统正在维护中，您的下载请求未被受理，请稍后重新下载' ],
-        [ 999, '其他错误' ],
-        [ 1001, '管局审核通过' ],
-        [ 1002, '管局审核拒绝' ],
-        [ 1003, '网站主办者冲突，请核实后再次报备' ],
-        [ 1004, '无效域名，请核实后再次报备' ],
-        [ 1005, '域名冲突，该域名在备案信息库中已存在，请核实后再次报备' ],
-        [ 1006, '无效IP，请核实后再次报备' ],
-        [ 1007, '无效联系方式，请核实后再次报备' ],
-        [ 1008, '无效证件，请核实后再次报备' ],
-        [ 1009, '无效邮箱，请核实后再次报备' ],
-        [ 1010, '无效办公电话，请核实后再次报备' ],
-        [ 1011, '无效手机号码，请核实后再次报备' ],
-        [ 1012, '无效MSN，请核实后再次报备' ],
-        [ 1013, '无效QQ，请核实后再次报备' ],
-        [ 1014, '无效主办单位性质，请核实后再次报备' ],
-        [ 1015, '无效身份证号码，请核实后再次报备' ],
-        [ 1016, '备案申请中的数据在备案信息库中不存在，请核实后再次报备' ],
-        [ 1017, '备案变更中，审核通过后可再次申请变更' ],
-        [ 1018, 'ICP备案密码错误，请核实后再次报备' ],
-        [ 1019, '省市县代码错误，请核实后再次报备' ],
-        [ 1020, '网站名称冲突，请核实后再次报备' ],
-        [ 1021, '网站首页地址冲突，在备案信息库中已存在该首页地址，请核实后再次报备' ],
-        [ 1022, '网站首页地址格式错误，请核实后再次报备' ],
-        [ 1023, '备案申请中的IP数据在备案信息库中不存在，请核实后再次报备' ],
-        [ 1024, '备案信息中的IP地址冲突，请核实后再次报备' ],
-        [ 1025, '该网站只有一个接入，不能取消该接入' ],
-        [ 1026, '注销理由代码错误，请核实后再次报备' ],
-        [ 1027, '注销主体冲突，无需重复提交该主体的注销申请' ],
-        [ 1028, 'ICP用户名错误，请核实后再次报备' ],
-        [ 1029, '同一个网站不允许有相同的接入，请核实后再次报备' ],
-        [ 1030, '注销网站冲突，无需重复提交该网站的注销申请' ],
-        [ 1031, '网站负责人办公电话不能为空，请核实后再次报备' ],
-        [ 1032, '接入商已经对该网站提出取消接入请求，无需重复提交' ],
-        [ 1033, '无效的前置或专项审批内容类型，请核实后再次报备' ],
-        [ 1034, '无效网站服务内容，请核实后再次报备' ],
-        [ 1035, '无效网站接入方式，请核实后再次报备' ],
-        [ 1036, '无效服务器放置地点，请核实后再次报备' ],
-        [ 1037, '该网站已经报备，无需重复报备' ],
-        [ 1038, '该接入已经报备，无需重复报备' ],
-        [ 1039, '该备案信息中的网站域名已经报备，无需重复报备' ],
-        [ 1040, '该备案接入信息中的IP信息已经报备，无需重复报备' ],
-        [ 1041, '网站首页URL中必须包含域名中的其中一项，请核实后再次报备' ],
-        [ 1042, '主体正在注销中，不允许注销网站' ],
-        [ 1043, '网站正在注销中，不允许注销主体' ],
-        [ 1044, '主体负责人姓名不能为空' ],
-        [ 1045, '接入商只能到其所在省通信管理局系统进行ICP备案信息的报备' ],
-        [ 1046, '变更备案时不能改变主体所在省，如果需要修改，请先申请注销主体，然后重新报备' ],
-        [ 1047, '只能取消本接入商的接入信息，请核实后再次报备' ],
-        [ 1048, '您试图操作的不是您接入的备案，这种操作是非法的，请核实后再次报备' ],
-        [ 1049, '主体已注销，您的请求被拒绝' ],
-        [ 1050, '网站已注销，您的请求被拒绝' ],
-        [ 1051, '同一个接入商对同一个主体变更备案申请超过最大数，请稍后再试' ],
-        [ 1052, '您所提交的请求在原系统中正在受理，请稍后提交' ],
-        [ 1053, '您所提交的请求的单位已经被删除  请确认' ],
-        [ 1054, '报备单位无效' ],
-        [ 1055, '核验单提交信息不是该备案核验单，请确认' ],
-        [ 1056, '附件格式类型代码错误，请核实后再次报备' ],
-        [ 1057, '附件用途类型代码错误，请核实后再次报备' ],
-        [ 1058, '主体信息不存在' ],
-        [ 1059, '网站信息不存在' ],
-        [ 1060, '核验单信息成功入库' ],
-        [ 1061, '核验单用途类型与报备标识不匹配' ],
-        [ 1062, 'ICP接入信息比对IP库信息成功' ],
-        [ 1063, 'ICP备案接入信息中所使用的IP地址与你单位IP地址备案中报备的IP信息不一致，请核实后再次提交' ],
-        [ 1064, '“XX”网站的“XX域名”在黑名单中，请核实后再次报备' ],
-        [ 1065, '主体在黑名单中，请核实后再次报备' ],
-        [ 1066, '网站语言类别错误，请核实后再次报备' ],
-        [ 1067, '网站备案号或主键对应多个网站，请核实后再报备' ],
-        [ 1068, '网站备案号或主键对应多个缩略信息，请核实后再报备' ],
-        [ 1999, '其他错误' ],
-        [ 2001, '没有此报备单位，请核实后再次报备' ],
-        [ 2002, '报备信息中的起始IP大于终止IP，请核实后再次报备' ],
-        [ 2003, '此IP段已报备，请核实后再次报备' ],
-        [ 2004, '此IP广播已经报备，请核查后再次报备' ],
-        [ 2005, '此IP段未报备来源信息，请首先报备来源信息' ],
-        [ 2006, '报备信息中的起始IP不是合法IP地址，请核实后再次报备' ],
-        [ 2007, '报备信息中的终止IP不是合法IP地址' ],
-        [ 2008, '报备信息中的网关地址不是合法IP地址，请核实后再次报备' ],
-        [ 2009, '报备信息中的单位分类不正确，请核实后再次报备' ],
-        [ 2010, '报备信息中的分配使用方式不能为空，请核实后再次报备' ],
-        [ 2011, '报备信息中的省市县信息错误，请核实后再次报备' ],
-        [ 2012, '报备信息中的电话号码不是合法的电话号码，请核实后再次报备' ],
-        [ 2013, '报备信息中的Email不是有效的电子邮箱，请核实后再次报备' ],
-        [ 2014, '报备信息中的起始IP不能为空，请核实后再次报备' ],
-        [ 2015, '报备信息中的终止IP不能为空，请核实后再次报备' ],
-        [ 2016, '报备信息中的广播单位不能为空，请核实后再次报备' ],
-        [ 2017, '报备信息中的广播单位不存在，请核实后再次报备' ],
-        [ 2018, '报备信息中的申请广播单位不存在，请核实后再次报备' ],
-        [ 2019, '报备信息中的单位性质无效，请核实后再次报备' ],
-        [ 2020, '报备信息中的单位行业分类无效，请核实后再次报备' ],
-        [ 2021, '报备信息中的IP使用方式无效，请核实后再次报备' ],
-        [ 2022, '报备信息中的经营许可证不能为空，请核实后再次报备' ],
-        [ 2023, '报备信息中的单位行政级别无效，请核实后再次报备' ],
-        [ 2024, '报备信息中的省信息无效，请核实后再次报备' ],
-        [ 2025, '报备信息中的市信息无效，请核实后再次报备' ],
-        [ 2026, '报备信息中的县信息无效，请核实后再次报备' ],
-        [ 2027, '报备信息中的报备单位不能为空，请核实后再次报备' ],
-        [ 2028, '报备信息中的来源单位不能为空，请核实后再次报备' ],
-        [ 2029, '报备信息中的来源单位不正确，请核实后再次报备' ],
-        [ 2030, '报备信息中的使用时间不能为空，请核实后再次报备' ],
-        [ 2031, '报备信息中的单位名称不能为空，请核实后再次报备' ],
-        [ 2032, '报备信息中的IP使用方式不能为空，请核实后再次报备' ],
-        [ 2033, '报备信息中的域名跳转不能为空，请核实后再次报备' ],
-        [ 2034, '报备信息中的单位性质不能为空，请核实后再次报备' ],
-        [ 2035, '报备信息中的单位分类不能为空，请核实后再次报备' ],
-        [ 2036, '报备信息中的单位详细地址不能为空，请核实后再次报备' ],
-        [ 2037, '报备信息中的省信息不能为空，请核实后再次报备' ],
-        [ 2038, '报备信息中的市信息不能为空，请核实后再次报备' ],
-        [ 2039, '报备信息中的联系人电话不能为空，请核实后再次报备' ],
-        [ 2040, '报备信息中的联系人姓名不能为空，请核实后再次报备' ],
-        [ 2041, '报备信息中的分配使用方式无效，请核实后再次报备' ],
-        [ 2042, '报备信息中的联系人邮件不能为空，请核实后再次报备' ],
-        [ 2043, '报备信息中的网关IP地址不能为空，请核实后再次报备' ],
-        [ 2044, '报备信息中的网关物理地址不能为空，请核实后再次报备' ],
-        [ 2045, '报备信息中的来源单位名称不能为空，请核实后再次报备' ],
-        [ 2046, '报备信息中的来源单位类型不能为空，请核实后再次报备' ],
-        [ 2047, '报备信息中的分配对象不能为空，请核实后再次报备' ],
-        [ 2048, '报备信息中的分配单位不存在，请核实后再次报备' ],
-        [ 2049, '此信息已经报备，请核实后再次报备' ],
-        [ 2050, '分配和使用单位不能相同，请核实后再次报备' ],
-        [ 2051, '无效的广播报备单位' ],
-        [ 2052, '报备信息中的来源单位和请求单位不能相同，请核实后再次报备' ],
-        [ 2053, '报备信息中的申请广播单位与广播单位不能相同，请核实后再次报备' ],
-        [ 2054, '接入商只能操作属于本接入商的IP备案信息，请核实后再次报备' ],
-        [ 2055, '备案申请中的IP数据在备案信息库中不存在，请核实后再次报备' ],
-        [ 2056, '备案信息中的IP地址冲突，请核实后再次报备' ],
-        [ 2998, 'IP备案操作成功' ],
-        [ 2999, '其他错误' ],
-        [ 3001, '报备信息中的域名类型错误 ，请核实后再次报备' ],
-        [ 3002, '报备信息中的域名注册时间不能为空，请核实后再次报备' ],
-        [ 3003, '报备信息中的域名有效日期不能为空，请核实后再次报备' ],
-        [ 3004, '报备信息中的域名有效日期不能早于当前日期，请核实后再次报备' ],
-        [ 3005, '报备信息中的域名服务器不能为空，请核实后再次报备' ],
-        [ 3006, '报备信息中的域名所属注册商不能为空，请核实后再次报备' ],
-        [ 3007, '报备信息中的域名所属注册商名称中包含特殊字符、格式不正确或为空，请核实后再次报备' ],
-        [ 3008, '报备信息中的域名注册人名称不能为空，请核实后再次报备' ],
-        [ 3009, '报备信息中的域名注册人所在组织不能为空，请核实后再次报备' ],
-        [ 3010, '报备信息中的域名注册人所在省不能为空，请核实后再次报备' ],
-        [ 3011, '报备信息中的域名注册人所在城市不能为空，请核实后再次报备' ],
-        [ 3012, '报备信息中的域名注册人电子邮件不能为空，请核实后再次报备' ],
-        [ 3013, '报备信息中的域名注册人电子邮件格式错误，请核实后再次报备' ],
-        [ 3014, '报备信息中的域名注册人电话号码不能为空，请核实后再次报备' ],
-        [ 3015, '报备信息中的域名注册人电话号码格式错误，请核实后再次报备' ],
-        [ 3016, '报备信息中的域名注册人通信地址不能为空，请核实后再次报备' ],
-        [ 3017, '报备信息中的域名管理员名称不能为空，请核实后再次报备' ],
-        [ 3018, '报备信息中的域名管理员所在组织不能为空，请核实后再次报备' ],
-        [ 3019, '报备信息中的域名管理员所在省不能为空，请核实后再次报备' ],
-        [ 3020, '报备信息中的域名管理员所在城市不能为空，请核实后再次报备' ],
-        [ 3021, '报备信息中的域名管理员电子邮件不能为空，请核实后再次报备' ],
-        [ 3022, '报备信息中的域名管理员电子邮件格式错误，请核实后再次报备' ],
-        [ 3023, '报备信息中的域名管理员电话号码不能为空，请核实后再次报备' ],
-        [ 3024, '报备信息中的域名管理员电话号码格式错误，请核实后再次报备' ],
-        [ 3025, '报备信息中的域名管理员通信地址不能为空，请核实后再次报备' ],
-        [ 3026, '报备信息中的接入方式无效，请核实后再次报备' ],
-        [ 3027, '报备信息中的服务器放置地无效，请核实后再次报备' ],
-        [ 3028, '报备信息中的注册人省市错误，请核实后再次报备' ],
-        [ 3029, '报备信息中的管理员省市错误，请核实后再次报备' ],
-        [ 3030, '报备信息中的缴费人省市错误，请核实后再次报备' ],
-        [ 3031, '报备信息中的注册时间格式错误，请核实后再次报备' ],
-        [ 3032, '报备信息中的有效日期格式错误，请核实后再次报备' ],
-        [ 3033, '报备信息中的缴费人电话号码格式错误，请核实后再次报备' ],
-        [ 3034, '报备信息中的缴费人电子邮件格式错误，请核实后再次报备' ],
-        [ 3035, '报备信息中的域名注册时间超过当前时间，请核实后再次报备' ],
-        [ 3036, '域名报备单位只能到工信部备案系统进行域名报备，请核实后再次报备' ],
-        [ 3037, '接入商只能操作属于本接入商的域名备案信息，请核实后再次报备' ],
-        [ 3998, '域名备案操作成功' ],
-        [ 3999, '其他错误' ],
-        [ 5001, '数据文件格式不符合接口XSD规范，请核实后再次报备' ],
-        [ 5002, '该属性不存在，请核实后再次报备' ],
-        [ 5003, 'XML中请求单位Id和报备单位Id不一致，请核实后再次报备' ],
-        [ 5004, '接口版本错误，当前接口版本为“当前版本信息”' ],
-        [ 5005, '企业上报的未备案网站处理结果中的网站不属于该企业，请核实后再次报备' ],
-        [ 5006, '该未备案网站的处理结果已经上报，无需重复上报' ],
-        [ 5007, '处理结果代码错误，请核实后再次报备' ],
-        [ 5008, '上报信息中存在非法字符，请核实后再次报备' ],
-        [ 5009, '报备单位无此业务权限' ],
-        [ 5010, '您提交的附件格式不符合规范' ],
-        [ 5011, '该功能目前未开放' ],
-        [ 5999, '其他错误' ]
-    ]);
-
-
-
+  var map = new Map([
+        [0, '操作成功'],
+        [1, '操作成功，数据已经下载完毕'],
+        [2, '目前服务器端没有可以下载的数据'],
+        [3, '服务器端数据需要下载，请继续调用本接口进行下载'],
+        [4, '用户名错误'],
+        [5, '密码错误'],
+        [6, '解密失败'],
+        [7, '哈希值验证未通过'],
+        [8, '解压缩失败'],
+        [9, '加密算法类型错误'],
+        [10, 'Hash算法类型错误'],
+        [11, '压缩格式错误'],
+        [12, '认证信息错误，服务器拒绝响应'],
+        [13, '非本省ISP，服务器拒绝响应'],
+        [14, '本次上载没有受理，请首先上载漏报的数据，然后再上载本次数据'],
+        [15, '本次上载没有受理，已上报的数据文件已超过最大受理数量，请稍后再提交'],
+        [16, '认证错误，随机数小于20个字符，服务器拒绝响应'],
+        [17, '您上报的备案数据文件数量不符合要求（每次必须上报1个文件），服务器拒绝受理，请调整后重新上报'],
+        [18, '上报的备案数据文件过大，服务器拒绝响应，请将上报的备案数据文件调整为50MB内并重新上报'],
+        [19, '您的报备权限未开放，请联系所在省通信管理局'],
+        [20, '请您在规定的时间段内进行报备，报备时间为：'],
+        [21, '回调响应文件名称不能为空，请核实后继续调用'],
+        [22, '备案密码校验超过X次，请仔细核对备案密码'],
+        [901, '系统正在维护中，您的报备请求未被受理，请稍后重新报备'],
+        [902, '系统正在维护中，您的下载请求未被受理，请稍后重新下载'],
+        [999, '其他错误'],
+        [1001, '管局审核通过'],
+        [1002, '管局审核拒绝'],
+        [1003, '网站主办者冲突，请核实后再次报备'],
+        [1004, '无效域名，请核实后再次报备'],
+        [1005, '域名冲突，该域名在备案信息库中已存在，请核实后再次报备'],
+        [1006, '无效IP，请核实后再次报备'],
+        [1007, '无效联系方式，请核实后再次报备'],
+        [1008, '无效证件，请核实后再次报备'],
+        [1009, '无效邮箱，请核实后再次报备'],
+        [1010, '无效办公电话，请核实后再次报备'],
+        [1011, '无效手机号码，请核实后再次报备'],
+        [1012, '无效MSN，请核实后再次报备'],
+        [1013, '无效QQ，请核实后再次报备'],
+        [1014, '无效主办单位性质，请核实后再次报备'],
+        [1015, '无效身份证号码，请核实后再次报备'],
+        [1016, '备案申请中的数据在备案信息库中不存在，请核实后再次报备'],
+        [1017, '备案变更中，审核通过后可再次申请变更'],
+        [1018, 'ICP备案密码错误，请核实后再次报备'],
+        [1019, '省市县代码错误，请核实后再次报备'],
+        [1020, '网站名称冲突，请核实后再次报备'],
+        [1021, '网站首页地址冲突，在备案信息库中已存在该首页地址，请核实后再次报备'],
+        [1022, '网站首页地址格式错误，请核实后再次报备'],
+        [1023, '备案申请中的IP数据在备案信息库中不存在，请核实后再次报备'],
+        [1024, '备案信息中的IP地址冲突，请核实后再次报备'],
+        [1025, '该网站只有一个接入，不能取消该接入'],
+        [1026, '注销理由代码错误，请核实后再次报备'],
+        [1027, '注销主体冲突，无需重复提交该主体的注销申请'],
+        [1028, 'ICP用户名错误，请核实后再次报备'],
+        [1029, '同一个网站不允许有相同的接入，请核实后再次报备'],
+        [1030, '注销网站冲突，无需重复提交该网站的注销申请'],
+        [1031, '网站负责人办公电话不能为空，请核实后再次报备'],
+        [1032, '接入商已经对该网站提出取消接入请求，无需重复提交'],
+        [1033, '无效的前置或专项审批内容类型，请核实后再次报备'],
+        [1034, '无效网站服务内容，请核实后再次报备'],
+        [1035, '无效网站接入方式，请核实后再次报备'],
+        [1036, '无效服务器放置地点，请核实后再次报备'],
+        [1037, '该网站已经报备，无需重复报备'],
+        [1038, '该接入已经报备，无需重复报备'],
+        [1039, '该备案信息中的网站域名已经报备，无需重复报备'],
+        [1040, '该备案接入信息中的IP信息已经报备，无需重复报备'],
+        [1041, '网站首页URL中必须包含域名中的其中一项，请核实后再次报备'],
+        [1042, '主体正在注销中，不允许注销网站'],
+        [1043, '网站正在注销中，不允许注销主体'],
+        [1044, '主体负责人姓名不能为空'],
+        [1045, '接入商只能到其所在省通信管理局系统进行ICP备案信息的报备'],
+        [1046, '变更备案时不能改变主体所在省，如果需要修改，请先申请注销主体，然后重新报备'],
+        [1047, '只能取消本接入商的接入信息，请核实后再次报备'],
+        [1048, '您试图操作的不是您接入的备案，这种操作是非法的，请核实后再次报备'],
+        [1049, '主体已注销，您的请求被拒绝'],
+        [1050, '网站已注销，您的请求被拒绝'],
+        [1051, '同一个接入商对同一个主体变更备案申请超过最大数，请稍后再试'],
+        [1052, '您所提交的请求在原系统中正在受理，请稍后提交'],
+        [1053, '您所提交的请求的单位已经被删除  请确认'],
+        [1054, '报备单位无效'],
+        [1055, '核验单提交信息不是该备案核验单，请确认'],
+        [1056, '附件格式类型代码错误，请核实后再次报备'],
+        [1057, '附件用途类型代码错误，请核实后再次报备'],
+        [1058, '主体信息不存在'],
+        [1059, '网站信息不存在'],
+        [1060, '核验单信息成功入库'],
+        [1061, '核验单用途类型与报备标识不匹配'],
+        [1062, 'ICP接入信息比对IP库信息成功'],
+        [1063, 'ICP备案接入信息中所使用的IP地址与你单位IP地址备案中报备的IP信息不一致，请核实后再次提交'],
+        [1064, '“XX”网站的“XX域名”在黑名单中，请核实后再次报备'],
+        [1065, '主体在黑名单中，请核实后再次报备'],
+        [1066, '网站语言类别错误，请核实后再次报备'],
+        [1067, '网站备案号或主键对应多个网站，请核实后再报备'],
+        [1068, '网站备案号或主键对应多个缩略信息，请核实后再报备'],
+        [1999, '其他错误'],
+        [2001, '没有此报备单位，请核实后再次报备'],
+        [2002, '报备信息中的起始IP大于终止IP，请核实后再次报备'],
+        [2003, '此IP段已报备，请核实后再次报备'],
+        [2004, '此IP广播已经报备，请核查后再次报备'],
+        [2005, '此IP段未报备来源信息，请首先报备来源信息'],
+        [2006, '报备信息中的起始IP不是合法IP地址，请核实后再次报备'],
+        [2007, '报备信息中的终止IP不是合法IP地址'],
+        [2008, '报备信息中的网关地址不是合法IP地址，请核实后再次报备'],
+        [2009, '报备信息中的单位分类不正确，请核实后再次报备'],
+        [2010, '报备信息中的分配使用方式不能为空，请核实后再次报备'],
+        [2011, '报备信息中的省市县信息错误，请核实后再次报备'],
+        [2012, '报备信息中的电话号码不是合法的电话号码，请核实后再次报备'],
+        [2013, '报备信息中的Email不是有效的电子邮箱，请核实后再次报备'],
+        [2014, '报备信息中的起始IP不能为空，请核实后再次报备'],
+        [2015, '报备信息中的终止IP不能为空，请核实后再次报备'],
+        [2016, '报备信息中的广播单位不能为空，请核实后再次报备'],
+        [2017, '报备信息中的广播单位不存在，请核实后再次报备'],
+        [2018, '报备信息中的申请广播单位不存在，请核实后再次报备'],
+        [2019, '报备信息中的单位性质无效，请核实后再次报备'],
+        [2020, '报备信息中的单位行业分类无效，请核实后再次报备'],
+        [2021, '报备信息中的IP使用方式无效，请核实后再次报备'],
+        [2022, '报备信息中的经营许可证不能为空，请核实后再次报备'],
+        [2023, '报备信息中的单位行政级别无效，请核实后再次报备'],
+        [2024, '报备信息中的省信息无效，请核实后再次报备'],
+        [2025, '报备信息中的市信息无效，请核实后再次报备'],
+        [2026, '报备信息中的县信息无效，请核实后再次报备'],
+        [2027, '报备信息中的报备单位不能为空，请核实后再次报备'],
+        [2028, '报备信息中的来源单位不能为空，请核实后再次报备'],
+        [2029, '报备信息中的来源单位不正确，请核实后再次报备'],
+        [2030, '报备信息中的使用时间不能为空，请核实后再次报备'],
+        [2031, '报备信息中的单位名称不能为空，请核实后再次报备'],
+        [2032, '报备信息中的IP使用方式不能为空，请核实后再次报备'],
+        [2033, '报备信息中的域名跳转不能为空，请核实后再次报备'],
+        [2034, '报备信息中的单位性质不能为空，请核实后再次报备'],
+        [2035, '报备信息中的单位分类不能为空，请核实后再次报备'],
+        [2036, '报备信息中的单位详细地址不能为空，请核实后再次报备'],
+        [2037, '报备信息中的省信息不能为空，请核实后再次报备'],
+        [2038, '报备信息中的市信息不能为空，请核实后再次报备'],
+        [2039, '报备信息中的联系人电话不能为空，请核实后再次报备'],
+        [2040, '报备信息中的联系人姓名不能为空，请核实后再次报备'],
+        [2041, '报备信息中的分配使用方式无效，请核实后再次报备'],
+        [2042, '报备信息中的联系人邮件不能为空，请核实后再次报备'],
+        [2043, '报备信息中的网关IP地址不能为空，请核实后再次报备'],
+        [2044, '报备信息中的网关物理地址不能为空，请核实后再次报备'],
+        [2045, '报备信息中的来源单位名称不能为空，请核实后再次报备'],
+        [2046, '报备信息中的来源单位类型不能为空，请核实后再次报备'],
+        [2047, '报备信息中的分配对象不能为空，请核实后再次报备'],
+        [2048, '报备信息中的分配单位不存在，请核实后再次报备'],
+        [2049, '此信息已经报备，请核实后再次报备'],
+        [2050, '分配和使用单位不能相同，请核实后再次报备'],
+        [2051, '无效的广播报备单位'],
+        [2052, '报备信息中的来源单位和请求单位不能相同，请核实后再次报备'],
+        [2053, '报备信息中的申请广播单位与广播单位不能相同，请核实后再次报备'],
+        [2054, '接入商只能操作属于本接入商的IP备案信息，请核实后再次报备'],
+        [2055, '备案申请中的IP数据在备案信息库中不存在，请核实后再次报备'],
+        [2056, '备案信息中的IP地址冲突，请核实后再次报备'],
+        [2998, 'IP备案操作成功'],
+        [2999, '其他错误'],
+        [3001, '报备信息中的域名类型错误 ，请核实后再次报备'],
+        [3002, '报备信息中的域名注册时间不能为空，请核实后再次报备'],
+        [3003, '报备信息中的域名有效日期不能为空，请核实后再次报备'],
+        [3004, '报备信息中的域名有效日期不能早于当前日期，请核实后再次报备'],
+        [3005, '报备信息中的域名服务器不能为空，请核实后再次报备'],
+        [3006, '报备信息中的域名所属注册商不能为空，请核实后再次报备'],
+        [3007, '报备信息中的域名所属注册商名称中包含特殊字符、格式不正确或为空，请核实后再次报备'],
+        [3008, '报备信息中的域名注册人名称不能为空，请核实后再次报备'],
+        [3009, '报备信息中的域名注册人所在组织不能为空，请核实后再次报备'],
+        [3010, '报备信息中的域名注册人所在省不能为空，请核实后再次报备'],
+        [3011, '报备信息中的域名注册人所在城市不能为空，请核实后再次报备'],
+        [3012, '报备信息中的域名注册人电子邮件不能为空，请核实后再次报备'],
+        [3013, '报备信息中的域名注册人电子邮件格式错误，请核实后再次报备'],
+        [3014, '报备信息中的域名注册人电话号码不能为空，请核实后再次报备'],
+        [3015, '报备信息中的域名注册人电话号码格式错误，请核实后再次报备'],
+        [3016, '报备信息中的域名注册人通信地址不能为空，请核实后再次报备'],
+        [3017, '报备信息中的域名管理员名称不能为空，请核实后再次报备'],
+        [3018, '报备信息中的域名管理员所在组织不能为空，请核实后再次报备'],
+        [3019, '报备信息中的域名管理员所在省不能为空，请核实后再次报备'],
+        [3020, '报备信息中的域名管理员所在城市不能为空，请核实后再次报备'],
+        [3021, '报备信息中的域名管理员电子邮件不能为空，请核实后再次报备'],
+        [3022, '报备信息中的域名管理员电子邮件格式错误，请核实后再次报备'],
+        [3023, '报备信息中的域名管理员电话号码不能为空，请核实后再次报备'],
+        [3024, '报备信息中的域名管理员电话号码格式错误，请核实后再次报备'],
+        [3025, '报备信息中的域名管理员通信地址不能为空，请核实后再次报备'],
+        [3026, '报备信息中的接入方式无效，请核实后再次报备'],
+        [3027, '报备信息中的服务器放置地无效，请核实后再次报备'],
+        [3028, '报备信息中的注册人省市错误，请核实后再次报备'],
+        [3029, '报备信息中的管理员省市错误，请核实后再次报备'],
+        [3030, '报备信息中的缴费人省市错误，请核实后再次报备'],
+        [3031, '报备信息中的注册时间格式错误，请核实后再次报备'],
+        [3032, '报备信息中的有效日期格式错误，请核实后再次报备'],
+        [3033, '报备信息中的缴费人电话号码格式错误，请核实后再次报备'],
+        [3034, '报备信息中的缴费人电子邮件格式错误，请核实后再次报备'],
+        [3035, '报备信息中的域名注册时间超过当前时间，请核实后再次报备'],
+        [3036, '域名报备单位只能到工信部备案系统进行域名报备，请核实后再次报备'],
+        [3037, '接入商只能操作属于本接入商的域名备案信息，请核实后再次报备'],
+        [3998, '域名备案操作成功'],
+        [3999, '其他错误'],
+        [5001, '数据文件格式不符合接口XSD规范，请核实后再次报备'],
+        [5002, '该属性不存在，请核实后再次报备'],
+        [5003, 'XML中请求单位Id和报备单位Id不一致，请核实后再次报备'],
+        [5004, '接口版本错误，当前接口版本为“当前版本信息”'],
+        [5005, '企业上报的未备案网站处理结果中的网站不属于该企业，请核实后再次报备'],
+        [5006, '该未备案网站的处理结果已经上报，无需重复上报'],
+        [5007, '处理结果代码错误，请核实后再次报备'],
+        [5008, '上报信息中存在非法字符，请核实后再次报备'],
+        [5009, '报备单位无此业务权限'],
+        [5010, '您提交的附件格式不符合规范'],
+        [5011, '该功能目前未开放'],
+        [5999, '其他错误']
+  ]);
 
     /**
      * Class IspService
@@ -254,7 +251,7 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
      * @since 0.1.0
      * @author allen.hu
      * */
-    class IspService extends GenericObject {
+  class IspService extends GenericObject {
         /**
          * 构造函数。
          *
@@ -262,27 +259,27 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
          * @since 0.1.0
          * @author allen.hu
          * */
-        constructor(app, config = {}) {
-            super();
-            //调用super()后再定义子类成员。
-            this.app = app;
-            this.icp = config.icp;
-            this.tenantpubips = config.tenantpubips;
-            this.urls = [this.icp.REPORT_URL, this.icp.QUERY_URL, this.icp.VERIFY_URL];
-            this.clientReport = null;
-            this.clientQuery = null;
-            this.clientVerify = null;
-            this.dataSequence = 6;
-            this.FIRST = 0;
-            this.XZWZ = 1;
-            this.XZJR = 2;
-            this.HSJG = 3;
-            this.IP_XZBA = 4;
-            this.IP_SCBA = 5;
-            this.MIN = 2;
-            this.MAX =  98;
-            this.dataSequence = 327;
-        }
+    constructor(app, config = {}) {
+      super();
+            // 调用super()后再定义子类成员。
+      this.app = app;
+      this.icp = config.icp;
+      this.tenantpubips = config.tenantpubips;
+      this.urls = [this.icp.REPORT_URL, this.icp.QUERY_URL, this.icp.VERIFY_URL];
+      this.clientReport = null;
+      this.clientQuery = null;
+      this.clientVerify = null;
+      this.dataSequence = 6;
+      this.FIRST = 0;
+      this.XZWZ = 1;
+      this.XZJR = 2;
+      this.HSJG = 3;
+      this.IP_XZBA = 4;
+      this.IP_SCBA = 5;
+      this.MIN = 2;
+      this.MAX = 98;
+      this.dataSequence = 327;
+    }
 
         /**
          * @method  创建连接
@@ -291,26 +288,26 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
          * @apiSuccess {Promise[]} Promise对象
          *
          */
-        createConnect() {
-            var me = this;
-            var ps = me.urls.map((url)=> {
-                return new Promise(function (res, rej) {
-                    soap.createClient(url, function (err, client) {
-                        if (err) {
-                            EasyNode.DEBUG && logger.debug(`createConnect to ${url} failed`);
-                            rej();
-                        } else {
-                            url == me.urls[0] ? me.clientReport = client :
+    createConnect() {
+      var me = this;
+      var ps = me.urls.map(function(url) {
+        return new Promise(function(res, rej) {
+          soap.createClient(url, function(err, client) {
+            if (err) {
+              EasyNode.DEBUG && logger.debug(`createConnect to ${url} failed`);
+              rej();
+            } else {
+              url == me.urls[0] ? me.clientReport = client :
                                 url == me.urls[1] ? me.clientQuery = client : me.clientVerify = client;
-                            EasyNode.DEBUG && logger.debug(`createConnect to ${url} success ${client}`);
-                            res();
-                        }
-                    });
-                });
-            });
+              EasyNode.DEBUG && logger.debug(`createConnect to ${url} success ${client}`);
+              res();
+            }
+          });
+        });
+      });
 
-            return Promise.all(ps);
-        }
+      return Promise.all(ps);
+    }
 
         /**
          * @method 上报数据
@@ -361,35 +358,34 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
          </return>
          msg_code参见第3-4节的接口返回状态msg_code代码表
          */
-        isp_upload(args) {
-            var me = this;
-            return new Promise(function (res, rej) {
-                me.clientReport.isp_upload(args, function (err, result) {
-                    if (err) {
-                        EasyNode.DEBUG && logger.debug(`isp_upload to ${args} failed, err: ${err}`);
-                        rej();
-                    } else {
-                        EasyNode.DEBUG && logger.debug(`isp_upload to ${args} success`);
-                        var xml = result.return;
-                        var json = parser.toJson(xml, {object: true, arrayNotation: false});
-                        console.log(json);
-                        if (0 == parseInt(json.return.msg_code)) {
-                            var msg = json.return.msg;
-                            me.dataSequence = me.dataSequence + 1;
-                            res(me.dataSequence);
-                            console.log(msg);
-                        } else if (14 == parseInt(json.return.msg_code)) {
-                            res(json.return.dataSequences.dataSequence);
-                        }
-                        else {
-                            EasyNode.DEBUG && console.log(map[json.return.msg_code]);
-                            console.log(json);
-                            res(me.dataSequence);
-                        }
-                    }
-                });
-            });
-        }
+    isp_upload(args) {
+      var me = this;
+      return new Promise(function(res, rej) {
+        me.clientReport.isp_upload(args, function(err, result) {
+          if (err) {
+            EasyNode.DEBUG && logger.debug(`isp_upload to ${args} failed, err: ${err}`);
+            rej();
+          } else {
+            EasyNode.DEBUG && logger.debug(`isp_upload to ${args} success`);
+            var xml = result.return;
+            var json = parser.toJson(xml, {object: true, arrayNotation: false});
+            console.log(json);
+            if (parseInt(json.return.msg_code) == 0) {
+              var msg = json.return.msg;
+              me.dataSequence += 1;
+              res(me.dataSequence);
+              console.log(msg);
+            } else if (parseInt(json.return.msg_code) == 14) {
+              res(json.return.dataSequences.dataSequence);
+            } else {
+              EasyNode.DEBUG && console.log(map[json.return.msg_code]);
+              console.log(json);
+              res(me.dataSequence);
+            }
+          }
+        });
+      });
+    }
 
         /**
          * @method 下载数据
@@ -448,29 +444,29 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
          msg_code参见第3-4节的接口返回状态msg_code代码表。
          对于部级系统或省局系统处理企业上报的备案数据文件所产生的错误信息，均以数据文件下载形式返回给企业。数据中的错误信息详见3-5节数据处理结果代码表。
          */
-        isp_download(args) {
-            var me = this;
-            return new Promise(function (res, rej) {
-                me.clientReport.isp_download(args, function (err, result) {
-                    if (err) {
-                        EasyNode.DEBUG && logger.debug(`isp_download to ${args} failed, err: ${err},result: ${result}`);
-                        console.log(result);
-                        rej();
-                    } else {
-                        //EasyNode.DEBUG && logger.debug(`isp_download to ${args} success`);
-                        var xml = result.return;
-                        var json = parser.toJson(xml, {object: true, arrayNotation: false});
-                        if (3 == json.return.msg_code) {//Continue download
+    isp_download(args) {
+      var me = this;
+      return new Promise(function(res, rej) {
+        me.clientReport.isp_download(args, function(err, result) {
+          if (err) {
+            EasyNode.DEBUG && logger.debug(`isp_download to ${args} failed, err: ${err},result: ${result}`);
+            console.log(result);
+            rej();
+          } else {
+                        // EasyNode.DEBUG && logger.debug(`isp_download to ${args} success`);
+            var xml = result.return;
+            var json = parser.toJson(xml, {object: true, arrayNotation: false});
+            if (json.return.msg_code == 3) { // Continue download
 
-                        }
+            }
 
-                        var fileInfos = json.return.fileInfos;
+            var fileInfos = json.return.fileInfos;
 
-                        res(fileInfos);
-                    }
-                });
-            });
-        }
+            res(fileInfos);
+          }
+        });
+      });
+    }
 
         /**
          * @method 下载确认数据包
@@ -518,20 +514,20 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
          </return>
          msg_code参见第3-4节的返回状态msg_code代码表
          */
-        isp_downloadack(args) {
-            var me = this;
-            return new Promise(function (res, rej) {
-                me.clientReport.isp_downloadack(args, function (err, result) {
-                    if (err) {
-                        EasyNode.DEBUG && logger.debug(`isp_downloadack to ${args} failed, err: ${err}`);
-                        rej();
-                    } else {
-                        EasyNode.DEBUG && logger.debug(`isp_downloadack to ${args} success`);
-                        res(result);
-                    }
-                });
-            });
-        }
+    isp_downloadack(args) {
+      var me = this;
+      return new Promise(function(res, rej) {
+        me.clientReport.isp_downloadack(args, function(err, result) {
+          if (err) {
+            EasyNode.DEBUG && logger.debug(`isp_downloadack to ${args} failed, err: ${err}`);
+            rej();
+          } else {
+            EasyNode.DEBUG && logger.debug(`isp_downloadack to ${args} success`);
+            res(result);
+          }
+        });
+      });
+    }
 
 
         /**
@@ -585,29 +581,29 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
          <msg>错误描述</msg>
          </return>
          */
-        isp_querypreviousupload(args) {
-            var me = this;
+    isp_querypreviousupload(args) {
+      var me = this;
 
-            return new Promise(function (res, rej) {
-                me.clientReport.isp_querypreviousupload(args, function (err, result) {
-                    if (err) {
-                        EasyNode.DEBUG && logger.debug(`isp_querypreviousupload to ${args} failed, err: ${err}`);
-                        rej();
-                    } else {
-                        EasyNode.DEBUG && logger.debug(`isp_querypreviousupload to ${args} success ${result}`);
-                        var xml = result.return;
-                        var json = parser.toJson(xml, {object: true, arrayNotation: false});
-                        if (0 == parseInt(json.return.msg_code)) {
-                            me.dataSequence = parseInt(json.return.fileInfos.dataSequence);
-                        } else {
-                            EasyNode.DEBUG && console.log(map[json.return.msg_code]);
-                        }
-                        EasyNode.DEBUG && logger.debug(` e.dataSequence: ${me.dataSequence}`);
-                        res(json.return.fileInfos);
-                    }
-                });
-            });
-        }
+      return new Promise(function(res, rej) {
+        me.clientReport.isp_querypreviousupload(args, function(err, result) {
+          if (err) {
+            EasyNode.DEBUG && logger.debug(`isp_querypreviousupload to ${args} failed, err: ${err}`);
+            rej();
+          } else {
+            EasyNode.DEBUG && logger.debug(`isp_querypreviousupload to ${args} success ${result}`);
+            var xml = result.return;
+            var json = parser.toJson(xml, {object: true, arrayNotation: false});
+            if (parseInt(json.return.msg_code) == 0) {
+              me.dataSequence = parseInt(json.return.fileInfos.dataSequence);
+            } else {
+              EasyNode.DEBUG && console.log(map[json.return.msg_code]);
+            }
+            EasyNode.DEBUG && logger.debug(` e.dataSequence: ${me.dataSequence}`);
+            res(json.return.fileInfos);
+          }
+        });
+      });
+    }
 
         /**
          * @method 查询备案状态
@@ -681,29 +677,29 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
          msg_code参见第3-4节的返回状态msg_code代码表。
 
          */
-        isp_querybeianstatus(args) {
-            var me = this;
-            return new Promise(function (res, rej) {
-                me.clientQuery.isp_querybeianstatus(args, function (err, result) {
-                    if (err) {
-                        EasyNode.DEBUG && logger.debug(`isp_querybeianstatus to ${args} failed, err: ${err}`, result);
-                        rej();
-                    } else {
-                        EasyNode.DEBUG && logger.debug(`isp_querybeianstatus to ${args} success`, result);
-                        var xml = result.return;
-                        var json = parser.toJson(xml, {object: true, arrayNotation: false});
-                        console.log(json);
-                        var msg = json.return.msg;
-                        if (0 == parseInt(json.return.msg_code)) {
-                            res({ret: true, msg: msg, StatusInfo: json.return.StatusInfo});
-                        } else {
-                            EasyNode.DEBUG && console.log(map.get(parseInt(json.return.msg_code)));
-                            res({ret: false, msg: msg, StatusInfo: {}});
-                        }
-                    }
-                });
-            });
-        }
+    isp_querybeianstatus(args) {
+      var me = this;
+      return new Promise(function(res, rej) {
+        me.clientQuery.isp_querybeianstatus(args, function(err, result) {
+          if (err) {
+            EasyNode.DEBUG && logger.debug(`isp_querybeianstatus to ${args} failed, err: ${err}`, result);
+            rej();
+          } else {
+            EasyNode.DEBUG && logger.debug(`isp_querybeianstatus to ${args} success`, result);
+            var xml = result.return;
+            var json = parser.toJson(xml, {object: true, arrayNotation: false});
+            console.log(json);
+            var msg = json.return.msg;
+            if (parseInt(json.return.msg_code) == 0) {
+              res({ret: true, msg: msg, StatusInfo: json.return.StatusInfo});
+            } else {
+              EasyNode.DEBUG && console.log(map.get(parseInt(json.return.msg_code)));
+              res({ret: false, msg: msg, StatusInfo: {}});
+            }
+          }
+        });
+      });
+    }
 
         /**
          * @method 校验备案密码是否正确
@@ -753,29 +749,29 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
 
          res( ret:true|false,msg:msg)
          */
-        isp_verifybamm(args) {
-            var me = this;
-            return new Promise(function (res, rej) {
-                me.clientVerify.isp_verifybamm(args, function (err, result) {
-                    if (err) {
-                        EasyNode.DEBUG && logger.debug(`isp_verifybamm to ${args} failed, err: ${err}`, result);
-                        rej();
-                    } else {
-                        EasyNode.DEBUG && logger.debug(`isp_verifybamm to ${args} success`, result);
-                        var xml = result.return;
-                        var json = parser.toJson(xml, {object: true, arrayNotation: false});
-                        console.log(json);
-                        var msg = json.return.msg;
-                        if (0 == parseInt(json.return.msg_code)) {
-                            res({ret: json.return.VerifyRes == 0 ? true : false, msg: msg});
-                        } else {
-                            EasyNode.DEBUG && console.log(map.get(parseInt(json.return.msg_code)));
-                            res({ret: false, msg: msg});
-                        }
-                    }
-                });
-            });
-        }
+    isp_verifybamm(args) {
+      var me = this;
+      return new Promise(function(res, rej) {
+        me.clientVerify.isp_verifybamm(args, function(err, result) {
+          if (err) {
+            EasyNode.DEBUG && logger.debug(`isp_verifybamm to ${args} failed, err: ${err}`, result);
+            rej();
+          } else {
+            EasyNode.DEBUG && logger.debug(`isp_verifybamm to ${args} success`, result);
+            var xml = result.return;
+            var json = parser.toJson(xml, {object: true, arrayNotation: false});
+            console.log(json);
+            var msg = json.return.msg;
+            if (parseInt(json.return.msg_code) == 0) {
+              res({ret: json.return.VerifyRes === 0, msg: msg});
+            } else {
+              EasyNode.DEBUG && console.log(map.get(parseInt(json.return.msg_code)));
+              res({ret: false, msg: msg});
+            }
+          }
+        });
+      });
+    }
 
         /**
          * @method 产生密码HASH值
@@ -794,15 +790,20 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
          *
          * @apiSuccess {String} hashAlgorithm( GBK.BINARY(PWD+RANDOM(20) )
          */
-        genPwdHash(random, pwd, hashAlgorithm) {
-            //2,3
-            var tmp = iconv.encode(pwd + random, "GBK");
-            if (hashAlgorithm == 0) {
-                return crypto.createHash('md5').update(tmp).digest('base64');
-            } else {
-                return crypto.createHash('md5').update(tmp).digest('base64');
-            }
-        }
+    genPwdHash(random, pwd, hashAlgorithm) {
+            // 2,3
+      var tmp = iconv.encode(pwd + random, 'GBK');
+      if (hashAlgorithm == 0) {
+        return crypto
+            .createHash('md5')
+            .update(tmp)
+            .digest('base64');
+      }
+      return crypto
+                .createHash('md5')
+                .update(tmp)
+                .digest('base64');
+    }
 
         /**
          * @method 加密内容
@@ -831,85 +832,87 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
          *
          * @apiSuccess {Object} ret {beianInfo:'', beianInfoHash:''}
          */
-        encryptContent(content, compressionFormat = COMPRESSIONFORMAT, hashAlgorithm = HASHALGORITHM, encryptAlgorithm = ENCRYPTALGORITHM) {
+    encryptContent(content, compressionFormat = COMPRESSIONFORMAT, hashAlgorithm = HASHALGORITHM, encryptAlgorithm = ENCRYPTALGORITHM) {
 
-            var ret = {beianInfo: '', beianInfoHash: ''};
-            var me = this;
+      var ret = {beianInfo: '', beianInfoHash: ''};
+      var me = this;
 
-            return function * () {
-                if (_.isEmpty(content)) {
-                    return ret;
-                }
-                //1
-                var contentCompression = null;
-                yield me.generateZip(content, "./beianinfo.zip", "beianinfo.xml");
-                contentCompression = fso.readFileSync('./beianinfo.zip');
-
-                //2
-                if (hashAlgorithm == HASHALGORITHM) {
-                    ret.beianInfoHash = crypto.createHash('md5').update(contentCompression).digest('base64');
-                }
-
-                //3
-                if (encryptAlgorithm == ENCRYPTALGORITHM) {
-                    ret.beianInfo = contentCompression.toString('base64');
-                }
-                return ret;
-            }
+      return function *() {
+        if (_.isEmpty(content)) {
+          return ret;
         }
+                // 1
+        var contentCompression = null;
+        yield me.generateZip(content, './beianinfo.zip', 'beianinfo.xml');
+        contentCompression = fso.readFileSync('./beianinfo.zip');
+
+                // 2
+        if (hashAlgorithm == HASHALGORITHM) {
+          ret.beianInfoHash = crypto.createHash('md5')
+                                    .update(contentCompression)
+                                    .digest('base64');
+        }
+
+                // 3
+        if (encryptAlgorithm == ENCRYPTALGORITHM) {
+          ret.beianInfo = contentCompression.toString('base64');
+        }
+        return ret;
+      };
+    }
 
         /*
         * Generate zip file
         * */
-        generateZip(buffer, zipPath, name) {
-            return new Promise(function (res, rej) {
-                var output = fso.createWriteStream(zipPath);
-                var zipArchiver = archiver('zip');
+    generateZip(buffer, zipPath, name) {
+      return new Promise(function(res, rej) {
+        var output = fso.createWriteStream(zipPath);
+        var zipArchiver = archiver('zip');
 
-                output.on('close', function () {
-                    console.log(zipArchiver.pointer() + ' total bytes');
-                    console.log('archiver has been finalized and the output file descriptor has closed.');
-                    res();
-                });
+        output.on('close', function() {
+          console.log(`${zipArchiver.pointer()} total bytes`);
+          console.log('archiver has been finalized and the output file descriptor has closed.');
+          res();
+        });
 
-                zipArchiver.on('error', function (err) {
-                    rej();
-                    throw err;
-                });
+        zipArchiver.on('error', function(err) {
+          rej();
+          throw err;
+        });
 
-                zipArchiver.pipe(output);
+        zipArchiver.pipe(output);
 
-                zipArchiver.append(buffer, {name: name});
+        zipArchiver.append(buffer, {name: name});
 
-                zipArchiver.finalize();
-            });
-        }
+        zipArchiver.finalize();
+      });
+    }
 
         /*
         * unzip file
         * */
-        unzip(buffer, fileName) {
-            return new Promise(function (res, rej) {
+    unzip(buffer, fileName) {
+      return new Promise(function(res, rej) {
 
-                console.log(fileName);
-                var resolved = false;
+        console.log(fileName);
+        var resolved = false;
 
-                var zip = new AdmZip(buffer);
-                var zipEntries = zip.getEntries(); // an array of ZipEntry records
+        var zip = new AdmZip(buffer);
+        var zipEntries = zip.getEntries(); // an array of ZipEntry records
 
-                zipEntries.forEach(function (zipEntry) {
-                    console.log(zipEntry.entryName);
-                    if (zipEntry.entryName == fileName) {
-                        resolved = true;
-                        res(zipEntry.getData());
-                    }
-                });
+        zipEntries.forEach(function(zipEntry) {
+          console.log(zipEntry.entryName);
+          if (zipEntry.entryName == fileName) {
+            resolved = true;
+            res(zipEntry.getData());
+          }
+        });
 
-                if (!resolved) {
-                    rej(new Error('No file found in archive: ' + fileName));
-                }
-            });
-        };
+        if (!resolved) {
+          rej(new Error(`No file found in archive: ${fileName}`));
+        }
+      });
+    }
 
         /**
          * @method 解密内容
@@ -933,54 +936,58 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
          *
          * @apiSuccess {Object} ret {result:0|1,beianInfo:{}}  ret:0不通过,1通过, beianInfo解密,解压后的内容
          */
-        decryptContent([filename:'',beianInfo:'',beianInfoHash:''], compressionFormat = COMPRESSIONFORMAT, hashAlgorithm = HASHALGORITHM, encryptAlgorithm = ENCRYPTALGORITHM) {
-            var ret = {result: 0, beianInfo: {}};
-            var me = this;
-            return function * () {
-                if (_.isEmpty(beianInfo)) {
-                    return ret;
-                }
-
-                //1. base64 decode
-                var contentDecodebase64 = beianInfo;
-                var calcHash = '';
-                var contentCompression = '';
-                if (encryptAlgorithm == ENCRYPTALGORITHM) {
-                    contentCompression = contentDecodebase64;
-                } else {
-                    try {
-                        contentCompression = contentDecodebase64;
-                        contentCompression = me.decryption(contentCompression);
-                    } catch (e) {
-                        EasyNode.DEBUG && logger.debug(` ${e}`);
-                        console.log(e.stack);
-                        return ret;
-                    }
-                }
-                if (hashAlgorithm == HASHALGORITHM) {
-                    calcHash = new Buffer(crypto.createHash('md5').update(contentCompression).digest('base64'));
-                }
-                EasyNode.DEBUG && logger.debug(`beianInfoHash calced ${calcHash}, beianInfoHash downloaded ${beianInfoHash}`);
-
-                if (calcHash == beianInfoHash) {
-
-                    try {
-                        var xml = yield me.unzip(new Buffer(contentCompression, 'binary'), filename);
-                        xml = iconv.decode(xml, 'GBK');
-                        var json = parser.toJson(xml, {object: true, arrayNotation: false});
-                        ret.result = 1;
-                        ret.beianInfo = json;
-
-                    } catch (e) {
-                        EasyNode.DEBUG && logger.debug(` ${e}`);
-
-                    }
-                } else {
-                    //check fail
-                }
-                return ret;
-            }
+    decryptContent([filename = '', beianInfo = '', beianInfoHash = ''], compressionFormat = COMPRESSIONFORMAT, hashAlgorithm = HASHALGORITHM, encryptAlgorithm = ENCRYPTALGORITHM) {
+      var ret = {result: 0, beianInfo: {}};
+      var me = this;
+      return function *() {
+        if (_.isEmpty(beianInfo)) {
+          return ret;
         }
+
+                // 1. base64 decode
+        var contentDecodebase64 = beianInfo;
+        var calcHash = '';
+        var contentCompression = '';
+        if (encryptAlgorithm == ENCRYPTALGORITHM) {
+          contentCompression = contentDecodebase64;
+        } else {
+          try {
+            contentCompression = contentDecodebase64;
+            contentCompression = me.decryption(contentCompression);
+          } catch (e) {
+            EasyNode.DEBUG && logger.debug(` ${e}`);
+            console.log(e.stack);
+            return ret;
+          }
+        }
+        if (hashAlgorithm == HASHALGORITHM) {
+          calcHash = new Buffer(
+              crypto.createHash('md5')
+                    .update(contentCompression)
+                    .digest('base64')
+          );
+        }
+        EasyNode.DEBUG && logger.debug(`beianInfoHash calced ${calcHash}, beianInfoHash downloaded ${beianInfoHash}`);
+
+        if (calcHash == beianInfoHash) {
+
+          try {
+            var xml = yield me.unzip(new Buffer(contentCompression, 'binary'), filename);
+            xml = iconv.decode(xml, 'GBK');
+            var json = parser.toJson(xml, {object: true, arrayNotation: false});
+            ret.result = 1;
+            ret.beianInfo = json;
+
+          } catch (e) {
+            EasyNode.DEBUG && logger.debug(` ${e}`);
+
+          }
+        } else {
+                    // check fail
+        }
+        return ret;
+      };
+    }
 
         /**
          * @method isp_download 下载数据处理
@@ -995,581 +1002,550 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
          *
          * @apiSuccess {Number} ret true || false
          */
-        addressDownloadData(json) {
-            var ret = false;
-            var me = this;
-            return function * () {
-                if (json.DownloadData.hasOwnProperty('ICP')) {
-                    return yield me.addressDownloadDataICP(json);
-                }
-                if (json.DownloadData.hasOwnProperty('IP')) {
-                    return yield me.addressDownloadDataIP(json);
-                }
-                if (json.DownloadData.hasOwnProperty('YM')) {
-                    return yield me.addressDownloadDataYM(json);
-                }
-                if (json.DownloadData.hasOwnProperty('JCDM')) {
-                    return yield me.addressDownloadDataJCDM(json);
-                }
-                if (json.DownloadData.hasOwnProperty('SJTB')) {
-                    return yield me.addressDownloadDataSJTB(json);
-                }
-                return ret;
+    addressDownloadData(json) {
+      var ret = false;
+      var me = this;
+      return function *() {
+        if (json.DownloadData.hasOwnProperty('ICP')) {
+          return yield me.addressDownloadDataICP(json);
+        }
+        if (json.DownloadData.hasOwnProperty('IP')) {
+          return yield me.addressDownloadDataIP(json);
+        }
+        if (json.DownloadData.hasOwnProperty('YM')) {
+          return yield me.addressDownloadDataYM(json);
+        }
+        if (json.DownloadData.hasOwnProperty('JCDM')) {
+          return yield me.addressDownloadDataJCDM(json);
+        }
+        if (json.DownloadData.hasOwnProperty('SJTB')) {
+          return yield me.addressDownloadDataSJTB(json);
+        }
+        return ret;
+      };
+    }
+
+
+    addressDownloadDataICP(json) {
+      var me = this;
+      return function *() {
+        if (json && json.DownloadData) {
+          if (json.DownloadData.ICP.hasOwnProperty('BASJ')) {
+            yield me.addressDownloadDataICPBASJ(json);
+          }
+          if (json.DownloadData.ICP.hasOwnProperty('ZXSJ')) {
+            yield me.addressDownloadDataICPZXSJ(json);
+          }
+          if (json.DownloadData.ICP.hasOwnProperty('HMDLB')) {
+            yield me.addressDownloadDataICPHMDLB(json);
+          }
+          if (json.DownloadData.ICP.hasOwnProperty('FFJRHMD')) {
+            yield me.addressDownloadDataICPFFJRHMD(json);
+          }
+          if (json.DownloadData.ICP.hasOwnProperty('WBAWZLB')) {
+            yield me.addressDownloadDataICWBAWZLB(json);
+          }
+          if (json.DownloadData.ICP.hasOwnProperty('BAJG')) {
+            yield me.addressDownloadDataICPBAJG(json);
+          }
+          if (json.DownloadData.ICP.hasOwnProperty('HSRW')) {
+            yield me.addressDownloadDataICPHSRW(json);
+          }
+          if (json.DownloadData.ICP.hasOwnProperty('HCJG')) {
+            yield me.addressDownloadDataICPHCJG(json);
+          }
+          if (json.DownloadData.ICP.hasOwnProperty('XGTZ')) {
+            yield me.addressDownloadDataICPXGTZ(json);
+          }
+        }
+        return true;
+      };
+    }
+
+    addressDownloadDataICPBASJ(json) {
+      EasyNode.DEBUG && logger.debug(' addressDownloadDataICPBASJ ');
+      var me = this;
+      return function *() {
+        return true;
+      };
+    }
+
+    addressDownloadDataICPZXSJ(json) {
+      EasyNode.DEBUG && logger.debug(' addressDownloadDataICPZXSJ ');
+      var me = this;
+      return function *() {
+
+        return true;
+      };
+    }
+
+    addressDownloadDataICPHMDLB(json) {
+      EasyNode.DEBUG && logger.debug(' addressDownloadDataICPHMDLB ');
+      return function *() {
+
+        return true;
+      };
+    }
+
+    addressDownloadDataICPFFJRHMD(json) {
+      EasyNode.DEBUG && logger.debug(' addressDownloadDataICPFFJRHMD ');
+      return function *() {
+
+        return true;
+      };
+    }
+
+    addressDownloadDataICPWBAWZLB(json) {
+      EasyNode.DEBUG && logger.debug(' addressDownloadDataICPWBAWZLB ');
+      return function *() {
+
+        return true;
+      };
+    }
+
+    addressDownloadDataICPBAJG(json) {
+      EasyNode.DEBUG && logger.debug(' addressDownloadDataICPBAJG ');
+      var me = this;
+      return function *() {
+        if (json.DownloadData.ICP.BAJG.hasOwnProperty('Jg_xx')) {
+          console.log('BAJG:', json.DownloadData.ICP.BAJG.Jg_xx);
+        }
+        if (json.DownloadData.ICP.BAJG.hasOwnProperty('GJSHS')) {
+          console.log('BAJG:', json.DownloadData.ICP.BAJG.GJSHS);
+          var gjsh = json.DownloadData.ICP.GJSHS.Gjsh;
+          for (var index = 0; index < gjsh.length; index += 1) {
+            var storeService = new StoreService(me.app);
+            var ret = yield storeService.putRecordbgjsh(gjsh[index]);
+            console.log('addressICPBAJG result:', ret);
+          }
+
+                    // 1. 记录管局的审核意见
+                    // 2. 修改审核意见的备案结果
+
+        }
+        return true;
+      };
+    }
+
+    addressDownloadDataICPHSRW(json) {
+      EasyNode.DEBUG && logger.debug(' addressDownloadDataICPHSRW ');
+      return function *() {
+
+        return true;
+      };
+    }
+
+    addressDownloadDataICPHCJG(json) {
+      EasyNode.DEBUG && logger.debug(' addressDownloadDataICPHCJG ');
+      return function *() {
+
+        return true;
+      };
+    }
+
+    addressDownloadDataICPXGTZ(json) {
+      EasyNode.DEBUG && logger.debug(' addressDownloadDataICPXGTZ ');
+      return function *() {
+
+        return true;
+      };
+    }
+
+    addressDownloadDataIP(json) {
+      EasyNode.DEBUG && logger.debug(' addressDownloadDataIP ');
+      var me = this;
+      return function *() {
+        if (json && json.DownloadData) {
+          if (json.DownloadData.IP.hasOwnProperty('BAJG')) {
+            yield me.addressDownloadDataIPBAJG(json);
+          }
+          if (json.DownloadData.IP.hasOwnProperty('HCJG')) {
+            yield me.addressDownloadDataIPHCJG(json);
+          }
+        }
+        return true;
+      };
+    }
+
+    addressDownloadDataIPBAJG(json) {
+      EasyNode.DEBUG && logger.debug(' addressDownloadDataIPBAJG ', json);
+      var me = this;
+      return function *() {
+        console.log('BAJG:', json.DownloadData.IP.BAJG[0]);
+        return true;
+      };
+    }
+
+    addressDownloadDataIPHCJG(json) {
+      EasyNode.DEBUG && logger.debug(' addressDownloadDataIPHCJG ');
+      var me = this;
+      return function *() {
+        if (json.DownloadData.IP.HCJG.hasOwnProperty('Jgxx')) {
+          console.log('Lyjg:', json.DownloadData.IP.HCJG.Jgxx);
+        }
+        return true;
+      };
+    }
+
+    addressDownloadDataYM(json) {
+      EasyNode.DEBUG && logger.debug(' addressDownloadDataYM ');
+      return function *() {
+
+        return true;
+      };
+    }
+
+    addressDownloadDataJCDM(json) {
+      EasyNode.DEBUG && logger.debug(' addressDownloadDataJCDM ');
+      return function *() {
+
+        return true;
+      };
+    }
+
+    addressDownloadDataSJTB(json) {
+      EasyNode.DEBUG && logger.debug(' addressDownloadDataSJTB ');
+      return function *() {
+
+        return true;
+      };
+    }
+
+    getPhoto(url, size, min, max, cur) {
+      var me = this;
+      console.log(url);
+      return function *() {
+        var image = yield me.downloadNos(url + cur);
+        var image64 = new Buffer(image).toString('base64');
+        // console.log('min:', min);
+        // console.log('max:', max);
+        // console.log('cur:', cur);
+        if (image64.length > size) {
+          // console.log('image64.length:', image64.length);
+          // console.log('image64 quarlity:', cur);
+          return yield me.getPhoto(url, size, min, cur, parseInt((cur - min) / 2));
+        } else if (parseInt((max - cur) / 2) != 1) {
+          // console.log('image64.length:', image64.length);
+          // console.log('image64 quarlity:', cur);
+          return yield me.getPhoto(url, size, cur, max, parseInt((max + cur) / 2));
+        }
+       // console.log('image64.length2:', image64.length);
+        return image64;
+      };
+    }
+
+    genbeianInfo(json, type) {
+      var me = this;
+      return function *() {
+        var clip = '?imageView&quality=50';
+        var img = '';
+        var assignedJson = '';
+        var xml2 = '';
+        var ret = '';
+        if (type == me.FIRST) {
+          try {
+            var c = '?imageView&quality=';
+
+                        // var image = yield me.downloadNos(json.record.sitemanagerurl + clip);
+                        // json.record.sitemanagerurl = new Buffer(image).toString('base64');
+
+            json.record.sitemanagerurl = yield me.getPhoto(json.record.sitemanagerurl + c, PhotoSizeLimit.WEBSITEOWNERSIZE, me.MIN, me.MAX, (me.MAX - me.MIN) / 2);
+
+            image = yield me.downloadNos(json.record.checkedlisturl + clip);
+            json.record.checkedlisturl = new Buffer(image).toString('base64');
+
+            image = yield me.downloadNos(json.record.protocolurl1 + clip);
+            json.record.protocolurl1 = new Buffer(image).toString('base64');
+
+            image = yield me.downloadNos(json.record.protocolurl2 + clip);
+            json.record.protocolurl2 = new Buffer(image).toString('base64');
+
+            image = yield me.downloadNos(json.record.securityurl1 + clip);
+            json.record.securityurl1 = new Buffer(image).toString('base64');
+
+
+            image = yield me.downloadNos(json.record.securityurl2 + clip);
+            json.record.securityurl2 = new Buffer(image).toString('base64');
+
+            assignedJson = xzbaAssign(json);
+            xml2 = js2xmlparser('UploadData', assignedJson, {declaration:{encoding:'GBK'}});
+            fso.writeFileSync('/Users/hujiabao/Downloads/first.xml', iconv.encode(xml2, 'GBK'), 'utf8');
+            ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
+            return ret;
+          } catch (e) {
+            EasyNode.DEBUG && logger.debug(` ${e}`);
+            return {beianInfo: '', beianInfoHash: ''};
+          }
+        } else if (type == me.XZWZ) {
+          try {
+            image = yield me.downloadNos(json.record.sitemanagerurl + clip);
+            json.record.sitemanagerurl = new Buffer(image).toString('base64');
+
+            image = yield me.downloadNos(json.record.checkedlisturl + clip);
+            json.record.checkedlisturl = new Buffer(image).toString('base64');
+
+            image = yield me.downloadNos(json.record.protocolurl1 + clip);
+            json.record.protocolurl1 = new Buffer(image).toString('base64');
+
+            image = yield me.downloadNos(json.record.protocolurl2 + clip);
+            json.record.protocolurl2 = new Buffer(image).toString('base64');
+
+            image = yield me.downloadNos(json.record.securityurl1 + clip);
+            json.record.securityurl1 = new Buffer(image).toString('base64');
+
+
+            image = yield me.downloadNos(json.record.securityurl2 + clip);
+            json.record.securityurl2 = new Buffer(image).toString('base64');
+
+
+            assignedJson = xzwzAssign(json);
+            xml2 = json2xml(assignedJson, {attributes_key: 'attr', header: true});
+            ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
+            return ret;
+          } catch (e) {
+            EasyNode.DEBUG && logger.debug(` ${e}`);
+            return {beianInfo: '', beianInfoHash: ''};
+          }
+        } else if (type == me.XZJR) {
+          try {
+            image = yield me.downloadNos(json.record.sitemanagerurl + clip);
+            json.record.sitemanagerurl = new Buffer(image).toString('base64');
+
+            image = yield me.downloadNos(json.record.checkedlisturl + clip);
+            json.record.checkedlisturl = new Buffer(image).toString('base64');
+
+            image = yield me.downloadNos(json.record.protocolurl1 + clip);
+            json.record.protocolurl1 = new Buffer(image).toString('base64');
+
+            image = yield me.downloadNos(json.record.protocolurl2 + clip);
+            json.record.protocolurl2 = new Buffer(image).toString('base64');
+
+            image = yield me.downloadNos(json.record.securityurl1 + clip);
+            json.record.securityurl1 = new Buffer(image).toString('base64');
+
+
+            image = yield me.downloadNos(json.record.securityurl2 + clip);
+            json.record.securityurl2 = new Buffer(image).toString('base64');
+
+
+            assignedJson = xzjrAssign(json);
+            xml2 = json2xml(assignedJson, {attributes_key: 'attr', header: true});
+            ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
+            return ret;
+          } catch (e) {
+            EasyNode.DEBUG && logger.debug(` ${e}`);
+            return {beianInfo: '', beianInfoHash: ''};
+          }
+        } else if (type == me.HSJG) {
+          try {
+            image = yield me.downloadNos(json.record.sitemanagerurl + clip);
+            json.record.sitemanagerurl = new Buffer(image).toString('base64');
+
+            image = yield me.downloadNos(json.record.checkedlisturl + clip);
+            json.record.checkedlisturl = new Buffer(image).toString('base64');
+
+            image = yield me.downloadNos(json.record.protocolurl1 + clip);
+            json.record.protocolurl1 = new Buffer(image).toString('base64');
+
+            image = yield me.downloadNos(json.record.protocolurl2 + clip);
+            json.record.protocolurl2 = new Buffer(image).toString('base64');
+
+            image = yield me.downloadNos(json.record.securityurl1 + clip);
+            json.record.securityurl1 = new Buffer(image).toString('base64');
+
+
+            image = yield me.downloadNos(json.record.securityurl2 + clip);
+            json.record.securityurl2 = new Buffer(image).toString('base64');
+
+
+            assignedJson = hsjgAssign(json);
+            xml2 = json2xml(assignedJson, {attributes_key: 'attr', header: true});
+            ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
+            return ret;
+          } catch (e) {
+            EasyNode.DEBUG && logger.debug(` ${e}`);
+            return {beianInfo: '', beianInfoHash: ''};
+          }
+        } else if (type == me.IP_XZBA) {
+          try {
+            ssignedJson = ipxzbaAssign(json);
+            xml2 = json2xml(assignedJson, {attributes_key: 'attr', header: true});
+                        // fso.writeFileSync('/Users/hujiabao/Downloads/ip_xzba.xml',xml2,'utf8');
+            ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
+            return ret;
+          } catch (e) {
+            EasyNode.DEBUG && logger.debug(` ${e}`);
+            return {beianInfo: '', beianInfoHash: ''};
+          }
+        } else if (type == me.IP_SCBA) {
+          try {
+            assignedJson = ipscbaAssign(json);
+            xml2 = json2xml(assignedJson, {attributes_key: 'attr', header: true});
+                        // fso.writeFileSync('/Users/hujiabao/Downloads/ip_xzba.xml',xml2,'utf8');
+            ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
+            return ret;
+          } catch (e) {
+            EasyNode.DEBUG && logger.debug(` ${e}`);
+            return {beianInfo: '', beianInfoHash: ''};
+          }
+        }
+        return {beianInfo: '', beianInfoHash: ''};
+      };
+    }
+
+    getUploadInitParam() {
+      var randVal = utils.randomString(20, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+      var pwdHash = this.genPwdHash(randVal, this.icp.PASSWORD, this.icp.HASHALGORITHM);
+      return {
+        ispID: this.icp.ISPID,
+        userName: this.icp.USERNAME,
+        randVal: randVal,
+        pwdHash: pwdHash,
+        beianInfo: '',
+        beianInfoHash: '',
+        dataSequence: this.dataSequence,
+        encryptAlgorithm: this.icp.ENCRYPTALGORITHM,
+        hashAlgorithm: this.icp.HASHALGORITHM,
+        compressionFormat: this.icp.COMPRESSIONFORMAT
+      };
+    }
+
+    getInitParam(upcase = true) {
+      var randVal = utils.randomString(20, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+      var pwdHash = this.genPwdHash(randVal, this.icp.PASSWORD, this.icp.HASHALGORITHM);
+      return upcase ?
+        {
+          ispID: this.icp.ISPID,
+          userName: this.icp.USERNAME,
+          randVal: randVal,
+          pwdHash: pwdHash,
+          hashAlgorithm: this.icp.HASHALGORITHM
+        } :
+        {
+          ispId: this.icp.ISPID,
+          userName: this.icp.USERNAME,
+          randVal: randVal,
+          pwdHash: pwdHash,
+          hashAlgorithm: this.icp.HASHALGORITHM
+        };
+    }
+
+
+    encryption(data) {
+      var key = this.icp.KEY;
+      var iv = this.icp.OFFSET;
+      var clearEncoding = 'utf8';
+      var cipherEncoding = 'base64';
+      var cipherChunks = [];
+      var cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
+      cipher.setAutoPadding(true);
+
+      var enc = cipher.update(data, clearEncoding, cipherEncoding);
+      enc += cipher.final(cipherEncoding);
+
+      return enc;
+    }
+
+        // data 是你的准备解密的字符串,key是你的密钥
+    decryption(data) {
+      var key = this.icp.KEY;
+      var iv = this.icp.OFFSET;
+      var clearEncoding = 'binary';
+      var cipherEncoding = 'base64';
+      var decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
+      decipher.setAutoPadding(true);
+
+      var enc = decipher.update(data, cipherEncoding, clearEncoding);
+      enc += decipher.final(clearEncoding);
+
+      return enc;
+    }
+
+    base64_encode(file) {
+      var bitmap = fso.readFileSync(file);
+      return new Buffer(bitmap).toString('base64');
+    }
+
+    base64_decode(base64Str, file) {
+      var bitmap = new Buffer(base64str, 'base64');
+      fso.writeFileSync(file, bitmap);
+      EasyNode.DEBUG && logger.debug('******** File created from base64 encoded string ********');
+    }
+
+    readSys() {
+      var me = this;
+      return function *() {
+        var storeService = new StoreService(me.app);
+        var ret = yield storeService.getSys(1);
+        me.dataSequence = JSON.parse(ret).dataSequence;
+        return ret;
+      };
+    }
+
+    writeSys(sys) {
+      var me = this;
+      return function *() {
+        var storeService = new StoreService(me.app);
+        var ret = yield storeService.putSys(1, 1, JSON.stringify(sys));
+        if (ret == true) {
+          me.dataSequence = parseInt(sys.dataSequence);
+          console.log('write dataSequence:', me.dataSequence);
+        }
+      };
+    }
+
+    downloadNos(url) {
+      var imgData = '';
+      return new Promise(function(resq, rej) {
+        http.get(url, function(res) {
+          res.setEncoding('binary'); // 一定要设置response的编码为binary否则会下载下来的图片打不开
+          res.on('data', function(chunk) {
+            imgData += chunk;
+          });
+
+          res.on('end', function(err) {
+            if (err) {
+              console.log('down fail');
+              rej();
             }
-        }
+            console.log('down success');
+            resq(imgData);
+          });
 
+          res.socket.on('error', function() {
+            console.log('err');
+          });
+        });
+      });
+    }
 
-        addressDownloadDataICP(json) {
-            var me = this;
-            return function *() {
-                if (json && json.DownloadData) {
-                    if (json.DownloadData.ICP.hasOwnProperty('BASJ')) {
-                        yield me.addressDownloadDataICPBASJ(json);
-                    }
-                    if (json.DownloadData.ICP.hasOwnProperty('ZXSJ')) {
-                        yield me.addressDownloadDataICPZXSJ(json);
-                    }
-                    if (json.DownloadData.ICP.hasOwnProperty('HMDLB')) {
-                        yield me.addressDownloadDataICPHMDLB(json);
-                    }
-                    if (json.DownloadData.ICP.hasOwnProperty('FFJRHMD')) {
-                        yield me.addressDownloadDataICPFFJRHMD(json);
-                    }
-                    if (json.DownloadData.ICP.hasOwnProperty('WBAWZLB')) {
-                        yield me.addressDownloadDataICWBAWZLB(json);
-                    }
-                    if (json.DownloadData.ICP.hasOwnProperty('BAJG')) {
-                        yield me.addressDownloadDataICPBAJG(json);
-                    }
-                    if (json.DownloadData.ICP.hasOwnProperty('HSRW')) {
-                        yield me.addressDownloadDataICPHSRW(json);
-                    }
-                    if (json.DownloadData.ICP.hasOwnProperty('HCJG')) {
-                        yield me.addressDownloadDataICPHCJG(json);
-                    }
-                    if (json.DownloadData.ICP.hasOwnProperty('XGTZ')) {
-                        yield me.addressDownloadDataICPXGTZ(json);
-                    }
-                }
-                return true;
+    getPage(url) {
+      var chunks = [];
+      var size = 0;
+      return new Promise(function(resq, rej) {
+        http.get(url, function(res) {
+          res.on('data', function(chunk) {
+            size += chunk.length;
+            chunks.push(chunk);
+          });
+
+          res.on('end', function(err) {
+            if (err) {
+              console.log('down fail');
+              rej();
             }
-        }
-
-        addressDownloadDataICPBASJ(json) {
-            EasyNode.DEBUG && logger.debug(` addressDownloadDataICPBASJ `);
-            var me = this;
-            return function*() {
-
-                return true;
-            }
-        }
-
-        addressDownloadDataICPZXSJ(json) {
-            EasyNode.DEBUG && logger.debug(` addressDownloadDataICPZXSJ `);
-            var me = this;
-            return function*() {
-
-                return true;
-            }
-        }
-
-        addressDownloadDataICPHMDLB(json) {
-            EasyNode.DEBUG && logger.debug(` addressDownloadDataICPHMDLB `);
-            return function*() {
-
-                return true;
-            }
-        }
-
-        addressDownloadDataICPFFJRHMD(json) {
-            EasyNode.DEBUG && logger.debug(` addressDownloadDataICPFFJRHMD `);
-            return function*() {
-
-                return true;
-            }
-        }
-
-        addressDownloadDataICPWBAWZLB(json) {
-            EasyNode.DEBUG && logger.debug(` addressDownloadDataICPWBAWZLB `);
-            return function*() {
-
-                return true;
-            }
-        }
-
-        addressDownloadDataICPBAJG(json) {
-            EasyNode.DEBUG && logger.debug(` addressDownloadDataICPBAJG `);
-            var me = this;
-            return function*() {
-                if (json.DownloadData.ICP.BAJG.hasOwnProperty('Jg_xx')) {
-                    console.log("BAJG:", json.DownloadData.ICP.BAJG.Jg_xx);
-                }
-                if (json.DownloadData.ICP.BAJG.hasOwnProperty('GJSHS')) {
-                    console.log("BAJG:", json.DownloadData.ICP.BAJG.GJSHS);
-                    var gjsh = json.DownloadData.ICP.GJSHS.Gjsh;
-                    for (var index = 0; index < gjsh.length; index++) {
-                        var storeService = new StoreService(me.app);
-                        var ret = yield storeService.putRecordbgjsh(gjsh[index]);
-                        console.log("addressICPBAJG result:", ret);
-                    }
-
-                    //1. 记录管局的审核意见
-                    //2. 修改审核意见的备案结果
-
-                }
-                return true;
-            }
-        }
-
-        addressDownloadDataICPHSRW(json) {
-            EasyNode.DEBUG && logger.debug(` addressDownloadDataICPHSRW `);
-            return function*() {
-
-                return true;
-            }
-        }
-
-        addressDownloadDataICPHCJG(json) {
-            EasyNode.DEBUG && logger.debug(` addressDownloadDataICPHCJG `);
-            return function*() {
-
-                return true;
-            }
-        }
-
-        addressDownloadDataICPXGTZ(json) {
-            EasyNode.DEBUG && logger.debug(` addressDownloadDataICPXGTZ `);
-            return function*() {
-
-                return true;
-            }
-        }
-
-        addressDownloadDataIP(json) {
-            EasyNode.DEBUG && logger.debug(` addressDownloadDataIP `);
-            var me = this;
-            return function *() {
-                if (json && json.DownloadData) {
-                    if (json.DownloadData.IP.hasOwnProperty('BAJG')) {
-                        yield me.addressDownloadDataIPBAJG(json);
-                    }
-                    if (json.DownloadData.IP.hasOwnProperty('HCJG')) {
-                        yield me.addressDownloadDataIPHCJG(json);
-                    }
-                }
-                return true;
-            }
-        }
-
-        addressDownloadDataIPBAJG(json) {
-            EasyNode.DEBUG && logger.debug(` addressDownloadDataIPBAJG `, json);
-            var me = this;
-            return function*() {
-                console.log("BAJG:", json.DownloadData.IP.BAJG[0]);
-                return true;
-            }
-        }
-
-        addressDownloadDataIPHCJG(json) {
-            EasyNode.DEBUG && logger.debug(` addressDownloadDataIPHCJG `);
-            var me = this;
-            return function*() {
-                if (json.DownloadData.IP.HCJG.hasOwnProperty('Jgxx')) {
-                    console.log("Lyjg:", json.DownloadData.IP.HCJG.Jgxx);
-                }
-                return true;
-            }
-        }
-
-        addressDownloadDataYM(json) {
-            EasyNode.DEBUG && logger.debug(` addressDownloadDataYM `);
-            return function*() {
-
-                return true;
-            }
-        }
-
-        addressDownloadDataJCDM(json) {
-            EasyNode.DEBUG && logger.debug(` addressDownloadDataJCDM `);
-            return function*() {
-
-                return true;
-            }
-        }
-
-        addressDownloadDataSJTB(json) {
-            EasyNode.DEBUG && logger.debug(` addressDownloadDataSJTB `);
-            return function*() {
-
-                return true;
-            }
-        }
-
-        getPhoto(url,size,min,max,cur){
-            var me = this;
-            console.log(url);
-            return function*(){
-                var image = yield me.downloadNos(url+cur);
-                var image64 = new Buffer(image).toString('base64');
-                console.log("min:",min);
-                console.log("max:",max);
-                console.log("cur:",cur);
-                if( image64.length > size ){
-                    console.log("image64.length:",image64.length);
-                    console.log("image64 quarlity:",cur);
-                    return yield me.getPhoto(url,size,min,cur,parseInt((cur-min)/2));
-                }else{
-                    console.log("image64.length:",image64.length);
-                    console.log("image64 quarlity:",cur);
-                    if(parseInt((max-cur)/2) != 1){
-                        return yield me.getPhoto(url,size,cur,max,parseInt((max+cur)/2));
-                    }
-                }
-                console.log("image64.length2:",image64.length);
-                return image64;
-            }
-        }
-
-        genbeianInfo(json, type) {
-
-            var me = this;
-
-            return function *() {
-                if (type == me.FIRST) {
-                    try {
-                        var clip = '?imageView&quality=50';
-                        var c = '?imageView&quality=';
-
-                        //var image = yield me.downloadNos(json.record.sitemanagerurl + clip);
-                        //json.record.sitemanagerurl = new Buffer(image).toString('base64');
-
-                        json.record.sitemanagerurl  = yield me.getPhoto(json.record.sitemanagerurl+c,PhotoSizeLimit.WEBSITEOWNERSIZE,me.MIN,me.MAX,(me.MAX-me.MIN)/2);
-
-                        image = yield me.downloadNos(json.record.checkedlisturl + clip);
-                        json.record.checkedlisturl = new Buffer(image).toString('base64');
-
-                        image = yield me.downloadNos(json.record.protocolurl1 + clip);
-                        json.record.protocolurl1 = new Buffer(image).toString('base64');
-
-                        image = yield me.downloadNos(json.record.protocolurl2 + clip);
-                        json.record.protocolurl2 = new Buffer(image).toString('base64');
-
-                        image = yield me.downloadNos(json.record.securityurl1 + clip);
-                        json.record.securityurl1 = new Buffer(image).toString('base64');
-
-
-                        image = yield me.downloadNos(json.record.securityurl2 + clip);
-                        json.record.securityurl2 = new Buffer(image).toString('base64');
-
-
-                        var assignedJson = XZBA_ASSIGN(json);
-                        var xml2 = js2xmlparser('UploadData',assignedJson,{declaration:{encoding:'GBK'}});
-                        fso.writeFileSync('/Users/hujiabao/Downloads/first.xml', iconv.encode(xml2, 'GBK'), 'utf8');
-                        var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
-                        return ret;
-                    } catch (e) {
-                        EasyNode.DEBUG && logger.debug(` ${e}`);
-                        return {beianInfo: '', beianInfoHash: ''};
-                    }
-                }
-                else if (type == me.XZWZ) {
-                    try {
-                        var clip = '?imageView&quality=50';
-
-                        var image = yield me.downloadNos(json.record.sitemanagerurl + clip);
-                        json.record.sitemanagerurl = new Buffer(image).toString('base64');
-
-                        image = yield me.downloadNos(json.record.checkedlisturl + clip);
-                        json.record.checkedlisturl = new Buffer(image).toString('base64');
-
-                        image = yield me.downloadNos(json.record.protocolurl1 + clip);
-                        json.record.protocolurl1 = new Buffer(image).toString('base64');
-
-                        image = yield me.downloadNos(json.record.protocolurl2 + clip);
-                        json.record.protocolurl2 = new Buffer(image).toString('base64');
-
-                        image = yield me.downloadNos(json.record.securityurl1 + clip);
-                        json.record.securityurl1 = new Buffer(image).toString('base64');
-
-
-                        image = yield me.downloadNos(json.record.securityurl2 + clip);
-                        json.record.securityurl2 = new Buffer(image).toString('base64');
-
-
-                        var assignedJson = XZWZ_ASSIGN(json);
-                        var xml2 = json2xml(assignedJson, {attributes_key: 'attr', header: true});
-                        var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
-                        return ret;
-                    } catch (e) {
-                        EasyNode.DEBUG && logger.debug(` ${e}`);
-                        return {beianInfo: '', beianInfoHash: ''};
-                    }
-                }
-                else if (type == me.XZJR) {
-                    try {
-                        var clip = '?imageView&quality=50';
-
-                        var image = yield me.downloadNos(json.record.sitemanagerurl + clip);
-                        json.record.sitemanagerurl = new Buffer(image).toString('base64');
-
-                        image = yield me.downloadNos(json.record.checkedlisturl + clip);
-                        json.record.checkedlisturl = new Buffer(image).toString('base64');
-
-                        image = yield me.downloadNos(json.record.protocolurl1 + clip);
-                        json.record.protocolurl1 = new Buffer(image).toString('base64');
-
-                        image = yield me.downloadNos(json.record.protocolurl2 + clip);
-                        json.record.protocolurl2 = new Buffer(image).toString('base64');
-
-                        image = yield me.downloadNos(json.record.securityurl1 + clip);
-                        json.record.securityurl1 = new Buffer(image).toString('base64');
-
-
-                        image = yield me.downloadNos(json.record.securityurl2 + clip);
-                        json.record.securityurl2 = new Buffer(image).toString('base64');
-
-
-                        var assignedJson = XZJR_ASSIGN(json);
-                        var xml2 = json2xml(assignedJson, {attributes_key: 'attr', header: true});
-                        var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
-                        return ret;
-                    } catch (e) {
-                        EasyNode.DEBUG && logger.debug(` ${e}`);
-                        return {beianInfo: '', beianInfoHash: ''};
-                    }
-                }
-                else if (type == me.HSJG) {
-                    try {
-                        var clip = '?imageView&quality=50';
-
-                        var image = yield me.downloadNos(json.record.sitemanagerurl + clip);
-                        json.record.sitemanagerurl = new Buffer(image).toString('base64');
-
-                        image = yield me.downloadNos(json.record.checkedlisturl + clip);
-                        json.record.checkedlisturl = new Buffer(image).toString('base64');
-
-                        image = yield me.downloadNos(json.record.protocolurl1 + clip);
-                        json.record.protocolurl1 = new Buffer(image).toString('base64');
-
-                        image = yield me.downloadNos(json.record.protocolurl2 + clip);
-                        json.record.protocolurl2 = new Buffer(image).toString('base64');
-
-                        image = yield me.downloadNos(json.record.securityurl1 + clip);
-                        json.record.securityurl1 = new Buffer(image).toString('base64');
-
-
-                        image = yield me.downloadNos(json.record.securityurl2 + clip);
-                        json.record.securityurl2 = new Buffer(image).toString('base64');
-
-
-                        var assignedJson = HSJG_ASSIGN(json);
-                        var xml2 = json2xml(assignedJson, {attributes_key: 'attr', header: true});
-                        var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
-                        return ret;
-                    } catch (e) {
-                        EasyNode.DEBUG && logger.debug(` ${e}`);
-                        return {beianInfo: '', beianInfoHash: ''};
-                    }
-                }
-                else if (type == me.IP_XZBA) {
-                    try {
-                        var assignedJson = IP_XZBA_ASSIGN(json);
-                        var xml2 = json2xml(assignedJson, {attributes_key: 'attr', header: true});
-                        //fso.writeFileSync('/Users/hujiabao/Downloads/ip_xzba.xml',xml2,'utf8');
-                        var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
-                        return ret;
-                    } catch (e) {
-                        EasyNode.DEBUG && logger.debug(` ${e}`);
-                        return {beianInfo: '', beianInfoHash: ''};
-                    }
-                }
-                else if(type == me.IP_SCBA){
-                    try {
-                        var assignedJson = IP_SCBA_ASSIGN(json);
-                        var xml2 = json2xml(assignedJson, {attributes_key: 'attr', header: true});
-                        //fso.writeFileSync('/Users/hujiabao/Downloads/ip_xzba.xml',xml2,'utf8');
-                        var ret = yield me.encryptContent(iconv.encode(xml2, 'GBK'));
-                        return ret;
-                    } catch (e) {
-                        EasyNode.DEBUG && logger.debug(` ${e}`);
-                        return {beianInfo: '', beianInfoHash: ''};
-                    }
-                }
-            }
-
-        }
-
-        getUploadInitParam() {
-            var randVal = utils.randomString(20, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-            var pwdHash = this.genPwdHash(randVal, this.icp.PASSWORD, this.icp.HASHALGORITHM);
-            return {
-                ispID: this.icp.ISPID,
-                userName: this.icp.USERNAME,
-                randVal: randVal,
-                pwdHash: pwdHash,
-                beianInfo: '',
-                beianInfoHash: '',
-                dataSequence: this.dataSequence,
-                encryptAlgorithm: this.icp.ENCRYPTALGORITHM,
-                hashAlgorithm: this.icp.HASHALGORITHM,
-                compressionFormat: this.icp.COMPRESSIONFORMAT
-            };
-        }
-
-        getInitParam(upcase = true) {
-            var randVal = utils.randomString(20, '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-            var pwdHash = this.genPwdHash(randVal, this.icp.PASSWORD, this.icp.HASHALGORITHM);
-            return upcase ?
-            {
-                ispID: this.icp.ISPID,
-                userName: this.icp.USERNAME,
-                randVal: randVal,
-                pwdHash: pwdHash,
-                hashAlgorithm: this.icp.HASHALGORITHM
-            } :
-            {
-                ispId: this.icp.ISPID,
-                userName: this.icp.USERNAME,
-                randVal: randVal,
-                pwdHash: pwdHash,
-                hashAlgorithm: this.icp.HASHALGORITHM
-            };
-        }
-
-
-        encryption(data) {
-            var key = this.icp.KEY;
-            var iv = this.icp.OFFSET;
-            var clearEncoding = 'utf8';
-            var cipherEncoding = 'base64';
-            var cipherChunks = [];
-            var cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
-            cipher.setAutoPadding(true);
-
-            var enc = cipher.update(data, clearEncoding, cipherEncoding);
-            enc += cipher.final(cipherEncoding);
-
-            return enc;
-        }
-
-        //data 是你的准备解密的字符串,key是你的密钥
-        decryption(data) {
-            var key = this.icp.KEY;
-            var iv = this.icp.OFFSET;
-            var clearEncoding = 'binary';
-            var cipherEncoding = 'base64';
-            var decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
-            decipher.setAutoPadding(true);
-
-            var enc = decipher.update(data, cipherEncoding, clearEncoding);
-            enc += decipher.final(clearEncoding);
-
-            return enc;
-        }
-
-        //data 是你的准备解密的字符串,key是你的密钥
-        decryption(data) {
-            var key = KEY;
-            key = iconv.encode(key,"GBK");
-            var iv = OFFSET;
-            iv = iconv.encode(iv,"GBK");
-            var clearEncoding = 'binary';
-            var cipherEncoding = 'base64';
-            var cipherChunks = [];
-            var decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
-            decipher.setAutoPadding(true);
-
-            cipherChunks.push(decipher.update(data, cipherEncoding, clearEncoding));
-            cipherChunks.push(decipher.final(clearEncoding));
-
-            return cipherChunks.join('');
-        }
-
-        base64_encode(file) {
-            var bitmap = fso.readFileSync(file);
-            return new Buffer(bitmap).toString('base64');
-        }
-
-        base64_decode(base64Str, file) {
-            var bitmap = new Buffer(base64str, 'base64');
-            fso.writeFileSync(file, bitmap);
-            EasyNode.DEBUG && logger.debug(`******** File created from base64 encoded string ********`);
-        }
-
-        readSys() {
-            var me = this;
-            return function * () {
-                var storeService = new StoreService(me.app);
-                var ret = yield storeService.getSys(1);
-                me.dataSequence = JSON.parse(ret).dataSequence;
-                return ret;
-            };
-        }
-
-        writeSys(sys) {
-            var me = this;
-            return function *() {
-                var storeService = new StoreService(me.app);
-                var ret = yield storeService.putSys(1, 1, JSON.stringify(sys));
-                if (ret == true) {
-                    me.dataSequence = parseInt(sys.dataSequence);
-                    console.log("write dataSequence:", me.dataSequence);
-                }
-            }
-        }
-
-        downloadNos(url) {
-            var imgData = "";
-            return new Promise(function (resq, rej) {
-                http.get(url, function (res) {
-                    res.setEncoding("binary"); //一定要设置response的编码为binary否则会下载下来的图片打不开
-                    res.on("data", function (chunk) {
-                        imgData += chunk;
-                    });
-
-                    res.on("end", function (err) {
-                        if (err) {
-                            console.log("down fail");
-                            rej();
-                        }
-                        console.log("down success");
-                        resq(imgData);
-                    });
-
-                    res.socket.on("error", function() {
-                        console.log("err");
-                    });
-                });
-            });
-        }
-
-        getPage(url) {
-            var chunks = [];
-            var size = 0;
-            return new Promise(function (resq, rej) {
-                http.get(url, function (res) {
-                    res.on("data", function (chunk) {
-                        size += chunk.length;
-                        chunks.push(chunk);
-                    });
-
-                    res.on("end", function (err) {
-                        if (err) {
-                            console.log("down fail");
-                            rej();
-                        }
-                        console.log("down success");
-                        var data = Buffer.concat(chunks,size);
-                        resq(data);
-                    });
-
-                    res.socket.on("error", function() {
-                        console.log("err");
-                        rej();
-                    });
-                });
-            });
-        }
+            console.log('down success');
+            var data = Buffer.concat(chunks, size);
+            resq(data);
+          });
+
+          res.socket.on('error', function() {
+            console.log('err');
+            rej();
+          });
+        });
+      });
+    }
 
 
         /**
@@ -1593,8 +1569,8 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
          code : 413 secret(密码)不对。
          code:  401 账号不存在。
          * */
-        gettenantPubips(tenantId = 0 ){
-            /*var me = this;
+    gettenantPubips(tId = 0) {
+            /* var me = this;
             return  new Promise( function(res,rej) {
                 request.post(`${me.tenantpubips.urlPath}?secret=${me.tenantpubips.secret}&tenantId=${tenantId}`)
                     .end(function(err,ret){
@@ -1606,41 +1582,41 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
                     });
             });*/
 
-            var me = this;
-            return function *(){
-                console.log("sessin",this.session);
-                var tenantId = tenantId > 0 ? tenantId : this.session.user.tenantid;
-                return  new Promise( function(res,rej) {
-                    console.log("tenantId",tenantId);
-                    var url = `${me.tenantpubips.urlPath}?secret=${me.tenantpubips.secret}&tenantId=${tenantId}`;
-                    console.log(url);
-                    request.post(url)
-                        .end(function(err,ret){
-                            if( err ){
-                                rej();
-                            }else{
-                                res(ret.text);
-                            }
+      var me = this;
+      return function *() {
+        console.log('sessin', this.session);
+        var tenantId = tId > 0 ? tId : this.session.user.tenantid;
+        return new Promise(function(res, rej) {
+          console.log('tenantId', tenantId);
+          var url = `${me.tenantpubips.urlPath}?secret=${me.tenantpubips.secret}&tenantId=${tenantId}`;
+          console.log(url);
+          request.post(url)
+                        .end(function(err, ret) {
+                          if (err) {
+                            rej();
+                          } else {
+                            res(ret.text);
+                          }
                         });
-                });
-            }
-        }
-
-        validateIP(ip,ips) {
-            var pass = false;
-            ips.forEach(function (v, index) {
-                if (ip.includes(v.pubIp)) {
-                    pass = true;
-                }
-            });
-            return pass;
-        }
-
-        getClassName() {
-            return EasyNode.namespace(__filename);
-        }
+        });
+      };
     }
 
-    module.exports = IspService;
+    validateIP(ip, ips) {
+      var pass = false;
+      ips.forEach(function(v, index) {
+        if (ip.includes(v.pubIp)) {
+          pass = true;
+        }
+      });
+      return pass;
+    }
+
+    getClassName() {
+      return EasyNode.namespace(__filename);
+    }
+    }
+
+  module.exports = IspService;
 })();
 

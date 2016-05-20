@@ -1,6 +1,6 @@
 import '../../css/index.css';
 import React from 'react';
-var _g = window._g;
+
 
 let ViewPhoto = React.createClass({
     propTypes:{

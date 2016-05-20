@@ -2,7 +2,7 @@ import auth from './utils/auth';
 import '../css/index.css';
 import React from 'react';
 import { Link } from 'react-router';
-var _g = window._g;
+
 
 class Header extends React.Component {
 

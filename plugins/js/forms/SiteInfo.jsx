@@ -10,7 +10,7 @@ import DataService from '../services/DataService.js';
 import validator from 'validator';
 import assigner from 'object.assign';
 var assign = assigner.getPolyfill();
-var _g = window._g;
+
 
 var LANG_CHINESE = 1;
 var LANG_CHINESETRADITIONAL = 2;

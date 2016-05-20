@@ -7,7 +7,7 @@ import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 import Global from '../utils/globals';
 import DataService from '../services/DataService.js';
-var _g = window._g;
+
 
 let BaseInfo = React.createClass({
 

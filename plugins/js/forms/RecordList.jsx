@@ -5,7 +5,7 @@ import Global from '../utils/globals';
 import DataService from '../services/DataService.js';
 import reqwest from 'reqwest';
 import DeleteRecord from './DeleteRecord.jsx';
-var _g = window._g;
+
 
 let Operation = React.createClass({
     propTypes:{

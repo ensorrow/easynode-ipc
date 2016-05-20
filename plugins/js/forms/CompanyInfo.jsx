@@ -12,7 +12,7 @@ import assigner from 'object.assign';
 var assign = assigner.getPolyfill();
 import DataService from '../services/DataService.js';
 import {IDTYPE, NATURE} from '../constants/define';
-var _g = window._g;
+
 
 const FT = {
     'IDTYPE': 0,

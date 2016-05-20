@@ -18,7 +18,7 @@ import CheckPhotoNoPass from './forms/status/CheckPhotoNoPass.jsx';
 import CheckPhotoPass from './forms/status/CheckPhotoPass.jsx';
 import CheckCouncilPass from './forms/status/CheckCouncilPass.jsx';
 import CheckCouncilNoPass from './forms/status/CheckCouncilNoPass.jsx';
-var _g = window._g;
+
 
 function redirectToLogin (nextState, replaceState) {
     if(!auth.loggedIn()) {

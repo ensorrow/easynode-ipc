@@ -7,7 +7,7 @@ import ApplyCurtain from './ApplyCurtain.js';
 import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 import DataService from '../services/DataService.js';
-var _g = window._g;
+
 
 let UploadPhoto = React.createClass({
     handleApplyCurtain: function () {

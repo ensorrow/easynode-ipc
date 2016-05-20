@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var assert = require('assert');
 var logger = using('easynode.framework.Logger').forFile(__filename);
 var GenericObject = using('easynode.GenericObject');
@@ -6,15 +6,17 @@ var S = require('string');
 var thunkify = require('thunkify');
 var Routes = using('netease.icp.backend.routes.Routes');
 var MySqlDataSource = using('easynode.framework.db.MysqlDataSource');
-var HTTPUtil =  using('easynode.framework.util.HTTPUtil');
+var HTTPUtil = using('easynode.framework.util.HTTPUtil');
 var IspService = using('netease.icp.backend.services.IspService');
 var schedule = require('node-schedule');
 var StoreService = using('netease.icp.backend.services.StoreService');
 var co = require('co');
+var fs = require('fs');
+
 import {IDTYPE} from '../../../../public/netease/icp/constant/define';
 
 
-(function () {
+(function() {
     /**
      * Class Main
      *
@@ -23,7 +25,7 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
      * @since 0.1.0
      * @author allen.hu
      * */
-    class Main extends GenericObject
+  class Main extends GenericObject
     {
         /**
          * 构造函数。
@@ -32,95 +34,92 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
          * @since 0.1.0
          * @author allen.hu
          * */
-        constructor()
-        {
-            super();
-            //调用super()后再定义子类成员。
-        
-}
+    constructor() {
+      super();
+            // 调用super()后再定义子类成员。
+
+    }
 
 
-        static * main(){
-            //load config
-            var configUrl = process.env.CONFIG_URL;
-            var config = {};
-            config = configUrl.startsWith("http") ? yield HTTPUtil.getJSON(configUrl) : require(configUrl);
+    static *main() {
+            // load config
+      var configUrl = process.env.CONFIG_URL;
+      var config = {};
+      config = configUrl.startsWith('http') ? yield HTTPUtil.getJSON(configUrl) : require(configUrl);
             //
             //
-            ////Database source, connection pool
-            var ds = new MySqlDataSource();
-            ds.initialize(config.mysql);
+            // //Database source, connection pool
+      var ds = new MySqlDataSource();
+      ds.initialize(config.mysql);
 
-            ////数据库查询
-            var conn = yield ds.getConnection();
-            var sql = 'SELECT max(id)  as maxCode FROM user';
-            var args = {};
-            var arr = yield conn.execQuery(sql, args = {});
-            console.log(arr);
-            yield ds.releaseConnection(conn);
-
-
-            //HTTP Server
-            var KOAHttpServer =  using('easynode.framework.server.http.KOAHttpServer');
-            var httpPort = S(EasyNode.config('http.server.port','7000')).toInt();
-            var httpServer = new KOAHttpServer(httpPort);
-            httpServer.setSessionStorage(KOAHttpServer.SessionSupport.STORAGE_REDIS, {
-                host: '218.205.113.98',
-                port: 6380,
-                db:1,
-                auth_pass: '1122334455'
-            });
-
-            var pid = S(EasyNode.config('easynode.app.pid','/var/tmp/icp.pid')).toString();
-            var fs = require('fs');
-            console.log("pid",pid);
-            fs.writeFileSync(pid,process.pid);
-
-            httpServer.ds = ds;
-            httpServer.ds.conn = conn;
-            httpServer.config = config;
-
-            var ispService = new IspService(httpServer,config);
-            //yield ispService.createConnect();
-            httpServer.ispService = ispService;
-
-            //设置ContextHook,
-            httpServer.setActionContextListener({
-                onCreate: function (ctx) {
-                    console.log("onCreate");
-                    return function * () {
-                        ctx.setConnection(yield ds.getConnection());
-                        yield ctx.getConnection().beginTransaction();
-                    };
-                },
-                onDestroy: function (ctx) {
-                    console.log("onDestroy");
-                    return function * () {
-                        yield ctx.getConnection().commit();
-                        yield ds.releaseConnection(ctx.getConnection());
-                    };
-                },
-
-                onError: function (ctx, err) {
-                    console.log("onError");
-                    return function * () {
-                        yield ctx.getConnection().rollback();
-                        !err.executeResult  && logger.error(err.stack);
-                    };
-                }
-            });
+            // //数据库查询
+      var conn = yield ds.getConnection();
+      var sql = 'SELECT max(id)  as maxCode FROM user';
+      var args = {};
+      var arr = yield conn.execQuery(sql, args = {});
+      yield ds.releaseConnection(conn);
 
 
-            httpServer.name = EasyNode.config('http.server.name','icp-Service');
-            Routes.defineRoutes(httpServer);
+            // HTTP Server
+      var KOAHttpServer = using('easynode.framework.server.http.KOAHttpServer');
+      var httpPort = S(EasyNode.config('http.server.port', '7000')).toInt();
+      var httpServer = new KOAHttpServer(httpPort);
+      httpServer.setSessionStorage(KOAHttpServer.SessionSupport.STORAGE_REDIS, {
+        host: '218.205.113.98',
+        port: 6380,
+        db:1,
+        auth_pass: '1122334455'
+      });
+
+      var pid = S(EasyNode.config('easynode.app.pid', '/var/tmp/icp.pid')).toString();
+      console.log('pid', pid);
+      fs.writeFileSync(pid, process.pid);
+
+      httpServer.ds = ds;
+      httpServer.ds.conn = conn;
+      httpServer.config = config;
+
+      var ispService = new IspService(httpServer, config);
+            // yield ispService.createConnect();
+      httpServer.ispService = ispService;
+
+            // 设置ContextHook,
+      httpServer.setActionContextListener({
+        onCreate: function(ctx) {
+          console.log('onCreate');
+          return function *() {
+            ctx.setConnection(yield ds.getConnection());
+            yield ctx.getConnection().beginTransaction();
+          };
+        },
+        onDestroy: function(ctx) {
+          console.log('onDestroy');
+          return function *() {
+            yield ctx.getConnection().commit();
+            yield ds.releaseConnection(ctx.getConnection());
+          };
+        },
+
+        onError: function(ctx, err) {
+          console.log('onError');
+          return function *() {
+            yield ctx.getConnection().rollback();
+            !err.executeResult && logger.error(err.stack);
+          };
+        }
+      });
 
 
-            yield httpServer.start();
-            httpServer.checklist = [];
-            var sys  = yield ispService.readSys();
-            httpServer.sys =  JSON.parse(sys);
-            EasyNode.DEBUG && logger.debug(` init sys: `,httpServer.sys);
-            //var job = schedule.scheduleJob('*/1 * * * *',function (){
+      httpServer.name = EasyNode.config('http.server.name', 'icp-Service');
+      Routes.defineRoutes(httpServer);
+
+
+      yield httpServer.start();
+      httpServer.checklist = [];
+      var sys = yield ispService.readSys();
+      httpServer.sys = JSON.parse(sys);
+      EasyNode.DEBUG && logger.debug(' init sys: ', httpServer.sys);
+            // var job = schedule.scheduleJob('*/1 * * * *',function (){
             //    EasyNode.DEBUG && logger.debug(`Executing query task....`);
             //    httpServer.checklist.forEach(function(element, index, array){
             //        console.log("element:",element);
@@ -132,7 +131,7 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
             //        });
             //
             //    });
-            //});
+            // });
            /* var timerFunc =
             setInterval(function(){
                     co( function*(){
@@ -172,8 +171,6 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
 
                             console.log('isp_downloadack resutl',ret);
                         }
-
-
 
                         //1.查询备案状态开始
                         var id = httpServer.checklist.shift() || 0;
@@ -235,19 +232,15 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
                             return false;
                         }
                         //查询备案状态结束
-
-
-
                     });
             },10000);*/
-        }
-
-        getClassName()
-        {
-            return EasyNode.namespace(__filename);
-        }
     }
 
-    module.exports = Main;
+    getClassName() {
+      return EasyNode.namespace(__filename);
+    }
+  }
+
+  module.exports = Main;
 })();
 

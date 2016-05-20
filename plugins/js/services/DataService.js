@@ -1,7 +1,7 @@
 import reqwest from 'reqwest';
 import assigner from 'object.assign';
 var assign = assigner.getPolyfill();
-var _g = window._g;
+
 
 module.exports = {
 

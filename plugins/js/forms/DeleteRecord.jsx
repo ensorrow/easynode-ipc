@@ -1,7 +1,7 @@
 import '../../css/index.css';
 import React from 'react';
 import DataService from '../services/DataService.js';
-var _g = window._g;
+
 
 let DeleteRecord = React.createClass({
     propTypes:{

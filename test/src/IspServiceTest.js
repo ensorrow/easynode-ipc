@@ -41,6 +41,20 @@ describe('IspService',function() {
         }
     });
 
+    /!*it('generator test',function (done){
+
+        co(function * () {
+            var func = function *(){
+                yield 10;
+                return true;
+            }
+            var ret = yield * func();
+            console.log(ret);
+            done();
+        });
+
+    });*!/
+
     it('get tenant public ips',function (done){
 
         co(function * () {
