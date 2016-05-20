@@ -31,8 +31,6 @@ dataSequence.bin
 
 test/src/NosTest.js
 plugins/README.md
-plugins/apidoc
-plugins/css
 plugins/js
 plugins/mcss
 plugins/test
