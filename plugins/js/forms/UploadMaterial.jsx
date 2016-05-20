@@ -1,7 +1,5 @@
-import  '../../css/index.css';
+import '../../css/index.css';
 import React from 'react';
-import { render } from 'react-dom';
-import { Router, Route, Link, IndexRoute } from 'react-router';
 import ProgressBar from './ProgressBar.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 import upload from '../utils/upload';
@@ -11,64 +9,65 @@ import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 import ViewPhoto from './ViewPhoto.js';
 import Global from '../utils/globals';
+var _g = window._g;
 
 const FT = {
-    "SITEMANAGERURL": 0,
-    "CHECKLISTURL": 1,
-    "PROTOCOLURL1": 2,
-    "PROTOCOLURL2": 3,
-    "SECURITYURL1": 4,
-    "SECURITYURL2": 5
+    'SITEMANAGERURL': 0,
+    'CHECKLISTURL': 1,
+    'PROTOCOLURL1': 2,
+    'PROTOCOLURL2': 3,
+    'SECURITYURL1': 4,
+    'SECURITYURL2': 5
 };
 
 let UploadMaterial = React.createClass({
 
-    getInitialState: function(){
-      return {
-          showViewPhoto:false,
-          processing:  false,
-          url:'',
-          formError:{
-              sitemanagerurl: {isBlank: false},
-              checklisturl: {isBlank: false},
-              protocolurl1: {isBlank: false},
-              protocolurl2: {isBlank: false},
-              securityurl1: {isBlank: false},
-              securityurl2: {isBlank: false}
-          },
-          materials:{
-              sitemanagerurl: '',
-              checklisturl: '',
-              protocolurl1: '',
-              protocolurl2: '',
-              securityurl1: '',
-              securityurl2: ''
-          },
-          sample:{
-              sitemanagerurl: 'http://apollodev.nos.netease.com/1459492803511',
-              checklisturl: 'http://apollodev.nos.netease.com/1459493043170',
-              protocolurl1: 'http://apollodev.nos.netease.com/146157007813512.png',
-              protocolurl2: 'http://apollodev.nos.netease.com/146157007813512.png',
-              securityurl1: 'http://apollodev.nos.netease.com/1459493107645',
-              securityurl2: 'http://apollodev.nos.netease.com/1459493107645'
-          }
-      }
+    getInitialState: function () {
+        return {
+            showViewPhoto:false,
+            processing:  false,
+            url:'',
+            formError:{
+                sitemanagerurl: {isBlank: false},
+                checklisturl: {isBlank: false},
+                protocolurl1: {isBlank: false},
+                protocolurl2: {isBlank: false},
+                securityurl1: {isBlank: false},
+                securityurl2: {isBlank: false}
+            },
+            materials:{
+                sitemanagerurl: '',
+                checklisturl: '',
+                protocolurl1: '',
+                protocolurl2: '',
+                securityurl1: '',
+                securityurl2: ''
+            },
+            sample:{
+                sitemanagerurl: 'http://apollodev.nos.netease.com/1459492803511',
+                checklisturl: 'http://apollodev.nos.netease.com/1459493043170',
+                protocolurl1: 'http://apollodev.nos.netease.com/146157007813512.png',
+                protocolurl2: 'http://apollodev.nos.netease.com/146157007813512.png',
+                securityurl1: 'http://apollodev.nos.netease.com/1459493107645',
+                securityurl2: 'http://apollodev.nos.netease.com/1459493107645'
+            }
+        };
     },
-    onReturn: function(){
-        location.href = "#/fillsiteinfo";
+    onReturn: function () {
+        location.href = '#/fillsiteinfo';
     },
-    handleSubmit: function(e){
+    handleSubmit: function (e) {
         e.preventDefault();
 
-        if( this.state.processing ){
+        if( this.state.processing ) {
             return;
         }
 
         var materials = this.state.materials;
         var formError;
-        for( var field in materials ){
-            if( materials.hasOwnProperty(field) ){
-                formError = this.validator(field,materials[field]);
+        for( var field in materials ) {
+            if( materials.hasOwnProperty(field) ) {
+                formError = this.validator(field, materials[field]);
             }
         }
         this.setState({
@@ -77,7 +76,7 @@ let UploadMaterial = React.createClass({
 
         var hasError = FormValidator.check(formError);
 
-        if( hasError ){
+        if( hasError ) {
             this.setState({
                 processing: false
             });
@@ -90,21 +89,24 @@ let UploadMaterial = React.createClass({
 
         this.save();
 
-        //commit
-        var reqData = JSON.stringify(__globals__);
-        DataService.httpRequest('/records','post',reqData,'json','application/json',{},
-            function(resp){
-                //{ code: code, id: id }
-                __globals__.record = resp.ret;
+        // commit
+        var reqData = JSON.stringify(_g);
+        DataService.httpRequest('/records', 'post', reqData, 'json', 'application/json', {},
+            function (resp) {
+                // { code: code, id: id }
+                _g.record = resp.ret;
 
-                Toast.show("保存草稿成功");
+                Toast.show('保存草稿成功');
 
-                location.href = "#/submittrialsuccess";
+                location.href = '#/submittrialsuccess';
 
-                Global.set('global',__globals__);
+                Global.set('global', _g);
             },
-            function(err){
-                Toast.show("保存草稿失败");
+            function (err) {
+                Toast.show('保存草稿失败');
+                if( err ) {
+                    err = err + '';
+                }
             }
         );
 
@@ -112,60 +114,62 @@ let UploadMaterial = React.createClass({
             processing: false
         });
     },
-    save: function(){
-        if( __globals__.material == undefined )
-            __globals__.material = {};
-        __globals__.material = this.state.materials;
+    save: function () {
+        if( _g.material == undefined ) {
+            _g.material = {};
+        }
+        _g.material = this.state.materials;
     },
-    onSave: function(succ,err){
+    onSave: function (succ, err) {
 
         this.save();
 
-        __globals__.drafttype = 4;
-        //savedraft
-        var reqData = JSON.stringify(__globals__);
-        DataService.httpRequest('/savedraft','post',reqData,'json','application/json',{},
-            function(resp){
-                console.log("a");
-                console.log(resp.ret.id);
-                if( resp.ret.drafttype == 4 ){
-                    __globals__.baseinfo.id = resp.ret.id;
+        _g.drafttype = 4;
+        // savedraft
+        var reqData = JSON.stringify(_g);
+        DataService.httpRequest('/savedraft', 'post', reqData, 'json', 'application/json', {},
+            function (resp) {
+                if( resp.ret.drafttype == 4 ) {
+                    _g.baseinfo.id = resp.ret.id;
                 }
-                if( typeof(succ) == 'function' ) succ();
+                if( typeof (succ) == 'function' ) {
+                    succ();
+                }
             },
-            function(err){
-                console.log(err);
+            function (err2) {
             }
         );
 
     },
-    assignUrl: function(id,url){
+    assignUrl: function (id, url) {
         var materials = this.state.materials;
-        switch(id){
-            case "1":
-                materials.sitemanagerurl = url;
-                break;
-            case "2":
-                materials.checklisturl = url;
-                break;
-            case "3":
-                materials.protocolurl1 = url;
-                break;
-            case "4":
-                materials.protocolurl2 = url;
-                break;
-            case "5":
-                materials.securityurl1 = url;
-                break;
-            case "6":
-                materials.securityurl2 = url;
-                break;
+        switch(id) {
+        case '1':
+            materials.sitemanagerurl = url;
+            break;
+        case '2':
+            materials.checklisturl = url;
+            break;
+        case '3':
+            materials.protocolurl1 = url;
+            break;
+        case '4':
+            materials.protocolurl2 = url;
+            break;
+        case '5':
+            materials.securityurl1 = url;
+            break;
+        case '6':
+            materials.securityurl2 = url;
+            break;
+        default:
+            break;
         }
         this.setState({
             materials: materials
         });
     },
-    onChange: function(ee){
+    onChange: function (ee) {
         var file = ee.target.files[0];
         var me = this;
         var id = ee.target.id;
@@ -176,65 +180,62 @@ let UploadMaterial = React.createClass({
             withCredentials: false,
             file: file,
             onProgress: (e)=>{
-                console.log(e.loaded/e.total*100 + '%');
+        // console.log(e.loaded/e.total*100 + '%');
             },
             onLoad: (e) =>{
                 var resp = JSON.parse(e.currentTarget.responseText);
-                me.assignUrl(id,resp.url);
+                me.assignUrl(id, resp.url);
             },
             onError: (e)=>{
-                console.log("file upload error");
             }
         });
-        //console.log(e);
-        //e.target.files[0];
-        //e.target.files[0].name;
-        //e.target.files.length;
-        //e.target.files.value ;//c:\\塔式\h.png
-        ////e.target.formAction: http://icp.hzspeed.cn/#/uploadmaterial?_k=l5safv
+        // console.log(e);
+        // e.target.files[0];
+        // e.target.files[0].name;
+        // e.target.files.length;
+        // e.target.files.value ;//c:\\塔式\h.png
+        // //e.target.formAction: http://icp.hzspeed.cn/#/uploadmaterial?_k=l5safv
     },
-    validator: function(fieldName,value){
+    validator: function (fieldName, value) {
         var formError = this.state.formError;
         formError[fieldName].isBlank = FormValidator.isEmpty(value);
         return formError;
     },
-    componentDidMount: function(){
-        if( __globals__.material != undefined ) {
-            __globals__.material.sitemanagerurl =  __globals__.material.sitemanagerurl || '';
-            __globals__.material.checklisturl =  __globals__.material.checklisturl || '';
-            __globals__.material.protocolurl1 =  __globals__.material.protocolurl1 || '';
-            __globals__.material.protocolurl2 =  __globals__.material.protocolurl2 || '';
-            __globals__.material.securityurl1 =  __globals__.material.securityurl1 || '';
-            __globals__.material.securityurl2 =  __globals__.material.securityurl2 || '';
-            this.setState( {materials: __globals__.material } );
+    componentDidMount: function () {
+        if( _g.material != undefined ) {
+            _g.material.sitemanagerurl = _g.material.sitemanagerurl || '';
+            _g.material.checklisturl = _g.material.checklisturl || '';
+            _g.material.protocolurl1 = _g.material.protocolurl1 || '';
+            _g.material.protocolurl2 = _g.material.protocolurl2 || '';
+            _g.material.securityurl1 = _g.material.securityurl1 || '';
+            _g.material.securityurl2 = _g.material.securityurl2 || '';
+            this.setState( {materials: _g.material } );
         }
     },
-    componentWillUnmount: function(){
+    componentWillUnmount: function () {
     },
-    handleDoubleClick: function(url){
-        console.log("onDoubleClick",url);
+    handleDoubleClick: function (url) {
         this.setState({url: url});
         this.setState({showViewPhoto:true});
     },
-    onHidden: function(){
+    onHidden: function () {
         this.setState({showViewPhoto:false});
-        console.log("onHidden");
     },
-    getDeleteCtrl: function(id){
-        var url =   id == FT.SITEMANAGERURL ? this.state.materials.sitemanagerurl :
+    getDeleteCtrl: function (id) {
+        var url = id == FT.SITEMANAGERURL ? this.state.materials.sitemanagerurl :
                     id == FT.CHECKLISTURL ? this.state.materials.checklisturl :
                     id == FT.PROTOCOLURL1 ? this.state.materials.protocolurl1 :
                     id == FT.PROTOCOLURL2 ? this.state.materials.protocolurl2 :
                     id == FT.SECURITYURL1 ? this.state.materials.securityurl1 :
                     id == FT.SECURITYURL2 ? this.state.materials.securityurl2 : '';
-        return url.length > 0 ? <img className="m-uploadmaterial-delete" src={__globals__.surl + "close.png"} onClick={this.handleDelete.bind(this,id)}></img>
-            : ''
+        return url.length > 0 ? <img className="m-uploadmaterial-delete" src={_g.surl + 'close.png'} onClick={this.handleDelete.bind(this, id)}></img>
+            : '';
     },
-    handleDelete: function(id){
+    handleDelete: function (id) {
         var materials = this.state.materials;
         id == FT.SITEMANAGERURL ? materials.sitemanagerurl = '' :
         id == FT.CHECKLISTURL ? materials.checklisturl = '' :
-        id == FT.PROTOCOLURL1 ? materials.protocolurl1  = '':
+        id == FT.PROTOCOLURL1 ? materials.protocolurl1 = '' :
         id == FT.PROTOCOLURL2 ? materials.protocolurl2 = '' :
         id == FT.SECURITYURL1 ? materials.securityurl1 = '' : materials.securityurl2 = '';
         this.setState({
@@ -245,16 +246,16 @@ let UploadMaterial = React.createClass({
         var me = this;
 
         var viewphoto = '';
-        if( this.state.showViewPhoto ){
-            viewphoto = <ViewPhoto onHidden={this.onHidden} url={this.state.url}/>
+        if( this.state.showViewPhoto ) {
+            viewphoto = <ViewPhoto onHidden={this.onHidden} url={this.state.url}/>;
         }
 
-        var sitemanagerurl =  this.state.materials.sitemanagerurl.length > 0 ? this.state.materials.sitemanagerurl : "../assets/view.png";
-        var checklisturl =  this.state.materials.checklisturl.length > 0 ? this.state.materials.checklisturl : "../assets/view.png";
-        var protocolurl1 = this.state.materials.protocolurl1.length > 0 ? this.state.materials.protocolurl1 : "../assets/view.png";
-        var protocolurl2 = this.state.materials.protocolurl2.length > 0 ? this.state.materials.protocolurl2 : "../assets/view.png";
-        var securityurl1 =  this.state.materials.securityurl1.length > 0 ? this.state.materials.securityurl1 : "../assets/view.png";
-        var securityurl2 = this.state.materials.securityurl2.length > 0 ? this.state.materials.securityurl2 : "../assets/view.png";
+        var sitemanagerurl = this.state.materials.sitemanagerurl.length > 0 ? this.state.materials.sitemanagerurl : '../assets/view.png';
+        var checklisturl = this.state.materials.checklisturl.length > 0 ? this.state.materials.checklisturl : '../assets/view.png';
+        var protocolurl1 = this.state.materials.protocolurl1.length > 0 ? this.state.materials.protocolurl1 : '../assets/view.png';
+        var protocolurl2 = this.state.materials.protocolurl2.length > 0 ? this.state.materials.protocolurl2 : '../assets/view.png';
+        var securityurl1 = this.state.materials.securityurl1.length > 0 ? this.state.materials.securityurl1 : '../assets/view.png';
+        var securityurl2 = this.state.materials.securityurl2.length > 0 ? this.state.materials.securityurl2 : '../assets/view.png';
         return (
             <div>
                 <ReturnWidget/>
@@ -274,7 +275,7 @@ let UploadMaterial = React.createClass({
                                     {this.getDeleteCtrl(FT.SITEMANAGERURL)}
                                     <div className="m-uploadmaterial-ctrl-picture-table">
                                         <div className="m-uploadmaterial-ctrl-picture">
-                                            <img src={sitemanagerurl} alt="" onDoubleClick={me.handleDoubleClick.bind(me,sitemanagerurl)}/>
+                                            <img src={sitemanagerurl} alt="" onDoubleClick={me.handleDoubleClick.bind(me, sitemanagerurl)}/>
                                         </div>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
@@ -283,7 +284,7 @@ let UploadMaterial = React.createClass({
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
-                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me,me.state.sample.sitemanagerurl)}/>
+                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me, me.state.sample.sitemanagerurl)}/>
                                 </div>
                             </div>
                             <div className="m-uploadmaterial-item">
@@ -298,7 +299,7 @@ let UploadMaterial = React.createClass({
                                     {this.getDeleteCtrl(FT.CHECKLISTURL)}
                                     <div className="m-uploadmaterial-ctrl-picture-table">
                                         <div className="m-uploadmaterial-ctrl-picture">
-                                            <img src={checklisturl} alt="" onDoubleClick={me.handleDoubleClick.bind(me,checklisturl)}/>
+                                            <img src={checklisturl} alt="" onDoubleClick={me.handleDoubleClick.bind(me, checklisturl)}/>
                                         </div>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
@@ -307,7 +308,7 @@ let UploadMaterial = React.createClass({
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
-                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me,me.state.sample.checklisturl)}/>
+                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me, me.state.sample.checklisturl)}/>
                                 </div>
                             </div>
                             <div className="m-uploadmaterial-item">
@@ -321,7 +322,7 @@ let UploadMaterial = React.createClass({
                                     {this.getDeleteCtrl(FT.PROTOCOLURL1)}
                                     <div className="m-uploadmaterial-ctrl-picture-table">
                                         <div className="m-uploadmaterial-ctrl-picture">
-                                            <img src={protocolurl1} alt="" onDoubleClick={me.handleDoubleClick.bind(me,protocolurl1)}/>
+                                            <img src={protocolurl1} alt="" onDoubleClick={me.handleDoubleClick.bind(me, protocolurl1)}/>
                                         </div>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
@@ -333,7 +334,7 @@ let UploadMaterial = React.createClass({
                                     {this.getDeleteCtrl(FT.PROTOCOLURL2)}
                                     <div className="m-uploadmaterial-ctrl-picture-table">
                                         <div className="m-uploadmaterial-ctrl-picture">
-                                            <img src={protocolurl2} alt="" onDoubleClick={me.handleDoubleClick.bind(me,protocolurl2)}/>
+                                            <img src={protocolurl2} alt="" onDoubleClick={me.handleDoubleClick.bind(me, protocolurl2)}/>
                                         </div>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
@@ -342,7 +343,7 @@ let UploadMaterial = React.createClass({
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
-                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me,me.state.sample.protocolurl1)}/>
+                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me, me.state.sample.protocolurl1)}/>
                                 </div>
                             </div>
                             <div className="m-uploadmaterial-item">
@@ -356,7 +357,7 @@ let UploadMaterial = React.createClass({
                                     {this.getDeleteCtrl(FT.SECURITYURL1)}
                                     <div className="m-uploadmaterial-ctrl-picture-table">
                                         <div className="m-uploadmaterial-ctrl-picture">
-                                            <img src={securityurl1} alt="" onDoubleClick={me.handleDoubleClick.bind(me,securityurl1)}/>
+                                            <img src={securityurl1} alt="" onDoubleClick={me.handleDoubleClick.bind(me, securityurl1)}/>
                                         </div>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
@@ -368,7 +369,7 @@ let UploadMaterial = React.createClass({
                                     {this.getDeleteCtrl(FT.SECURITYURL2)}
                                     <div className="m-uploadmaterial-ctrl-picture-table">
                                         <div className="m-uploadmaterial-ctrl-picture">
-                                            <img src={securityurl2} alt="" onDoubleClick={me.handleDoubleClick.bind(me,securityurl2)}/>
+                                            <img src={securityurl2} alt="" onDoubleClick={me.handleDoubleClick.bind(me, securityurl2)}/>
                                         </div>
                                     </div>
                                     <div className="m-uploadmaterial-ctrl-button">
@@ -377,7 +378,7 @@ let UploadMaterial = React.createClass({
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
-                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me,me.state.sample.securityurl1)}/>
+                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me, me.state.sample.securityurl1)}/>
                                 </div>
                             </div>
                         </fieldset>
@@ -385,7 +386,7 @@ let UploadMaterial = React.createClass({
                 </div>
 
                 <div className="w-btn">
-                    <button className="u-return" type="button"  onClick={this.onReturn}> 返回修改 </button>
+                    <button className="u-return" type="button" onClick={this.onReturn}> 返回修改 </button>
                     <button className="u-main" type="button" onClick={this.handleSubmit}> 提交审核 </button>
                     <button className="u-draft" type="button" onClick={this.onSave}>保存草稿</button>
                 </div>
@@ -397,3 +398,4 @@ let UploadMaterial = React.createClass({
 
 
 module.exports = UploadMaterial;
+

@@ -1,8 +1,7 @@
-import  '../../css/index.css';
+import '../../css/index.css';
 import React from 'react';
-import { render } from 'react-dom';
-import { Router, Route, Link, IndexRoute } from 'react-router';
 import ProgressBar from './ProgressBar.jsx';
+var _g = window._g;
 
 let Help = React.createClass({
     render: function () {
@@ -89,3 +88,4 @@ let Help = React.createClass({
 
 
 module.exports = Help;
+

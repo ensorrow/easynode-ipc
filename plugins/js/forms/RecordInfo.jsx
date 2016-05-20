@@ -1,122 +1,120 @@
-import  '../../css/index.css';
+import '../../css/index.css';
 import React from 'react';
-import { render } from 'react-dom';
-import { Router, Route, Link, IndexRoute } from 'react-router';
 import ProgressBar from './ProgressBar.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
-import {IDTYPE,NATURE} from '../constants/define';
+import {IDTYPE, NATURE} from '../constants/define';
+var _g = window._g;
 
 let RecordInfo = React.createClass({
 
-    getInitialState: function() {
+    getInitialState: function () {
         return {};
     },
-    getRecordType: function(){
-        return __globals__.baseinfo.type == 0 ? "首次备案" :
-            __globals__.baseinfo.type == 1 ? "新增网站" : "新增接入";
+    getRecordType: function () {
+        return _g.baseinfo.type == 0 ? '首次备案' :
+            _g.baseinfo.type == 1 ? '新增网站' : '新增接入';
     },
-    getServerRegion: function(){
-        return __globals__.baseinfo.serverregion == 0 ? "HZ1" : "HZ1";
+    getServerRegion: function () {
+        return _g.baseinfo.serverregion == 0 ? 'HZ1' : 'HZ1';
     },
-    getZone: function(){
-        return __globals__.companyinfo.province +  __globals__.companyinfo.city + __globals__.companyinfo.area;
+    getZone: function () {
+        return _g.companyinfo.province + _g.companyinfo.city + _g.companyinfo.area;
     },
-    getNature: function(){
-        var arr = ["军队","政府机关","事业单位","企业","个人","社会团体"];
-        return  arr[__globals__.companyinfo.nature -1];
+    getNature: function () {
+        var arr = ['军队', '政府机关', '事业单位', '企业', '个人', '社会团体'];
+        return arr[_g.companyinfo.nature - 1];
     },
-    getIdType: function(){
-        var arr = ["工商营业执照","身份证","组织机构代码证书","事业法人证书","军队代码","社团法人证书","护照","军官证","组织机构代码证书","组织机构代码证书","台胞证","组织机构代码证书"];
-        return  arr[__globals__.companyinfo.idtype - 1];
+    getIdType: function () {
+        var arr = ['工商营业执照', '身份证', '组织机构代码证书', '事业法人证书', '军队代码', '社团法人证书', '护照', '军官证', '组织机构代码证书', '组织机构代码证书', '台胞证', '组织机构代码证书'];
+        return arr[_g.companyinfo.idtype - 1];
     },
-    getPrechecktype: function(){
-        var arr = ["暂无","新闻","出版","教育","医疗保健","药品和医疗器械","电子公告服务","文化"];
-        if( __globals__.siteinfo.prechecktype ){
+    getPrechecktype: function () {
+        var arr = ['暂无', '新闻', '出版', '教育', '医疗保健', '药品和医疗器械', '电子公告服务', '文化'];
+        if( _g.siteinfo.prechecktype ) {
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
                         <label>前置或专项审批类型:</label>
                     </div>
                     <div className="m-recordinfo-item-ctrl">
-                        <label>{ arr[__globals__.siteinfo.prechecktype] }</label>
+                        <label>{ arr[_g.siteinfo.prechecktype] }</label>
                     </div>
                 </div>
             );
         }
     },
-    getChecknumber: function(){
-        if( __globals__.siteinfo.prechecktype > 0 ){
+    getChecknumber: function () {
+        if( _g.siteinfo.prechecktype > 0 ) {
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
                         <label>审批号:</label>
                     </div>
                     <div className="m-recordinfo-item-ctrl">
-                        <label>{ __globals__.siteinfo.checknumber }</label>
+                        <label>{ _g.siteinfo.checknumber }</label>
                     </div>
                 </div>
             );
         }
     },
-    getCheckfileurl: function(){
-        if( __globals__.siteinfo.prechecktype > 0 ){
+    getCheckfileurl: function () {
+        if( _g.siteinfo.prechecktype > 0 ) {
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
                         <label>审批文件:</label>
                     </div>
                     <div className="m-recordinfo-item-ctrl">
-                        <label>{ __globals__.siteinfo.checkfileurl }</label>
+                        <label>{ _g.siteinfo.checkfileurl }</label>
                     </div>
                 </div>
             );
         }
     },
-    getIndividualMobile: function(){
-        "use strict";
-        if( __globals__.companyinfo.nature == 5  ){
+    getIndividualMobile: function () {
+        if( _g.companyinfo.nature == 5 ) {
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
                         <label>主体联系人手机号码:</label>
                     </div>
                     <div className="m-recordinfo-item-ctrl">
-                        <label>{__globals__.companyinfo.mobile}</label>
+                        <label>{_g.companyinfo.mobile}</label>
                     </div>
                 </div>
             );
         }
     },
-    getIndividualEmail: function(){
-        if( __globals__.companyinfo.nature == 5  ){
+    getIndividualEmail: function () {
+        if( _g.companyinfo.nature == 5 ) {
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
                         <label>主体联系人电子邮箱:</label>
                     </div>
                     <div className="m-recordinfo-item-ctrl">
-                        <label>{__globals__.companyinfo.email}</label>
+                        <label>{_g.companyinfo.email}</label>
                     </div>
                 </div>
             );
         }
     },
-    getOwner1: function(){
-        if( __globals__.companyinfo.nature != 5  ){
+    getOwner1: function () {
+        if( _g.companyinfo.nature != 5 ) {
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
                         <label>负责人姓名:</label>
                     </div>
                     <div className="m-recordinfo-item-ctrl">
-                        <label>{__globals__.companyinfo.managername}</label>
+                        <label>{_g.companyinfo.managername}</label>
                     </div>
                 </div>
             );
         }
     },
-    getOwner2: function(){
-        if( __globals__.companyinfo.nature != NATURE.GR  ){
+    getOwner2: function () {
+        if( _g.companyinfo.nature != NATURE.GR ) {
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
@@ -129,211 +127,211 @@ let RecordInfo = React.createClass({
             );
         }
     },
-    getOwner3: function(){
-        if( __globals__.companyinfo.nature != NATURE.GR  ){
+    getOwner3: function () {
+        if( _g.companyinfo.nature != NATURE.GR ) {
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
                         <label>负责人证件号码:</label>
                     </div>
                     <div className="m-recordinfo-item-ctrl">
-                        <label>{__globals__.companyinfo.manageridnumber}</label>
+                        <label>{_g.companyinfo.manageridnumber}</label>
                     </div>
                 </div>
             );
         }
     },
-    getOwner4: function(){
-        if( __globals__.companyinfo.nature != NATURE.GR  ){
+    getOwner4: function () {
+        if( _g.companyinfo.nature != NATURE.GR ) {
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
                         <label>负责人居住地址:</label>
                     </div>
                     <div className="m-recordinfo-item-ctrl">
-                        <label>{__globals__.companyinfo.manageraddress}</label>
+                        <label>{_g.companyinfo.manageraddress}</label>
                     </div>
                 </div>
             );
         }
     },
-    getOwner5: function(){
-        if( __globals__.companyinfo.nature != NATURE.GR  ){
+    getOwner5: function () {
+        if( _g.companyinfo.nature != NATURE.GR ) {
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
                         <label>办公室电话:</label>
                     </div>
                     <div className="m-recordinfo-item-ctrl">
-                        <label>{__globals__.companyinfo.officephonenumber}</label>
+                        <label>{_g.companyinfo.officephonenumber}</label>
                     </div>
                 </div>
             );
         }
     },
-    getOwner6: function(){
-        if( __globals__.companyinfo.nature != NATURE.GR  ){
+    getOwner6: function () {
+        if( _g.companyinfo.nature != NATURE.GR ) {
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
                         <label>手机号码:</label>
                     </div>
                     <div className="m-recordinfo-item-ctrl">
-                        <label>{__globals__.companyinfo.mobile}</label>
+                        <label>{_g.companyinfo.mobile}</label>
                     </div>
                 </div>
             );
         }
     },
-    getOwner7: function(){
-        if( __globals__.companyinfo.nature != NATURE.GR  ){
+    getOwner7: function () {
+        if( _g.companyinfo.nature != NATURE.GR ) {
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
                         <label>电子邮箱:</label>
                     </div>
                     <div className="m-recordinfo-item-ctrl">
-                        <label>{__globals__.companyinfo.email}</label>
+                        <label>{_g.companyinfo.email}</label>
                     </div>
                 </div>
             );
         }
     },
-    getIdNumber: function(){
-        return  __globals__.companyinfo.idnumber;
+    getIdNumber: function () {
+        return _g.companyinfo.idnumber;
     },
-    getDomain: function(){
+    getDomain: function () {
         var domain = '';
-        domain =  __globals__.siteinfo.domain;
+        domain = _g.siteinfo.domain;
         return domain;
     },
-    getDomain1: function(){
-        if( __globals__.siteinfo.domain1.length > 0 ){
+    getDomain1: function () {
+        if( _g.siteinfo.domain1.length > 0 ) {
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label-onetwo">
                         <label>网站域名1:</label>
                     </div>
                     <div className="m-recordinfo-item-ctrl-onetwo">
-                        <label>{__globals__.siteinfo.domain1}</label>
+                        <label>{_g.siteinfo.domain1}</label>
                     </div>
                 </div>
             );
         }
     },
-    getDomain2: function(){
-        if( __globals__.siteinfo.domain2.length > 0 ){
+    getDomain2: function () {
+        if( _g.siteinfo.domain2.length > 0 ) {
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label-onetwo">
                         <label>网站域名2:</label>
                     </div>
                     <div className="m-recordinfo-item-ctrl-onetwo">
-                        <label>{__globals__.siteinfo.domain2}</label>
+                        <label>{_g.siteinfo.domain2}</label>
                     </div>
                 </div>
             );
         }
     },
-    getDomain3: function(){
-        if( __globals__.siteinfo.domain3.length > 0 ){
+    getDomain3: function () {
+        if( _g.siteinfo.domain3.length > 0 ) {
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label-onetwo">
                         <label>网站域名3:</label>
                     </div>
                     <div className="m-recordinfo-item-ctrl-onetwo">
-                        <label>{__globals__.siteinfo.domain3}</label>
+                        <label>{_g.siteinfo.domain3}</label>
                     </div>
                 </div>
             );
         }
     },
-    getDomain4: function(){
-        if( __globals__.siteinfo.domain4.length > 0 ){
+    getDomain4: function () {
+        if( _g.siteinfo.domain4.length > 0 ) {
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label-onetwo">
                         <label>网站域名4:</label>
                     </div>
                     <div className="m-recordinfo-item-ctrl-onetwo">
-                        <label>{__globals__.siteinfo.domain4}</label>
+                        <label>{_g.siteinfo.domain4}</label>
                     </div>
                 </div>
             );
         }
     },
-    getIp: function(){
-        return   __globals__.siteinfo.ip.ip1 + '.' + __globals__.siteinfo.ip.ip2 + '.' + __globals__.siteinfo.ip.ip3 + '.' + __globals__.siteinfo.ip.ip4;
+    getIp: function () {
+        return _g.siteinfo.ip.ip1 + '.' + _g.siteinfo.ip.ip2 + '.' + _g.siteinfo.ip.ip3 + '.' + _g.siteinfo.ip.ip4;
     },
-    getAccessMethod: function(){
-        var amObj = __globals__.siteinfo.accessmethod  ;
+    getAccessMethod: function () {
+        var amObj = _g.siteinfo.accessmethod;
         var amStr = '';
-        if( amObj.specialline ){
-            amStr = amStr + "专线";
+        if( amObj.specialline ) {
+            amStr = amStr + '专线';
         }
-        if( amObj.webhost ){
-            amStr = amStr + "主机托管";
+        if( amObj.webhost ) {
+            amStr = amStr + '主机托管';
         }
-        if( amObj.virtualhost ){
-            amStr = amStr + "虚拟主机";
+        if( amObj.virtualhost ) {
+            amStr = amStr + '虚拟主机';
         }
-        if( amObj.other ){
-            amStr = amStr + "其他";
+        if( amObj.other ) {
+            amStr = amStr + '其他';
         }
         return amStr;
     },
-    getLanguages: function(){
+    getLanguages: function () {
 
-        var l  =  __globals__.siteinfo.languages;
+        var l = _g.siteinfo.languages;
         var lStr = '';
-        if(l.chinese){
-            lStr = lStr + "中文简体";
+        if(l.chinese) {
+            lStr = lStr + '中文简体';
         }
-        if(l.chinesetraditional){
-            lStr = lStr + "中文繁体";
+        if(l.chinesetraditional) {
+            lStr = lStr + '中文繁体';
         }
-        if(l.eglish){
-            lStr = lStr + "英语";
+        if(l.eglish) {
+            lStr = lStr + '英语';
         }
-        if(l.japanese){
-            lStr = lStr + "日文";
+        if(l.japanese) {
+            lStr = lStr + '日文';
         }
-        if(l.french){
-            lStr = lStr + "法语";
+        if(l.french) {
+            lStr = lStr + '法语';
         }
-        if(l.spanish){
-            lStr = lStr + "西班牙语";
+        if(l.spanish) {
+            lStr = lStr + '西班牙语';
         }
-        if(l.arabic){
-            lStr = lStr + "阿拉伯语";
+        if(l.arabic) {
+            lStr = lStr + '阿拉伯语';
         }
-        if(l.russian){
-            lStr = lStr + "俄罗斯语";
+        if(l.russian) {
+            lStr = lStr + '俄罗斯语';
         }
-        if(l.customize){
+        if(l.customize) {
             lStr = lStr + l.customizeLang;
         }
         return lStr;
     },
-    getWebsiteManagerIdType: function(){
-        return  __globals__.siteinfo.manageridtype == IDTYPE.GR_SFZ ? "身份证" :
-                __globals__.siteinfo.manageridtype == IDTYPE.GR_HZ ? "护照" :
-                __globals__.siteinfo.manageridtype == IDTYPE.GR_JGZ ? "军官证" :
-                __globals__.siteinfo.manageridtype == IDTYPE.GR_TBZ ? "台胞证" : "未知";
+    getWebsiteManagerIdType: function () {
+        return _g.siteinfo.manageridtype == IDTYPE.GR_SFZ ? '身份证' :
+                _g.siteinfo.manageridtype == IDTYPE.GR_HZ ? '护照' :
+                _g.siteinfo.manageridtype == IDTYPE.GR_JGZ ? '军官证' :
+                _g.siteinfo.manageridtype == IDTYPE.GR_TBZ ? '台胞证' : '未知';
     },
-    getCompanyManagerIdType: function(){
-        return  __globals__.companyinfo.manageridtype == IDTYPE.GR_SFZ ? "身份证" :
-                __globals__.companyinfo.manageridtype == IDTYPE.GR_HZ ? "护照" :
-                __globals__.companyinfo.manageridtype == IDTYPE.GR_JGZ ? "军官证" :
-                __globals__.companyinfo.manageridtype == IDTYPE.GR_TBZ ? "台胞证" : "未知";
+    getCompanyManagerIdType: function () {
+        return _g.companyinfo.manageridtype == IDTYPE.GR_SFZ ? '身份证' :
+                _g.companyinfo.manageridtype == IDTYPE.GR_HZ ? '护照' :
+                _g.companyinfo.manageridtype == IDTYPE.GR_JGZ ? '军官证' :
+                _g.companyinfo.manageridtype == IDTYPE.GR_TBZ ? '台胞证' : '未知';
     },
 
-    getSiteRecordNumber: function(){
-        return __globals__.companyinfo.recordnumber;
+    getSiteRecordNumber: function () {
+        return _g.companyinfo.recordnumber;
     },
-    getRecordNumber: function(){
-        if( __globals__.baseinfo && __globals__.baseinfo.type > 0  ){
+    getRecordNumber: function () {
+        if( _g.baseinfo && _g.baseinfo.type > 0 ) {
             return (
                 <div className="m-recordinfo-item">
                     <div className="m-recordinfo-item-label">
@@ -343,25 +341,23 @@ let RecordInfo = React.createClass({
                         <label>{this.getSiteRecordNumber()}</label>
                     </div>
                 </div>
-        );
-        }else {
-
+            );
         }
     },
     render: function () {
         var uppic;
-        if( __globals__.baseinfo.status != 1
+        if( _g.baseinfo.status != 1
         &&
-            __globals__.baseinfo.status != 2
+            _g.baseinfo.status != 2
         &&
-            __globals__.baseinfo.status != 3
-        ){
+            _g.baseinfo.status != 3
+        ) {
             uppic = (
                 <fieldset>
                 <div className="m-recordinfo-legend"><span>上传照片</span></div>
                 <div className="m-recordinfo-item2">
                 <div className="m-recordinfo-item-icon">
-                <img src={__globals__.record.curtainurl} alt=""/>
+                <img src={_g.record.curtainurl} alt=""/>
                 </div>
                 <span className="m-recordinfo-item-icon-title">照片</span>
                 </div>
@@ -430,7 +426,7 @@ let RecordInfo = React.createClass({
                                     <label>主体单位名称:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl">
-                                    <label> {__globals__.companyinfo.name} </label>
+                                    <label> {_g.companyinfo.name} </label>
                                 </div>
                             </div>
                             <div className="m-recordinfo-item">
@@ -438,7 +434,7 @@ let RecordInfo = React.createClass({
                                     <label>主体单位证件住所:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl">
-                                    <label>{__globals__.companyinfo.liveaddress}</label>
+                                    <label>{_g.companyinfo.liveaddress}</label>
                                 </div>
                             </div>
                             <div className="m-recordinfo-item">
@@ -446,7 +442,7 @@ let RecordInfo = React.createClass({
                                     <label>投资人或主管单位名称:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl">
-                                    <label>{__globals__.companyinfo.owner}</label>
+                                    <label>{_g.companyinfo.owner}</label>
                                 </div>
                             </div>
                             <div className="m-recordinfo-item">
@@ -454,7 +450,7 @@ let RecordInfo = React.createClass({
                                     <label>主体单位通信地址:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl">
-                                    <label>{__globals__.companyinfo.commaddress}</label>
+                                    <label>{_g.companyinfo.commaddress}</label>
                                 </div>
                             </div>
                             {this.getIndividualMobile()}
@@ -480,13 +476,13 @@ let RecordInfo = React.createClass({
                                     <label>网站名称:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl-onetwo">
-                                    <label>{__globals__.siteinfo.name}</label>
+                                    <label>{_g.siteinfo.name}</label>
                                 </div>
                                 <div className="m-recordinfo-item-label-onetwo">
                                     <label>ISP名称:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl-onetwo">
-                                    <label>{__globals__.siteinfo.ispname}</label>
+                                    <label>{_g.siteinfo.ispname}</label>
                                 </div>
                             </div>
                             <div className="m-recordinfo-item">
@@ -512,7 +508,7 @@ let RecordInfo = React.createClass({
                                     <label>网站首页URL:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl-onetwo">
-                                    <label>{__globals__.siteinfo.homeurl}</label>
+                                    <label>{_g.siteinfo.homeurl}</label>
                                 </div>
                                 <div className="m-recordinfo-item-label-onetwo">
                                     <label>网站接入方式:</label>
@@ -526,13 +522,13 @@ let RecordInfo = React.createClass({
                                     <label>网站服务内容:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl-onetwo">
-                                    <label>{__globals__.siteinfo.servicecontent == "1" ?  "其它" : "其它"}</label>
+                                    <label>{_g.siteinfo.servicecontent == '1' ? '其它' : '其它'}</label>
                                 </div>
                                 <div className="m-recordinfo-item-label-onetwo">
                                     <label>服务器放置地:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl-onetwo">
-                                    <label>{__globals__.siteinfo.serverregion == "1" ? "HZ1" : "HZ1"}</label>
+                                    <label>{_g.siteinfo.serverregion == '1' ? 'HZ1' : 'HZ1'}</label>
                                 </div>
                             </div>
                             <div className="m-recordinfo-item">
@@ -554,7 +550,7 @@ let RecordInfo = React.createClass({
                                     <label>姓名:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl">
-                                    <label>{__globals__.siteinfo.managername}</label>
+                                    <label>{_g.siteinfo.managername}</label>
                                 </div>
                             </div>
                             <div className="m-recordinfo-item">
@@ -570,7 +566,7 @@ let RecordInfo = React.createClass({
                                     <label>有效证件号码:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl">
-                                    <label>{__globals__.siteinfo.manageridnumber}</label>
+                                    <label>{_g.siteinfo.manageridnumber}</label>
                                 </div>
                             </div>
                             <div className="m-recordinfo-item">
@@ -578,7 +574,7 @@ let RecordInfo = React.createClass({
                                     <label>办公室电话:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl">
-                                    <label>{__globals__.siteinfo.officephoneregion}-{__globals__.siteinfo.officephonenumber}</label>
+                                    <label>{_g.siteinfo.officephoneregion}-{_g.siteinfo.officephonenumber}</label>
                                 </div>
                             </div>
                             <div className="m-recordinfo-item">
@@ -586,7 +582,7 @@ let RecordInfo = React.createClass({
                                     <label>手机号码:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl">
-                                    <label>{__globals__.siteinfo.mobile}</label>
+                                    <label>{_g.siteinfo.mobile}</label>
                                 </div>
                             </div>
                             <div className="m-recordinfo-item">
@@ -594,7 +590,7 @@ let RecordInfo = React.createClass({
                                     <label>电子邮箱:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl">
-                                    <label>{__globals__.siteinfo.email}</label>
+                                    <label>{_g.siteinfo.email}</label>
                                 </div>
                             </div>
                             <div className="m-recordinfo-item">
@@ -602,7 +598,7 @@ let RecordInfo = React.createClass({
                                     <label>QQ帐号:</label>
                                 </div>
                                 <div className="m-recordinfo-item-ctrl">
-                                    <label>{__globals__.siteinfo.qq}</label>
+                                    <label>{_g.siteinfo.qq}</label>
                                 </div>
                             </div>
                             {this.getPrechecktype()}
@@ -613,7 +609,7 @@ let RecordInfo = React.createClass({
                                 <label>备注:</label>
                             </div>
                             <div className="m-recordinfo-item-ctrl">
-                                <label>{__globals__.siteinfo.remark}</label>
+                                <label>{_g.siteinfo.remark}</label>
                             </div>
                             </div>
                         </fieldset>
@@ -621,37 +617,37 @@ let RecordInfo = React.createClass({
                             <div className="m-recordinfo-legend"><span>上传资料</span></div>
                             <div className="m-recordinfo-item2">
                                 <div className="m-recordinfo-item-icon">
-                                    <img src={__globals__.material.sitemanagerurl} alt=""/>
+                                    <img src={_g.material.sitemanagerurl} alt=""/>
                                 </div>
                                 <span className="m-recordinfo-item-icon-title">主体单位负责人证件图片</span>
                             </div>
                             <div className="m-recordinfo-item2">
                                 <div className="m-recordinfo-item-icon">
-                                    <img src={__globals__.material.checklisturl} alt=""/>
+                                    <img src={_g.material.checklisturl} alt=""/>
                                 </div>
                                 <span className="m-recordinfo-item-icon-title">核验单图片</span>
                             </div>
                             <div className="m-recordinfo-item2">
                                 <div className="m-recordinfo-item-icon">
-                                    <img src={__globals__.material.protocolurl1} alt=""/>
+                                    <img src={_g.material.protocolurl1} alt=""/>
                                 </div>
                                 <span className="m-recordinfo-item-icon-title">云平台服务协议第一页图片</span>
                             </div>
                             <div className="m-recordinfo-item2">
                                 <div className="m-recordinfo-item-icon">
-                                    <img src={__globals__.material.protocolurl2} alt=""/>
+                                    <img src={_g.material.protocolurl2} alt=""/>
                                 </div>
                                 <span className="m-recordinfo-item-icon-title">云平台服务协议第二页图片</span>
                             </div>
                             <div className="m-recordinfo-item2">
                                 <div className="m-recordinfo-item-icon">
-                                    <img src={__globals__.material.securityurl1} alt=""/>
+                                    <img src={_g.material.securityurl1} alt=""/>
                                 </div>
                                 <span className="m-recordinfo-item-icon-title">信息安全管理责任书第一页图片</span>
                             </div>
                             <div className="m-recordinfo-item2">
                                 <div className="m-recordinfo-item-icon">
-                                    <img src={__globals__.material.securityurl2} alt=""/>
+                                    <img src={_g.material.securityurl2} alt=""/>
                                 </div>
                                 <span className="m-recordinfo-item-icon-title">信息安全管理责任书第二页图片</span>
                             </div>
@@ -666,3 +662,4 @@ let RecordInfo = React.createClass({
 
 
 module.exports = RecordInfo;
+

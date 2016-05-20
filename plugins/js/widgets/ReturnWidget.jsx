@@ -1,16 +1,15 @@
-import  '../../css/index.css';
+import '../../css/index.css';
 import React from 'react';
-import { render } from 'react-dom';
-import { Router, Route, Link, IndexRoute } from 'react-router';
+var _g = window._g;
 
 let ReturnWidget = React.createClass({
 
 
     render: function () {
-        if( __globals__.user && __globals__.user.recordnumber > 0 ){
+        if( _g.user && _g.user.recordnumber > 0 ) {
             return (
                 <div className="u-goback">
-                    <a className="u-goback" href=""><img src={__globals__.surl +"return.png"}/>返回列表</a>
+                    <a className="u-goback" href=""><img src={_g.surl + 'return.png'}/>返回列表</a>
                 </div>
             );
         }else {
@@ -23,3 +22,4 @@ let ReturnWidget = React.createClass({
 });
 
 module.exports = ReturnWidget;
+

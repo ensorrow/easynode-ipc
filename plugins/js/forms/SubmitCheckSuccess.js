@@ -1,38 +1,37 @@
-import  '../../css/index.css';
+import '../../css/index.css';
 import React from 'react';
 import DataService from '../services/DataService.js';
 import Global from '../utils/globals';
-
+var _g = window._g;
 
 let SubmitCheckSuccess = React.createClass({
-  handleSubmit: function(e){
-    e.preventDefault();
+    handleSubmit: function (e) {
+        e.preventDefault();
 
-    DataService.getRecord( __globals__.record.id||0,
-            function(){
-              Global.set('global',__globals__);
-              location.href = "#/reviewrecorddetail";
+        DataService.getRecord( _g.record.id || 0,
+            function () {
+                Global.set('global', _g);
+                location.href = '#/reviewrecorddetail';
             },
-            function(err){
-              "use strict";
-              if(err){
-
-              }
+            function (err) {
+                if( err ) {
+                    err = err + '';
+                }
             }
         );
-  },
+    },
 
-  render: function () {
+    render: function () {
 
-    var code = '';
-    if( __globals__.record && __globals__.record.code ){
-      code = __globals__.record.code;
-    }
+        var code = '';
+        if( _g.record && _g.record.code ) {
+            code = _g.record.code;
+        }
 
-    return (
+        return (
             <div className="m-submitchecksuccess">
                 <div className="tip-label">
-                    <img src={__globals__.surl + "selected.png"} alt="" className="tip-icon"/>
+                    <img src={_g.surl + 'selected.png'} alt="" className="tip-icon"/>
                 </div>
                 <div className="tip">
                     <p className="tip-header">照片提交成功，审核需要1-2个工作日，请耐心等待！</p>
@@ -45,8 +44,9 @@ let SubmitCheckSuccess = React.createClass({
                 </div>
             </div>
         );
-  }
+    }
 });
 
 
 module.exports = SubmitCheckSuccess;
+

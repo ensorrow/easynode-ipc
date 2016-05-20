@@ -1,6 +1,5 @@
-import  '../../css/index.css';
+import '../../css/index.css';
 import React from 'react';
-import { Router, Route, Link, IndexRoute } from 'react-router';
 import upload from '../utils/upload';
 import ProgressBar from './ProgressBar.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
@@ -8,55 +7,56 @@ import ApplyCurtain from './ApplyCurtain.js';
 import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 import DataService from '../services/DataService.js';
+var _g = window._g;
 
 let UploadPhoto = React.createClass({
-    handleApplyCurtain: function(){
+    handleApplyCurtain: function () {
         this.setState({showApplyCurt:true});
     },
-    getInitialState: function(){
-        return {showApplyCurt:false,curtainurl:'',processing:  false};
+    getInitialState: function () {
+        return {showApplyCurt:false, curtainurl:'', processing:  false};
     },
-    componentDidMount: function(){
+    componentDidMount: function () {
 
     },
-    componentWillUnmount: function(){
+    componentWillUnmount: function () {
     },
-    onChange: function(ee){
+    onChange: function (ee) {
         var file = ee.target.files[0];
-        console.log(ee);
         var me = this;
         var id = ee.target.id;
         upload({
             url: '/upl',
-            name: file.name||'temp123',
+            name: file.name || 'temp123',
             cors: true,
             withCredentials: false,
             file: file,
             onProgress: (e)=>{
-                console.log(e.loaded/e.total*100 + '%');
+        // console.log(e.loaded/e.total*100 + '%');
             },
             onLoad: (e) =>{
                 var resp = JSON.parse(e.currentTarget.responseText);
-                me.assignUrl(id,resp.url);
+                me.assignUrl(id, resp.url);
             },
             onError: (e)=>{
-                console.log("file upload error");
             }
         });
     },
-    assignUrl: function(id,url){
-        switch(id){
-            case "1":
-                this.setState({
-                    curtainurl:url
-                });
-                break;
+    assignUrl: function (id, url) {
+        switch(id) {
+        case '1':
+            this.setState({
+                curtainurl:url
+            });
+            break;
+        default:
+            break;
         }
     },
-    handleSubmit: function(e){
+    handleSubmit: function (e) {
         e.preventDefault();
 
-        if( this.state.processing ){
+        if( this.state.processing ) {
             return;
         }
 
@@ -64,16 +64,17 @@ let UploadPhoto = React.createClass({
             processing: true
         });
 
-        //commit
-        var reqData = JSON.stringify({id:__globals__.record.id,status:4,curtainurl: this.state.curtainurl});
-        DataService.httpRequest('/record','put',reqData,'json','application/json',{},
-            function(resp){
-                //{ true|false }
-                console.log(resp);
-                location.href = "#/submitchecksuccess";
+        // commit
+        var reqData = JSON.stringify({id:_g.record.id, status:4, curtainurl: this.state.curtainurl});
+        DataService.httpRequest('/record', 'put', reqData, 'json', 'application/json', {},
+            function (resp) {
+                // { true|false }
+                location.href = '#/submitchecksuccess';
             },
-            function(err){
-                console.log(err);
+            function (err) {
+                if( err ) {
+                    err = err + '';
+                }
             }
         );
 
@@ -81,21 +82,21 @@ let UploadPhoto = React.createClass({
             processing: false
         });
     },
-    onHidden: function(){
+    onHidden: function () {
         this.setState({showApplyCurt:false});
     },
-    handleModify: function(){
+    handleModify: function () {
         this.setState({showApplyCurt:true});
     },
     render: function () {
         var curtain = '';
         var applyAddr = '';
-        var address = __globals__.user.mailingaddress || '';
-        if( this.state.showApplyCurt ){
-            curtain = <ApplyCurtain onHidden={this.onHidden} recordid={__globals__.record.id}/>
+        var address = _g.user.mailingaddress || '';
+        if( this.state.showApplyCurt ) {
+            curtain = <ApplyCurtain onHidden={this.onHidden} recordid={_g.record.id}/>;
         }
 
-        applyAddr = address.trim().length <= 0  ?
+        applyAddr = address.trim().length <= 0 ?
             <div className="m-uploadphoto-ctrl-button">
                 <input type="button" value="申请幕布" onClick={this.handleApplyCurtain}/>
             </div>
@@ -105,7 +106,7 @@ let UploadPhoto = React.createClass({
                     <label>收件信息:</label>
                 </div>
                 <div className="m-recipientinfo-item">
-                    <span> {__globals__.user.mailingaddress} {__globals__.user.companyname} {__globals__.user.recipient} {__globals__.user.recipientmobile}</span> <input type="button" value="修改" onClick={this.handleModify}></input>
+                    <span> {_g.user.mailingaddress} {_g.user.companyname} {_g.user.recipient} {_g.user.recipientmobile}</span> <input type="button" value="修改" onClick={this.handleModify}></input>
                 </div>
             </div>
         ;
@@ -117,7 +118,7 @@ let UploadPhoto = React.createClass({
                     <form className="">
                         <fieldset>
                             <div className="m-uploadphoto-tip">
-                                <img src={__globals__.surl + "yellowexclamationmark.png"}></img><span>拍照需幕布作为背景，若您还没有申请幕布，我们将免费邮寄给您，约2-3个工作日。幕布无需寄回，您可留下反复使用。若已有幕布，请直接上传照片。</span>
+                                <img src={_g.surl + 'yellowexclamationmark.png'}></img><span>拍照需幕布作为背景，若您还没有申请幕布，我们将免费邮寄给您，约2-3个工作日。幕布无需寄回，您可留下反复使用。若已有幕布，请直接上传照片。</span>
                             </div>
                             <div className="m-uploadphoto-legend"><span>我没有幕布</span></div>
                             <div className="m-uploadphoto-item-1">
@@ -135,7 +136,7 @@ let UploadPhoto = React.createClass({
                                 <div className="m-uploadphoto-ctrl">
                                     <div className="m-uploadphoto-ctrl-picture-table">
                                         <div className="m-uploadphoto-ctrl-picture">
-                                            <img src={this.state.curtainurl.length > 0 ? this.state.curtainurl : __globals__.surl + "view.png"} alt=""/>
+                                            <img src={this.state.curtainurl.length > 0 ? this.state.curtainurl : _g.surl + 'view.png'} alt=""/>
                                         </div>
                                     </div>
                                     <div className="m-uploadphoto-ctrl-button">
@@ -144,7 +145,7 @@ let UploadPhoto = React.createClass({
                                     </div>
                                 </div>
                                 <div className="m-uploadphoto-desc">
-                                    <span>1、请认真阅读拍照说明，以节省审核时间。点击查看          <a href="http://www.w3school.com.cn">拍照说明</a></span>
+                                    <span>1、请认真阅读拍照说明，以节省审核时间。点击查看<a href="http://www.w3school.com.cn">拍照说明</a></span>
                                     <span>2、支持照片格式：JPG\PNG\GIF\JPEG，大小建议4M以下</span>
                                     <span>3、请务必上传带有相关幕布背景的照片</span>
                                 </div>
@@ -166,3 +167,4 @@ let UploadPhoto = React.createClass({
 
 
 module.exports = UploadPhoto;
+

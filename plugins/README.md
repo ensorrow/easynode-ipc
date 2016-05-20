@@ -298,7 +298,7 @@ model.merge( Object.assign({}, {id:id,websiteid:websiteid} ));
 50. ip varchar(32)  存为JSON字符串时不够长,截断了.
 
 51. 这样HEADER Request header为空,只家{page:1}
-var tid = __globals__.user == undefined ? '111111' : __globals__.user.tenantId;
+var tid = _g.user == undefined ? '111111' : _g.user.tenantId;
         reqwest({
             url: '/getapplyrecord',
             method: 'post',
@@ -320,7 +320,7 @@ var reqData = {page:1,tenantId:tid};
                   at process._tickDomainCallback (node.js:377:13)
 还必须是字符串.
 
-52. after page refresh, the  __globals__ only keep the user and logincallback object.
+52. after page refresh, the  _g only keep the user and logincallback object.
 
 53. onload发生在 login之后,
 
@@ -707,4 +707,7 @@ ESLint couldn't find the plugin "eslint-plugin-react". This can happen for a cou
     npm i eslint-plugin-react@latest --save-dev
 
 If you still can't figure out the problem, please stop by https://gitter.im/eslint/eslint to chat with the team.
+
+116.
+eslint js --ext .js,.jsx --fix
 

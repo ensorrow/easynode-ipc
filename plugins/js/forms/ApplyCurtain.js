@@ -1,161 +1,162 @@
-import  '../../css/index.css';
+import '../../css/index.css';
 import React from 'react';
 import Global from '../utils/globals';
 import DataService from '../services/DataService.js';
 import FormValidator from '../utils/FormValidator';
 import assigner from 'object.assign';
 var assign = assigner.getPolyfill();
+var _g = window._g;
 
 let ApplyCurtain = React.createClass({
 
-  handleRegion: function(p,c,a){
-    this.setState({province: p, city: c, area: a});
-  },
-  getInitialState: function() {
-    return {
-      processing : false,
-      province:'',city:'',area:'',
-      contactinfo: {
-        mailingaddress: '',
-        recipient: '',
-        recipientmobile: '',
-        companyname: ''
-      },
-      agree: true,
-      formError: {
-        mailingaddress: {isBlank: false,regularFail: false, match: function(){
-          return true;
-        }},
-        recipient: {isBlank: false,regularFail: false, match: function(){
-          return true;
-        }},
-        recipientmobile: {isBlank: false,regularFail: false, match: function(){
-          return true;
-        }},
-        companyname: {isBlank: false,checked:true}
-      }
-    };
-  },
-  componentDidMount: function(){
-    if( __globals__.user != undefined ) {
-      var contactinfo = {};
-      contactinfo.mailingaddress = __globals__.user.mailingaddress;
-      contactinfo.recipient = __globals__.user.recipient;
-      contactinfo.recipientmobile = __globals__.user.recipientmobile;
-      contactinfo.companyname = __globals__.user.companyname;
-      this.setState( { contactinfo: contactinfo } );
-    }
-  },
-  validator: function(fieldName,value){
-    var formError = this.state.formError;
-    formError[fieldName].isBlank = FormValidator.isEmpty(value);
-    if( fieldName == 'id' ){
-      formError[fieldName].isBlank = false;
-    }
-    return formError;
-  },
-  handleSubmit: function(e){
-    e.preventDefault();
-    if( this.state.processing ){
-      return;
-    }
-    var contactinfo = this.state.contactinfo;
-    var formError;
-    for( var field in contactinfo ){
-      if( contactinfo.hasOwnProperty(field) ){
-        formError = this.validator(field, contactinfo[field]);
-      }
-    }
-    this.setState({
-      formError: formError
-    });
-
-    var hasError = FormValidator.check(formError);
-
-
-    if( hasError ){
-      this.setState({
-        processing: false
-      });
-      return ;
-    }
-
-    this.setState({
-      processing: true
-    });
-
-        ///
-    var data = {
-      mailingaddress: this.state.contactinfo.mailingaddress,
-      recipient: this.state.contactinfo.recipient,
-      recipientmobile: this.state.contactinfo.recipientmobile,
-      companyname: this.state.contactinfo.companyname,
-      recordid:this.props.recordid
-    };
-
-    var me = this;
-    var reqData = JSON.stringify( data );
-    DataService.httpRequest('/user','put',reqData,'json','application/json',{},
-            function(){
-
-              assign(__globals__.user,data);
-              Global.set('global',__globals__);
-
-              var onHidden = me.props.onHidden;
-              onHidden && onHidden();
-
-              location.href = "#/uploadphoto";
+    handleRegion: function (p, c, a) {
+        this.setState({province: p, city: c, area: a});
+    },
+    getInitialState: function () {
+        return {
+            processing : false,
+            province:'', city:'', area:'',
+            contactinfo: {
+                mailingaddress: '',
+                recipient: '',
+                recipientmobile: '',
+                companyname: ''
             },
-            function(err){
-              "use strict";
-              if( err ){
-              }
+            agree: true,
+            formError: {
+                mailingaddress: {isBlank: false, regularFail: false, match: function () {
+                    return true;
+                }},
+                recipient: {isBlank: false, regularFail: false, match: function () {
+                    return true;
+                }},
+                recipientmobile: {isBlank: false, regularFail: false, match: function () {
+                    return true;
+                }},
+                companyname: {isBlank: false, checked:true}
+            }
+        };
+    },
+    componentDidMount: function () {
+        if( _g.user != undefined ) {
+            var contactinfo = {};
+            contactinfo.mailingaddress = _g.user.mailingaddress;
+            contactinfo.recipient = _g.user.recipient;
+            contactinfo.recipientmobile = _g.user.recipientmobile;
+            contactinfo.companyname = _g.user.companyname;
+            this.setState( { contactinfo: contactinfo } );
+        }
+    },
+    validator: function (fieldName, value) {
+        var formError = this.state.formError;
+        formError[fieldName].isBlank = FormValidator.isEmpty(value);
+        if( fieldName == 'id' ) {
+            formError[fieldName].isBlank = false;
+        }
+        return formError;
+    },
+    handleSubmit: function (e) {
+        e.preventDefault();
+        if( this.state.processing ) {
+            return;
+        }
+        var contactinfo = this.state.contactinfo;
+        var formError;
+        for( var field in contactinfo ) {
+            if( contactinfo.hasOwnProperty(field) ) {
+                formError = this.validator(field, contactinfo[field]);
+            }
+        }
+        this.setState({
+            formError: formError
+        });
+
+        var hasError = FormValidator.check(formError);
+
+
+        if( hasError ) {
+            this.setState({
+                processing: false
+            });
+            return;
+        }
+
+        this.setState({
+            processing: true
+        });
+
+        // /
+        var data = {
+            mailingaddress: this.state.contactinfo.mailingaddress,
+            recipient: this.state.contactinfo.recipient,
+            recipientmobile: this.state.contactinfo.recipientmobile,
+            companyname: this.state.contactinfo.companyname,
+            recordid:this.props.recordid
+        };
+
+        var me = this;
+        var reqData = JSON.stringify( data );
+        DataService.httpRequest('/user', 'put', reqData, 'json', 'application/json', {},
+            function () {
+
+                assign(_g.user, data);
+                Global.set('global', _g);
+
+                var onHidden = me.props.onHidden;
+                onHidden && onHidden();
+
+                location.href = '#/uploadphoto';
+            },
+            function (err) {
+                if( err ) {
+                    err = err + '';
+                }
             }
         );
 
-    this.setState({
-      processing: false
-    });
-  },
-  handleCancel: function(){
-    var onHidden = this.props.onHidden;
-    onHidden && onHidden();
-        //location.href = "#/uploadphoto";
-  },
-  handleMailingAddress: function(e){
-    e.preventDefault();
-    var contactinfo = this.state.contactinfo;
-    contactinfo.mailingaddress = e.target.value;
-    this.setState({contactinfo: contactinfo});
-  },
-  handleRecipient: function(e){
-    e.preventDefault();
-    var contactinfo = this.state.contactinfo;
-    contactinfo.recipient = e.target.value;
-    this.setState({contactinfo: contactinfo});
-  },
-  handleRecipientMobile: function(e){
-    e.preventDefault();
-    var contactinfo = this.state.contactinfo;
-    contactinfo.recipientmobile = e.target.value;
-    this.setState({contactinfo: contactinfo});
-  },
-  handleCompanyName: function(e){
-    e.preventDefault();
-    var contactinfo = this.state.contactinfo;
-    contactinfo.companyname = e.target.value;
-    this.setState({contactinfo: contactinfo});
-  },
-  handleAgreement: function(e){
-    e.preventDefault();
-    this.setState( {agree: !this.state.agree},function(){
+        this.setState({
+            processing: false
+        });
+    },
+    handleCancel: function () {
+        var onHidden = this.props.onHidden;
+        onHidden && onHidden();
+        // location.href = "#/uploadphoto";
+    },
+    handleMailingAddress: function (e) {
+        e.preventDefault();
+        var contactinfo = this.state.contactinfo;
+        contactinfo.mailingaddress = e.target.value;
+        this.setState({contactinfo: contactinfo});
+    },
+    handleRecipient: function (e) {
+        e.preventDefault();
+        var contactinfo = this.state.contactinfo;
+        contactinfo.recipient = e.target.value;
+        this.setState({contactinfo: contactinfo});
+    },
+    handleRecipientMobile: function (e) {
+        e.preventDefault();
+        var contactinfo = this.state.contactinfo;
+        contactinfo.recipientmobile = e.target.value;
+        this.setState({contactinfo: contactinfo});
+    },
+    handleCompanyName: function (e) {
+        e.preventDefault();
+        var contactinfo = this.state.contactinfo;
+        contactinfo.companyname = e.target.value;
+        this.setState({contactinfo: contactinfo});
+    },
+    handleAgreement: function (e) {
+        e.preventDefault();
+        this.setState( {agree: !this.state.agree}, function () {
 
-    }.bind(this));
-  },
-  render: function () {
-    return (
+        }/* .bind(this)*/);
+    },
+    render: function () {
+        return (
             <div className="m-applycurtain">
-                <div className="m-applycurtain-header"><label>申请幕布</label><img src={__globals__.surl + "close.png"} onClick={this.handleCancel}></img></div>
+                <div className="m-applycurtain-header"><label>申请幕布</label><img src={_g.surl + 'close.png'} onClick={this.handleCancel}></img></div>
                 <div className="m-applycurtain-bd">
                     <div className="m-applycurtain-bd-tip">
                         <img src="../assets/yellowexclamationmark.png"></img>
@@ -174,7 +175,7 @@ let ApplyCurtain = React.createClass({
                             <span>*</span> <label>收件人姓名:</label>
                         </div>
                         <div className="m-applycurtain-item-ctrl">
-                            <input type="text"  name="identity"  onChange={this.handleRecipient} value={this.state.contactinfo.recipient}/>
+                            <input type="text" name="identity" onChange={this.handleRecipient} value={this.state.contactinfo.recipient}/>
                         </div>
                     </div>
                     <div className="m-applycurtain-item">
@@ -213,8 +214,9 @@ let ApplyCurtain = React.createClass({
                 </div>
             </div>
         );
-  }
+    }
 });
 
 
 module.exports = ApplyCurtain;
+

@@ -1,7 +1,5 @@
-import  '../../css/index.css';
+import '../../css/index.css';
 import React from 'react';
-import { render } from 'react-dom';
-import { Router, Route, Link, IndexRoute } from 'react-router';
 import RecordType from './RecordType.jsx';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 import ProgressBar from './ProgressBar.jsx';
@@ -9,31 +7,33 @@ import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 import Global from '../utils/globals';
 import DataService from '../services/DataService.js';
+var _g = window._g;
 
 let BaseInfo = React.createClass({
 
-    getInitialState: function() {
-        return {type:0,serverregion:"1"};
+    getInitialState: function () {
+        return {type:0, serverregion:'1'};
     },
-    onSave: function( succ,err ){
-        if( __globals__.baseinfo == undefined )
-            __globals__.baseinfo = {};
-        __globals__.baseinfo.type = this.state.type;
-        __globals__.baseinfo.serverregion = this.state.serverregion;
+    onSave: function ( succ, err ) {
+        if( _g.baseinfo == undefined ) {
+            _g.baseinfo = {};
+        }
+        _g.baseinfo.type = this.state.type;
+        _g.baseinfo.serverregion = this.state.serverregion;
 
 
         var formData = {};
         formData.drafttype = 1;
         formData.baseinfo = {};
 
-        if( __globals__.hasOwnProperty("baseinfo") && __globals__.baseinfo.hasOwnProperty("id") ){
-            formData.baseinfo.id = __globals__.baseinfo.id;
+        if( _g.hasOwnProperty('baseinfo') && _g.baseinfo.hasOwnProperty('id') ) {
+            formData.baseinfo.id = _g.baseinfo.id;
         }
-        formData.baseinfo.type = __globals__.baseinfo.type;
+        formData.baseinfo.type = _g.baseinfo.type;
 
-        __globals__.drafttype = 1;
+        _g.drafttype = 1;
 
-        //savedraft
+        // savedraft
         reqwest({
             url: '/savedraft',
             method: 'post',
@@ -43,38 +43,40 @@ let BaseInfo = React.createClass({
             headers: {
                 'If-Modified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT'
             },
-            success: function(resp){
-                //{drafttype: formData.drafttype, id: r.insertId};
-                if( resp.ret.drafttype == 1 ){
-                    __globals__.baseinfo.id = resp.ret.id;
-                    Toast.show("保存草稿成功");
+            success: function (resp) {
+                // {drafttype: formData.drafttype, id: r.insertId};
+                if( resp.ret.drafttype == 1 ) {
+                    _g.baseinfo.id = resp.ret.id;
+                    Toast.show('保存草稿成功');
 
-                    Global.set('global',__globals__);
-                    if( typeof(succ) == 'function' ) succ();
+                    Global.set('global', _g);
+                    if( typeof (succ) == 'function' ) {
+                        succ();
+                    }
                 }
             },
-            error: function(err){
-                //TODO
-                Toast.show("保存草稿失败");
+            error: function (err2) {
+                // TODO
+                Toast.show('保存草稿失败');
             }
         });
     },
-    componentDidMount: function(){
-        if( __globals__.baseinfo != undefined ) {
-            this.setState( __globals__.baseinfo );
+    componentDidMount: function () {
+        if( _g.baseinfo != undefined ) {
+            this.setState( _g.baseinfo );
         }
     },
 
-    componentWillUnmount: function(){
+    componentWillUnmount: function () {
     },
 
-    onChange: function(type, region){
-        this.setState({type:type,serverregion: region});
+    onChange: function (type, region) {
+        this.setState({type:type, serverregion: region});
     },
-    handleSubmit: function(){
-        this.onSave(function(){
-            location.href = "#/fillcompanyinfo";
-        },function(){
+    handleSubmit: function () {
+        this.onSave(function () {
+            location.href = '#/fillcompanyinfo';
+        }, function () {
         });
 
     },
@@ -97,3 +99,4 @@ let BaseInfo = React.createClass({
 
 
 module.exports = BaseInfo;
+

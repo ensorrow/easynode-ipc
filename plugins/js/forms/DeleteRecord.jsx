@@ -1,30 +1,32 @@
-import  '../../css/index.css';
+import '../../css/index.css';
 import React from 'react';
-import { render } from 'react-dom';
-import { Router, Route, Link, IndexRoute } from 'react-router';
 import DataService from '../services/DataService.js';
+var _g = window._g;
 
 let DeleteRecord = React.createClass({
     propTypes:{
         record: React.PropTypes.object.isRequired
     },
-    handleCancel: function(){
+    handleCancel: function () {
         var onHidden = this.props.onHidden;
         onHidden && onHidden();
     },
-    handleSubmit: function(){
+    handleSubmit: function () {
         var me = this;
         var reqData = JSON.stringify( {id:this.props.record.id} );
-        DataService.httpRequest('/delrecord','post',reqData,'json','application/json',{},
-            function(resp){
-                //{ret:{id:96,ret:false}}
-                //me.setState({data: resp.ret.data});
-                if( resp.ret.ret ){
+        DataService.httpRequest('/delrecord', 'post', reqData, 'json', 'application/json', {},
+            function (resp) {
+                // {ret:{id:96,ret:false}}
+                // me.setState({data: resp.ret.data});
+                if( resp.ret.ret ) {
                     var onDelete = me.props.onDelete;
                     onDelete && onDelete(resp.ret.id);
                 }
             },
-            function(err){
+            function (err) {
+                if( err ) {
+                    err = err + '';
+                }
             }
         );
     },
@@ -33,11 +35,11 @@ let DeleteRecord = React.createClass({
             <div className="m-deleterecord">
                 <div className="m-deleterecord-header">
                     <label>确认删除</label>
-                    <img src={__globals__.surl + "close.png"} onClick={this.handleCancel}/>
+                    <img src={_g.surl + 'close.png'} onClick={this.handleCancel}/>
                 </div>
                 <div className="m-deleterecord-bd">
                     <div className="m-deleterecord-icon">
-                        <img src={__globals__.surl + "mark.png"} alt="" className="tip-icon" />
+                        <img src={_g.surl + 'mark.png'} alt="" className="tip-icon" />
                     </div>
                     <div className="m-deleterecord-tip">
                         <p className="tip-bd">备案信息将被删除</p>
@@ -56,3 +58,4 @@ let DeleteRecord = React.createClass({
 
 
 module.exports = DeleteRecord;
+

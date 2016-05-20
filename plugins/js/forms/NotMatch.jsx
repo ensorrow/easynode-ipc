@@ -1,7 +1,5 @@
-import  '../../css/index.css';
+import '../../css/index.css';
 import React from 'react';
-import { render } from 'react-dom';
-import { Router, Route, Link, IndexRoute } from 'react-router';
 import ProgressBar from './ProgressBar.jsx';
 
 let NotMatch = React.createClass({
@@ -16,3 +14,4 @@ let NotMatch = React.createClass({
 
 
 module.exports = NotMatch;
+

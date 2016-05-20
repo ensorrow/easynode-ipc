@@ -1,109 +1,94 @@
-import  '../../css/index.css';
+import '../../css/index.css';
 import React from 'react';
-import { render } from 'react-dom';
-import { Router, Route, Link, IndexRoute } from 'react-router';
-import records from '../mocks/records';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 import Global from '../utils/globals';
 import DataService from '../services/DataService.js';
 import reqwest from 'reqwest';
 import DeleteRecord from './DeleteRecord.jsx';
-
+var _g = window._g;
 
 let Operation = React.createClass({
     propTypes:{
         record: React.PropTypes.object.isRequired
     },
-    getInitialState: function(){
+    getInitialState: function () {
         return {};
     },
-    handleDelete: function(e){
-        var onShow =  this.props.onShow;
+    handleDelete: function (e) {
+        var onShow = this.props.onShow;
         onShow && onShow(this.props.record);
     },
-    handleResult: function(to){
+    handleResult: function (to) {
         var me = this;
         DataService.getRecord(this.props.record.id,
-            function(){
-                console.log("1");
-                Global.set('global',__globals__);
+            function () {
+                Global.set('global', _g);
                 location.href = to;
             },
-            function(err){
-                console.log("getRecord err");
-                console.log(err);
+            function (err) {
+                if( err ) {
+                    err = err + '';
+                }
             }
         );
     },
-    render(){
+    render () {
 
         let type = this.props.record.type;
         let prg = this.props.record.status;
 
         var me = this;
         if( prg == 0 ) {
-            return  (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/returntobase") } value="修改"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
-            );
-        }
-        else if( prg == 1){
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail")}  value="备案详情"></input> </td>
+                <td><input type="button" onClick={ me.handleResult.bind(me, '#/returntobase') } value="修改"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
             );
-        }
-        else if( prg == 2){
+        } else if( prg == 1) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresulttrialnopass") } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/returntobase") } value="修改"></input> </td>
+                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail')} value="备案详情"></input> </td>
             );
-        }
-        else if( prg == 3){
+        } else if( prg == 2) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button"  onClick={ me.handleResult.bind(me,"#/checkresulttrialpass") } value="审核结果"></input> <input type="button"  onClick={ me.handleResult.bind(me,"#/uploadphoto") } value="上传照片"></input> </td>
+                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/checkresulttrialnopass') } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/returntobase') } value="修改"></input> </td>
             );
-        }
-        else if( prg == 4){
+        } else if( prg == 3) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> </td>
+                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/checkresulttrialpass') } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/uploadphoto') } value="上传照片"></input> </td>
             );
-        }
-        else if( prg == 5){
+        } else if( prg == 4) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresultphotonopass") } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/uploadphoto") } value="上传照片"></input> </td>
+                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> </td>
             );
-        }
-        else if( prg == 6){
+        } else if( prg == 5) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresultphotopass") } value="审核结果"></input> </td>
+                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/checkresultphotonopass') } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/uploadphoto') } value="上传照片"></input> </td>
             );
-        }
-        else if( prg == 7){
+        } else if( prg == 6) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> </td>
+                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/checkresultphotopass') } value="审核结果"></input> </td>
             );
-        }
-        else if( prg == 8){
+        } else if( prg == 7) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresultcouncilnopass") } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/returntobase") } value="修改"></input> </td>
+                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> </td>
             );
-        }
-        else if( prg == 9) {
+        } else if( prg == 8) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me,"#/checkresultcouncilpass") } value="审核结果"></input>  </td>
+                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/checkresultcouncilnopass') } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/returntobase') } value="修改"></input> </td>
             );
-        }
-        else if( prg == 10){
+        } else if( prg == 9) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> </td>
+                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/checkresultcouncilpass') } value="审核结果"></input></td>
             );
-        }
-        else if( prg == 11){
+        } else if( prg == 10) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> </td>
+                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> </td>
             );
-        }
-        else if( prg == 12){
+        } else if( prg == 11) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me,"#/reviewrecorddetail") } value="备案详情"></input> <input type="button"  onClick={ me.handleResult.bind(me,"#/uploadphoto") } value="上传照片"></input></td>
+                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> </td>
+            );
+        } else if( prg == 12) {
+            return (
+                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/uploadphoto') } value="上传照片"></input></td>
             );
         }
     }
@@ -111,43 +96,44 @@ let Operation = React.createClass({
 
 let Records = React.createClass({
 
-    onDelete: function(id){
-        var onDelete =  this.props.onDelete;
+    onDelete: function (id) {
+        var onDelete = this.props.onDelete;
         onDelete && onDelete(id);
     },
-    format: function(m){
+    format: function (m) {
         var d = new Date(m);
-        return d.getFullYear() + "年" + (d.getMonth()+1) + "月" + d.getDate() + "日" + " " + d.getHours() + "时" + d.getMinutes() + "分" +  d.getSeconds() + "秒";
+        return d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日' + ' ' + d.getHours() + '时' + d.getMinutes() + '分' + d.getSeconds() + '秒';
     },
-    handleResult: function(id,to){
+    handleResult: function (id, to) {
         DataService.getRecord(id,
-            function(){
-                Global.set('global',__globals__);
+            function () {
+                Global.set('global', _g);
                 location.href = to;
             },
-            function(err){
-                console.log("getRecord err");
-                console.log(err);
+            function (err) {
+                if( err ) {
+                    err = err + '';
+                }
             }
         );
     },
-    onShow: function(record){
-        var onShow =  this.props.onShow;
+    onShow: function (record) {
+        var onShow = this.props.onShow;
         onShow && onShow(record);
     },
-    getCode: function(prg,id,code){
+    getCode: function (prg, id, code) {
         var cs = prg == 0 ? '' : 'code';
-        if( prg == 0 ){
-            return <td className={cs}> {code} </td>
+        if( prg == 0 ) {
+            return <td className={cs}> {code} </td>;
         }else{
-            return <td className={cs} onClick={ this.handleResult.bind(this,id,"#/reviewrecorddetail") }> {code} </td>
+            return <td className={cs} onClick={ this.handleResult.bind(this, id, '#/reviewrecorddetail') }> {code} </td>;
         }
     },
-    render: function(){
+    render: function () {
         var records = this.props.data.map((record)=>{
             let type = record.type;
             var typeStr =
-                        type == 0  ? '首次备案' :
+                        type == 0 ? '首次备案' :
                         type == 1 ? '新增网站' :
                         type == 2 ? '新增接入' : '未知类型';
 
@@ -163,15 +149,15 @@ let Records = React.createClass({
                         prg == 7 ? '管局审核中' :
                         prg == 8 ? '被管局退回' :
                         prg == 9 ? '备案已成功' :
-                        prg == 10? '已提交管局' :
-                        prg == 11? '幕布申请中' :
-                        prg == 12? '幕布已寄送' : '未知状态';
+                        prg == 10 ? '已提交管局' :
+                        prg == 11 ? '幕布申请中' :
+                        prg == 12 ? '幕布已寄送' : '未知状态';
 
 
             var status =
                         prg == 0 ? 'draft' :
                         prg == 1 ? 'checking' :
-                        prg == 2 ? 'nopass':
+                        prg == 2 ? 'nopass' :
                         prg == 3 ? 'passed' :
                         prg == 4 ? 'checking' :
                         prg == 5 ? 'nopass' :
@@ -181,13 +167,13 @@ let Records = React.createClass({
                         prg == 9 ? 'passed' :
                         prg == 10 ? 'checking' :
                         prg == 11 ? 'checking' :
-                        prg == 12 ? 'passed' : "draft";
+                        prg == 12 ? 'passed' : 'draft';
 
-           return  (
+            return (
                    <tr className="" key={record.id}>
-                       {this.getCode(record.status,record.id,record.code)}
+                       {this.getCode(record.status, record.id, record.code)}
                        <td> {typeStr}</td>
-                       <td> {record.serverregion == "1" ? "HZ1":"HZ1"} </td>
+                       <td> {record.serverregion == '1' ? 'HZ1' : 'HZ1'} </td>
                        <td className={status}> {prgStr} </td>
                        <td> { this.format(record.updatetime) } </td>
                        <Operation key={record.id} record={record} onDelete={this.onDelete} onShow={this.onShow}/>
@@ -198,61 +184,64 @@ let Records = React.createClass({
             <tbody>
                 {records}
             </tbody>
-        )
+        );
     }
 });
 
 let RecordList = React.createClass({
-    onDelete: function(id){
+    onDelete: function (id) {
         var data = this.state.data;
-        data.map((record,index)=>{
-            if( record.id == id ){
-                data.splice(index,1);
+        data.map((record, index)=>{
+            if( record.id == id ) {
+                data.splice(index, 1);
                 return;
             }
         });
-        this.setState({ data:data,showDeleteRecord:false } );
+        this.setState({ data:data, showDeleteRecord:false } );
     },
-    loadRecords: function(){
+    loadRecords: function () {
         var me = this;
         var reqData = { page:1, rpp: 100 };
-        DataService.httpRequest('/records','get',reqData,'json','application/json',{},
-            function(resp){
+        DataService.httpRequest('/records', 'get', reqData, 'json', 'application/json', {},
+            function (resp) {
                 me.setState({data: resp.data});
             },
-            function(err){
+            function (err) {
+                if( err ) {
+                    err = err + '';
+                }
             }
         );
     },
-    getInitialState: function(){
-        return {data:[],showDeleteRecord:false,deleterecord:{}};
+    getInitialState: function () {
+        return {data:[], showDeleteRecord:false, deleterecord:{}};
     },
-    componentDidMount: function(){
+    componentDidMount: function () {
         this.loadRecords();
     },
-    onShow: function(dr){
-        this.setState({showDeleteRecord:true,deleterecord:dr});
+    onShow: function (dr) {
+        this.setState({showDeleteRecord:true, deleterecord:dr});
     },
-    onHidden: function(){
+    onHidden: function () {
         this.setState({showDeleteRecord:false});
     },
-    handleClick: function(){
+    handleClick: function () {
 
-        __globals__.baseinfo = {};
-        __globals__.material = {};
-        __globals__.companyinfo = {};
-        __globals__.siteinfo = {};
-        __globals__.record = {};
-        __globals__.domains = [];
+        _g.baseinfo = {};
+        _g.material = {};
+        _g.companyinfo = {};
+        _g.siteinfo = {};
+        _g.record = {};
+        _g.domains = [];
 
-        Global.set('global',__globals__);
+        Global.set('global', _g);
 
-        location.href = "#/returntobase";
+        location.href = '#/returntobase';
     },
     render: function () {
         var deleterecord = '';
-        if( this.state.showDeleteRecord ){
-            deleterecord = <DeleteRecord onDelete={this.onDelete} onHidden={this.onHidden} record={this.state.deleterecord}/>
+        if( this.state.showDeleteRecord ) {
+            deleterecord = <DeleteRecord onDelete={this.onDelete} onHidden={this.onHidden} record={this.state.deleterecord}/>;
         }
         return (
             <div>
@@ -282,3 +271,4 @@ let RecordList = React.createClass({
 });
 
 module.exports = RecordList;
+

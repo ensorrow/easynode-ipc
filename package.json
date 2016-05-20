@@ -11,5 +11,8 @@
   },
   "author": "allen.hu",
   "license": "ISC",
-  "devDependencies": {}
+  "devDependencies": {
+    "babel-eslint": "^6.0.4",
+    "install": "^0.8.1"
+  }
 }

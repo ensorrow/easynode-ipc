@@ -1,17 +1,14 @@
-import  '../css/index.css';
+import '../css/index.css';
 import React from 'react';
-import { render } from 'react-dom';
-import { Router, Route, Link, IndexRoute } from 'react-router';
 import Header from './Header';
 import Footer from './Footer';
 import Login from './forms/Login.jsx';
-
+var _g = window._g;
 
 var App = React.createClass({
 
     render: function () {
-        console.log("app.render");
-        if( __globals__.hasOwnProperty('user') && __globals__.user.hasOwnProperty('id') ){
+        if( _g.hasOwnProperty('user') && _g.user.hasOwnProperty('id') ) {
             document.body.style.background = '#F7F7F7';
             return (
                 <div className="app">
@@ -31,5 +28,5 @@ var App = React.createClass({
     }
 });
 
-
 module.exports = App;
+

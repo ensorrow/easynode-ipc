@@ -23,13 +23,13 @@
         <% if (config.env == 'DEVELOP') { %>
             <script src="../build/bundle.js"></script>
             <script type="text/javascript">
-                __globals__.surl="../assets/";
+                _g.surl="../assets/";
                  console.log("****")
             </script>
         <% } else { %>
             <script src=<%- config.surl %>bundle.js></script>
             <script>
-                __globals__.surl="<%- config.surl %>";
+                _g.surl="<%- config.surl %>";
             </script>
         <% } %>
     <% } %>
