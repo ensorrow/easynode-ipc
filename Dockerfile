@@ -36,7 +36,7 @@ WORKDIR /usr/src/app
 
 RUN babel src -d lib
 
-RUN rm -rf src plugins/webpack.prod.config.js  plugins/apidoc plugins/css
+RUN rm -rf src plugins/webpack.prod.config.js  plugins/apidoc plugins/css plugins/js
 
 WORKDIR /usr/src/app/bin
 
