@@ -102,8 +102,6 @@ var ZXBA_ASSIGN = function(json) {
   zxxx.ICPmm = json.company.recordpassword;
 
 
-  console.log('zxba.....');
-  console.log(xzwz);
   zxba.UploadData.ICP.ZXBA.Zx_xx.push(zxxx);
   zxba.UploadData.ICP.Qqdwid = 110000000211;
   return zxba;

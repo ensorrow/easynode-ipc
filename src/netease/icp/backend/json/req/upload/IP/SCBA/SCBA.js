@@ -120,7 +120,6 @@ var IP_SCBA_ASSIGN = function(json) {
     // scba.UploadData.IP.SCBA.Scgbjs.Jsxx.push(0);//ToDo
   scba.UploadData.IP.Qqdwid = 110000000211;
 
-  console.log(scba);
   return scba;
 };
 

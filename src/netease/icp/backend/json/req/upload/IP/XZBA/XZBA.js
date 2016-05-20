@@ -99,7 +99,6 @@ var IP_XZBA_ASSIGN = function(json) {
    // xzba.UploadData.IP.XZBA.Zdip.Zdxx.push(zdxx);
   xzba.UploadData.IP.Qqdwid = 110000000211;
 
-  console.log(xzba);
   return xzba;
 };
 

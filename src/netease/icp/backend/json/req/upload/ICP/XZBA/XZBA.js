@@ -330,7 +330,6 @@ var XZBA_ASSIGN = function(json) {
         Baxx.Fj.push(fj);
     }*/
 
-  console.log(xzba);
   xzba.ICP.XZBA.Baxx.push(Baxx);
   xzba.ICP.Qqdwid = 110000000211;
     // fs.writeFileSync('/Users/hujiabao/Downloads/first_json.json',JSON.stringify(xzba));

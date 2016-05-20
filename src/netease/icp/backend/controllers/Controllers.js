@@ -122,13 +122,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
       return function *() {
 
         var parts = yield* multipart(this);
-        console.dir(parts);
-
         const profile = this.request.body;
-        console.log(profile);
-        console.log(this.parameter);
-        console.log(this.body);
-        console.log(this.query);
 
         this.type = 'json';
         this.body = [
@@ -1137,7 +1131,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
       var regEx = new RegExp(supportFileTypes);
 
       return function *() {
-        console.dir(this.cookies.get('koa.sid'));
         var session = this.session;
                 // if( session.hasOwnProperty('firms') ){
                 //    delete session.firms;
@@ -1176,7 +1169,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
     static upload2(app) {
 
       return function *() {
-        console.dir(this.cookies.get('koa.sid'));
         var session = this.session;
                 // if( session.hasOwnProperty('firms') ){
                 //    delete session.firms;
@@ -1472,8 +1464,6 @@ var StoreService = using('netease.icp.backend.services.StoreService');
           pass = true;
         }
       });
-      console.log('pass:', pass);
-      console.log('remoteAddress:', ip);
       return pass;
     }
 

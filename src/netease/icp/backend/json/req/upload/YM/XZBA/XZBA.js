@@ -165,7 +165,6 @@ var XZBA_ASSIGN = function(json) {
   xzba.UploadData.YM.XZBA.Xzxx.push(xzxx);// ToDO
   xzba.UploadData.IP.Qqdwid = 110000000211;
 
-  console.log(xzba);
   return xzba;
 };
 

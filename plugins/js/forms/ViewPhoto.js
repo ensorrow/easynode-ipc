@@ -1,32 +1,29 @@
 import  '../../css/index.css';
 import React from 'react';
-import { render } from 'react-dom';
-import { Router, Route, Link, IndexRoute } from 'react-router';
 
 let ViewPhoto = React.createClass({
-    propTypes:{
-        url: React.PropTypes.string.isRequired
-    },
+  propTypes:{
+    url: React.PropTypes.string.isRequired
+  },
 
-    getInitialState: function() {
-        return {
-        };
-    },
-    componentDidMount: function(){
-        "use strict";
-        document.body.style.overflow = "hidden";
-    },
-    handleClose: function(){
-        var onHidden = this.props.onHidden;
-        onHidden && onHidden();
-        document.body.style.overflow = "scroll";
-        console.log("handleClose");
-    },
-    handleDoubleClick: function(){
-        this.handleClose();
-    },
-    render: function () {
-        return (
+  getInitialState: function() {
+    return {
+    };
+  },
+  componentDidMount: function(){
+    "use strict";
+    document.body.style.overflow = "hidden";
+  },
+  handleClose: function(){
+    var onHidden = this.props.onHidden;
+    onHidden && onHidden();
+    document.body.style.overflow = "scroll";
+  },
+  handleDoubleClick: function(){
+    this.handleClose();
+  },
+  render: function () {
+    return (
             <div className="m-viewphoto-modal">
                 <div className="m-viewphoto-mask">
                 </div>
@@ -38,7 +35,7 @@ let ViewPhoto = React.createClass({
                 </a>
             </div>
         );
-    }
+  }
 });
 
 module.exports = ViewPhoto;

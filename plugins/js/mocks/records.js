@@ -89,7 +89,7 @@ module.exports = [
     area:'HZ1',
     progress:9,
     createTime:'2014-12 14:10:08'
-  },
-]
+  }
+];
 
 

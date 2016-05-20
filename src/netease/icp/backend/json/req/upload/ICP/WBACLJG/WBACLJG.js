@@ -132,8 +132,6 @@ var WBACLJG_ASSIGN = function(json) {
     Sbrdzyj:''
   };
 
-  console.log('clxx.....');
-  console.log(wbacljg);
   wbacljg.UploadData.ICP.WBACLJG.Clxx.push(clxx);
   wbacljg.UploadData.ICP.Qqdwid = 110000000211;
   return hsjg;

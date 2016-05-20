@@ -194,8 +194,6 @@ var HSJG_ASSIGN = function(json) {
   hsjgxx.Baxx.Zt_xx = ztxx;
   hsjgxx.Baxx.Wz_xx.push(wzxx);
 
-  console.log('jskg.....');
-  console.log(hsjg);
   hsjg.UploadData.ICP.HSJG.hsjgxx.push(hsjgxx);
   hsjg.UploadData.ICP.Qqdwid = 110000000211;
   return hsjg;

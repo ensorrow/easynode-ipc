@@ -91,10 +91,12 @@ rules:
   #vars-on-top: 2
   #wrap-life: 2
   yoda: 2
+  no-console: 2
 
   # Strict Mode
   # http://eslint.org/docs/rules/#strict-mode
   #strict: [2, "global"]
+
 
   # Variables
   # http://eslint.org/docs/rules/#variables

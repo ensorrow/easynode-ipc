@@ -250,7 +250,6 @@ var BGBA_ASSIGN = function(json) {
   };// ToDo
   Baxx.Fj.push(fj);
 
-  console.log(bgba);
   bgba.UploadData.ICP.XZBA.Baxx.push(Baxx);
   bgba.UploadData.ICP.Qqdwid = 110000000211;
   return bgba;

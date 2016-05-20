@@ -261,7 +261,6 @@ var XGBA_ASSIGN = function(json) {
 
   xgba.UploadData.IP.Qqdwid = 110000000211;
 
-  console.log(xgba);
   return xgba;
 };
 

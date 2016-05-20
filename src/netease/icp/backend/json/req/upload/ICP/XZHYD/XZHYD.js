@@ -101,7 +101,6 @@ var XZHYD_ASSIGN = function(json) {
     Bz:''
   };
 
-  console.log(xzhyd);
   xzhyd.UploadData.ICP.XZHYD.Fjxx.push(fjxx);
   xzhyd.UploadData.ICP.Qqdwid = 110000000211;
   return xzhyd;

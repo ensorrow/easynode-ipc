@@ -115,7 +115,6 @@ var SCBA_ASSIGN = function(json) {
   scba.UploadData.YM.SCBA.Scxx.push(scxx);// ToDo
   scba.UploadData.YM.Qqdwid = 110000000211;
 
-  console.log(scba);
   return scba;
 };
 

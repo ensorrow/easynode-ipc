@@ -1,35 +1,35 @@
 import  '../../css/index.css';
 import React from 'react';
-import { render } from 'react-dom';
-import { Router, Route, Link, IndexRoute } from 'react-router';
 import DataService from '../services/DataService.js';
 import Global from '../utils/globals';
 
 
 let SubmitCheckSuccess = React.createClass({
-    handleSubmit: function(e){
-        e.preventDefault();
+  handleSubmit: function(e){
+    e.preventDefault();
 
-        DataService.getRecord( __globals__.record.id||0,
+    DataService.getRecord( __globals__.record.id||0,
             function(){
-                Global.set('global',__globals__);
-                location.href = "#/reviewrecorddetail";
+              Global.set('global',__globals__);
+              location.href = "#/reviewrecorddetail";
             },
             function(err){
-                console.log("getRecord err")
-                console.log(err);
+              "use strict";
+              if(err){
+
+              }
             }
         );
-    },
+  },
 
-    render: function () {
+  render: function () {
 
-        var code = '';
-        if( __globals__.record && __globals__.record.code ){
-            code = __globals__.record.code;
-        }
+    var code = '';
+    if( __globals__.record && __globals__.record.code ){
+      code = __globals__.record.code;
+    }
 
-        return (
+    return (
             <div className="m-submitchecksuccess">
                 <div className="tip-label">
                     <img src={__globals__.surl + "selected.png"} alt="" className="tip-icon"/>
@@ -45,7 +45,7 @@ let SubmitCheckSuccess = React.createClass({
                 </div>
             </div>
         );
-    }
+  }
 });
 
 

@@ -205,8 +205,6 @@ var XZWZ_ASSIGN = function(json) {
   };// ToDo
   Xzxx.Fj.push(fj);
 
-  console.log('Xzwz.....');
-  console.log(xzwz);
   xzwz.UploadData.ICP.XZWZ.Xzxx.push(Xzxx);
   xzwz.UploadData.ICP.Qqdwid = 110000000211;
   return xzwz;

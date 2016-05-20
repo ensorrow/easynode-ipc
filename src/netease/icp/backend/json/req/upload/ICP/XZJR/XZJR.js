@@ -138,8 +138,6 @@ var XZJR_ASSIGN = function(json) {
   Xzjr.Fj.push(fj);
   Xzjr.ICPmm = json.company.recordpassword;
 
-  console.log('Xzjr.....');
-  console.log(Xzjr);
   xzjr.UploadData.ICP.XZJR.Xzxx.push(Xzjr);
   xzjr.UploadData.ICP.Qqdwid = 110000000211;
   return xzjr;

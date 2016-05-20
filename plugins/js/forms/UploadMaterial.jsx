@@ -126,7 +126,7 @@ let UploadMaterial = React.createClass({
         var reqData = JSON.stringify(__globals__);
         DataService.httpRequest('/savedraft','post',reqData,'json','application/json',{},
             function(resp){
-                console.log(resp)
+                console.log("a");
                 console.log(resp.ret.id);
                 if( resp.ret.drafttype == 4 ){
                     __globals__.baseinfo.id = resp.ret.id;

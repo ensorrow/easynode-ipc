@@ -1,33 +1,32 @@
 import  '../../css/index.css';
 import React from 'react';
-import { render } from 'react-dom';
-import { Router, Route, Link, IndexRoute } from 'react-router';
 import ReturnWidget from '../widgets/ReturnWidget.jsx';
 import DataService from '../services/DataService.js';
 import Global from '../utils/globals';
 
 let SubmitTrialSuccess = React.createClass({
 
-    handleSubmit: function(e){
-        e.preventDefault();
+  handleSubmit: function(e){
+    e.preventDefault();
 
-        DataService.getRecord( __globals__.record.id||0,
+    DataService.getRecord( __globals__.record.id||0,
             function(){
-                Global.set('global',__globals__);
-                location.href = "#/reviewrecorddetail";
+              Global.set('global',__globals__);
+              location.href = "#/reviewrecorddetail";
             },
             function(err){
-                console.log("getRecord err")
-                console.log(err);
+              if(err){
+
+              }
             }
         );
-    },
-    render: function () {
-        var code = '';
-        if( __globals__.record && __globals__.record.code ){
-            code = __globals__.record.code;
-        }
-        return (
+  },
+  render: function () {
+    var code = '';
+    if( __globals__.record && __globals__.record.code ){
+      code = __globals__.record.code;
+    }
+    return (
             <div>
                 <ReturnWidget/>
                 <div className="m-submittrialsuccess">
@@ -46,7 +45,7 @@ let SubmitTrialSuccess = React.createClass({
                 </div>
             </div>
         );
-    }
+  }
 });
 
 

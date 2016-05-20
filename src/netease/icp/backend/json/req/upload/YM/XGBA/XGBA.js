@@ -165,7 +165,6 @@ var XGBA_ASSIGN = function(json) {
   xgba.UploadData.YM.XGBA.Xzxx.push(xzxx);
   xgba.UploadData.YM.Qqdwid = 110000000211;
 
-  console.log(xgba);
   return xgba;
 };
 
