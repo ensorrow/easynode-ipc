@@ -15,7 +15,6 @@ var Record = using('netease.icp.backend.models.Record');
 var Iply = using('netease.icp.backend.models.Iply');
 var Area = using('netease.icp.backend.models.Area');
 var Sys = using('netease.icp.backend.models.Sys');
-console.log(Sys);
 var Nos = require('nenos');
 var utils = require('utility');
 var SqlUtil = using('easynode.framework.util.SqlUtil');
@@ -369,7 +368,6 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
 
         var conn = null;
         var form = this.request.body;
-        console.log('form', form);
         var filter = form.filter || [];
         var page = parseInt(form.page || 0);
         var rpp = parseInt(form.rpp || 0);
@@ -793,7 +791,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
           r = yield conn.update(model);
           var ret = r.affectedRows + r.insertId > 0;
           if (ret) {
-            console.log('record original gjsh, ToDo');// ToDo
+            // console.log('record original gjsh, ToDo');// ToDo
           }
           return ret;
         } catch (e) {
@@ -968,8 +966,8 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
         var model = new User();
         var form = this.request.body;
 
-        console.log(form);
-        console.log(this.session.user);
+        // console.log(form);
+        // console.log(this.session.user);
         var userid = form.userid || this.session.user.id;
         var mailingaddress = form.mailingaddress;
         var recipient = form.recipient;
@@ -1291,7 +1289,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
         try {
           yield nos.upload(key, filename);
         } catch (e) {
-          console.log(e);
+          // console.log(e);
         }
         nos = null;
         return url;
@@ -1313,7 +1311,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
         try {
           ret = yield nos.getObject(key);
         } catch (e) {
-          console.log(e);
+          // console.log(e);
         }
 
         nos = null;
@@ -1358,7 +1356,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
         var sql = '';
 
         var key = k > 0 ? k : (this.parameter.param('key') || 0);
-        console.log('key:', key);
+        // console.log('key:', key);
         try {
           conn = yield me.app.ds.getConnection();
           var model = new Sys();
@@ -1394,29 +1392,28 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
           args = me.app.ispService.getUploadInitParam();
           args.beianInfo = beianInfo.beianInfo;
           args.beianInfoHash = beianInfo.beianInfoHash;
-
-          console.log('dataSequence upload:', args.dataSequence);
+          // console.log('dataSequence upload:', args.dataSequence);
         } catch (e) {
           EasyNode.DEBUG && logger.debug(` ${e}`);
           return false;
         }
-        console.log('isp_upload......');
+        // console.log('isp_upload......');
         try {
           var ds =
               yield me.app.ispService.isp_upload(args)
                     .then(function(result) {
-                      console.log('is_upload success', result);
+                      // console.log('is_upload success', result);
                       args.dataSequence = result;
                     })
                     .catch(function(e, result) {
-                      console.log('isp_upload fail result', e, result);
+                      // console.log('isp_upload fail result', e, result);
                       return false;
                     });
           me.app.sys.dataSequence = args.dataSequence;
           yield me.app.ispService.writeSys(me.app.sys);
           return true;
         } catch (e) {
-          console.log(e.stack);
+          // console.log(e.stack);
           return false;
         }
       };
@@ -1436,27 +1433,27 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
           args.beianInfo = beianInfo.beianInfo;
           args.beianInfoHash = beianInfo.beianInfoHash;
 
-          console.log('dataSequence upload:', args.dataSequence);
+          // console.log('dataSequence upload:', args.dataSequence);
         } catch (e) {
           EasyNode.DEBUG && logger.debug(` ${e}`);
           return false;
         }
-        console.log('isp_upload hsjg......');
+        // console.log('isp_upload hsjg......');
         try {
           var ds = yield me.app.ispService.isp_upload(args)
               .then(function(result) {
-                console.log('is_upload hsjg success', result);
+                // console.log('is_upload hsjg success', result);
                 args.dataSequence = result;
               })
               .catch(function(e, result) {
-                console.log('isp_upload hsjg fail result', e, result);
+                // console.log('isp_upload hsjg fail result', e, result);
                 return false;
               });
           me.app.sys.dataSequence = args.dataSequence;
           yield me.app.ispService.writeSys(me.app.sys);
           return true;
         } catch (e) {
-          console.log(e.stack);
+          // console.log(e.stack);
           return false;
         }
       };
@@ -1473,24 +1470,24 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
         var ret = {};
 
         try {
-          console.log('isp_verifybamm......');
+          // console.log('isp_verifybamm......');
 
           args = me.app.ispService.getInitParam();
           args.baxh = baxh;
           args.bamm = bamm;
-          console.log(args);
+          // console.log(args);
           ret = yield me.app.ispService.isp_verifybamm(args)
               .then(function(result) {
-                console.log('isp_verifybamm success', result);
+                // console.log('isp_verifybamm success', result);
                 return result;
               })
               .catch(function(e, result) {
-                console.log('isp_verifybamm fail result', e, result);
+                // console.log('isp_verifybamm fail result', e, result);
                 return {ret:false, msg:'Error'};
               });
           return ret;
         } catch (e) {
-          console.log(e.stack);
+          // console.log(e.stack);
           return ret;
         }
       };
@@ -1506,7 +1503,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
         var ret = {};
 
         try {
-          console.log('isp_querybeianstatus......');
+          // console.log('isp_querybeianstatus......');
 
           args = me.app.ispService.getInitParam();
           args.queryConditionType = queryConditionType;
@@ -1514,16 +1511,16 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
 
           ret = yield me.app.ispService.isp_querybeianstatus(args)
               .then(function(result) {
-                console.log('isp_querybeianstatus success', result);
+                // console.log('isp_querybeianstatus success', result);
                 return result;
               })
               .catch(function(e, result) {
-                console.log('isp_querybeianstatus fail result', e, result);
+                // console.log('isp_querybeianstatus fail result', e, result);
                 return {ret:false, msg:'Error'};
               });
           return ret;
         } catch (e) {
-          console.log(e.stack);
+          // console.log(e.stack);
           return ret;
         }
       };
@@ -1613,16 +1610,16 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
 
         walk(localurl);
 
-        console.log(fileList);
+        // console.log(fileList);
 
         for (var index = 0; index < fileList.length; index += 1) {
           var fileName = fileList[index];
           var pos = fileName.lastIndexOf('/') + 1;
           fileName = fileName.substr(pos, (fileName.length - pos));
-          console.log(fileName);
+          // console.log(fileName);
           var key = `${version}_${process.env.ENV}_${fileName}`;
           var url = yield me.uploadNos(key, fileList[index]);
-          console.log(url);
+          // console.log(url);
         }
 
         return {ret:true};

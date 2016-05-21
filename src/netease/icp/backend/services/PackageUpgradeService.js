@@ -30,7 +30,6 @@ import child_process from 'child_process';
     }
 
     exec(command) {
-      console.log(command);
       return new Promise((resolve, reject) => {
         child_process.exec(command, (err, stdout, stderr) => {
           if (err) {

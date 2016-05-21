@@ -369,17 +369,14 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
             EasyNode.DEBUG && logger.debug(`isp_upload to ${args} success`);
             var xml = result.return;
             var json = parser.toJson(xml, {object: true, arrayNotation: false});
-            console.log(json);
             if (parseInt(json.return.msg_code) == 0) {
               var msg = json.return.msg;
               me.dataSequence += 1;
               res(me.dataSequence);
-              console.log(msg);
             } else if (parseInt(json.return.msg_code) == 14) {
               res(json.return.dataSequences.dataSequence);
             } else {
-              EasyNode.DEBUG && console.log(map[json.return.msg_code]);
-              console.log(json);
+              EasyNode.DEBUG && logger.debug(map[json.return.msg_code]);
               res(me.dataSequence);
             }
           }
@@ -450,7 +447,6 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
         me.clientReport.isp_download(args, function(err, result) {
           if (err) {
             EasyNode.DEBUG && logger.debug(`isp_download to ${args} failed, err: ${err},result: ${result}`);
-            console.log(result);
             rej();
           } else {
                         // EasyNode.DEBUG && logger.debug(`isp_download to ${args} success`);
@@ -596,7 +592,7 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
             if (parseInt(json.return.msg_code) == 0) {
               me.dataSequence = parseInt(json.return.fileInfos.dataSequence);
             } else {
-              EasyNode.DEBUG && console.log(map[json.return.msg_code]);
+              EasyNode.DEBUG && logger.debug(map[json.return.msg_code]);
             }
             EasyNode.DEBUG && logger.debug(` e.dataSequence: ${me.dataSequence}`);
             res(json.return.fileInfos);
@@ -688,12 +684,11 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
             EasyNode.DEBUG && logger.debug(`isp_querybeianstatus to ${args} success`, result);
             var xml = result.return;
             var json = parser.toJson(xml, {object: true, arrayNotation: false});
-            console.log(json);
             var msg = json.return.msg;
             if (parseInt(json.return.msg_code) == 0) {
               res({ret: true, msg: msg, StatusInfo: json.return.StatusInfo});
             } else {
-              EasyNode.DEBUG && console.log(map.get(parseInt(json.return.msg_code)));
+              EasyNode.DEBUG && logger.debug(map.get(parseInt(json.return.msg_code)));
               res({ret: false, msg: msg, StatusInfo: {}});
             }
           }
@@ -760,12 +755,11 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
             EasyNode.DEBUG && logger.debug(`isp_verifybamm to ${args} success`, result);
             var xml = result.return;
             var json = parser.toJson(xml, {object: true, arrayNotation: false});
-            console.log(json);
             var msg = json.return.msg;
             if (parseInt(json.return.msg_code) == 0) {
               res({ret: json.return.VerifyRes === 0, msg: msg});
             } else {
-              EasyNode.DEBUG && console.log(map.get(parseInt(json.return.msg_code)));
+              EasyNode.DEBUG && logger.debug(map.get(parseInt(json.return.msg_code)));
               res({ret: false, msg: msg});
             }
           }
@@ -870,8 +864,6 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
         var zipArchiver = archiver('zip');
 
         output.on('close', function() {
-          console.log(`${zipArchiver.pointer()} total bytes`);
-          console.log('archiver has been finalized and the output file descriptor has closed.');
           res();
         });
 
@@ -894,14 +886,12 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
     unzip(buffer, fileName) {
       return new Promise(function(res, rej) {
 
-        console.log(fileName);
         var resolved = false;
 
         var zip = new AdmZip(buffer);
         var zipEntries = zip.getEntries(); // an array of ZipEntry records
 
         zipEntries.forEach(function(zipEntry) {
-          console.log(zipEntry.entryName);
           if (zipEntry.entryName == fileName) {
             resolved = true;
             res(zipEntry.getData());
@@ -956,7 +946,6 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
             contentCompression = me.decryption(contentCompression);
           } catch (e) {
             EasyNode.DEBUG && logger.debug(` ${e}`);
-            console.log(e.stack);
             return ret;
           }
         }
@@ -980,7 +969,6 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
 
           } catch (e) {
             EasyNode.DEBUG && logger.debug(` ${e}`);
-
           }
         } else {
                     // check fail
@@ -1024,7 +1012,6 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
         return ret;
       };
     }
-
 
     addressDownloadDataICP(json) {
       var me = this;
@@ -1108,15 +1095,15 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
       var me = this;
       return function *() {
         if (json.DownloadData.ICP.BAJG.hasOwnProperty('Jg_xx')) {
-          console.log('BAJG:', json.DownloadData.ICP.BAJG.Jg_xx);
+          // console.log('BAJG:', json.DownloadData.ICP.BAJG.Jg_xx);
         }
         if (json.DownloadData.ICP.BAJG.hasOwnProperty('GJSHS')) {
-          console.log('BAJG:', json.DownloadData.ICP.BAJG.GJSHS);
+          // console.log('BAJG:', json.DownloadData.ICP.BAJG.GJSHS);
           var gjsh = json.DownloadData.ICP.GJSHS.Gjsh;
           for (var index = 0; index < gjsh.length; index += 1) {
             var storeService = new StoreService(me.app);
             var ret = yield storeService.putRecordbgjsh(gjsh[index]);
-            console.log('addressICPBAJG result:', ret);
+            // console.log('addressICPBAJG result:', ret);
           }
 
                     // 1. 记录管局的审核意见
@@ -1171,7 +1158,7 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
       EasyNode.DEBUG && logger.debug(' addressDownloadDataIPBAJG ', json);
       var me = this;
       return function *() {
-        console.log('BAJG:', json.DownloadData.IP.BAJG[0]);
+        // console.log('BAJG:', json.DownloadData.IP.BAJG[0]);
         return true;
       };
     }
@@ -1181,7 +1168,7 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
       var me = this;
       return function *() {
         if (json.DownloadData.IP.HCJG.hasOwnProperty('Jgxx')) {
-          console.log('Lyjg:', json.DownloadData.IP.HCJG.Jgxx);
+         // console.log('Lyjg:', json.DownloadData.IP.HCJG.Jgxx);
         }
         return true;
       };
@@ -1213,7 +1200,6 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
 
     getPhoto(url, size, min, max, cur) {
       var me = this;
-      console.log(url);
       return function *() {
         var image = yield me.downloadNos(url + cur);
         var image64 = new Buffer(image).toString('base64');
@@ -1489,7 +1475,6 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
         var ret = yield storeService.putSys(1, 1, JSON.stringify(sys));
         if (ret == true) {
           me.dataSequence = parseInt(sys.dataSequence);
-          console.log('write dataSequence:', me.dataSequence);
         }
       };
     }
@@ -1505,15 +1490,15 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
 
           res.on('end', function(err) {
             if (err) {
-              console.log('down fail');
+              // console.log('down fail');
               rej();
             }
-            console.log('down success');
+            // console.log('down success');
             resq(imgData);
           });
 
           res.socket.on('error', function() {
-            console.log('err');
+            // console.log('err');
           });
         });
       });
@@ -1531,16 +1516,16 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
 
           res.on('end', function(err) {
             if (err) {
-              console.log('down fail');
+              // console.log('down fail');
               rej();
             }
-            console.log('down success');
+            // console.log('down success');
             var data = Buffer.concat(chunks, size);
             resq(data);
           });
 
           res.socket.on('error', function() {
-            console.log('err');
+            // console.log('err');
             rej();
           });
         });
@@ -1584,12 +1569,12 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
 
       var me = this;
       return function *() {
-        console.log('sessin', this.session);
+        // console.log('sessin', this.session);
         var tenantId = tId > 0 ? tId : this.session.user.tenantid;
         return new Promise(function(res, rej) {
-          console.log('tenantId', tenantId);
+          // console.log('tenantId', tenantId);
           var url = `${me.tenantpubips.urlPath}?secret=${me.tenantpubips.secret}&tenantId=${tenantId}`;
-          console.log(url);
+          // console.log(url);
           request.post(url)
                         .end(function(err, ret) {
                           if (err) {

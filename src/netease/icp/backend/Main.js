@@ -72,7 +72,6 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
       });
 
       var pid = S(EasyNode.config('easynode.app.pid', '/var/tmp/icp.pid')).toString();
-      console.log('pid', pid);
       fs.writeFileSync(pid, process.pid);
 
       httpServer.ds = ds;
@@ -86,14 +85,12 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
             // 设置ContextHook,
       httpServer.setActionContextListener({
         onCreate: function(ctx) {
-          console.log('onCreate');
           return function *() {
             ctx.setConnection(yield ds.getConnection());
             yield ctx.getConnection().beginTransaction();
           };
         },
         onDestroy: function(ctx) {
-          console.log('onDestroy');
           return function *() {
             yield ctx.getConnection().commit();
             yield ds.releaseConnection(ctx.getConnection());
@@ -101,7 +98,6 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
         },
 
         onError: function(ctx, err) {
-          console.log('onError');
           return function *() {
             yield ctx.getConnection().rollback();
             !err.executeResult && logger.error(err.stack);
