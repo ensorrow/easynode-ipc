@@ -711,3 +711,13 @@ If you still can't figure out the problem, please stop by https://gitter.im/esli
 116.
 eslint js --ext .js,.jsx --fix
 
+117.
+ESLint couldn't find the plugin "eslint-plugin-react". This can happen for a couple different reasons:
+
+1. If ESLint is installed globally, then make sure eslint-plugin-react is also installed globally. A globally-installed ESLint cannot find a locally-installed plugin.
+
+2. If ESLint is installed locally, then it's likely that the plugin isn't installed correctly. Try reinstalling by running the following:
+
+    npm i eslint-plugin-react@latest --save-dev
+
+If you still can't figure out the problem, please stop by https://gitter.im/eslint/eslint to chat with the team.
