@@ -580,7 +580,7 @@ getSys(k=0){
 90. soap,json2xml库改成 isp-soap, isp-json2xml  则必须在package.json里改名,引用头文件里改名,node_modules里改名
 
 91. why define.js 存入public/netease/icp/constant/define.js ,Webpack 打包出现问题
-92. decryption(data) {
+92. decrypt(data) {
                 var key = KEY;
                 var iv = OFFSET;
                 var clearEncoding = 'binary';

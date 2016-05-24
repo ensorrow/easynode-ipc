@@ -14,6 +14,8 @@ RUN npm install apidoc -g
 
 RUN npm install -g webpack
 
+RUN npm install -g eslint
+
 RUN mkdir -p /usr/src/app
 
 COPY package.json /usr/src/app
@@ -24,7 +26,11 @@ RUN npm install
 
 COPY . /usr/src/app
 
+RUN eslint src --ext .js --fix
+
 WORKDIR /usr/src/app/plugins
+
+RUN eslint js --ext .js,.jsx --fix
 
 RUN webpack --config webpack.prod.config.js
 

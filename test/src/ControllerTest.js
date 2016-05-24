@@ -1,6 +1,7 @@
-/**
+/*
+/!**
  * Created by hujiabao on 9/21/15.
- */
+ *!/
 
 'use strict';
 
@@ -94,15 +95,15 @@ describe('ControllerTest',function() {
             });
     });
 
-    /* it('Put /admin/record',function (done){
+    /!* it('Put /admin/record',function (done){
 
          //590-首次备案  603-新增网站 669-新增接入
          request.put('http://icpdev.hzspeed.cn/admin/record')
              .send({id:724,status:7,reasons:'passed',checkedlisturl:'http://apollodev.nos.netease.com/1460686622187%E7%99%BB%E5%BD%952.png'})
              .end(done);
-     });*/
+     });*!/
 
-  /*  it('Post /admin/recordsbystatus',function (done){
+  /!*  it('Post /admin/recordsbystatus',function (done){
 
         request.post('http://icpdev.hzspeed.cn/admin/recordsbystatus')
             .send({filter:[1],rpp:20,page:0})
@@ -119,15 +120,15 @@ describe('ControllerTest',function() {
                 done();
             });
     });
-*/
-    /*it('Put /admin/area',function (done){
+*!/
+    /!*it('Put /admin/area',function (done){
 
         request.post('http://icpdev.hzspeed.cn/admin/area')
             .send({code:'111',name:'test',level:'县'})
             .end(done);
-    });*/
+    });*!/
 
-    /*it('get area code',function (done){
+    /!*it('get area code',function (done){
 
         var opts = {
             "page.pageSize":"20",
@@ -142,9 +143,9 @@ describe('ControllerTest',function() {
                 done();
             });
 
-    })*/
+    })*!/
 
-   /* it('get tenants public ips ',function (done){
+   /!* it('get tenants public ips ',function (done){
 
         request.post('https://c.163.com/api/account/pubips?secret=3soLEF67wx&tenantId=b261f52d302b43ba821a6d731b17034c')
             //.send({secret:'3soLEF67wx',tenantId:'b261f52d302b43ba821a6d731b17034c'})
@@ -166,7 +167,7 @@ describe('ControllerTest',function() {
             .send({id:684,status:1,reasons:'passed',tenantid:'cffbc4146a7941f9ad443ad650518ff1'})
             .end(done);
     });
-*/
+*!/
 
     //it('Get /admin/records',function (done){
     //
@@ -272,3 +273,4 @@ describe('ControllerTest',function() {
     });
 
 });
+*/

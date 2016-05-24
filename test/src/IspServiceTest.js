@@ -398,8 +398,8 @@ describe('IspService',function() {
     //        console.log(fileInfos);
     //        yield ispService.decryptContent([fileInfos.beianInfo,fileInfos.beianInfoHash],fileInfos.compressionFormat,fileInfos.hashAlgorithm,fileInfos.encryptAlgorithm);
     //
-    //        //var encoded = ispService.encryption("abcdefghijklmnopqrstuvwxyz");
-    //        //var decoded = ispService.decryption(encoded);
+    //        //var encoded = ispService.encrypt("abcdefghijklmnopqrstuvwxyz");
+    //        //var decoded = ispService.decrypt(encoded);
     //        //console.log(encoded);
     //        //console.log(decoded);
     //

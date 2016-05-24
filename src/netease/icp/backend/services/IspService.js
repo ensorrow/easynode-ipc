@@ -943,7 +943,7 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
         } else {
           try {
             contentCompression = contentDecodebase64;
-            contentCompression = me.decryption(contentCompression);
+            contentCompression = me.decrypt(contentCompression);
           } catch (e) {
             EasyNode.DEBUG && logger.debug(` ${e}`);
             return ret;
@@ -1416,14 +1416,13 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
         };
     }
 
-
-    encryption(data) {
+    encrypt(data) {
       var key = this.icp.KEY;
       var iv = this.icp.OFFSET;
       var clearEncoding = 'utf8';
       var cipherEncoding = 'base64';
       var cipherChunks = [];
-      var cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
+      var cipher = crypto.createCipheriv('aes-128-cbc', key, iv);
       cipher.setAutoPadding(true);
 
       var enc = cipher.update(data, clearEncoding, cipherEncoding);
@@ -1432,13 +1431,43 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
       return enc;
     }
 
-        // data 是你的准备解密的字符串,key是你的密钥
-    decryption(data) {
+    encryptAdv(data) {
+      var key = this.icp.KEY;
+      var iv = this.icp.OFFSET;
+      var clearEncoding = 'utf8';
+      var cipherEncoding = 'base64';
+      var cipherChunks = [];
+      var cipher = crypto.createCipherivAdv('aes-128-cbc', key, iv);
+      cipher.setAutoPadding(true);
+
+      var enc = cipher.update(data, clearEncoding, cipherEncoding);
+      enc += cipher.final(cipherEncoding);
+
+      return enc;
+    }
+
+        // data 是你的准备解密的字符串,key是你的密
+    decrypt(data) {
       var key = this.icp.KEY;
       var iv = this.icp.OFFSET;
       var clearEncoding = 'binary';
       var cipherEncoding = 'base64';
       var decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
+      decipher.setAutoPadding(true);
+
+      var enc = decipher.update(data, cipherEncoding, clearEncoding);
+      enc += decipher.final(clearEncoding);
+
+      return enc;
+    }
+
+    // data 是你的准备解密的字符串,key是你的密
+    decryptAdv(data) {
+      var key = this.icp.KEY;
+      var iv = this.icp.OFFSET;
+      var clearEncoding = 'binary';
+      var cipherEncoding = 'base64';
+      var decipher = crypto.createDecipherivAdv('aes-128-cbc', key, iv);
       decipher.setAutoPadding(true);
 
       var enc = decipher.update(data, cipherEncoding, clearEncoding);
