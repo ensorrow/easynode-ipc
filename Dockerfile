@@ -2,6 +2,9 @@ FROM hub.c.163.com/hujb2000/easynode:7.0.1
 
 MAINTAINER hujb
 
+RUN rm /bin/sh && \
+    ln -s /bin/bash /bin/sh
+
 RUN npm install -g cnpm --registry=https://r.cnpmjs.org
 
 RUN npm install -g easynode-watch
