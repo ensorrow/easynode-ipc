@@ -2,24 +2,15 @@ FROM hub.c.163.com/hujb2000/easynode:7.0.1
 
 MAINTAINER hujb
 
-RUN rm /bin/sh && \
-    ln -s /bin/bash /bin/sh
-
-RUN npm install -g cnpm --registry=https://r.cnpmjs.org
-
-RUN npm install -g easynode-watch
-
-RUN npm install -g node-gyp
-
-RUN npm install -g babel-cli
-
-RUN npm install apidoc -g
-
-RUN npm install -g webpack
-
-RUN npm install -g eslint
-
-RUN npm install -g eslint-plugin-react
+RUN source $HOME/.bashrc && \
+    npm install -g cnpm --registry=https://r.cnpmjs.org && \
+    npm install -g easynode-watch && \
+    npm install -g node-gyp && \
+    npm install -g babel-cli && \
+    npm install apidoc -g && \
+    npm install -g webpack &&\
+    npm install -g eslint && \
+    npm install -g eslint-plugin-react && \
 
 
 RUN mkdir -p /usr/src/app
@@ -28,7 +19,8 @@ COPY package.json /usr/src/app
 
 WORKDIR /usr/src/app
 
-RUN npm install
+RUN source $HOME/.bashrc && \ 
+          npm install
 
 COPY . /usr/src/app
 
