@@ -1,6 +1,7 @@
-/**
+/*
+/!**
  * Created by hujiabao on 9/21/15.
- */
+ *!/
 
 'use strict';
 
@@ -62,3 +63,4 @@ describe('EncryptDescryptTest',function() {
     });
 
 });
+*/
