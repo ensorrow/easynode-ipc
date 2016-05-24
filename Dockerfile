@@ -18,7 +18,6 @@ RUN npm install -g eslint
 
 RUN npm install -g eslint-plugin-react
 
-RUN npm install -g easynode
 
 RUN mkdir -p /usr/src/app
 
@@ -26,7 +25,7 @@ COPY package.json /usr/src/app
 
 WORKDIR /usr/src/app
 
-#RUN npm install
+RUN npm install
 
 COPY . /usr/src/app
 
