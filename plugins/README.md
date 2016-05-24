@@ -721,3 +721,5 @@ ESLint couldn't find the plugin "eslint-plugin-react". This can happen for a cou
     npm i eslint-plugin-react@latest --save-dev
 
 If you still can't figure out the problem, please stop by https://gitter.im/eslint/eslint to chat with the team.
+118.
+envm can't put the npm and node in the standard path in the /bin/sh, so source /root/.bashrc in every instruction
