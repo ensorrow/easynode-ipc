@@ -10,7 +10,7 @@ RUN source $HOME/.bashrc && \
     npm install apidoc -g && \
     npm install -g webpack &&\
     npm install -g eslint && \
-    npm install -g eslint-plugin-react && \
+    npm install -g eslint-plugin-react
 
 
 RUN mkdir -p /usr/src/app
