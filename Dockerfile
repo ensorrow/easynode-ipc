@@ -2,30 +2,17 @@ FROM hujb2000/easynode:6.2.0
 
 MAINTAINER hujb
 
-RUN source $HOME/.bashrc && \
-    npm install -g cnpm --registry=https://r.cnpmjs.org && \
-    npm install -g easynode-watch && \
-    npm install -g node-gyp && \
-    npm install -g babel-cli && \
-    npm install apidoc -g && \
-    npm install -g webpack &&\
-    npm install -g eslint && \
-    npm install -g eslint-plugin-react
-
-
-RUN mkdir -p /usr/src/app
-
-COPY package.json /usr/src/app
-
 WORKDIR /usr/src/app
 
-RUN source $HOME/.bashrc && \ 
-          npm install
+RUN mv /usr/src/easynode/node_modules /usr/src/app
+
+#RUN source $HOME/.bashrc && \
+#     npm install easynode
 
 COPY . /usr/src/app
 
 RUN source $HOME/.bashrc && \
-    eslint src --ext .js --fix
+   eslint src --ext .js --fix
 
 WORKDIR /usr/src/app/plugins
 
