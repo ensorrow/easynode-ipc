@@ -24,21 +24,26 @@ RUN source $HOME/.bashrc && \
 
 COPY . /usr/src/app
 
-RUN eslint src --ext .js --fix
+RUN source $HOME/.bashrc && \
+    eslint src --ext .js --fix
 
 WORKDIR /usr/src/app/plugins
 
-RUN eslint js --ext .js,.jsx --fix
+RUN source $HOME/.bashrc && \
+    eslint js --ext .js,.jsx --fix
 
-RUN webpack --config webpack.prod.config.js
+RUN source $HOME/.bashrc && \
+    webpack --config webpack.prod.config.js
 
 WORKDIR /usr/src/app/plugins/apidoc
 
-RUN sh apidoc.sh
+RUN source $HOME/.bashrc && \
+    sh apidoc.sh
 
 WORKDIR /usr/src/app
 
-RUN babel src -d lib
+RUN source $HOME/.bashrc && \
+	babel src -d lib
 
 RUN rm -rf src plugins/webpack.prod.config.js  plugins/apidoc plugins/css plugins/js
 
