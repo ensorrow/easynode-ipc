@@ -7,3 +7,5 @@ tail -f logs/SmartwatchBackendService1.log
 
 
 
+
+
