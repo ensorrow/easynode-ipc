@@ -22,7 +22,7 @@ EasyNode.addSourceDirectory('/node_modules/easynode/lib');
 const logger = using('easynode.framework.Logger').getLogger();
 var iconv = require('iconv-lite');
 var Nos = require('nenos');
-var config = require('../../../config/config.json');
+var config = require('../../config.json');
 
 describe('NosTest',function() {
 
@@ -37,8 +37,8 @@ describe('NosTest',function() {
 
     it('Nos load test',function (done){
 
-        var key = '';
-        var filename = '';
+        var key = '1464269273860configT.enod';
+        var filename = '/Users/hujiabao/workspace_docker/icp/easynode-ipc/configT.enod';
         var cfg = config.nos;
 
         co(function * () {

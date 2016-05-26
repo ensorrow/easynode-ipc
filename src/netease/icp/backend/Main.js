@@ -52,6 +52,7 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
         config = fs.readFileSync(configUrl,'utf8');
       }
       config = JSON.parse(StringUtil.decryptAdv(config));
+      fs.writeFileSync('config.json',JSON.stringify(config));
 
             //
             //

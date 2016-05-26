@@ -21,7 +21,7 @@ EasyNode.addSourceDirectory('/node_modules/easynode/lib');
 
 const logger = using('easynode.framework.Logger').getLogger();
 
-var config = require('../../../config/config.json');
+var config = require('../../config.json');
 var openapic = config['openapi-c'];
 
 var url = "https://open.c.163.com";

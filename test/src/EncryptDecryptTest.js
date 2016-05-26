@@ -25,8 +25,13 @@ var iconv = require('iconv-lite');
 var IspService = using('netease.icp.backend.services.IspService');
 var ispService ;
 
-var config = require('../../../config/config.json');
-//var config = require('/Users/hujiabao/Downloads/146192995136214606349336371459339304947.json');
+
+var env = process.env.ENV;
+const configPath = env == 'PRODUCTION' ? '../../configP.json' :
+    env == 'TEST' ? '../../configT.json' : '../../config.json';
+const encryptedPath = env == 'PRODUCTION' ? 'configP.enod' :
+    env == 'TEST' ? 'configT.enod' : 'config.enod';
+var config = require(configPath);
 var encryptedData = '';
 
 describe('EncryptDescryptTest',function() {
@@ -45,14 +50,14 @@ describe('EncryptDescryptTest',function() {
     it('encrypt test',function (done){
 
         encryptedData = ispService.encryptAdv(JSON.stringify(config));
-        fs.writeFileSync("config.enod",encryptedData,'utf8');
+        fs.writeFileSync(encryptedPath,encryptedData,'utf8');
         console.log(encryptedData);
         done();
     })
 
     it('decrypt test',function (done){
 
-        config = fs.readFileSync('config.enod','utf8');
+        config = fs.readFileSync(encryptedPath,'utf8');
         var config = ispService.decryptAdv(config);
 
         config = iconv.decode( config, 'utf8');
