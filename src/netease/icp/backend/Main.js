@@ -47,11 +47,11 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
       var configUrl = process.env.CONFIG_URL;
       var config = {};
       if( configUrl.startsWith('http') ){
-        config = yield HTTPUtil.getJSON(configUrl);
+        config = yield HTTPUtil.getBinary(configUrl);
       } else {
-        config = fs.readFileSync(configUrl);
+        config = fs.readFileSync(configUrl,'utf8');
       }
-      config = JSON.parse(StringUtil.decryptAdv(config.toString('utf8')));
+      config = JSON.parse(StringUtil.decryptAdv(config));
 
             //
             //

@@ -36,8 +36,8 @@ describe('NosTest',function() {
 
     it('Nos load test',function (done){
 
-        var key = '146192995136214606349336371459339304947';
-        var filename = '/Users/hujiabao/Downloads/146192995136214606349336371459339304947';
+        var key = '';
+        var filename = '';
         var cfg = config.nos;
 
         co(function * () {

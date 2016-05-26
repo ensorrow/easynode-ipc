@@ -1528,7 +1528,7 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
 
           res.socket.on('error', function() {
             // console.log('err');
-          });
+          });1
         });
       });
     }
