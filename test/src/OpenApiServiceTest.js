@@ -1,6 +1,7 @@
-/**
+/*
+/!**
  * Created by hujiabao on 9/21/15.
- */
+ *!/
 
 'use strict';
 
@@ -79,7 +80,7 @@ describe('OpenApiServiceTest',function() {
             });
     });
 
-    /*
+    /!*
         it('create image\'s tag',function (done){
             request.post(url+'/api/v1/repositories/icp/tags/0.0.36/actions/build')
                 .set('Authorization', 'Token ' + token.token)
@@ -92,9 +93,9 @@ describe('OpenApiServiceTest',function() {
                     console.log(res.text);
                     done();
                 });
-        });*/
+        });*!/
 
-    /* var tags = {"tags":[{"name":"0.0.35","size":0,"status":2},{"name":"0.0.34","size":0,"status":2},{"name":"0.0.33","size":0,"status":2},{"name":"0.0.32","size":0,"status":2},{"name":"0.0.31","size":0,"status":2},{"name":"0.0.30","size":0,"status":2},{"name":"0.0.29","size":0,"status":2},{"name":"0.0.28","size":0,"status":2},{"name":"0.0.27","size":0,"status":2},{"name":"0.0.26","size":0,"status":2},{"name":"0.0.25","size":0,"status":2},{"name":"0.0.24","size":0,"status":2},{"name":"0.0.23","size":0,"status":2},{"name":"0.0.21","size":0,"status":2},{"name":"0.0.20","size":0,"status":2},{"name":"0.0.19","size":0,"status":2},{"name":"0.0.16","size":0,"status":2},{"name":"0.0.15","size":0,"status":2},{"name":"0.0.14","size":0,"status":2},{"name":"0.0.13","size":0,"status":2},{"name":"0.0.12","size":0,"status":2},{"name":"0.0.11","size":0,"status":2},{"name":"0.0.10","size":0,"status":2},{"name":"0.0.9","size":0,"status":2},{"name":"0.0.8","size":0,"status":2},{"name":"0.0.7","size":0,"status":2},{"name":"0.0.4","size":838386207,"status":2},{"name":"0.0.3","size":841825961,"status":2},{"name":"0.0.6","size":0,"status":2},{"name":"0.0.5","size":855271019,"status":2}],"repo_id":424,"user_name":"hujb2000","repo_name":"icp","open_level":0,"base_desc":null,"detail_desc":null,"tag_count":30,"download_url":"hub.c.163.com/hujb2000/icp:0.0.35","created_at":"2016-01-28T17:50:45Z","updated_at":"2016-05-06T01:51:29Z"};
+    /!* var tags = {"tags":[{"name":"0.0.35","size":0,"status":2},{"name":"0.0.34","size":0,"status":2},{"name":"0.0.33","size":0,"status":2},{"name":"0.0.32","size":0,"status":2},{"name":"0.0.31","size":0,"status":2},{"name":"0.0.30","size":0,"status":2},{"name":"0.0.29","size":0,"status":2},{"name":"0.0.28","size":0,"status":2},{"name":"0.0.27","size":0,"status":2},{"name":"0.0.26","size":0,"status":2},{"name":"0.0.25","size":0,"status":2},{"name":"0.0.24","size":0,"status":2},{"name":"0.0.23","size":0,"status":2},{"name":"0.0.21","size":0,"status":2},{"name":"0.0.20","size":0,"status":2},{"name":"0.0.19","size":0,"status":2},{"name":"0.0.16","size":0,"status":2},{"name":"0.0.15","size":0,"status":2},{"name":"0.0.14","size":0,"status":2},{"name":"0.0.13","size":0,"status":2},{"name":"0.0.12","size":0,"status":2},{"name":"0.0.11","size":0,"status":2},{"name":"0.0.10","size":0,"status":2},{"name":"0.0.9","size":0,"status":2},{"name":"0.0.8","size":0,"status":2},{"name":"0.0.7","size":0,"status":2},{"name":"0.0.4","size":838386207,"status":2},{"name":"0.0.3","size":841825961,"status":2},{"name":"0.0.6","size":0,"status":2},{"name":"0.0.5","size":855271019,"status":2}],"repo_id":424,"user_name":"hujb2000","repo_name":"icp","open_level":0,"base_desc":null,"detail_desc":null,"tag_count":30,"download_url":"hub.c.163.com/hujb2000/icp:0.0.35","created_at":"2016-01-28T17:50:45Z","updated_at":"2016-05-06T01:51:29Z"};
 
          tags.tags.forEach((cur,index)=>{
          it('delete image\'s tags',function (done){
@@ -111,9 +112,9 @@ describe('OpenApiServiceTest',function() {
                  });
          });
      })
- */
+ *!/
 
-   /* it('get contains list',function (done){
+   /!* it('get contains list',function (done){
         request.get(url+'/api/v1/containers')
             .send({limit:20,offset:0})
             .set('Authorization', 'Token ' + token.token)
@@ -125,7 +126,7 @@ describe('OpenApiServiceTest',function() {
                 done();
             });
     });
-*/
+*!/
 
     it('get apps list',function (done){
         request.get(url+'/api/v1/apps')
@@ -166,7 +167,7 @@ describe('OpenApiServiceTest',function() {
             });
     });
 
-  /*  var newapp = {
+  /!*  var newapp = {
         "name": "icp3",
         "desc": "",
         "domain": "",
@@ -218,7 +219,7 @@ describe('OpenApiServiceTest',function() {
                 done();
             });
     });
-    */
+    *!/
 
     after(function(done){
         console.log("OpenApiServiceTest after");
@@ -227,3 +228,4 @@ describe('OpenApiServiceTest',function() {
     });
 
 });
+*/
