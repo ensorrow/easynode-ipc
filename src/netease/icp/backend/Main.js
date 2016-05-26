@@ -7,6 +7,7 @@ var thunkify = require('thunkify');
 var Routes = using('netease.icp.backend.routes.Routes');
 var MySqlDataSource = using('easynode.framework.db.MysqlDataSource');
 var HTTPUtil = using('easynode.framework.util.HTTPUtil');
+var StringUtil = using('easynode.framework.util.StringUtil');
 var IspService = using('netease.icp.backend.services.IspService');
 var schedule = require('node-schedule');
 var StoreService = using('netease.icp.backend.services.StoreService');
@@ -45,7 +46,13 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
             // load config
       var configUrl = process.env.CONFIG_URL;
       var config = {};
-      config = configUrl.startsWith('http') ? yield HTTPUtil.getJSON(configUrl) : require(configUrl);
+      if( configUrl.startsWith('http') ){
+        config = yield HTTPUtil.getJSON(configUrl);
+      } else {
+        config = fs.readFileSync(configUrl);
+      }
+      config = JSON.parse(StringUtil.decryptAdv(config.toString('utf8')));
+
             //
             //
             // //Database source, connection pool

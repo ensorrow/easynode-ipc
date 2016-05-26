@@ -11,6 +11,7 @@ import request from 'superagent';
 const assert = chai.assert;
 
 
+
 require('easynode');
 EasyNode.ENV(process.env.ENV);
 EasyNode.addArg('easynode-home',process.cwd());
@@ -19,10 +20,8 @@ EasyNode.addSourceDirectory('/node_modules/easynode/lib');
 
 const logger = using('easynode.framework.Logger').getLogger();
 
-var openapic = {
-    "app_key": "daaf3fdb307f4a38844211325116b72c",
-    "app_secret": "bc12d62d47344a31b3c21a8693e2498d"
-};
+var config = require('../../../config/config.json');
+var openapic = config['openapi-c'];
 
 var url = "https://open.c.163.com";
 var token = {};
@@ -178,7 +177,7 @@ describe('OpenApiServiceTest',function() {
         "env_var": {
             "ENV": "PRODUCTION",
             "PORT": "81",
-            "CONFIG_URL": "http://apollodev.nos.netease.com/146192995136214606349336371459339304947"
+            "CONFIG_URL": ""
         },
         "version_control": {
             "type": "git",
@@ -221,8 +220,6 @@ describe('OpenApiServiceTest',function() {
     });
     */
 
-    //icp4 hook:
-    //icp2 hook: https://open.c.163.com/api/v1/hooks/app/5a560695727647cbb0a10eceb4964a40
     after(function(done){
         console.log("OpenApiServiceTest after");
         done();

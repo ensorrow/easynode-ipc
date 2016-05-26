@@ -723,3 +723,7 @@ ESLint couldn't find the plugin "eslint-plugin-react". This can happen for a cou
 If you still can't figure out the problem, please stop by https://gitter.im/eslint/eslint to chat with the team.
 118.
 envm can't put the npm and node in the standard path in the /bin/sh, so source /root/.bashrc in every instruction
+119.
+$ echo '.idea' >> .gitignore
+从git中删除idea：
+$ git rm —cached -r .idea

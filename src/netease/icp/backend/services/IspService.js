@@ -1432,8 +1432,8 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
     }
 
     encryptAdv(data) {
-      var key = this.icp.KEY;
-      var iv = this.icp.OFFSET;
+      var key = this.icp.KEY || '';
+      var iv = this.icp.OFFSET || '';
       var clearEncoding = 'utf8';
       var cipherEncoding = 'base64';
       var cipherChunks = [];
@@ -1463,8 +1463,8 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
 
     // data 是你的准备解密的字符串,key是你的密
     decryptAdv(data) {
-      var key = this.icp.KEY;
-      var iv = this.icp.OFFSET;
+      var key = 'XRDRUE7FFCRE1T7I';
+      var iv = '7VU2H0LLBG8373LK' ;
       var clearEncoding = 'binary';
       var cipherEncoding = 'base64';
       var decipher = crypto.createDecipherivAdv('aes-128-cbc', key, iv);

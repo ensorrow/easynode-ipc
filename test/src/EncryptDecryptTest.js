@@ -1,7 +1,6 @@
-/*
-/!**
+/**
  * Created by hujiabao on 9/21/15.
- *!/
+ */
 
 'use strict';
 
@@ -25,8 +24,8 @@ var iconv = require('iconv-lite');
 var IspService = using('netease.icp.backend.services.IspService');
 var ispService ;
 
-var config = require('../../config.json');
-
+//var config = require('../../../config/config.json');
+var config = require('/Users/hujiabao/Downloads/146192995136214606349336371459339304947.json');
 var encryptedData = '';
 
 describe('EncryptDescryptTest',function() {
@@ -45,13 +44,18 @@ describe('EncryptDescryptTest',function() {
     it('encrypt test',function (done){
 
         encryptedData = ispService.encryptAdv(JSON.stringify(config));
+        fs.writeFileSync("configP.enod",encryptedData,'utf8');
         console.log(encryptedData);
         done();
     })
 
     it('decrypt test',function (done){
 
+        config = fs.readFileSync('config.enod');
         var config = ispService.decryptAdv(encryptedData);
+
+        config = iconv.decode( config, 'utf8');
+        config = JSON.parse(config);
         console.log(config);
         done();
     })
@@ -63,4 +67,3 @@ describe('EncryptDescryptTest',function() {
     });
 
 });
-*/

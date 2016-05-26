@@ -21,6 +21,7 @@ EasyNode.addSourceDirectory('/node_modules/easynode/lib');
 const logger = using('easynode.framework.Logger').getLogger();
 var iconv = require('iconv-lite');
 var Nos = require('nenos');
+var config = require('../../../config/config.json');
 
 describe('NosTest',function() {
 
@@ -37,12 +38,7 @@ describe('NosTest',function() {
 
         var key = '146192995136214606349336371459339304947';
         var filename = '/Users/hujiabao/Downloads/146192995136214606349336371459339304947';
-        var cfg = {
-            "urlPath":"http://apollodev.nos.netease.com/",
-            "accessKey":"c92f74b0d48f4fb39271a1109da74cc2",
-            "secretKey":"f200fad9c6b541d28f01159de8d9ecea",
-            "bucket":"apollodev"
-        };
+        var cfg = config.nos;
 
         co(function * () {
             var url = `${cfg.urlPath}${key}`;
