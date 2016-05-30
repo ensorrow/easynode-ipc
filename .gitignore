@@ -67,3 +67,4 @@ configT.enod
 configP.enod
 lib
 config*
+bin/*.txt
