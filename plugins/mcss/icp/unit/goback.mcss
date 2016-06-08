@@ -15,7 +15,12 @@ $u-goback_padding_left = 20px;
 
 	position: static;
 	padding-left: $u-goback_padding_left;
-    height: $u-goback_height;
-    line-height: $u-goback_height;
+    //height: $u-goback_height;
+    //line-height: $u-goback_height;
 
+	.tip{
+	    font-size: 18px;
+        color: red;
+        text-align: center;
+	}
 }
