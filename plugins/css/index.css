@@ -401,7 +401,7 @@ table.gridtable td >a{font-family:MicrosoftYaHei;font-size:10.6px;color:#38abd0;
 .m-viewphoto-modal .m-viewphoto-dialog{z-index:999;margin-top:50px;}
 .m-viewphoto-modal .m-viewphoto-close{position:fixed;top:0;right:0;width:20px;height:20px;padding:20px;opacity:0.5;z-index:9998;}
 .u-goback{background:#fff;position:static;padding-left:20px;}
-.u-goback .tip{font-size:18px;color:#f00;text-align:center;}
+.u-goback .tip{font-size:18px;color:#f00;text-align:center;border:1px solid transparent;}
 .u-popover{background-color:#fff;padding:0 10px;line-height:30px;display:inline-block;color:#fc7272;white-space:nowrap;position:absolute;z-index:1;border:1px solid #fc7272;border-radius:2px;font-size:12px;left:100%;margin-left:10px;top:0px;}
 .u-popover:before{position:absolute;top:7px;left:-3px;z-index:1;content:"";width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-right:4px solid #fff;}
 .u-popover:after{position:absolute;top:7px;left:-5px;content:"";width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-right:4px solid #fc7272;}

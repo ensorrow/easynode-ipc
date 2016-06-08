@@ -31,7 +31,6 @@ dataSequence.bin
 
 test/src/NosTest.js
 plugins/README.md
-plugins/mcss
 plugins/test
 plugins/yuidoc
 plugins/webpack.config.js
