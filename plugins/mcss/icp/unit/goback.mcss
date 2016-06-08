@@ -22,5 +22,6 @@ $u-goback_padding_left = 20px;
 	    font-size: 18px;
         color: red;
         text-align: center;
+        border: 1px solid transparent;
 	}
 }
