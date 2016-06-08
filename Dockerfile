@@ -20,6 +20,9 @@ RUN source $HOME/.bashrc && \
     eslint js --ext .js,.jsx --fix
 
 RUN source $HOME/.bashrc && \
+    mcss mcss/index.mcss -o css/
+
+RUN source $HOME/.bashrc && \
     webpack --config webpack.prod.config.js
 
 WORKDIR /usr/src/app/plugins/apidoc
