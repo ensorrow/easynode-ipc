@@ -89,7 +89,7 @@ describe('ControllerTest',function() {
             .accept('json')
             .end(function(err, res){
                 // Do something
-                console.log(res.text);
+                //console.log(res.text);
                 done();
             });
     });
