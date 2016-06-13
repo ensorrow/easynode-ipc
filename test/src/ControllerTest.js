@@ -68,7 +68,6 @@ describe('ControllerTest',function() {
             });
     });
 
-
     it('get curtains',function (done){
 
         //.send({filter:3,page:0,rpp:2})->query
