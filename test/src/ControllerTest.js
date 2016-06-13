@@ -44,7 +44,6 @@ describe('ControllerTest',function() {
         done();
     });
 
-
     it('deploy resouces',function (done){
         var url = `${BASE_URI}/admin/resources`;
         console.log(url);
