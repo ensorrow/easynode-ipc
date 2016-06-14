@@ -766,7 +766,7 @@ let CompanyInfo = React.createClass({
                                 </div>
                                 <div className="item-ctrl">
                                     <input type="text" name="address" onChange={this.handleLiveAddress} value={this.state.companyInfo.liveaddress} onFocus={me.handleFocus.bind(me, FT.LIVEADDRESS)} onBlur={me.handleBlur.bind(me, FT.LIVEADDRESS)} maxLength="200"/>
-                                    <span className={this.state.formError.liveaddress.isBlank ? 'u-popover' : 'u-popover hidden' }>请输入主体单位信所地址</span>
+                                    <span className={this.state.formError.liveaddress.isBlank ? 'u-popover' : 'u-popover hidden' }>请输入主体单位住所地址</span>
                                     <span className={this.state.formError.liveaddress.focus ? 'u-popover2' : 'u-popover2 hidden' }>1、必须输入与主体单位证件上一致的地址 </span>
                                 </div>
                             </div>
