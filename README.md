@@ -19,7 +19,7 @@ after verification, the form data will be stored to RDS(likely mysql Server) and
 
 <br>
 <br>
-<img src="{{ site.url }}/images/example_architecture.png" width="600"/>
+<img src="https://raw.githubusercontent.com/nhipster/nhipster.github.io/master/images/example_architecture.png" width="800"/>
 <br>
 <br>
 
