@@ -275,7 +275,7 @@ let CompanyInfo = React.createClass({
                     </div>
                     <div className="m-companyinfo-item">
                         <div className="item-label">
-                            <span className="red f-fl">*</span><label>负责人居住地质:</label>
+                            <span className="red f-fl">*</span><label>负责人居住地址:</label>
                         </div>
                         <div className="item-ctrl">
                             <input type="text" name="manageraddress" onChange={this.handleManagerAddress} value={this.state.companyInfo.manageraddress} onFocus={me.handleFocus.bind(me, FT.MANAGERADDRESS)} onBlur={me.handleBlur.bind(me, FT.MANAGERADDRESS)} maxLength="50"/>
