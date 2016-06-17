@@ -787,7 +787,7 @@ let CompanyInfo = React.createClass({
                                 <div className="item-ctrl">
                                     <input type="text" name="investorname" onChange={this.handleOwner} value={this.state.companyInfo.owner} onFocus={me.handleFocus.bind(me, FT.OWNER)} onBlur={me.handleBlur.bind(me, FT.OWNER)} maxLength="30"/>
                                     <span className={this.state.formError.owner.isBlank ? 'u-popover' : 'u-popover hidden' }>请输入投资人或主管单位名称</span>
-                                    <span className={this.state.formError.owner.focus ? 'u-popover2' : 'u-popover2 hidden' }><p>1、单位用户建议填写负责人姓名或主办单位全称</p><p>2、个人用户请填写个人姓名</p></span>
+                                    <span className={this.state.formError.owner.focus ? 'u-popover2' : 'u-popover2 hidden' }><p>1、单位用户在没有上级主管单位的情况下,建议填写主办单位全称或法人姓名</p><p>2、个人用户请填写个人姓名</p></span>
                                 </div>
                             </div>
                             {this.getIndividualMobile()}

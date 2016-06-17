@@ -1126,6 +1126,22 @@ var StoreService = using('netease.icp.backend.services.StoreService');
       };
     }
 
+      /**
+       * @api {get} /upl/ 上传文件
+       * @apiName upload
+       * @apiGroup NOS
+       * @apiPermission
+       * @apiVersion 0.0.2
+       * @apiDescription
+       *
+       * @apiParam {Object[]} multipart 文件对象,这里仅允许每次请求一个文件
+       *
+       * @apiSampleRequest http://icp.hzspeed.cn/upl/
+
+       * @apiSuccess {String} url NOS_URL
+       *
+       * @apiUse
+       */
     static upload(app) {
       var supportFileTypes = '^.*.(?:jpg|png|gif)$';
       var regEx = new RegExp(supportFileTypes);
