@@ -86,6 +86,7 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
       httpServer.ds.conn = conn;
       httpServer.config = config;
 
+
       var ispService = new IspService(httpServer, config);
             // yield ispService.createConnect();
       httpServer.ispService = ispService;
