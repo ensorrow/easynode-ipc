@@ -145,7 +145,7 @@ let UploadPhoto = React.createClass({
                                     </div>
                                 </div>
                                 <div className="m-uploadphoto-desc">
-                                    <span>1、请认真阅读拍照说明，以节省审核时间。点击查看<a href="http://www.w3school.com.cn">拍照说明</a></span>
+                                    <span>1、请认真阅读拍照说明，以节省审核时间。点击查看<a href="http://apollodev.nos.netease.com/1466420861288%E6%8B%8D%E7%85%A7%E8%AF%B4%E6%98%8E.jpg">拍照说明</a></span>
                                     <span>2、支持照片格式：JPG\PNG\GIF\JPEG，大小建议4M以下</span>
                                     <span>3、请务必上传带有相关幕布背景的照片</span>
                                 </div>
