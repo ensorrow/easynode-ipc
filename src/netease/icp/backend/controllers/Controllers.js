@@ -102,7 +102,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          */
     static logout(app) {
       return function *() {
-        this.session.user = null;
+        this.session = null;
 
         var surl = `${app.config.resources.static}${process.env.ENV}_`;
         yield this.render('index', {user:{}, loginCallback:app.config.loginCallback, config:{surl:surl, env:process.env.ENV}});
