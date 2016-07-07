@@ -304,7 +304,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
           if (isadmin) {
 
             if (filter == FILTER_CONDITION_ALL) {
-              ret = yield conn.list(model, {status: {exp:'<>', value:0}}, {page: page, rpp: rpp}, ['updatetime ASC]']);
+              ret = yield conn.list(model, {status: {exp:'<>', value:0}}, {page: page, rpp: rpp}, ['updatetime ASC']);
             } else if (filter == FILTER_CONDITION_WAITED) {
               ret = yield conn.list(model, {status: {exp:'in', value:[1, 4, 7]}}, {page: page, rpp: rpp}, ['updatetime DESC']);
             } else if (filter == FILTER_CONDITION_PASSED) {
