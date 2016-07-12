@@ -82,6 +82,7 @@ import {IDTYPE} from '../../../../public/netease/icp/constant/define';
       var pid = S(EasyNode.config('easynode.app.pid', '/var/tmp/icp.pid')).toString();
       fs.writeFileSync(pid, process.pid);
 
+
       httpServer.ds = ds;
       httpServer.ds.conn = conn;
       httpServer.config = config;
