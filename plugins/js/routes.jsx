@@ -26,6 +26,7 @@ function redirectToLogin (nextState, replaceState) {
     }
 }
 
+
 function redirectToHome (nextState, replaceState) {
     if(auth.loggedIn()) {
         replaceState(null, '/');
