@@ -9,7 +9,7 @@ import reqwest from 'reqwest';
 import Toast from '../widgets/Toast.jsx';
 import ViewPhoto from './ViewPhoto.js';
 import Global from '../utils/globals';
-
+import {NATURE} from '../constants/define';
 
 const FT = {
     'SITEMANAGERURL': 0,
@@ -46,6 +46,10 @@ let UploadMaterial = React.createClass({
             sample:{
                 sitemanagerurl: 'http://apollodev.nos.netease.com/1459492803511',
                 checklisturl: 'http://apollodev.nos.netease.com/1459493043170',
+                checklisturl_gr: 'http://apollodev.nos.netease.com/1468226400504%E6%A0%B8%E9%AA%8C%E5%8D%95-%E4%B8%AA%E4%BA%BA%E6%A0%B7%E4%BE%8B.png',
+                checklisturl_qy: 'http://apollodev.nos.netease.com/1468226458779%E6%A0%B8%E9%AA%8C%E5%8D%95-%E4%BC%81%E4%B8%9A%E6%A0%B7%E4%BE%8B.png',
+                checklisturl_gd_gr: 'http://apollodev.nos.netease.com/1468226510921%E6%A0%B8%E9%AA%8C%E5%8D%95-%E5%B9%BF%E4%B8%9C%E7%9C%81%E4%B8%AA%E4%BA%BA%E6%A0%B8%E9%AA%8C%E5%8D%95.png',
+                checklisturl_gd_qy: 'http://apollodev.nos.netease.com/1468226706484%E6%A0%B8%E9%AA%8C%E5%8D%95-%E5%B9%BF%E4%B8%9C%E7%9C%81-%E4%BC%81%E4%B8%9A%E6%A0%B7%E4%BE%8B.png',
                 protocolurl1: 'http://apollodev.nos.netease.com/146157007813512.png',
                 protocolurl2: 'http://apollodev.nos.netease.com/146157007813512.png',
                 securityurl1: 'http://apollodev.nos.netease.com/1459493107645',
@@ -242,6 +246,38 @@ let UploadMaterial = React.createClass({
             materials: materials
         });
     },
+    getChecklistUrl: function(){
+        "use strict";
+        if( _g.companyinfo.nature == NATURE.GR ){
+            if( _g.companyinfo.province == '广东省' ){
+                return '../../views/核验单-广东省个人.pdf';
+            }else{
+                return '../../views/核验单-个人样例.pdf';
+            }
+        }else{
+            if( _g.companyinfo.province == '广东省' ){
+                return '../../views/核验单-广东省企业样例.pdf';
+            }else{
+                return '../../views/核验单-企业样例.pdf';
+            }
+        }
+    },
+    getChecklistSampleUrl: function(){
+        "use strict";
+        if( _g.companyinfo.nature == NATURE.GR ){
+            if( _g.companyinfo.province == '广东省' ){
+                return this.state.sample.checklisturl_gr;
+            }else{
+                return this.state.sample.checklisturl_gr;
+            }
+        }else{
+            if( _g.companyinfo.province == '广东省' ){
+                return this.state.sample.checklisturl_gd_qy;
+            }else{
+                return this.state.sample.checklisturl_qy;
+            }
+        }
+    },
     render: function () {
         var me = this;
 
@@ -256,6 +292,7 @@ let UploadMaterial = React.createClass({
         var protocolurl2 = this.state.materials.protocolurl2.length > 0 ? this.state.materials.protocolurl2 : '../assets/view.png';
         var securityurl1 = this.state.materials.securityurl1.length > 0 ? this.state.materials.securityurl1 : '../assets/view.png';
         var securityurl2 = this.state.materials.securityurl2.length > 0 ? this.state.materials.securityurl2 : '../assets/view.png';
+        var samplechecklisturl = this.getChecklistSampleUrl();
         return (
             <div>
                 <ReturnWidget/>
@@ -290,7 +327,7 @@ let UploadMaterial = React.createClass({
                             <div className="m-uploadmaterial-item">
                                 <div className="m-uploadmaterial-label">
                                     <span className="red">*</span><label>核验单图片:</label>
-                                    <span>1、请点击下载 <a href="../../views/核验单.doc">《网站备案信息真实性核验单》</a>打印并按样例提示填写，不得涂改</span>
+                                    <span>1、请点击下载 <a href={me.getChecklistUrl()} download="核验单">《网站备案信息真实性核验单》</a>打印并按样例提示填写，不得涂改</span>
                                     <span>2、核验单上不要填写日期</span>
                                     <span>3、上传的核验单图片需清晰完整（不缺少边际线），建议使用扫描件上传。支持图片格式：JPEG\PNG\GIF</span>
                                     <span>4、请您保存3份签字并盖公章的核验单原件，以备后续环节使用</span>
@@ -308,7 +345,7 @@ let UploadMaterial = React.createClass({
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
-                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me, me.state.sample.checklisturl)}/>
+                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me, samplechecklisturl)}/>
                                 </div>
                             </div>
                             <div className="m-uploadmaterial-item">

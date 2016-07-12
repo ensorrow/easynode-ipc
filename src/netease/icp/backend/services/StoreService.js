@@ -1284,13 +1284,17 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
       var me = this;
       var cfg = me.app.config.nos;
       return function *() {
-        var url = `${cfg.urlPath}${key}`;
-        let nos = new Nos(cfg.accessKey, cfg.secretKey, cfg.bucket);
+        var url = '';
+        let nos = new Nos(cfg.public, cfg.host, cfg.accessKey, cfg.secretKey, cfg.bucket);
         try {
-          yield nos.upload(key, filename);
+          var ret  = yield nos.upload(key, filename);
+          url = ret.url;
         } catch (e) {
           // console.log(e);
+          url = '';
+          EasyNode.DEBUG && logger.error(` ${e} ${e.stack}`);
         }
+        console.log("url",url)
         nos = null;
         return url;
       };
@@ -1304,16 +1308,13 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
       var me = this;
       var cfg = me.app.config.nos;
       return function *() {
-        var url = `${cfg.urlPath}${key}`;
-        let nos = new Nos(cfg.accessKey, cfg.secretKey, cfg.bucket);
-
+        let nos = new Nos(cfg.public, cfg.host, cfg.accessKey, cfg.secretKey, cfg.bucket);
         var ret = '';
         try {
           ret = yield nos.getObject(key);
         } catch (e) {
-          // console.log(e);
+          EasyNode.DEBUG && logger.error(e);
         }
-
         nos = null;
         return ret;
       };
@@ -1618,6 +1619,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
           fileName = fileName.substr(pos, (fileName.length - pos));
           // console.log(fileName);
           var key = `${version}_${process.env.ENV}_${fileName}`;
+          key = encodeURIComponent(key);
           var url = yield me.uploadNos(key, fileList[index]);
           // console.log(url);
         }

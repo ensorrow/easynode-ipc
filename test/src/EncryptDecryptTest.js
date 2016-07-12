@@ -1,8 +1,3 @@
-/*
-/!**
- * Created by hujiabao on 9/21/15.
- *!/
-
 'use strict';
 
 require("babel-polyfill");
@@ -73,4 +68,4 @@ describe('EncryptDescryptTest',function() {
     });
 
 });
-*/
+
