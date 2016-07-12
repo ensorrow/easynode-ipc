@@ -1294,7 +1294,6 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
           url = '';
           EasyNode.DEBUG && logger.error(` ${e} ${e.stack}`);
         }
-        console.log("url",url)
         nos = null;
         return url;
       };
