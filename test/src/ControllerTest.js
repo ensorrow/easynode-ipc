@@ -20,7 +20,7 @@ const LOCAL_URI = env == 'PRODUCTION' ? '/usr/src/app' :
     env == 'TEST' ? '/usr/src/app' : '/Users/hujiabao/workspace_docker/icp/easynode-ipc';
 const VERSION = '0.0.5';
 
-EasyNode.ENV(env);
+EasyNode.setEnv(env);
 EasyNode.addArg('easynode-home',process.cwd());
 EasyNode.addSourceDirectory('/node_modules/easynode/lib');
 
