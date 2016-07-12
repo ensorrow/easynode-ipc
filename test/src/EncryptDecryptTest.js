@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 require("babel-polyfill");
@@ -69,3 +70,4 @@ describe('EncryptDescryptTest',function() {
 
 });
 
+*/
