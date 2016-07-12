@@ -1287,7 +1287,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
         var url = '';
         let nos = new Nos(cfg.public, cfg.host, cfg.accessKey, cfg.secretKey, cfg.bucket);
         try {
-          var ret  = yield nos.upload(key, filename);
+          var ret = yield nos.upload(key, filename);
           url = ret.url;
         } catch (e) {
           // console.log(e);

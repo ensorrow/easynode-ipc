@@ -1464,7 +1464,7 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
     // data 是你的准备解密的字符串,key是你的密
     decryptAdv(data) {
       var key = 'XRDRUE7FFCRE1T7I';
-      var iv = '7VU2H0LLBG8373LK' ;
+      var iv = '7VU2H0LLBG8373LK';
       var clearEncoding = 'binary';
       var cipherEncoding = 'base64';
       var decipher = crypto.createDecipherivAdv('aes-128-cbc', key, iv);
@@ -1528,7 +1528,7 @@ import {PhotoSizeLimit} from '../../../../../public/netease/icp/constant/define'
 
           res.socket.on('error', function() {
             // console.log('err');
-          });1
+          }); 1;
         });
       });
     }

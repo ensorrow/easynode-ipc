@@ -246,32 +246,30 @@ let UploadMaterial = React.createClass({
             materials: materials
         });
     },
-    getChecklistUrl: function(){
-        "use strict";
-        if( _g.companyinfo.nature == NATURE.GR ){
-            if( _g.companyinfo.province == '广东省' ){
+    getChecklistUrl: function () {
+        if( _g.companyinfo.nature == NATURE.GR ) {
+            if( _g.companyinfo.province == '广东省' ) {
                 return '../../views/核验单-广东省个人.pdf';
             }else{
                 return '../../views/核验单-个人样例.pdf';
             }
         }else{
-            if( _g.companyinfo.province == '广东省' ){
+            if( _g.companyinfo.province == '广东省' ) {
                 return '../../views/核验单-广东省企业样例.pdf';
             }else{
                 return '../../views/核验单-企业样例.pdf';
             }
         }
     },
-    getChecklistSampleUrl: function(){
-        "use strict";
-        if( _g.companyinfo.nature == NATURE.GR ){
-            if( _g.companyinfo.province == '广东省' ){
+    getChecklistSampleUrl: function () {
+        if( _g.companyinfo.nature == NATURE.GR ) {
+            if( _g.companyinfo.province == '广东省' ) {
                 return this.state.sample.checklisturl_gr;
             }else{
                 return this.state.sample.checklisturl_gr;
             }
         }else{
-            if( _g.companyinfo.province == '广东省' ){
+            if( _g.companyinfo.province == '广东省' ) {
                 return this.state.sample.checklisturl_gd_qy;
             }else{
                 return this.state.sample.checklisturl_qy;

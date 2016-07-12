@@ -50,7 +50,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          */
 
-    static  home(app) {
+    static home(app) {
       return function *() {
         var user = this.session.user || undefined;
         var surl = `${app.config.resources.static}${process.env.ENV}_`;
@@ -171,7 +171,7 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {Number} ret.drafttype 草稿类型
          * @apiSuccess {Number} ret.id 记录ID
          */
-    static  savedraft(app) {
+    static savedraft(app) {
       var me = this;
       return function *() {
         var session = this.session;
