@@ -13,6 +13,7 @@ const assert = chai.assert;
 
 require('easynode');
 
+
 var env = process.env.ENV;
 const BASE_URI = env == 'PRODUCTION' ? 'http://icp.c.163.com' :
     env == 'TEST' ? 'http://icp.hzspeed.cn' : 'http://icpdev.hzspeed.cn';
