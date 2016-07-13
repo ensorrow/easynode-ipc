@@ -41,6 +41,8 @@ var Model = using('easynode.framework.mvc.Model');
                 .defineField('companyid', 'int')
                 .defineField('websiteid', 'int')
                 .defineField('sitemanagerurl', 'string')
+                .defineField('companymanagerurl','string')
+                .defineField('companycerturl','string')
                 .defineField('checklisturl', 'string')
                 .defineField('checkedlisturl', 'string')
                 .defineField('protocolurl1', 'string')

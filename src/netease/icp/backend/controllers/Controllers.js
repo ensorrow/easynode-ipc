@@ -158,7 +158,9 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiParam {Number} siteinfo.*
          *
          * @apiParam {Object} material 记录material部分
-         * @apiParam {Number} material.sitemanagerurl 主体单位负责人图片URL
+         * @apiParam {String} material.sitemanagerurl 网站负责人图片URL
+         * @apiParam {String} material.companymanagerurl 主体单位负责人图片URL
+         * @apiParam {String} material.companycerturl 主体单位证件图片URL
          * @apiParam {String} material.checklisturl 核验单图片URL
          * @apiParam {String} material.protocolurl1 云平台服务协议第一页l图片URL
          * @apiParam {String} material.protocolurl2 云平台服务协议第二页图片URL
@@ -203,7 +205,9 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiParam {Number} baseinfo.status  审核状态 0
          *
          * @apiParam {Object} material 记录material部分
-         * @apiParam {Number} material.sitemanagerurl 主体单位负责人图片URL
+         * @apiParam {String} material.sitemanagerurl 网站负责人图片URL
+         * @apiParam {String} material.companymanagerurl 主体单位负责人图片URL
+         * @apiParam {String} material.companycerturl 主体单位证件图片URL
          * @apiParam {String} material.checklisturl 核验单图片URL
          * @apiParam {String} material.protocolurl1 云平台服务协议第一页l图片URL
          * @apiParam {String} material.protocolurl2 云平台服务协议第二页图片URL
@@ -316,7 +320,9 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} record.serverregion 主机区域
          * @apiSuccess {Number} record.companyid 公司id
          * @apiSuccess {Number} record.websiteid 网站id
-         * @apiSuccess {String} record.sitemanagerurl 主体单位负责人图片URL
+         * @apiSuccess {String} record.sitemanagerurl 网站负责人图片URL
+         * @apiSuccess {String} record.companymanagerurl 主体单位负责人图片URL
+         * @apiSuccess {String} record.companycerturl 主体单位证件图片URL
          * @apiSuccess {String} record.checklisturl 核验单图片URL
          * @apiSuccess {String} record.checkedlisturl 校验过的核验单图片URL
          * @apiSuccess {String} record.protocolurl1 云平台服务协议第一页l图片URL
@@ -480,7 +486,9 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          * @apiSuccess {String} record.serverregion 主机区域
          * @apiSuccess {Number} record.companyid 公司id
          * @apiSuccess {Number} record.websiteid 网站id
-         * @apiSuccess {String} record.sitemanagerurl 主体单位负责人图片URL
+         * @apiSuccess {String} record.sitemanagerurl 网站负责人图片URL
+         * @apiSuccess {String} record.companymanagerurl 主体单位负责人图片URL
+         * @apiSuccess {String} record.companycerturl 主体单位证件图片URL
          * @apiSuccess {String} record.checklisturl 核验单图片URL
          * @apiSuccess {String} record.checkedlisturl 校验过的核验单图片URL
          * @apiSuccess {String} record.protocolurl1 云平台服务协议第一页l图片URL
@@ -866,8 +874,11 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiSuccess {Object[]} data 记录列表
          * @apiSuccess {Number} data.id 记录id
+         * @apiSuccess {String} data.sitemanagerurl 网站负责人图片URL
+         * @apiSuccess {String} data.companymanagerurl 主体单位负责人图片URL
+         * @apiSuccess {String} data.companycerturl 主体单位证件图片URL
          * @apiSuccess {String} data.checklisturl 核验单图片URL
-         * checkedlisturl
+         * @apiSuccess {String} record.checkedlisturl 校验过的核验单图片URL
          * @apiSuccess {String} data.protocolurl1 云平台协议第一页图片
          * @apiSuccess {String} data.protocolurl2 云平台协议第二页图片
          * @apiSuccess {String} data.securityurl1 信息安全管理责任书第一页图片URL
@@ -920,6 +931,9 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiSuccess {Object[]} data 记录列表
          * @apiSuccess {Number} data.id 记录id
+         * @apiSuccess {String} data.sitemanagerurl 网站负责人图片URL
+         * @apiSuccess {String} data.companymanagerurl 主体单位负责人图片URL
+         * @apiSuccess {String} data.companycerturl 主体单位证件图片URL
          * @apiSuccess {String} data.checklisturl 核验单图片URL
          * @apiSuccess {String} data.checkedlisturl 校验过的核验单图片URL
          * @apiSuccess {String} data.protocolurl1 云平台协议第一页图片
@@ -976,6 +990,9 @@ var StoreService = using('netease.icp.backend.services.StoreService');
          *
          * @apiSuccess {Object[]} data 记录列表
          * @apiSuccess {Number} data.id 记录id
+         * @apiSuccess {String} data.sitemanagerurl 网站负责人图片URL
+         * @apiSuccess {String} data.companymanagerurl 主体单位负责人图片URL
+         * @apiSuccess {String} data.companycerturl 主体单位证件图片URL
          * @apiSuccess {String} data.checklisturl 核验单图片URL
          * @apiSuccess {String} data.checkedlisturl 校验过的核验单图片URL
          * @apiSuccess {String} data.protocolurl1 云平台协议第一页图片

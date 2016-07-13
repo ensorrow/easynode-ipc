@@ -82,9 +82,9 @@ let BaseInfo = React.createClass({
     },
     render: function () {
         return (
-            <div classNameName="g-bd">
+            <div className="g-bd">
                 <ReturnWidget/>
-                <div classNameName="g-bdc">
+                <div className="g-bdc">
                     <ProgressBar step={1} key={1}/>
                     <RecordType selected={this.state} onChange={this.onChange}/>
                     <div className="w-btn">

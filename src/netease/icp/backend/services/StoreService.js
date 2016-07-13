@@ -508,7 +508,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
           var id = this.parameter.param('id') || 0;
           conn = yield me.app.ds.getConnection();
 
-          sql = 'SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,checkedlisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons FROM record WHERE id = #id# and tenantid = #tenantid#';
+          sql = 'SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,companycerturl,companymanagerurl,checklisturl,checkedlisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons FROM record WHERE id = #id# and tenantid = #tenantid#';
           arr = yield conn.execQuery(sql, {id:id, tenantid:tenantid});
           if (arr.length <= 0) {
             return ret;
@@ -564,7 +564,7 @@ import {RecordCheckStatus} from '../../../../../public/netease/icp/constant/defi
           var id = (this.parameter && this.parameter.param && this.parameter.param('id')) || recordId;
           conn = yield me.app.ds.getConnection();
 
-          sql = 'SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,checklisturl,checkedlisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons,operatetime,operator,beianstatus FROM record WHERE id = #id#';
+          sql = 'SELECT id,type,serverregion,companyid,websiteid,sitemanagerurl,companycerturl,companymanagerurl,checklisturl,checkedlisturl,protocolurl1,protocolurl2,securityurl1,securityurl2,curtainurl,code,status,tenantid,reasons,operatetime,operator,beianstatus FROM record WHERE id = #id#';
           arr = yield conn.execQuery(sql, {id:id});
           if (arr.length <= 0) {
             return ret;

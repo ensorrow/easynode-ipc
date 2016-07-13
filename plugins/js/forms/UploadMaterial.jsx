@@ -19,7 +19,9 @@ const FT = {
     'PROTOCOLURL1': 2,
     'PROTOCOLURL2': 3,
     'SECURITYURL1': 4,
-    'SECURITYURL2': 5
+    'SECURITYURL2': 5,
+    'COMPANYCERTURL': 6,
+    'COMPANYMANAGERURL': 7
 };
 
 let UploadMaterial = React.createClass({
@@ -30,6 +32,8 @@ let UploadMaterial = React.createClass({
             processing:  false,
             url:'',
             formError:{
+                companymanagerurl: {isBlank: false},
+                companycerturl: {isBlank: false},
                 sitemanagerurl: {isBlank: false},
                 checklisturl: {isBlank: false},
                 protocolurl1: {isBlank: false},
@@ -38,6 +42,8 @@ let UploadMaterial = React.createClass({
                 securityurl2: {isBlank: false}
             },
             materials:{
+                companymanagerurl: '',
+                companycerturl: '',
                 sitemanagerurl: '',
                 checklisturl: '',
                 protocolurl1: '',
@@ -46,6 +52,8 @@ let UploadMaterial = React.createClass({
                 securityurl2: ''
             },
             sample:{
+                companymanagerurl: 'http://apollodev.nos.netease.com/1459492803511',
+                companycerturl: 'http://apollodev.nos.netease.com/1468397592354%E5%8D%95%E4%BD%8D%E4%B8%BB%E5%8A%9E%E5%8D%95%E4%BD%8D%E8%AF%81%E4%BB%B6%E7%A4%BA%E4%BE%8B.jpg',
                 sitemanagerurl: 'http://apollodev.nos.netease.com/1459492803511',
                 checklisturl: 'http://apollodev.nos.netease.com/1459493043170',
                 checklisturl_gr: 'http://apollodev.nos.netease.com/1468226400504%E6%A0%B8%E9%AA%8C%E5%8D%95-%E4%B8%AA%E4%BA%BA%E6%A0%B7%E4%BE%8B.png',
@@ -173,6 +181,12 @@ let UploadMaterial = React.createClass({
         case '6':
             materials.securityurl2 = url;
             break;
+        case '7':
+            materials.companycerturl = url;
+            break;
+        case '8':
+            materials.companymanagerurl = url;
+            break;
         default:
             break;
         }
@@ -214,6 +228,8 @@ let UploadMaterial = React.createClass({
     },
     componentDidMount: function () {
         if( _g.material != undefined ) {
+            _g.material.companycerturl = _g.material.companycerturl || '';
+            _g.material.companymanagerurl = _g.material.companymanagerurl || '';
             _g.material.sitemanagerurl = _g.material.sitemanagerurl || '';
             _g.material.checklisturl = _g.material.checklisturl || '';
             _g.material.protocolurl1 = _g.material.protocolurl1 || '';
@@ -238,7 +254,9 @@ let UploadMaterial = React.createClass({
                     id == FT.PROTOCOLURL1 ? this.state.materials.protocolurl1 :
                     id == FT.PROTOCOLURL2 ? this.state.materials.protocolurl2 :
                     id == FT.SECURITYURL1 ? this.state.materials.securityurl1 :
-                    id == FT.SECURITYURL2 ? this.state.materials.securityurl2 : '';
+                    id == FT.SECURITYURL2 ? this.state.materials.securityurl2 :
+                    id == FT.COMPANYCERTURL ? this.state.materials.companycerturl :
+                    id == FT.COMPANYMANAGERURL ? this.state.materials.companymanagerurl : '';
         return url.length > 0 ? <img className="m-uploadmaterial-delete" src={_g.surl + 'close.png'} onClick={this.handleDelete.bind(this, id)}></img>
             : '';
     },
@@ -248,7 +266,9 @@ let UploadMaterial = React.createClass({
         id == FT.CHECKLISTURL ? materials.checklisturl = '' :
         id == FT.PROTOCOLURL1 ? materials.protocolurl1 = '' :
         id == FT.PROTOCOLURL2 ? materials.protocolurl2 = '' :
-        id == FT.SECURITYURL1 ? materials.securityurl1 = '' : materials.securityurl2 = '';
+        id == FT.SECURITYURL1 ? materials.securityurl1 = '' :
+        id == FT.SECURITYURL2 ? materials.securityurl2 = '' :
+        id == FT.COMPANYCERTURL ? materials.companycerturl = '' : materials.companymanagerurl = '';
         this.setState({
             materials: materials
         });
@@ -299,6 +319,13 @@ let UploadMaterial = React.createClass({
             }
         }
     },
+    getCompanyCertUrl: function () {
+        if( _g.companyinfo.nature == NATURE.GR ) {
+            return this.state.sample.companymanagerurl;
+        }else{
+            return this.state.sample.companycerturl;
+        }
+    },
     render: function () {
         var me = this;
 
@@ -308,6 +335,8 @@ let UploadMaterial = React.createClass({
         }
 
         var sitemanagerurl = this.state.materials.sitemanagerurl.length > 0 ? this.state.materials.sitemanagerurl : '../assets/view.png';
+        var companycerturl = this.state.materials.companycerturl.length > 0 ? this.state.materials.companycerturl : '../assets/view.png';
+        var companymanagerurl = this.state.materials.companymanagerurl.length > 0 ? this.state.materials.companymanagerurl : '../assets/view.png';
         var checklisturl = this.state.materials.checklisturl.length > 0 ? this.state.materials.checklisturl : '../assets/view.png';
         var protocolurl1 = this.state.materials.protocolurl1.length > 0 ? this.state.materials.protocolurl1 : '../assets/view.png';
         var protocolurl2 = this.state.materials.protocolurl2.length > 0 ? this.state.materials.protocolurl2 : '../assets/view.png';
@@ -330,6 +359,30 @@ let UploadMaterial = React.createClass({
                                     <span>2、不能包含公司、组织等企业性质的词语</span>
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
+                                    {this.getDeleteCtrl(FT.COMPANYMANAGERURL)}
+                                    <div className="m-uploadmaterial-ctrl-picture-table">
+                                        <div className="m-uploadmaterial-ctrl-picture">
+                                            <img src={companymanagerurl} alt="" onDoubleClick={me.handleDoubleClick.bind(me, companymanagerurl)}/>
+                                        </div>
+                                    </div>
+                                    <div className="m-uploadmaterial-ctrl-button">
+                                        <input type="button" value="上传图片"/>
+                                        <input type="file" className="" placeholder="" name="" id="8" accept="image/jpeg,image/png,image/gif" required onChange={this.onChange}/>
+                                    </div>
+                                </div>
+                                <div className="m-uploadmaterial-desc">
+                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me, me.state.sample.companymanagerurl)}/>
+                                </div>
+                            </div>
+
+                            <div className="m-uploadmaterial-item">
+                                <div className="m-uploadmaterial-label">
+                                    <span className="red">*</span><label>网站负责人证件图片:</label>
+                                    <span>1、需要上传身份证正反面合二为一复印件,需为彩色照片或扫描件,黑</span>
+                                    <span>  白照片无效,支持图片格式:JPEG\PNG\GIF</span>
+                                    <span>2、不能包含公司、组织等企业性质的词语</span>
+                                </div>
+                                <div className="m-uploadmaterial-ctrl">
                                     {this.getDeleteCtrl(FT.SITEMANAGERURL)}
                                     <div className="m-uploadmaterial-ctrl-picture-table">
                                         <div className="m-uploadmaterial-ctrl-picture">
@@ -345,6 +398,31 @@ let UploadMaterial = React.createClass({
                                     <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me, me.state.sample.sitemanagerurl)}/>
                                 </div>
                             </div>
+
+                            <div className="m-uploadmaterial-item">
+                                <div className="m-uploadmaterial-label">
+                                    <span className="red">*</span><label>主办单位证件类型:</label>
+                                    <span>1、请您上传清晰、无污物、完整的证件原件（或加盖鲜章的复印件）照片或彩色扫描件</span>
+                                    <span>  黑白照片无效,支持图片格式:JPEG\PNG\GIF</span>
+                                    <span>2、所上传证件必须与主体信息处勾选的证件类型一致</span>
+                                </div>
+                                <div className="m-uploadmaterial-ctrl">
+                                    {this.getDeleteCtrl(FT.COMPANYCERTURL)}
+                                    <div className="m-uploadmaterial-ctrl-picture-table">
+                                        <div className="m-uploadmaterial-ctrl-picture">
+                                            <img src={companycerturl} alt="" onDoubleClick={me.handleDoubleClick.bind(me, companycerturl)}/>
+                                        </div>
+                                    </div>
+                                    <div className="m-uploadmaterial-ctrl-button">
+                                        <input type="button" value="上传图片"/>
+                                        <input type="file" className="" placeholder="" name="" id="7" accept="image/jpeg,image/png,image/gif" required onChange={this.onChange}/>
+                                    </div>
+                                </div>
+                                <div className="m-uploadmaterial-desc">
+                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me, me.getCompanyCertUrl())}/>
+                                </div>
+                            </div>
+
                             <div className="m-uploadmaterial-item">
                                 <div className="m-uploadmaterial-label">
                                     <span className="red">*</span><label>核验单图片:</label>

@@ -618,8 +618,23 @@ let RecordInfo = React.createClass({
                                 <div className="m-recordinfo-item-icon">
                                     <img src={_g.material.sitemanagerurl} alt=""/>
                                 </div>
+                                <span className="m-recordinfo-item-icon-title">网站负责人证件图片</span>
+                            </div>
+
+                            <div className="m-recordinfo-item2">
+                                <div className="m-recordinfo-item-icon">
+                                    <img src={_g.material.companymanagerurl} alt=""/>
+                                </div>
                                 <span className="m-recordinfo-item-icon-title">主体单位负责人证件图片</span>
                             </div>
+
+                            <div className="m-recordinfo-item2">
+                                <div className="m-recordinfo-item-icon">
+                                    <img src={_g.material.companycerturl} alt=""/>
+                                </div>
+                                <span className="m-recordinfo-item-icon-title">主体单位证件图片</span>
+                            </div>
+
                             <div className="m-recordinfo-item2">
                                 <div className="m-recordinfo-item-icon">
                                     <img src={_g.material.checklisturl} alt=""/>
