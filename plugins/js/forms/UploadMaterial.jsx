@@ -10,6 +10,8 @@ import Toast from '../widgets/Toast.jsx';
 import ViewPhoto from './ViewPhoto.js';
 import Global from '../utils/globals';
 import {NATURE} from '../constants/define';
+var URLSafeBase64 = require('urlsafe-base64');
+
 
 const FT = {
     'SITEMANAGERURL': 0,
@@ -50,6 +52,11 @@ let UploadMaterial = React.createClass({
                 checklisturl_qy: 'http://apollodev.nos.netease.com/1468226458779%E6%A0%B8%E9%AA%8C%E5%8D%95-%E4%BC%81%E4%B8%9A%E6%A0%B7%E4%BE%8B.png',
                 checklisturl_gd_gr: 'http://apollodev.nos.netease.com/1468226510921%E6%A0%B8%E9%AA%8C%E5%8D%95-%E5%B9%BF%E4%B8%9C%E7%9C%81%E4%B8%AA%E4%BA%BA%E6%A0%B8%E9%AA%8C%E5%8D%95.png',
                 checklisturl_gd_qy: 'http://apollodev.nos.netease.com/1468226706484%E6%A0%B8%E9%AA%8C%E5%8D%95-%E5%B9%BF%E4%B8%9C%E7%9C%81-%E4%BC%81%E4%B8%9A%E6%A0%B7%E4%BE%8B.png',
+
+                checklisturl_tpl_gr: 'http://apollodev.nos.netease.com/1468373917595%E6%A0%B8%E9%AA%8C%E5%8D%95-%E4%B8%AA%E4%BA%BA%E6%A0%B7%E4%BE%8B.png',
+                checklisturl_tpl_qy: 'http://apollodev.nos.netease.com/1468373970923%E6%A0%B8%E9%AA%8C%E5%8D%95-%E4%BC%81%E4%B8%9A%E6%A0%B7%E4%BE%8B.png',
+                checklisturl_tpl_gd_gr: 'http://apollodev.nos.netease.com/1468374008123%E6%A0%B8%E9%AA%8C%E5%8D%95-%E5%B9%BF%E4%B8%9C%E7%9C%81%E4%B8%AA%E4%BA%BA.png',
+                checklisturl_tpl_gd_qy: 'http://apollodev.nos.netease.com/1468374022562%E6%A0%B8%E9%AA%8C%E5%8D%95-%E5%B9%BF%E4%B8%9C%E7%9C%81%E4%BC%81%E4%B8%9A%E6%A0%B7%E4%BE%8B.png',
                 protocolurl1: 'http://apollodev.nos.netease.com/146157007813512.png',
                 protocolurl2: 'http://apollodev.nos.netease.com/146157007813512.png',
                 securityurl1: 'http://apollodev.nos.netease.com/1459493107645',
@@ -247,24 +254,40 @@ let UploadMaterial = React.createClass({
         });
     },
     getChecklistUrl: function () {
+        var name = URLSafeBase64.encode(new Buffer(_g.companyinfo.name).toString('base64'));
+        var url = _g.siteinfo.domain;
+        if( _g.siteinfo.domain1.length > 0 ){
+            url = url + ";"  + _g.siteinfo.domain1;
+        }
+        if( _g.siteinfo.domain2.length > 0 ){
+            url = url + ";"  + _g.siteinfo.domain2;
+        }
+        if( _g.siteinfo.domain3.length > 0 ){
+            url = url + ";"  + _g.siteinfo.domain3;
+        }
+        if( _g.siteinfo.domain4.length > 0 ){
+            url = url + ";"  + _g.siteinfo.domain4;
+        }
+        url = URLSafeBase64.encode(new Buffer(url).toString('base64'));
+        var param = `?watermark&type=2&text=${name}&fontsize=600&fontcolor=IzAwMDAwMA==&dissolve=100&gravity=northwest&dx=430&dy=194%7cwatermark&type=2&text=${url}&fontsize=600&fontcolor=IzAwMDAwMA==&dissolve=100&gravity=northwest&dx=430&dy=254`;
         if( _g.companyinfo.nature == NATURE.GR ) {
             if( _g.companyinfo.province == '广东省' ) {
-                return '../../views/核验单-广东省个人.pdf';
+                return this.state.sample.checklisturl_tpl_gd_gr + param;
             }else{
-                return '../../views/核验单-个人样例.pdf';
+                return this.state.sample.checklisturl_tpl_gr + param;
             }
         }else{
             if( _g.companyinfo.province == '广东省' ) {
-                return '../../views/核验单-广东省企业样例.pdf';
+                return this.state.sample.checklisturl_tpl_gd_qy + param;
             }else{
-                return '../../views/核验单-企业样例.pdf';
+                return this.state.sample.checklisturl_tpl_qy + param;
             }
         }
     },
     getChecklistSampleUrl: function () {
         if( _g.companyinfo.nature == NATURE.GR ) {
             if( _g.companyinfo.province == '广东省' ) {
-                return this.state.sample.checklisturl_gr;
+                return this.state.sample.checklisturl_gd_gr;
             }else{
                 return this.state.sample.checklisturl_gr;
             }
