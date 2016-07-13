@@ -78,6 +78,8 @@ module.exports = {
                     _g.record = record;
                 }
                 _g.material.sitemanagerurl = record.sitemanagerurl;
+                _g.material.companycerturl = record.companycerturl;
+                _g.material.companymanagerurl = record.companymanagerurl;
                 _g.material.checklisturl = record.checklisturl;
                 _g.material.protocolurl1 = record.protocolurl1;
                 _g.material.protocolurl2 = record.protocolurl2;
