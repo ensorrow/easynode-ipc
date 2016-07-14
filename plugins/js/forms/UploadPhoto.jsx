@@ -64,23 +64,31 @@ let UploadPhoto = React.createClass({
             processing: true
         });
 
-        // commit
-        var reqData = JSON.stringify({id:_g.record.id, status:4, curtainurl: this.state.curtainurl});
-        DataService.httpRequest('/record', 'put', reqData, 'json', 'application/json', {},
-            function (resp) {
-                // { true|false }
-                location.href = '#/submitchecksuccess';
-            },
-            function (err) {
-                if( err ) {
-                    err = err + '';
+        if( this.validate() ){
+            // commit
+            var reqData = JSON.stringify({id:_g.record.id, status:4, curtainurl: this.state.curtainurl});
+            DataService.httpRequest('/record', 'put', reqData, 'json', 'application/json', {},
+                function (resp) {
+                    // { true|false }
+                    location.href = '#/submitchecksuccess';
+                },
+                function (err) {
+                    if( err ) {
+                        err = err + '';
+                    }
                 }
-            }
-        );
+            );
+        }
 
         this.setState({
             processing: false
         });
+    },
+    validate: function(){
+        if( this.state.curtainurl.length > 0 ){
+            return true;
+        }
+        return false;
     },
     onHidden: function () {
         this.setState({showApplyCurt:false});
