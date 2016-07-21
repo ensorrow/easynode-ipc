@@ -257,3 +257,19 @@ $m-siteinfo_item_addsite_button_margin_left = $m-siteinfo_label_width + $m-sitei
 	line-height:14px;;
 	margin-left: $m-siteinfo_item_addsite_button_margin_left;
 }
+
+.isChangeOwner{
+    position: relative;
+}
+
+.isChangeOwner::after{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(204,204,204,.5);
+    z-index: 999;
+    position: absolute;
+    top: 10px;
+    bottom: 0;
+}

@@ -147,7 +147,7 @@ export default{
             }
         },
         {
-            path:'/fillcompanyinfo',
+            path:'/fillcompanyinfo/:isChangeOwner',
             getComponent: (location, cb) => {
                 require.ensure([], (require) => {
                     cb(null, CompanyInfo);
@@ -171,7 +171,7 @@ export default{
             }
         },
         {
-            path:'/fillsiteinfo',
+            path:'/fillsiteinfo/:entry',
             getComponent: (location, cb) => {
                 require.ensure([], (require) => {
                     cb(null, SiteInfo);
@@ -187,7 +187,7 @@ export default{
             }
         },
         {
-            path:'/submittrialsuccess',
+            path:'/submittrialsuccess',//TODO 组件跳转判断能不能不改url
             getComponent: (location, cb) => {
                 require.ensure([], (require) => {
                     cb(null, SubmitTrialSuccess);

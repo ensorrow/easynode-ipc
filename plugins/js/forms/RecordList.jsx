@@ -33,23 +33,24 @@ let Operation = React.createClass({
             }
         );
     },
-    showConfirm(title, msg) {
+    showConfirm(target, title, msg) {
+        var _this = this;
         confirm({
             title: title,
             content: msg,
-            onOK() {
-                console.log('get')
+            onOk() {
+                _this.handleResult(target);//TODO 怎么判断是从变更主体跳转的,react router应该是可以传信息的,应该还需要在跳转以后向后端请求当前主体信息
             }
         })
     },
     handleOwnerChange: function () {
-        this.showConfirm('您确定要变更此备案号的主体信息吗?', '变更备案，修改或删除备案信息后，系统将保留您最新提交的信息，如修改或删除已备案域名，将影响原备案域名的正常访问，请您谨慎操作。')
+        this.showConfirm.bind(this,'#/fillcompanyinfo/isChangeOwner','您确定要变更此备案号的主体信息吗?', '变更备案，修改或删除备案信息后，系统将保留您最新提交的信息，如修改或删除已备案域名，将影响原备案域名的正常访问，请您谨慎操作。')()
     },
     handleOwnerCancel: function () {
 
     },
-    handleSiteChange: function () {
-        this.showConfirm('您确定要变更此备案号的网站信息吗?', '变更备案，修改或删除备案信息后，系统将保留您最新提交的信息，如修改或删除已备案域名，将影响原备案域名的正常访问，请您谨慎操作。')
+    handleSiteChange: function () {//TODO
+        this.showConfirm('#/fillcompanyinfo','您确定要变更此备案号的网站信息吗?', '变更备案，修改或删除备案信息后，系统将保留您最新提交的信息，如修改或删除已备案域名，将影响原备案域名的正常访问，请您谨慎操作。')
     },
     handleSiteCancel: function () {
 
@@ -98,7 +99,7 @@ let Operation = React.createClass({
             );
         } else if( prg == 9) {
             return (
-                <td><a href="#" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail')}>备案详情</a> <span className="ant-divider"></span> <a onClick={ me.handleResult.bind(me, '#/checkresultcouncilpass') } href="javascript:;">审核结果</a> <span className="ant-divider"></span> <a onClick={ me.handleOwnerChange } href="javascript:;">变更主体</a> <span className="ant-divider"></span> <a onClick={ me.handleOwnerCancel } href="javascript:;">注销主体</a> <span className="ant-divider"></span> <a onClick={ me.handleSiteChange } href="javascript:;">变更网站</a> <span className="ant-divider"></span> <a onClick={ me.handleSiteCancel } href="javascript:;">注销网站</a>  </td>
+                <td><a href="#" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail')}>备案详情</a> <span className="ant-divider"></span> <a onClick={ me.handleResult.bind(me, '#/checkresultcouncilpass') } href="javascript:;">审核结果</a> <span className="ant-divider"></span> <a onClick={ me.handleOwnerChange } href="#">变更主体</a> <span className="ant-divider"></span> <a onClick={ me.handleOwnerCancel } href="javascript:;">注销主体</a> <span className="ant-divider"></span> <a onClick={ me.handleSiteChange } href="javascript:;">变更网站</a> <span className="ant-divider"></span> <a onClick={ me.handleSiteCancel } href="javascript:;">注销网站</a>  </td>
             );
         } else if( prg == 10) {
             return (

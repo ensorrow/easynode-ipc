@@ -12,9 +12,9 @@ let MySelect = React.createClass({
         index: React.PropTypes.number.isRequired,
         province: React.PropTypes.string.isRequired,
         city: React.PropTypes.string.isRequired,
-        area: React.PropTypes.string.isRequired
+        area: React.PropTypes.string.isRequired,
+        isChangeOwner: React.PropTypes.string
     },
-
     _handleChange: function (e) {
         e.preventDefault();
         var value = e.target.value;
@@ -26,9 +26,14 @@ let MySelect = React.createClass({
         let index = this.props.index;
         let items = this.props.items;
         var value = '';
+        let isChangeOwner = this.props.isChangeOwner;
+        let isDisabled = false;
 
         if( index == P_INDEX ) {
             value = this.props.province;
+            if( isChangeOwner=="isChangeOwner" ) {
+                isDisabled = true;
+            }
         }else if( index == C_INDEX) {
             value = this.props.city;
         }else if( index == A_INDEX) {
@@ -39,7 +44,7 @@ let MySelect = React.createClass({
                 this.index == 2 ? 'c' :
                 this.index == 3 ? 'a' : 'p';
         return (
-            <select data-order={index} name={name} onChange={this._handleChange} className="item-ctrl-three" value={value}>
+            <select data-order={index} name={name} onChange={this._handleChange} className="item-ctrl-three" value={value} disabled={isDisabled}>
                 {
                     items.map((name2, i)=> {
                         return (<option key={i} value={name2}>{name2}</option>);
@@ -47,6 +52,7 @@ let MySelect = React.createClass({
                 }
             </select>
         );
+    //    当路由传递isChangeOwner时使省份选择禁用
     }
 });
 
@@ -56,7 +62,8 @@ let CascadeSelect = React.createClass({
     propTypes:{
         province: React.PropTypes.string.isRequired,
         city: React.PropTypes.string.isRequired,
-        area: React.PropTypes.string.isRequired
+        area: React.PropTypes.string.isRequired,
+        isChangeOwner: React.PropTypes.string
     },
     getInitialState: function () {
         return {province:'', city:'', area:''};
@@ -116,7 +123,7 @@ let CascadeSelect = React.createClass({
         }
         return (
                 <div className="item-ctrl">
-                    <MySelect key={P_INDEX} items={provinces} onChange={this._onChange}
+                    <MySelect key={P_INDEX} items={provinces} onChange={this._onChange} isChangeOwner={this.props.isChangeOwner}
                               province={this.props.province} city={this.props.city} area={this.props.area} index={P_INDEX}/>
                     <MySelect key={C_INDEX} items={cities} onChange={this._onChange}
                               province={this.props.province} city={this.props.city} area={this.props.area} index={C_INDEX}/>

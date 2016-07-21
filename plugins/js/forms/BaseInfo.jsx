@@ -76,7 +76,7 @@ let BaseInfo = React.createClass({
     },
     handleSubmit: function () {
         this.onSave(function () {
-            location.href = '#/fillcompanyinfo';
+            location.href = '#/fillcompanyinfo/normalChange';
         }, function () {
         });
 

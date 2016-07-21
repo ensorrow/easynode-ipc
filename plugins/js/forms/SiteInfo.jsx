@@ -41,7 +41,6 @@ const FT = {
 };
 
 let SiteInfo = React.createClass({
-
     getInitialState: function () {
         return {
             inited: true,
@@ -246,7 +245,11 @@ let SiteInfo = React.createClass({
         return formError;
     },
     onReturn: function () {
-        location.href = '#/fillcompanyinfo';
+        if(this.props.params.entry == 'isChangeOwner') {
+            location.href = '#/fillcompanyinfo/isChangeOwner';
+        } else{
+            location.href = '#/fillcompanyinfo/normalChange';
+        }
     },
     checkForm: function () {
 
@@ -334,8 +337,7 @@ let SiteInfo = React.createClass({
     },
 
     componentDidMount: function () {
-        this.interval = setInterval(this.tick, 30 * 1000);
-
+        if(!this.props.params.entry == 'isChangeOwner') {this.interval = setInterval(this.tick, 30 * 1000);}
         var url = location.search;
         // console.log("url",location.hash);
 
@@ -790,6 +792,7 @@ let SiteInfo = React.createClass({
     },
     render: function () {
         var me = this;
+        let entry = this.props.params.entry;
         return (
             <div>
                 <ReturnWidget/>
@@ -989,7 +992,8 @@ let SiteInfo = React.createClass({
                             </div>
                         </fieldset>
 
-                        <fieldset>
+                        <fieldset className={entry}>
+                            {/*entry可选值为: isChangeOwner, normalChange*/}
                             <div className="m-siteinfo-legend"><span>ICP备案接入信息</span></div>
                             <div className="m-siteinfo-item">
                                 <div className="item-label">
@@ -1037,14 +1041,7 @@ let SiteInfo = React.createClass({
                     </form>
                 </div>
 
-                <div className="w-btn">
-                    {/*<button className="u-return" type="button" onClick={this.onReturn}> 返回修改 </button>*/}
-                    {/*<button className="u-main" type="button" onClick={this.handleSubmit}> 上传资料 </button>*/}
-                    {/*<button className="u-draft" type="button" onClick={this.onSave}>保存草稿</button>*/}
-                    <Button onClick={this.onReturn}> 返回修改 </Button>
-                    <Button onClick={this.handleSubmit} type="primary"> 上传资料 </Button>
-                    <Button onClick={this.onSave}> 保存草稿 </Button>
-                </div>
+                <ButtonList entry={entry} handleSubmit={this.handleSubmit} onReturn={this.onReturn} onSave={this.onSave}/>
             </div>
         );
     },
@@ -1075,7 +1072,29 @@ let SiteInfo = React.createClass({
         });
     }
 });
-
+let ButtonList = React.createClass({
+    propTypes: {
+        entry: React.PropTypes.string
+    },
+    render : function () {
+        if(this.props.entry == 'isChangeOwner'){
+            return (
+                <div className="w-btn">
+                    <Button onClick={this.props.onReturn}> 返回修改 </Button>
+                    <Button onClick={this.props.handleSubmit} type="primary">上传资料</Button>
+                </div>
+            )
+        }else{
+            return (
+                <div className="w-btn">
+                    <Button onClick={this.props.onReturn}> 返回修改 </Button>
+                    <Button onClick={this.props.handleSubmit} type="primary">上传资料</Button>
+                    <Button onClick={this.props.onSave}>保存草稿</Button>
+                </div>
+            )
+        }
+    }
+})
 
 module.exports = SiteInfo;
 
