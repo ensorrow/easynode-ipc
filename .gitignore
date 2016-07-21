@@ -69,3 +69,4 @@ lib
 config*
 bin/*.txt
 node_modules_mac
+*/.DS_Store
