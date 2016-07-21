@@ -10,7 +10,6 @@ class Header extends React.Component {
         super(props, context);
     }
 
-
     loggedIn () {
         var userName = _g.user ? _g.user.username : '';
         if(auth.loggedIn()) {
@@ -26,7 +25,7 @@ class Header extends React.Component {
 
     render () {
         return (
-            <div className="g-hd">
+            <div className="g-hd">                
                 <a className="m-logo" href="#"><img src={_g.surl + 'logo.png'}/><span>ICP备案系统</span></a>
                 { this.loggedIn() }
             </div>

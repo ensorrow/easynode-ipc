@@ -8,6 +8,7 @@ import Toast from '../widgets/Toast.jsx';
 import Global from '../utils/globals';
 import DataService from '../services/DataService.js';
 
+import {Button} from 'antd';
 
 let BaseInfo = React.createClass({
 
@@ -88,8 +89,10 @@ let BaseInfo = React.createClass({
                     <ProgressBar step={1} key={1}/>
                     <RecordType selected={this.state} onChange={this.onChange}/>
                     <div className="w-btn">
-                        <button className="u-main" type="button" onClick={this.handleSubmit}>开始填写主体信息</button>
-                        <button className="u-draft" type="button" onClick={this.onSave}>保存草稿</button>
+                        {/*<button className="u-main" type="button" onClick={this.handleSubmit}>开始填写主体信息</button>*/}
+                        <Button type="primary" onClick={this.handleSubmit}>开始填写主体信息</Button>
+                        {/*<button className="u-draft" type="button" onClick={this.onSave}>保存草稿</button>*/}
+                        <Button onClick={this.onSave}>保存草稿</Button>
                     </div>
                 </div>
             </div>

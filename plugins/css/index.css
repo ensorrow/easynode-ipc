@@ -119,8 +119,8 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-progress .m-progress-ul >li{display:inline-block;width:150px;}
 .m-progress .m-progress-ul >li >div{text-align:center;width:100px;}
 .m-progress .m-progress-ul .arrow{margin-top:21px;width:36px;height:8px;background:url("../assets/arrow-right.png");}
-.m-progress .describe{display:inline-block;margin-top:8px;}
-.m-progress .step{width:48px;height:48px;line-height:48px;display:inline-block;}
+.m-progress .describe{display:inline-block;margin-top:8px;width:6em;text-align:center;}
+.m-progress .step{width:48px;height:48px;line-height:48px;display:inline-block;background-size:cover;}
 .do{background:url("../assets/prg-do.png");}
 .doing{background:url("../assets/prg-doing.png");}
 .done{background:url("../assets/prg-done.png");}
@@ -319,7 +319,8 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-recordlist{width:992px;min-height:480px;outline:#m-recordlist_border_color solid 1px;background:#f7f7f7;margin:10px auto;}
 .m-recordlist .m-recordlist-table{width:992px;min-height:480px;background:#fff;}
 .m-recordlist .u-recordapply{width:140px;height:36px;line-height:36px;text-align:center;background:#69a9cc;}
-.m-recordlist >button,.m-recordlist input[type="button"]{background:transparent;height:24px;border:none;color:#69a9cc;margin:2px 2px;font-size:16px;}
+.m-recordlist .ant-btn-primary{margin-bottom:10px;}
+.m-recordlist >input[type="button"]{background:transparent;height:24px;border:none;color:#69a9cc;margin:2px 2px;font-size:16px;}
 table.gridtable{width:1050px;font-family:MicrosoftYaHei;font-size:14px;border-width:1px;border-color:#666;border-collapse:collapse;color:#888;line-height:20px;}
 table.gridtable th{border-width:1px;padding:8px;border-style:solid;border-color:#666;background-color:#dedede;}
 .fid{width:20%;}
@@ -412,6 +413,7 @@ table.gridtable td >a{font-family:MicrosoftYaHei;font-size:10.6px;color:#38abd0;
 .show{display:block;}
 .m-footer{line-height:60px;text-align:center;}
 .w-btn{width:960px;margin:26px auto;text-align:center;}
+.w-btn .ant-btn{margin-left:8px;}
 .u-main{margin-left:20px;width:200px;height:38px;background:#69a9cc;font-size:14px;color:#fff;}
 .u-main >a{color:#fff;}
 .u-return{width:80px;height:38px;border:none;background:transparent;font-size:14px;}
