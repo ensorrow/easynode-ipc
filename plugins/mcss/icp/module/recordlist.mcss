@@ -42,7 +42,11 @@ $m-recordlist_recordapply_btn_background =  #69A9CC;
 		background: $m-recordlist_recordapply_btn_background;
 	}
 
-	> button,input[type="button"] {
+	.ant-btn-primary{
+	    margin-bottom: 10px;
+	}
+
+	> input[type="button"] {
 	    background: transparent;
 	    height: 24px;
 	    border: none;

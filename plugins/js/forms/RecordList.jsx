@@ -5,7 +5,8 @@ import Global from '../utils/globals';
 import DataService from '../services/DataService.js';
 import reqwest from 'reqwest';
 import DeleteRecord from './DeleteRecord.jsx';
-
+import {Button,Modal} from 'antd';
+const confirm = Modal.confirm;
 
 let Operation = React.createClass({
     propTypes:{
@@ -32,6 +33,27 @@ let Operation = React.createClass({
             }
         );
     },
+    showConfirm(title, msg) {
+        confirm({
+            title: title,
+            content: msg,
+            onOK() {
+                console.log('get')
+            }
+        })
+    },
+    handleOwnerChange: function () {
+        this.showConfirm('您确定要变更此备案号的主体信息吗?', '变更备案，修改或删除备案信息后，系统将保留您最新提交的信息，如修改或删除已备案域名，将影响原备案域名的正常访问，请您谨慎操作。')
+    },
+    handleOwnerCancel: function () {
+
+    },
+    handleSiteChange: function () {
+        this.showConfirm('您确定要变更此备案号的网站信息吗?', '变更备案，修改或删除备案信息后，系统将保留您最新提交的信息，如修改或删除已备案域名，将影响原备案域名的正常访问，请您谨慎操作。')
+    },
+    handleSiteCancel: function () {
+
+    },
     render () {
 
         let type = this.props.record.type;
@@ -40,55 +62,55 @@ let Operation = React.createClass({
         var me = this;
         if( prg == 0 ) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me, '#/returntobase') } value="修改"></input> <input type="button" onClick={this.handleDelete} value="删除"></input></td>
+                <td><a href="#" onClick={ me.handleResult.bind(me, '#/returntobase') }>修改</a><span className="ant-divider"></span> <a href="#" onClick={this.handleDelete}>删除</a></td>
             );
         } else if( prg == 1) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail')} value="备案详情"></input> </td>
+                <td><a href="#" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail')}>备案详情</a> </td>
             );
         } else if( prg == 2) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/checkresulttrialnopass') } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/returntobase') } value="修改"></input> </td>
+                <td><a href="#" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail')}>备案详情</a> <span className="ant-divider"></span> <a onClick={ me.handleResult.bind(me, '#/checkresulttrialnopass') } href="javascript:;">审核结果</a><span className="ant-divider"></span> <a href="#" onClick={ me.handleResult.bind(me, '#/returntobase') }>修改</a></td>
             );
         } else if( prg == 3) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/checkresulttrialpass') } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/uploadphoto') } value="上传照片"></input> </td>
+                <td><a href="#" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail')}>备案详情</a> <span className="ant-divider"></span> <a onClick={ me.handleResult.bind(me, '#/checkresulttrialpass') } href="javascript:;">审核结果</a><span className="ant-divider"></span> <input type="button" onClick={ me.handleResult.bind(me, '#/uploadphoto') } value="上传照片"></input></td>
             );
         } else if( prg == 4) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> </td>
+                <td><a href="#" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail')}>备案详情</a> </td>
             );
         } else if( prg == 5) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/checkresultphotonopass') } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/uploadphoto') } value="上传照片"></input> </td>
+                <td><a href="#" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail')}>备案详情</a> <span className="ant-divider"></span> <a onClick={ me.handleResult.bind(me, '#/checkresultphotonopass') } href="javascript:;">审核结果</a><span className="ant-divider"></span> <input type="button" onClick={ me.handleResult.bind(me, '#/uploadphoto') } value="上传照片"></input></td>
             );
         } else if( prg == 6) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/checkresultphotopass') } value="审核结果"></input> </td>
+                <td><a href="#" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail')}>备案详情</a> <span className="ant-divider"></span> <a onClick={ me.handleResult.bind(me, '#/checkresultphotopass') } href="javascript:;">审核结果</a></td>
             );
         } else if( prg == 7) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> </td>
+                <td><a href="#" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail')}>备案详情</a> </td>
             );
         } else if( prg == 8) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/checkresultcouncilnopass') } value="审核结果"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/returntobase') } value="修改"></input> </td>
+                <td><a href="#" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail')}>备案详情</a> <span className="ant-divider"></span> <a onClick={ me.handleResult.bind(me, '#/checkresultcouncilnopass') } href="javascript:;">审核结果</a><span className="ant-divider"></span> <a href="#" onClick={ me.handleResult.bind(me, '#/returntobase') }>修改</a></td>
             );
         } else if( prg == 9) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/checkresultcouncilpass') } value="审核结果"></input></td>
+                <td><a href="#" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail')}>备案详情</a> <span className="ant-divider"></span> <a onClick={ me.handleResult.bind(me, '#/checkresultcouncilpass') } href="javascript:;">审核结果</a> <span className="ant-divider"></span> <a onClick={ me.handleOwnerChange } href="javascript:;">变更主体</a> <span className="ant-divider"></span> <a onClick={ me.handleOwnerCancel } href="javascript:;">注销主体</a> <span className="ant-divider"></span> <a onClick={ me.handleSiteChange } href="javascript:;">变更网站</a> <span className="ant-divider"></span> <a onClick={ me.handleSiteCancel } href="javascript:;">注销网站</a>  </td>
             );
         } else if( prg == 10) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> </td>
+                <td><a href="#" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail')}>备案详情</a> </td>
             );
         } else if( prg == 11) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> </td>
+                <td><a href="#" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail')}>备案详情</a> </td>
             );
         } else if( prg == 12) {
             return (
-                <td><input type="button" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail') } value="备案详情"></input> <input type="button" onClick={ me.handleResult.bind(me, '#/uploadphoto') } value="上传照片"></input></td>
+                <td><a href="#" onClick={ me.handleResult.bind(me, '#/reviewrecorddetail')}>备案详情</a> <span className="ant-divider"></span> <input type="button" onClick={ me.handleResult.bind(me, '#/uploadphoto') } value="上传照片"></input></td>
             );
         }
     }
@@ -170,7 +192,7 @@ let Records = React.createClass({
                         prg == 12 ? 'passed' : 'draft';
 
             return (
-                   <tr className="" key={record.id}>
+                   <tr className="ant-table-row" key={record.id}>
                        {this.getCode(record.status, record.id, record.code)}
                        <td> {typeStr}</td>
                        <td> {record.serverregion == '1' ? 'HZ1' : 'HZ1'} </td>
@@ -181,7 +203,7 @@ let Records = React.createClass({
            );
         });
         return (
-            <tbody>
+            <tbody className="ant-table-tbody">
                 {records}
             </tbody>
         );
@@ -246,22 +268,40 @@ let RecordList = React.createClass({
         return (
             <div>
                 <div className="m-recordlist">
-                    <input type="button" onClick={this.handleClick} value="备案申请"></input>
+                    {/*<input type="button" onClick={this.handleClick} value="备案申请"></input>*/}
+                    <Button onClick={this.handleClick} type="primary">备案申请</Button>
                     <div>
                     </div>
-                    <table className="gridtable">
-                        <thead>
-                            <tr>
-                            <th className="fid">申请ID</th>
-                            <th className="ftype">类型</th>
-                            <th className="farea">主机所在区域</th>
-                            <th className="fprocess">进展</th>
-                            <th className="fdate">创建时间</th>
-                            <th className="fop">操作</th>
-                            </tr>
-                        </thead>
-                        <Records data={this.state.data} onDelete={this.onDelete} onShow={this.onShow}/>
-                    </table>
+                    <div className="ant-table">
+                        <div className="ant-table-body">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th className="fid">申请ID</th>
+                                    <th className="ftype">类型</th>
+                                    <th className="farea">主机所在区域</th>
+                                    <th className="fprocess">进展</th>
+                                    <th className="fdate">创建时间</th>
+                                    <th className="fop">操作</th>
+                                </tr>
+                                </thead>
+                                <Records data={this.state.data} onDelete={this.onDelete} onShow={this.onShow}/>
+                            </table>
+                        </div>
+                    </div>
+                    {/*<table className="gridtable">*/}
+                        {/*<thead>*/}
+                            {/*<tr>*/}
+                            {/*<th className="fid">申请ID</th>*/}
+                            {/*<th className="ftype">类型</th>*/}
+                            {/*<th className="farea">主机所在区域</th>*/}
+                            {/*<th className="fprocess">进展</th>*/}
+                            {/*<th className="fdate">创建时间</th>*/}
+                            {/*<th className="fop">操作</th>*/}
+                            {/*</tr>*/}
+                        {/*</thead>*/}
+                        {/*<Records data={this.state.data} onDelete={this.onDelete} onShow={this.onShow}/>*/}
+                    {/*</table>*/}
                 </div>
                 {deleterecord}
             </div>

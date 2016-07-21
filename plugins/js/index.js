@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import routes from './routes.jsx';
 import { Router, hashHistory } from 'react-router';
 import Global from './utils/globals';
-
+import 'antd/dist/antd.css';
 
 window.onbeforeunload = function () {
     Global.set('global', _g);

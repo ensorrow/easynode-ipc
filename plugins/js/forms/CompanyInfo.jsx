@@ -12,7 +12,7 @@ import assigner from 'object.assign';
 var assign = assigner.getPolyfill();
 import DataService from '../services/DataService.js';
 import {IDTYPE, NATURE} from '../constants/define';
-
+import { Button } from 'antd';
 
 const FT = {
     'IDTYPE': 0,
@@ -798,9 +798,12 @@ let CompanyInfo = React.createClass({
                 </div>
 
                 <div className="w-btn">
-                    <button className="u-return" type="button" onClick={this.onReturn}> 返回修改 </button>
-                    <button className="u-main" type="button" onClick={this.handleSubmit}>填写网站信息</button>
-                    <button className="u-draft" type="button" onClick={this.onSave}>保存草稿</button>
+                    {/*<button className="u-return" type="button" onClick={this.onReturn}> 返回修改 </button>*/}
+                    {/*<button className="u-main" type="button" onClick={this.handleSubmit}>填写网站信息</button>*/}
+                    {/*<button className="u-draft" type="button" onClick={this.onSave}>保存草稿</button>*/}
+                    <Button onClick={this.onReturn}> 返回修改 </Button>
+                    <Button onClick={this.handleSubmit} type="primary">填写网站信息</Button>
+                    <Button onClick={this.onSave}>保存草稿</Button>
                 </div>
             </div>
         );

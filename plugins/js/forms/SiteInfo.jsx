@@ -27,6 +27,7 @@ var AM_WEBHOST = 2;
 var AM_VIRTUALHOST = 3;
 var AM_OTHER = 4;
 
+import { Button } from 'antd';
 import {IDTYPE, NATURE} from '../constants/define';
 
 const FT = {
@@ -1037,9 +1038,12 @@ let SiteInfo = React.createClass({
                 </div>
 
                 <div className="w-btn">
-                    <button className="u-return" type="button" onClick={this.onReturn}> 返回修改 </button>
-                    <button className="u-main" type="button" onClick={this.handleSubmit}> 上传资料 </button>
-                    <button className="u-draft" type="button" onClick={this.onSave}>保存草稿</button>
+                    {/*<button className="u-return" type="button" onClick={this.onReturn}> 返回修改 </button>*/}
+                    {/*<button className="u-main" type="button" onClick={this.handleSubmit}> 上传资料 </button>*/}
+                    {/*<button className="u-draft" type="button" onClick={this.onSave}>保存草稿</button>*/}
+                    <Button onClick={this.onReturn}> 返回修改 </Button>
+                    <Button onClick={this.handleSubmit} type="primary"> 上传资料 </Button>
+                    <Button onClick={this.onSave}> 保存草稿 </Button>
                 </div>
             </div>
         );

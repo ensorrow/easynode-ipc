@@ -1,67 +1,32 @@
 /**
  * Created by hujiabao on 1/28/16.
+ * changed by 吕哲扬
+ * 引入ant design里的message,把原有的逻辑全改了,直接是toast.show触发message.info。。。
  */
 import '../../css/index.css';
 import React from 'react';
 import { render } from 'react-dom';
+import { message } from 'antd';
 
-let messageContainer = null;
-let message = '';
-let className = '';
 
-function createContainer () {
-    messageContainer = document.createElement('div');
-    document.body.appendChild(messageContainer);
-}
-
-function renderContent () {
-    render(<Toast message={message} className={className}/>, messageContainer);
-}
-
+const info = function(msg,last){
+    message.info(msg, last);
+};
 
 let Toast = React.createClass({
 
-    propTypes:{
-        className: React.PropTypes.string.isRequired,
-        message: React.PropTypes.string.isRequired
-    },
-    getInitialState:function () {
-        return {className:''};
-    },
-    componentDidMount: function () {
-        this.interval = setTimeout(this.tick, 3 * 1000);
-        this.setState({className:this.props.className});
-    },
-    tick: function () {
-        this.setState({});
-        if( messageContainer ) {
-            document.body.removeChild(messageContainer);
-            messageContainer = null;
-        }
-    },
-    componentWillUnmount: function () {
-        clearInterval(this.interval);
-    },
-
     render: function () {
-
         return (
-            <div className={this.state.className}>
-                {this.props.message}
+            <div>
+
             </div>
         );
     }
 });
 
-Toast.show = function (msg, clsname = 'm-toast') {
-    if(!messageContainer) {
-        createContainer();
-    }
+Toast.show = function (msg) {
 
-    message = msg;
-    className = clsname;
-
-    renderContent();
+    info(msg, 3)
 };
 
 

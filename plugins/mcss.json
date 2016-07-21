@@ -1,5 +1,7 @@
 {
-  "input": "./index.mcss",
+  "input": "./mcss/index.mcss",
   "format": 3,
-  "exclude": "(\/|\\\\)_|^_|include"
+  "exclude": "(\/|\\\\)_|^_|include",
+  "watch": 1,
+  "output": "./css/index.css"
 }
