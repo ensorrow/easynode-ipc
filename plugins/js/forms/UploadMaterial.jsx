@@ -352,15 +352,39 @@ let UploadMaterial = React.createClass({
                     <form className="">
                         <fieldset>
                             <div className="m-uploadmaterial-legend"><span>网站基本信息</span></div>
+
+                            <div className="m-uploadmaterial-item">
+                                <div className="m-uploadmaterial-label">
+                                    <span className="red">*</span><label>主办单位证件图片:</label>
+                                    <span>1、请您上传清晰、无污物、完整的证件原件（或加盖鲜章的复印件）照片或彩色扫描件</span>
+                                    <span>  黑白照片无效,支持图片格式:JPEG\PNG\GIF</span>
+                                    <span>2、所上传证件必须与主体信息处勾选的证件类型一致</span>
+                                </div>
+                                <div className="m-uploadmaterial-ctrl">
+                                    {this.getDeleteCtrl(FT.COMPANYMANAGERURL, entry)}
+                                    <div className="m-uploadmaterial-ctrl-picture-table">
+                                        <div className="m-uploadmaterial-ctrl-picture">
+                                            <img src={companycerturl} alt="" onDoubleClick={me.handleDoubleClick.bind(me, companycerturl)}/>
+                                        </div>
+                                    </div>
+                                    <div className="m-uploadmaterial-ctrl-button">
+                                        <input type="button" value="上传图片"/>
+                                        <input type="file" className="" placeholder="" name="" id="7" accept="image/jpeg,image/png,image/gif" required onChange={this.onChange}/>
+                                    </div>
+                                </div>
+                                <div className="m-uploadmaterial-desc">
+                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me, me.getCompanyCertUrl())}/>
+                                </div>
+                            </div>
+
                             <div className="m-uploadmaterial-item">
                                 <div className="m-uploadmaterial-label">
                                     <span className="red">*</span><label>主体单位负责人证件图片:</label>
                                     <span>1、需要上传身份证正反面合二为一复印件,需为彩色照片或扫描件,黑</span>
                                     <span>  白照片无效,支持图片格式:JPEG\PNG\GIF</span>
-                                    <span>2、不能包含公司、组织等企业性质的词语</span>
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
-                                    {this.getDeleteCtrl(FT.COMPANYMANAGERURL, entry)}
+                                    {this.getDeleteCtrl(FT.COMPANYMANAGERURL)}
                                     <div className="m-uploadmaterial-ctrl-picture-table">
                                         <div className="m-uploadmaterial-ctrl-picture">
                                             <img src={companymanagerurl} alt="" onDoubleClick={me.handleDoubleClick.bind(me, companymanagerurl)}/>
@@ -381,7 +405,6 @@ let UploadMaterial = React.createClass({
                                     <span className="red">*</span><label>网站负责人证件图片:</label>
                                     <span>1、需要上传身份证正反面合二为一复印件,需为彩色照片或扫描件,黑</span>
                                     <span>  白照片无效,支持图片格式:JPEG\PNG\GIF</span>
-                                    <span>2、不能包含公司、组织等企业性质的词语</span>
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     {this.getDeleteCtrl(FT.SITEMANAGERURL)}
@@ -397,30 +420,6 @@ let UploadMaterial = React.createClass({
                                 </div>
                                 <div className="m-uploadmaterial-desc">
                                     <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me, me.state.sample.sitemanagerurl)}/>
-                                </div>
-                            </div>
-
-                            <div className="m-uploadmaterial-item">
-                                <div className="m-uploadmaterial-label">
-                                    <span className="red">*</span><label>主办单位证件类型:</label>
-                                    <span>1、请您上传清晰、无污物、完整的证件原件（或加盖鲜章的复印件）照片或彩色扫描件</span>
-                                    <span>  黑白照片无效,支持图片格式:JPEG\PNG\GIF</span>
-                                    <span>2、所上传证件必须与主体信息处勾选的证件类型一致</span>
-                                </div>
-                                <div className="m-uploadmaterial-ctrl">
-                                    {this.getDeleteCtrl(FT.COMPANYCERTURL)}
-                                    <div className="m-uploadmaterial-ctrl-picture-table">
-                                        <div className="m-uploadmaterial-ctrl-picture">
-                                            <img src={companycerturl} alt="" onDoubleClick={me.handleDoubleClick.bind(me, companycerturl)}/>
-                                        </div>
-                                    </div>
-                                    <div className="m-uploadmaterial-ctrl-button">
-                                        <input type="button" value="上传图片"/>
-                                        <input type="file" className="" placeholder="" name="" id="7" accept="image/jpeg,image/png,image/gif" required onChange={this.onChange}/>
-                                    </div>
-                                </div>
-                                <div className="m-uploadmaterial-desc">
-                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me, me.getCompanyCertUrl())}/>
                                 </div>
                             </div>
 
@@ -450,7 +449,7 @@ let UploadMaterial = React.createClass({
                             </div>
                             <div className="m-uploadmaterial-item">
                                 <div className="m-uploadmaterial-label">
-                                    <span className="red">*</span><label>云平台服务协议图片:</label>
+                                    <span className="red">*</span><label>云平台服务协议第一页图片:</label>
                                     <span>1、请点击下载 <a href="../../views/网易蜂巢云平台服务协议.doc">《云平台服务协议》</a> 打印并按样例提示填写，不涂改</span>
                                     <span>2、上传的核验单图片需清晰完整（不缺少边际线），建议使用扫描件上传。支持图片格式：JPEG\PNG\GIF</span>
                                     <span>3、请您保存2份签字并盖公章的协议原件，以备后续环节使用</span>
@@ -467,6 +466,16 @@ let UploadMaterial = React.createClass({
                                         <input type="file" className="" placeholder="" name="" id="3" accept="image/jpeg,image/png,image/gif" required onChange={this.onChange}/>
                                     </div>
                                 </div>
+                                <div className="m-uploadmaterial-desc">
+                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me, me.state.sample.protocolurl1)}/>
+                                </div>
+                            </div>
+
+                            <div className="m-uploadmaterial-item">
+                                <div className="m-uploadmaterial-label">
+                                    <span className="red">*</span><label>云平台服务协议第二页图片:</label>
+                                    <span>1、支持图片格式：JPEG\PNG\GIF</span>
+                                </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     {this.getDeleteCtrl(FT.PROTOCOLURL2)}
                                     <div className="m-uploadmaterial-ctrl-picture-table">
@@ -480,12 +489,13 @@ let UploadMaterial = React.createClass({
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
-                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me, me.state.sample.protocolurl1)}/>
+                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me, me.state.sample.protocolurl2)}/>
                                 </div>
                             </div>
+
                             <div className="m-uploadmaterial-item">
                                 <div className="m-uploadmaterial-label">
-                                    <span className="red">*</span><label>信息安全管理责任书图片:</label>
+                                    <span className="red">*</span><label>信息安全管理责任书第一页图片:</label>
                                     <span>1、请点击下载 <a href="../../views/信息安全管理责任书.doc">《信息安全管理责任书》</a>打印并按样例提示填写，不涂改</span>
                                     <span>2、上传的责任书图片需清晰完整（不缺少边际线），建议使用扫描件上传。支持图片格式：JPEG\PNG\GIF</span>
                                     <span>3、请您保存2份签字并盖公章的责任书原件，以备后续环节使用</span>
@@ -502,6 +512,16 @@ let UploadMaterial = React.createClass({
                                         <input type="file" className="" placeholder="" name="" id="5" accept="image/jpeg,image/png,image/gif" required onChange={this.onChange}/>
                                     </div>
                                 </div>
+                                <div className="m-uploadmaterial-desc">
+                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me, me.state.sample.securityurl1)}/>
+                                </div>
+                            </div>
+
+                            <div className="m-uploadmaterial-item">
+                                <div className="m-uploadmaterial-label">
+                                    <span className="red">*</span><label>信息安全管理责任书第二页图片:</label>
+                                    <span>1、支持图片格式：JPEG\PNG\GIF</span>
+                                </div>
                                 <div className="m-uploadmaterial-ctrl">
                                     {this.getDeleteCtrl(FT.SECURITYURL2)}
                                     <div className="m-uploadmaterial-ctrl-picture-table">
@@ -515,7 +535,7 @@ let UploadMaterial = React.createClass({
                                     </div>
                                 </div>
                                 <div className="m-uploadmaterial-desc">
-                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me, me.state.sample.securityurl1)}/>
+                                    <input type="button" value="查看样例" onClick={me.handleDoubleClick.bind(me, me.state.sample.securityurl2)}/>
                                 </div>
                             </div>
                         </fieldset>
