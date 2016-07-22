@@ -13,7 +13,7 @@ let MySelect = React.createClass({
         province: React.PropTypes.string.isRequired,
         city: React.PropTypes.string.isRequired,
         area: React.PropTypes.string.isRequired,
-        isChangeOwner: React.PropTypes.string
+        entry: React.PropTypes.string
     },
     _handleChange: function (e) {
         e.preventDefault();
@@ -26,12 +26,12 @@ let MySelect = React.createClass({
         let index = this.props.index;
         let items = this.props.items;
         var value = '';
-        let isChangeOwner = this.props.isChangeOwner;
+        let entry = this.props.entry;
         let isDisabled = false;
 
         if( index == P_INDEX ) {
             value = this.props.province;
-            if( isChangeOwner=="isChangeOwner" ) {
+            if( entry=="isChangeOwner" ) {
                 isDisabled = true;
             }
         }else if( index == C_INDEX) {
@@ -63,7 +63,7 @@ let CascadeSelect = React.createClass({
         province: React.PropTypes.string.isRequired,
         city: React.PropTypes.string.isRequired,
         area: React.PropTypes.string.isRequired,
-        isChangeOwner: React.PropTypes.string
+        entry: React.PropTypes.string
     },
     getInitialState: function () {
         return {province:'', city:'', area:''};
@@ -123,7 +123,7 @@ let CascadeSelect = React.createClass({
         }
         return (
                 <div className="item-ctrl">
-                    <MySelect key={P_INDEX} items={provinces} onChange={this._onChange} isChangeOwner={this.props.isChangeOwner}
+                    <MySelect key={P_INDEX} items={provinces} onChange={this._onChange} entry={this.props.entry}
                               province={this.props.province} city={this.props.city} area={this.props.area} index={P_INDEX}/>
                     <MySelect key={C_INDEX} items={cities} onChange={this._onChange}
                               province={this.props.province} city={this.props.city} area={this.props.area} index={C_INDEX}/>

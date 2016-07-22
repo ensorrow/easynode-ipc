@@ -147,7 +147,7 @@ export default{
             }
         },
         {
-            path:'/fillcompanyinfo/:isChangeOwner',
+            path:'/fillcompanyinfo/:entry',
             getComponent: (location, cb) => {
                 require.ensure([], (require) => {
                     cb(null, CompanyInfo);
@@ -179,7 +179,7 @@ export default{
             }
         },
         {
-            path:'/uploadmaterial',
+            path:'/uploadmaterial/:entry',
             getComponent: (location, cb) => {
                 require.ensure([], (require) => {
                     cb(null, UploadMaterial);

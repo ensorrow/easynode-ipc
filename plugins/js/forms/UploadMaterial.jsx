@@ -12,6 +12,7 @@ import Global from '../utils/globals';
 import {NATURE} from '../constants/define';
 var URLSafeBase64 = require('urlsafe-base64');
 
+import {Button} from 'antd';
 
 const FT = {
     'SITEMANAGERURL': 0,
@@ -73,7 +74,7 @@ let UploadMaterial = React.createClass({
         };
     },
     onReturn: function () {
-        location.href = '#/fillsiteinfo';
+        location.href = '#/fillsiteinfo/'+this.props.params.entry;
     },
     handleSubmit: function (e) {
         e.preventDefault();
@@ -227,7 +228,7 @@ let UploadMaterial = React.createClass({
         return formError;
     },
     componentDidMount: function () {
-        if( _g.material != undefined ) {
+        if( _g.material != undefined && this.props.params.entry != 'isChangeOwner') {
             _g.material.companycerturl = _g.material.companycerturl || '';
             _g.material.companymanagerurl = _g.material.companymanagerurl || '';
             _g.material.sitemanagerurl = _g.material.sitemanagerurl || '';
@@ -328,7 +329,7 @@ let UploadMaterial = React.createClass({
     },
     render: function () {
         var me = this;
-
+        let entry = this.props.params.entry;
         var viewphoto = '';
         if( this.state.showViewPhoto ) {
             viewphoto = <ViewPhoto onHidden={this.onHidden} url={this.state.url}/>;
@@ -336,7 +337,7 @@ let UploadMaterial = React.createClass({
 
         var sitemanagerurl = this.state.materials.sitemanagerurl.length > 0 ? this.state.materials.sitemanagerurl : '../assets/view.png';
         var companycerturl = this.state.materials.companycerturl.length > 0 ? this.state.materials.companycerturl : '../assets/view.png';
-        var companymanagerurl = this.state.materials.companymanagerurl.length > 0 ? this.state.materials.companymanagerurl : '../assets/view.png';
+        var companymanagerurl = this.state.materials.companymanagerurl.length > 0 ? this.state.materials.companymanagerurl : '../assets/view.png';        
         var checklisturl = this.state.materials.checklisturl.length > 0 ? this.state.materials.checklisturl : '../assets/view.png';
         var protocolurl1 = this.state.materials.protocolurl1.length > 0 ? this.state.materials.protocolurl1 : '../assets/view.png';
         var protocolurl2 = this.state.materials.protocolurl2.length > 0 ? this.state.materials.protocolurl2 : '../assets/view.png';
@@ -359,7 +360,7 @@ let UploadMaterial = React.createClass({
                                     <span>2、不能包含公司、组织等企业性质的词语</span>
                                 </div>
                                 <div className="m-uploadmaterial-ctrl">
-                                    {this.getDeleteCtrl(FT.COMPANYMANAGERURL)}
+                                    {this.getDeleteCtrl(FT.COMPANYMANAGERURL, entry)}
                                     <div className="m-uploadmaterial-ctrl-picture-table">
                                         <div className="m-uploadmaterial-ctrl-picture">
                                             <img src={companymanagerurl} alt="" onDoubleClick={me.handleDoubleClick.bind(me, companymanagerurl)}/>
@@ -521,17 +522,35 @@ let UploadMaterial = React.createClass({
                     </form>
                 </div>
 
-                <div className="w-btn">
-                    <button className="u-return" type="button" onClick={this.onReturn}> 返回修改 </button>
-                    <button className="u-main" type="button" onClick={this.handleSubmit}> 提交审核 </button>
-                    <button className="u-draft" type="button" onClick={this.onSave}>保存草稿</button>
-                </div>
+                <ButtonList entry={entry} handleSubmit={this.handleSubmit} onReturn={this.onReturn} onSave={this.onSave}/>
                 {viewphoto}
             </div>
         );
     }
 });
-
+let ButtonList = React.createClass({
+    propTypes: {
+        entry: React.PropTypes.string
+    },
+    render : function () {
+        if(this.props.entry == 'isChangeOwner'){
+            return (
+                <div className="w-btn">
+                    <Button onClick={this.props.onReturn}> 返回修改 </Button>
+                    <Button onClick={this.props.handleSubmit} type="primary">上传资料</Button>
+                </div>
+            )
+        }else{
+            return (
+                <div className="w-btn">
+                    <Button onClick={this.props.onReturn}> 返回修改 </Button>
+                    <Button onClick={this.props.handleSubmit} type="primary">上传资料</Button>
+                    <Button onClick={this.props.onSave}>保存草稿</Button>
+                </div>
+            )
+        }
+    }
+})
 
 module.exports = UploadMaterial;
 

@@ -351,7 +351,7 @@ let CompanyInfo = React.createClass({
 
         var me = this;
         this.onSave(function () {//TODO 原有的后端逻辑要保存必然会弹出草稿保存成功
-            if(me.props.params.isChangeOwner == 'normalChange'){
+            if(me.props.params.entry == 'normalChange'){
                 location.href = '#/fillsiteinfo/normalChange';
             } else{
                 location.href = '#/fillsiteinfo/isChangeOwner';
@@ -545,7 +545,7 @@ let CompanyInfo = React.createClass({
     },
 
     componentDidMount: function () {
-        if(!this.props.params.isChangeOwner) {this.interval = setInterval(this.tick, 30 * 1000);}
+        if(!this.props.params.entry) {this.interval = setInterval(this.tick, 30 * 1000);}
         if( _g.companyinfo != undefined ) {
             this.setState( {companyInfo: assign( {}, this.state.companyInfo, _g.companyinfo) } );
         }
@@ -706,7 +706,7 @@ let CompanyInfo = React.createClass({
     render: function () {
 
         var me = this;
-        let isChangeOwner = this.props.params.isChangeOwner;
+        let entry = this.props.params.entry;
         return (
             <div className="g-bd">
                 <ReturnWidget/>
@@ -721,7 +721,7 @@ let CompanyInfo = React.createClass({
                                 <div className="item-label">
                                     <span className="red f-fl">*</span><label>主体单位所属区域:</label>
                                 </div>
-                                <CascadeSelect onChange={this.handleRegion} isChangeOwner={isChangeOwner} province={this.state.companyInfo.province} city={this.state.companyInfo.city} area={this.state.companyInfo.area}/>
+                                <CascadeSelect onChange={this.handleRegion} entry={entry} province={this.state.companyInfo.province} city={this.state.companyInfo.city} area={this.state.companyInfo.area}/>
                             </div>
                             <div className="m-companyinfo-item">
                                 <div className="item-label">
@@ -803,17 +803,17 @@ let CompanyInfo = React.createClass({
                     </form>
                 </div>
 
-                <ButtonList isChangeOwner={isChangeOwner} handleSubmit={this.handleSubmit} onReturn={this.onReturn} onSave={this.onSave}/>
+                <ButtonList entry={entry} handleSubmit={this.handleSubmit} onReturn={this.onReturn} onSave={this.onSave}/>
             </div>
         );
     }
 });
 let ButtonList = React.createClass({
     propTypes: {
-        isChangeOwner: React.PropTypes.string
+        entry: React.PropTypes.string
     },
     render : function () {
-        if(this.props.isChangeOwner == 'isChangeOwner'){
+        if(this.props.entry == 'isChangeOwner'){
             return (
                 <div className="w-btn">
                     <Button onClick={this.props.handleSubmit} type="primary">填写网站信息</Button>

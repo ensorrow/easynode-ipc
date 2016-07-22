@@ -51,6 +51,7 @@ $m-viewphoto_ctrl__onethird_width = 120px;
 	    padding: 20px;
 	    opacity: .5;
 	    z-index: 9998;
+        box-sizing: content-box;
 	}
 }
 

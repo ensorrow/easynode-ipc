@@ -215,7 +215,7 @@ pre{padding:6px 12px;font-size:12px;background:#fafafa;color:#333;border:1px sol
 .m-submitchecksuccess:before,.m-submitchecksuccess:after{display:table;content:"";line-height:0;}
 .m-submitchecksuccess:after{clear:both;}
 .m-uploadmaterial{background:#fff;}
-.m-uploadmaterial{width:992px;min-height:340px;background:#fff;outline:#m-uploadmaterial_border_color solid 1px;margin:10px auto;padding:20px 40px;}
+.m-uploadmaterial{width:992px;min-height:340px;background:#fff;outline:#m-uploadmaterial_border_color solid 1px;margin:10px auto;padding:20px 40px;box-sizing:content-box;}
 .m-uploadmaterial-legend{width:100%;background:#f7f7f7;height:36px;}
 .m-uploadmaterial-legend >span{font-size:16px;text-align:left;line-height:36px;margin-left:25px;}
 .m-uploadmaterial-item{width:100%;height:200px;margin-top:25px;}
@@ -402,7 +402,7 @@ table.gridtable td >a{font-family:MicrosoftYaHei;font-size:10.6px;color:#38abd0;
 .m-viewphoto-modal{position:fixed;left:0;right:0;top:0;bottom:0;z-index:99;background:#000;text-align:center;overflow-y:scroll;overflow-x:scroll;}
 .m-viewphoto-modal .m-viewphoto-mask{position:absolute;left:0;right:0;top:0;bottom:0;background-color:#000;opacity:0.1;}
 .m-viewphoto-modal .m-viewphoto-dialog{z-index:999;margin-top:50px;}
-.m-viewphoto-modal .m-viewphoto-close{position:fixed;top:0;right:0;width:20px;height:20px;padding:20px;opacity:0.5;z-index:9998;}
+.m-viewphoto-modal .m-viewphoto-close{position:fixed;top:0;right:0;width:20px;height:20px;padding:20px;opacity:0.5;z-index:9998;box-sizing:content-box;}
 .u-goback{background:#fff;position:static;padding-left:20px;}
 .u-goback .tip{font-size:18px;color:#f00;text-align:center;border:1px solid transparent;}
 .u-popover{background-color:#fff;padding:0 10px;line-height:30px;display:inline-block;color:#fc7272;white-space:nowrap;position:absolute;z-index:1;border:1px solid #fc7272;border-radius:2px;font-size:12px;left:100%;margin-left:10px;top:0px;}

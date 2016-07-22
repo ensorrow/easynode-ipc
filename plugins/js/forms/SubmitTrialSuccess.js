@@ -4,7 +4,7 @@ import ReturnWidget from '../widgets/ReturnWidget.jsx';
 import DataService from '../services/DataService.js';
 import Global from '../utils/globals';
 
-
+// TODO 变更网站和变更主体提交的信息判断，后端
 let SubmitTrialSuccess = React.createClass({
 
     handleSubmit: function (e) {

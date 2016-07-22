@@ -37,6 +37,8 @@ $m-uploadmaterial_item_desc_width = 100px;
 	margin: 10px auto;
 
     padding: 20px 40px;
+
+    box-sizing: content-box;
 }
 
 .m-uploadmaterial-legend{

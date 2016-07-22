@@ -293,8 +293,9 @@ let SiteInfo = React.createClass({
         });
 
         var me = this;
+        let entry = this.props.params.entry;
         this.onSave(function () {
-            location.href = '#/uploadmaterial';
+            location.href = '#/uploadmaterial/'+entry;
             me.setState({
                 processing: false
             });

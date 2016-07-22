@@ -50,7 +50,7 @@ let Operation = React.createClass({
 
     },
     handleSiteChange: function () {//TODO
-        this.showConfirm('#/fillcompanyinfo','您确定要变更此备案号的网站信息吗?', '变更备案，修改或删除备案信息后，系统将保留您最新提交的信息，如修改或删除已备案域名，将影响原备案域名的正常访问，请您谨慎操作。')
+        this.showConfirm('#/fillsiteinfo/isChangeOwner','您确定要变更此备案号的网站信息吗?', '变更备案，修改或删除备案信息后，系统将保留您最新提交的信息，如修改或删除已备案域名，将影响原备案域名的正常访问，请您谨慎操作。')
     },
     handleSiteCancel: function () {
 
